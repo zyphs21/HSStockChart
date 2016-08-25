@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeLineStockChartView: BaseStockChartView {
+class HSTimeLineStockChartView: HSBaseStockChartView {
     
     var candleCoordsScale : CGFloat = 0
     var volumeCoordsScale : CGFloat = 0

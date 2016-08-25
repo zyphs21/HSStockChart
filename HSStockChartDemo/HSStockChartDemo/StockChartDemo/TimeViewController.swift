@@ -10,8 +10,8 @@ import UIKit
 
 class TimeViewController: UIViewController {
 
-//    var timeLineStockChartView = TimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
-    var timeLineStockChartView = TimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400), uperChartHeightScale: 0.7, topOffSet: 0, leftOffSet: 0, bottomOffSet: 0, rightOffSet: 0)
+//    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
+    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400), uperChartHeightScale: 0.7, topOffSet: 0, leftOffSet: 0, bottomOffSet: 0, rightOffSet: 0)
     
     
     //MARK: - Life Circle

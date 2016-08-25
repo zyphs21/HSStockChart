@@ -10,7 +10,7 @@ import UIKit
 
 class FiveDayTimeViewController: UIViewController {
 
-    var fiveDaysTimeLineStockChartView = TimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
+    var fiveDaysTimeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,7 +10,7 @@ import UIKit
 
 class KLineViewController: UIViewController {
 
-    var kLineStockChartView = KLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
+    var kLineStockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
     
     override func viewDidLoad() {
         super.viewDidLoad()

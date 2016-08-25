@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KLineStockChartView: BaseStockChartView {
+class HSKLineStockChartView: HSBaseStockChartView {
 
     var dataSet: KLineDataSet?
     var candleCoordsScale: CGFloat = 0

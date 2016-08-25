@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseStockChartView: UIView {
+class HSBaseStockChartView: UIView {
     
     
     //MARK: - Properties
