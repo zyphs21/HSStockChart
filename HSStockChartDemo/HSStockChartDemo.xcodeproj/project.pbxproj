@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */; };
+		C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */; };
+		C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */; };
+		C03E9AD51D6ECDB900D93016 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAE1D6ECDB900D93016 /* Main.storyboard */; };
+		C03E9AD71D6ECDB900D93016 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */; };
+		C03E9AD81D6ECDB900D93016 /* 5dayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */; };
+		C03E9AD91D6ECDB900D93016 /* dayKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB51D6ECDB900D93016 /* dayKLine.json */; };
+		C03E9ADA1D6ECDB900D93016 /* dayPriceTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */; };
+		C03E9ADB1D6ECDB900D93016 /* dayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */; };
+		C03E9ADC1D6ECDB900D93016 /* monthKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB81D6ECDB900D93016 /* monthKLine.json */; };
+		C03E9ADD1D6ECDB900D93016 /* stockStateData.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB91D6ECDB900D93016 /* stockStateData.json */; };
+		C03E9ADE1D6ECDB900D93016 /* weekKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9ABA1D6ECDB900D93016 /* weekKLine.json */; };
+		C03E9ADF1D6ECDB900D93016 /* BaseStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABC1D6ECDB900D93016 /* BaseStockChartView.swift */; };
+		C03E9AE01D6ECDB900D93016 /* KLineDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABD1D6ECDB900D93016 /* KLineDataSet.swift */; };
+		C03E9AE11D6ECDB900D93016 /* KLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABE1D6ECDB900D93016 /* KLineEntity.swift */; };
+		C03E9AE21D6ECDB900D93016 /* KLineStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABF1D6ECDB900D93016 /* KLineStockChartView.swift */; };
+		C03E9AE31D6ECDB900D93016 /* KLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC11D6ECDB900D93016 /* KLineModel.swift */; };
+		C03E9AE41D6ECDB900D93016 /* PriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC21D6ECDB900D93016 /* PriceModel.swift */; };
+		C03E9AE51D6ECDB900D93016 /* StateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC31D6ECDB900D93016 /* StateModel.swift */; };
+		C03E9AE61D6ECDB900D93016 /* TradeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC41D6ECDB900D93016 /* TradeModel.swift */; };
+		C03E9AE71D6ECDB900D93016 /* TimeLineDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC51D6ECDB900D93016 /* TimeLineDataSet.swift */; };
+		C03E9AE81D6ECDB900D93016 /* TimeLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC61D6ECDB900D93016 /* TimeLineEntity.swift */; };
+		C03E9AE91D6ECDB900D93016 /* TimeLineStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC71D6ECDB900D93016 /* TimeLineStockChartView.swift */; };
+		C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACA1D6ECDB900D93016 /* Common.swift */; };
+		C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACB1D6ECDB900D93016 /* Extension.swift */; };
+		C03E9AEC1D6ECDB900D93016 /* FiveDayTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACC1D6ECDB900D93016 /* FiveDayTimeViewController.swift */; };
+		C03E9AED1D6ECDB900D93016 /* KLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACD1D6ECDB900D93016 /* KLineViewController.swift */; };
+		C03E9AEE1D6ECDB900D93016 /* MonthlyKLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACE1D6ECDB900D93016 /* MonthlyKLineViewController.swift */; };
+		C03E9AEF1D6ECDB900D93016 /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACF1D6ECDB900D93016 /* TimeViewController.swift */; };
+		C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AD01D6ECDB900D93016 /* ViewController.swift */; };
+		C03E9AF11D6ECDB900D93016 /* WeeklyKLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AD11D6ECDB900D93016 /* WeeklyKLineViewController.swift */; };
+		CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F403C2E489B65B911BF67A02 /* Pods.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C03E9AAD1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C03E9AAF1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C03E9AB01D6ECDB900D93016 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
+		C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5dayTimeLine.json; sourceTree = "<group>"; };
+		C03E9AB51D6ECDB900D93016 /* dayKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayKLine.json; sourceTree = "<group>"; };
+		C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayPriceTrade.json; sourceTree = "<group>"; };
+		C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayTimeLine.json; sourceTree = "<group>"; };
+		C03E9AB81D6ECDB900D93016 /* monthKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = monthKLine.json; sourceTree = "<group>"; };
+		C03E9AB91D6ECDB900D93016 /* stockStateData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stockStateData.json; sourceTree = "<group>"; };
+		C03E9ABA1D6ECDB900D93016 /* weekKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekKLine.json; sourceTree = "<group>"; };
+		C03E9ABC1D6ECDB900D93016 /* BaseStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStockChartView.swift; sourceTree = "<group>"; };
+		C03E9ABD1D6ECDB900D93016 /* KLineDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineDataSet.swift; sourceTree = "<group>"; };
+		C03E9ABE1D6ECDB900D93016 /* KLineEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineEntity.swift; sourceTree = "<group>"; };
+		C03E9ABF1D6ECDB900D93016 /* KLineStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineStockChartView.swift; sourceTree = "<group>"; };
+		C03E9AC11D6ECDB900D93016 /* KLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineModel.swift; sourceTree = "<group>"; };
+		C03E9AC21D6ECDB900D93016 /* PriceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceModel.swift; sourceTree = "<group>"; };
+		C03E9AC31D6ECDB900D93016 /* StateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateModel.swift; sourceTree = "<group>"; };
+		C03E9AC41D6ECDB900D93016 /* TradeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeModel.swift; sourceTree = "<group>"; };
+		C03E9AC51D6ECDB900D93016 /* TimeLineDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineDataSet.swift; sourceTree = "<group>"; };
+		C03E9AC61D6ECDB900D93016 /* TimeLineEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineEntity.swift; sourceTree = "<group>"; };
+		C03E9AC71D6ECDB900D93016 /* TimeLineStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineStockChartView.swift; sourceTree = "<group>"; };
+		C03E9ACA1D6ECDB900D93016 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		C03E9ACB1D6ECDB900D93016 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		C03E9ACC1D6ECDB900D93016 /* FiveDayTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiveDayTimeViewController.swift; sourceTree = "<group>"; };
+		C03E9ACD1D6ECDB900D93016 /* KLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineViewController.swift; sourceTree = "<group>"; };
+		C03E9ACE1D6ECDB900D93016 /* MonthlyKLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyKLineViewController.swift; sourceTree = "<group>"; };
+		C03E9ACF1D6ECDB900D93016 /* TimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
+		C03E9AD01D6ECDB900D93016 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C03E9AD11D6ECDB900D93016 /* WeeklyKLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyKLineViewController.swift; sourceTree = "<group>"; };
+		C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSStockChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F403C2E489B65B911BF67A02 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0D065701D61C17A00AC5AAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E23547A2E469C51C24A1BF5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */,
+				0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		73606337C9621AE370570253 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F403C2E489B65B911BF67A02 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C03E9AA91D6ECDB900D93016 /* HSStockChartDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */,
+				C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */,
+				C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */,
+				C03E9AAE1D6ECDB900D93016 /* Main.storyboard */,
+				C03E9AB01D6ECDB900D93016 /* Info.plist */,
+				C03E9AB11D6ECDB900D93016 /* PageMenu */,
+				C03E9AB31D6ECDB900D93016 /* SampleData */,
+				C03E9ABB1D6ECDB900D93016 /* StockChart */,
+				C03E9AC81D6ECDB900D93016 /* StockChartDemo */,
+			);
+			path = HSStockChartDemo;
+			sourceTree = "<group>";
+		};
+		C03E9AB11D6ECDB900D93016 /* PageMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */,
+			);
+			path = PageMenu;
+			sourceTree = "<group>";
+		};
+		C03E9AB31D6ECDB900D93016 /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */,
+				C03E9AB51D6ECDB900D93016 /* dayKLine.json */,
+				C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */,
+				C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */,
+				C03E9AB81D6ECDB900D93016 /* monthKLine.json */,
+				C03E9AB91D6ECDB900D93016 /* stockStateData.json */,
+				C03E9ABA1D6ECDB900D93016 /* weekKLine.json */,
+			);
+			path = SampleData;
+			sourceTree = "<group>";
+		};
+		C03E9ABB1D6ECDB900D93016 /* StockChart */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9ABC1D6ECDB900D93016 /* BaseStockChartView.swift */,
+				C03E9ABD1D6ECDB900D93016 /* KLineDataSet.swift */,
+				C03E9ABE1D6ECDB900D93016 /* KLineEntity.swift */,
+				C03E9ABF1D6ECDB900D93016 /* KLineStockChartView.swift */,
+				C03E9AC01D6ECDB900D93016 /* StockModel */,
+				C03E9AC51D6ECDB900D93016 /* TimeLineDataSet.swift */,
+				C03E9AC61D6ECDB900D93016 /* TimeLineEntity.swift */,
+				C03E9AC71D6ECDB900D93016 /* TimeLineStockChartView.swift */,
+			);
+			path = StockChart;
+			sourceTree = "<group>";
+		};
+		C03E9AC01D6ECDB900D93016 /* StockModel */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9AC11D6ECDB900D93016 /* KLineModel.swift */,
+				C03E9AC21D6ECDB900D93016 /* PriceModel.swift */,
+				C03E9AC31D6ECDB900D93016 /* StateModel.swift */,
+				C03E9AC41D6ECDB900D93016 /* TradeModel.swift */,
+			);
+			path = StockModel;
+			sourceTree = "<group>";
+		};
+		C03E9AC81D6ECDB900D93016 /* StockChartDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9AC91D6ECDB900D93016 /* Common */,
+				C03E9ACC1D6ECDB900D93016 /* FiveDayTimeViewController.swift */,
+				C03E9ACD1D6ECDB900D93016 /* KLineViewController.swift */,
+				C03E9ACE1D6ECDB900D93016 /* MonthlyKLineViewController.swift */,
+				C03E9ACF1D6ECDB900D93016 /* TimeViewController.swift */,
+				C03E9AD01D6ECDB900D93016 /* ViewController.swift */,
+				C03E9AD11D6ECDB900D93016 /* WeeklyKLineViewController.swift */,
+			);
+			path = StockChartDemo;
+			sourceTree = "<group>";
+		};
+		C03E9AC91D6ECDB900D93016 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C03E9ACA1D6ECDB900D93016 /* Common.swift */,
+				C03E9ACB1D6ECDB900D93016 /* Extension.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C0D0656A1D61C17A00AC5AAF = {
+			isa = PBXGroup;
+			children = (
+				C03E9AA91D6ECDB900D93016 /* HSStockChartDemo */,
+				C0D065741D61C17A00AC5AAF /* Products */,
+				5E23547A2E469C51C24A1BF5 /* Pods */,
+				73606337C9621AE370570253 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C0D065741D61C17A00AC5AAF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C0D065721D61C17A00AC5AAF /* HSStockChartDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D065851D61C17A00AC5AAF /* Build configuration list for PBXNativeTarget "HSStockChartDemo" */;
+			buildPhases = (
+				265F26B28BA552ECA02B43E4 /* Check Pods Manifest.lock */,
+				C0D0656F1D61C17A00AC5AAF /* Sources */,
+				C0D065701D61C17A00AC5AAF /* Frameworks */,
+				C0D065711D61C17A00AC5AAF /* Resources */,
+				41A33FEE579BDE804BD3EFA5 /* Embed Pods Frameworks */,
+				3E1B0B30B9F5536A9320ECBE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HSStockChartDemo;
+			productName = MyStockChartDemo;
+			productReference = C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0D0656B1D61C17A00AC5AAF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = hanson;
+				TargetAttributes = {
+					C0D065721D61C17A00AC5AAF = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = C0D0656E1D61C17A00AC5AAF /* Build configuration list for PBXProject "HSStockChartDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C0D0656A1D61C17A00AC5AAF;
+			productRefGroup = C0D065741D61C17A00AC5AAF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0D065721D61C17A00AC5AAF /* HSStockChartDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0D065711D61C17A00AC5AAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C03E9AD81D6ECDB900D93016 /* 5dayTimeLine.json in Resources */,
+				C03E9ADC1D6ECDB900D93016 /* monthKLine.json in Resources */,
+				C03E9AD51D6ECDB900D93016 /* Main.storyboard in Resources */,
+				C03E9ADD1D6ECDB900D93016 /* stockStateData.json in Resources */,
+				C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */,
+				C03E9AD91D6ECDB900D93016 /* dayKLine.json in Resources */,
+				C03E9ADE1D6ECDB900D93016 /* weekKLine.json in Resources */,
+				C03E9ADB1D6ECDB900D93016 /* dayTimeLine.json in Resources */,
+				C03E9ADA1D6ECDB900D93016 /* dayPriceTrade.json in Resources */,
+				C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		265F26B28BA552ECA02B43E4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3E1B0B30B9F5536A9320ECBE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		41A33FEE579BDE804BD3EFA5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0D0656F1D61C17A00AC5AAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C03E9AEF1D6ECDB900D93016 /* TimeViewController.swift in Sources */,
+				C03E9AEC1D6ECDB900D93016 /* FiveDayTimeViewController.swift in Sources */,
+				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
+				C03E9AE71D6ECDB900D93016 /* TimeLineDataSet.swift in Sources */,
+				C03E9AE61D6ECDB900D93016 /* TradeModel.swift in Sources */,
+				C03E9ADF1D6ECDB900D93016 /* BaseStockChartView.swift in Sources */,
+				C03E9AED1D6ECDB900D93016 /* KLineViewController.swift in Sources */,
+				C03E9AD71D6ECDB900D93016 /* CAPSPageMenu.swift in Sources */,
+				C03E9AE31D6ECDB900D93016 /* KLineModel.swift in Sources */,
+				C03E9AE01D6ECDB900D93016 /* KLineDataSet.swift in Sources */,
+				C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */,
+				C03E9AF11D6ECDB900D93016 /* WeeklyKLineViewController.swift in Sources */,
+				C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */,
+				C03E9AEE1D6ECDB900D93016 /* MonthlyKLineViewController.swift in Sources */,
+				C03E9AE51D6ECDB900D93016 /* StateModel.swift in Sources */,
+				C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */,
+				C03E9AE91D6ECDB900D93016 /* TimeLineStockChartView.swift in Sources */,
+				C03E9AE21D6ECDB900D93016 /* KLineStockChartView.swift in Sources */,
+				C03E9AE11D6ECDB900D93016 /* KLineEntity.swift in Sources */,
+				C03E9AE41D6ECDB900D93016 /* PriceModel.swift in Sources */,
+				C03E9AE81D6ECDB900D93016 /* TimeLineEntity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C03E9AAD1D6ECDB900D93016 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C03E9AAE1D6ECDB900D93016 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C03E9AAF1D6ECDB900D93016 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C0D065831D61C17A00AC5AAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C0D065841D61C17A00AC5AAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C0D065861D61C17A00AC5AAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
+				PRODUCT_NAME = HSStockChartDemo;
+			};
+			name = Debug;
+		};
+		C0D065871D61C17A00AC5AAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
+				PRODUCT_NAME = HSStockChartDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0D0656E1D61C17A00AC5AAF /* Build configuration list for PBXProject "HSStockChartDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D065831D61C17A00AC5AAF /* Debug */,
+				C0D065841D61C17A00AC5AAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D065851D61C17A00AC5AAF /* Build configuration list for PBXNativeTarget "HSStockChartDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D065861D61C17A00AC5AAF /* Debug */,
+				C0D065871D61C17A00AC5AAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0D0656B1D61C17A00AC5AAF /* Project object */;
+}
