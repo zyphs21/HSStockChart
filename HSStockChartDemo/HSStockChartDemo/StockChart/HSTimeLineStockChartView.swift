@@ -20,6 +20,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     var offsetMaxPrice : CGFloat = 0
     var showFiveDayLabel = false
     
+//    var offsetLeft: CGFloat = 0
+//    var offsetTop: CGFloat = 10
+//    var offsetRight: CGFloat = 0
+//    var offsetBottom: CGFloat = 10
     
     var longPressGesture : UILongPressGestureRecognizer{
         return UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
@@ -42,19 +46,23 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         self.addGestureRecognizer(longPressGesture)
     }
     
+//    init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
+//        super.init(frame: frame, topOffSet: topOffSet, leftOffSet: leftOffSet, bottomOffSet: bottomOffSet, rightOffSet: rightOffSet)
+//        self.addGestureRecognizer(longPressGesture)
+//    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     convenience init(frame: CGRect, uperChartHeightScale: CGFloat, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
-        //TODO: 这里达不到效果
+        //TODO: convenience达不到效果
         self.init(frame: frame)
         self.uperChartHeightScale = uperChartHeightScale
         self.offsetLeft = leftOffSet
         self.offsetRight = rightOffSet
         self.offsetTop = topOffSet
         self.offsetBottom = bottomOffSet
-        
     }
     
     override func drawRect(rect: CGRect) {
@@ -92,7 +100,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 
                 self.maxVolume = self.maxVolume > entity.volume ? self.maxVolume : entity.volume
                 
-                //TODO: 这个比率有待考究
                 self.maxRatio = self.maxRatio > fabs(entity.rate) ? self.maxRatio : entity.rate
                 self.minRatio = self.minRatio < fabs(entity.rate) ? self.minRatio : entity.rate
             }
@@ -214,7 +221,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             self.volumeWidth = self.contentWidth / CGFloat(self.countOfTimes)
         }
         
-        //画中间的横虚线即昨日收盘价
+        //画中间的横虚线
         if let temp = data.first {
             let price = showFiveDayLabel ? temp.lastPirce : temp.preClosePx
             let preClosePriceYaxis = (self.maxPrice - price) * self.candleCoordsScale + self.contentInnerTop
@@ -229,7 +236,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         
         for i in 0 ..< data.count {
             let entity = data[i]
-            // self.volumeWidth/6.0 是交易量柱之间的间隙
+            // 交易量柱之间的间隙 self.volumeWidth/6.0
             let left = (self.volumeWidth * CGFloat(i) + contentLeft) + self.volumeWidth / 6.0
             let candleWidth = self.volumeWidth - self.volumeWidth / 3.0
             let startX = left + candleWidth / 2.0

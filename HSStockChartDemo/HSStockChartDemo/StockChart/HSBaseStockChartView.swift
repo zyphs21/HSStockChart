@@ -26,9 +26,9 @@ class HSBaseStockChartView: UIView {
     var uperChartHeight: CGFloat = 0
     var uperChartHeightScale: CGFloat = 0.6 //60%的空间是上部分的走势图
     
-    var offsetLeft: CGFloat = 10
+    var offsetLeft: CGFloat = 0
     var offsetTop: CGFloat = 10
-    var offsetRight: CGFloat = 10
+    var offsetRight: CGFloat = 0
     var offsetBottom: CGFloat = 10
     
     var contentTop: CGFloat = 0
@@ -79,6 +79,28 @@ class HSBaseStockChartView: UIView {
         chartHeight = frame.height
         chartWidth = frame.width
         
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    convenience init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
+        self.init(frame: frame)
+        self.offsetLeft = leftOffSet
+        self.offsetRight = rightOffSet
+        self.offsetTop = topOffSet
+        self.offsetBottom = bottomOffSet
+        
+        commonInit()
+    }
+    
+    deinit {
+        print("-----HSBaseStockChartView Deinit-------")
+    }
+    
+    private func commonInit() {
         uperChartHeight = chartHeight * uperChartHeightScale
         
         contentRect.origin.x = offsetLeft
@@ -100,14 +122,6 @@ class HSBaseStockChartView: UIView {
         contentInnerHeight = contentInnerRect.size.height
         
         gapBetweenInnerAndOuterRect = contentInnerTop - contentTop
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    deinit{
-        
     }
     
     
@@ -173,7 +187,7 @@ class HSBaseStockChartView: UIView {
         var rightMarkerStr = ""
         var volumeMarkerStr = ""
         
-        if value.isKindOfClass(TimeLineEntity.self){
+        if value.isKindOfClass(TimeLineEntity.self) {
             let entity = value as! TimeLineEntity
             rightMarkerStr = self.formatPrice(entity.lastPirce)
             bottomMarkerStr = entity.currtTime

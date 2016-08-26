@@ -18,6 +18,11 @@ class HSKLineStockChartView: HSBaseStockChartView {
     var candleMaxWidth: CGFloat = 30
     var candleMinWidth: CGFloat = 5
     
+//    var offsetLeft: CGFloat = 0
+//    var offsetTop: CGFloat = 10
+//    var offsetRight: CGFloat = 0
+//    var offsetBottom: CGFloat = 10
+    
     var countOfshowCandle: Int {
         get{
             return Int(contentWidth / candleWidth)
@@ -36,7 +41,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 temp = value
             }
             if (temp + self.countOfshowCandle > self.dataSet!.data!.count) {
-                temp = self.dataSet!.data!.count - self.countOfshowCandle
+                //temp = self.dataSet!.data!.count - self.countOfshowCandle
             }
             _startDrawIndex = temp
         }
@@ -139,7 +144,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                       startPoint: CGPointMake(self.contentLeft, self.contentInnerTop),
                       stopPoint: CGPointMake(self.contentLeft + self.contentWidth, self.contentInnerTop),
                       color: self.borderColor,
-                      lineWidth: self.borderWidth/2.0)
+                      lineWidth: self.borderWidth / 2.0)
         //内下边线
         self.drawline(context,
                       startPoint: CGPointMake(self.contentLeft, uperChartHeight),
@@ -152,7 +157,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                       startPoint: CGPointMake(self.contentLeft, uperChartHeight / 2.0 + self.contentTop),
                       stopPoint: CGPointMake(self.contentRight, uperChartHeight /  2.0 + self.contentTop),
                       color: self.borderColor,
-                      lineWidth: self.borderWidth/2.0)
+                      lineWidth: self.borderWidth / 2.0)
 
     }
     
@@ -169,9 +174,6 @@ class HSKLineStockChartView: HSBaseStockChartView {
         let idex = self.startDrawIndex
         
         self.candleCoordsScale = (self.uperChartHeightScale * self.contentInnerHeight) / (self.maxPrice-self.minPrice)
-//        self.volumeCoordsScale = (self.contentInnerHeight - (self.uperChartHeightScale * self.contentInnerHeight)-self.xAxisHeitht)/(self.maxVolume - 0)
-//        
-//        self.candleCoordsScale = (self.contentInnerHeight) / (self.maxPrice - self.minPrice)
         self.volumeCoordsScale = (self.contentHeight - uperChartHeight - self.xAxisHeitht) / self.maxVolume
         
         for i in idex ..< data.count {
@@ -338,9 +340,9 @@ class HSKLineStockChartView: HSBaseStockChartView {
             
             self.startDrawIndex += moveCount
             //TODO:回弹效果
-//            if startDrawIndex > self.dataSet?.data?.count {
-//                self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
-//            }
+            if startDrawIndex > self.dataSet?.data?.count {
+                self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
+            }
         }
         
         if recognizer.state == UIGestureRecognizerState.Ended {
@@ -348,6 +350,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
                 print("startDrawIndex  " + "\(startDrawIndex)")
 //                self.notifyDataSetChanged()
+                self.setNeedsDisplay()
             }
         }
         
@@ -364,12 +367,8 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.lastPinScale = 1.0
         }
         
-        print("lastScale: " + "\(self.lastPinScale)")
-        print("thisScale: " + "\(recognizer.scale)")
-        
         recognizer.scale = 1 - (self.lastPinScale - recognizer.scale)
         
-        print("currentScale" + "\(recognizer.scale)")
         self.candleWidth = recognizer.scale * self.candleWidth
         
         if self.candleWidth > self.candleMaxWidth {
