@@ -38,6 +38,7 @@
 		C03E9AEF1D6ECDB900D93016 /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACF1D6ECDB900D93016 /* TimeViewController.swift */; };
 		C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AD01D6ECDB900D93016 /* ViewController.swift */; };
 		C03E9AF11D6ECDB900D93016 /* WeeklyKLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AD11D6ECDB900D93016 /* WeeklyKLineViewController.swift */; };
+		C0A840B11D6FDB85007C1260 /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */; };
 		CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F403C2E489B65B911BF67A02 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		C03E9ACF1D6ECDB900D93016 /* TimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
 		C03E9AD01D6ECDB900D93016 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C03E9AD11D6ECDB900D93016 /* WeeklyKLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyKLineViewController.swift; sourceTree = "<group>"; };
+		C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
 		C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSStockChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F403C2E489B65B911BF67A02 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -169,6 +171,7 @@
 				C03E9AC21D6ECDB900D93016 /* PriceModel.swift */,
 				C03E9AC31D6ECDB900D93016 /* StateModel.swift */,
 				C03E9AC41D6ECDB900D93016 /* TradeModel.swift */,
+				C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */,
 			);
 			path = StockModel;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03E9AEF1D6ECDB900D93016 /* TimeViewController.swift in Sources */,
+				C0A840B11D6FDB85007C1260 /* HSTimeLineModel.swift in Sources */,
 				C03E9AEC1D6ECDB900D93016 /* FiveDayTimeViewController.swift in Sources */,
 				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
 				C03E9AE71D6ECDB900D93016 /* TimeLineDataSet.swift in Sources */,

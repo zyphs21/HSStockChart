@@ -118,13 +118,13 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     override func drawGridBackground(context: CGContextRef, rect: CGRect) {
         super.drawGridBackground(context, rect: rect)
         
-        //画中间的横虚线
-        self.drawline(context,
-                      startPoint: CGPointMake(contentLeft, uperChartHeight / 2.0 + contentTop),
-                      stopPoint: CGPointMake(contentRight, uperChartHeight / 2.0 + contentTop),
-                      color: borderColor,
-                      lineWidth: borderWidth / 2.0,
-                      isDashLine: true)
+//        //画中间的横虚线
+//        self.drawline(context,
+//                      startPoint: CGPointMake(contentLeft, uperChartHeight / 2.0 + contentTop),
+//                      stopPoint: CGPointMake(contentRight, uperChartHeight / 2.0 + contentTop),
+//                      color: borderColor,
+//                      lineWidth: borderWidth / 2.0,
+//                      isDashLine: true)
         
         if showFiveDayLabel {
             //五日分时图的四条竖线
@@ -213,6 +213,20 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         } else {
             self.volumeWidth = self.contentWidth / CGFloat(self.countOfTimes)
         }
+        
+        //画中间的横虚线即昨日收盘价
+        if let temp = data.first {
+            let price = showFiveDayLabel ? temp.lastPirce : temp.preClosePx
+            let preClosePriceYaxis = (self.maxPrice - price) * self.candleCoordsScale + self.contentInnerTop
+            self.drawline(context,
+                          startPoint: CGPointMake(contentLeft, preClosePriceYaxis),
+                          stopPoint: CGPointMake(contentRight, preClosePriceYaxis),
+                          color: borderColor,
+                          lineWidth: borderWidth / 2.0,
+                          isDashLine: true)
+            self.drawYAxisLabel(context, value: temp.preClosePx, y: preClosePriceYaxis)
+        }
+        
         for i in 0 ..< data.count {
             let entity = data[i]
             // self.volumeWidth/6.0 是交易量柱之间的间隙

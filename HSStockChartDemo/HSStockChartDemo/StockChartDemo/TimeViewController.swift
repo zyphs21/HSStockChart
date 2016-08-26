@@ -72,7 +72,7 @@ class TimeViewController: UIViewController {
                 //涨跌幅
                 if let r = dic.ratio {
                     entity.rate = CGFloat(r)
-                    //entity.rate = (CGFloat(dic.price!) - CGFloat(data.close!)) / CGFloat(data.close!)
+//                    entity.rate = (CGFloat(dic.price!) - CGFloat(data.close!)) / CGFloat(data.close!)
                 }
                 
                 timeArray.append(entity)

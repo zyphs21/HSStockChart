@@ -128,15 +128,15 @@ class HSBaseStockChartView: UIView {
     
     func drawYAxisLabel(context: CGContextRef, max: CGFloat, mid: CGFloat, min: CGFloat) {
         let maxPriceStr = self.formatPrice(max)
-        let midPriceStr = self.formatPrice(mid)
+//        let midPriceStr = self.formatPrice(mid)
         let minPriceStr = self.formatPrice(min)
         
         let maxPriceAttStr = NSMutableAttributedString(string: maxPriceStr, attributes: self.leftYAxisAttributedDic)
-        let midPriceAttStr = NSMutableAttributedString(string: midPriceStr, attributes: self.leftYAxisAttributedDic)
+//        let midPriceAttStr = NSMutableAttributedString(string: midPriceStr, attributes: self.leftYAxisAttributedDic)
         let minPriceAttStr = NSMutableAttributedString(string: minPriceStr, attributes: self.leftYAxisAttributedDic)
         
         let sizeMaxPriceAttStr = maxPriceAttStr.size()
-        let sizeMidPriceAttStr = midPriceAttStr.size()
+//        let sizeMidPriceAttStr = midPriceAttStr.size()
         let sizeMinPriceAttStr = minPriceAttStr.size()
         
         var labelX: CGFloat = 0
@@ -147,14 +147,25 @@ class HSBaseStockChartView: UIView {
         labelY = self.contentInnerTop - sizeMaxPriceAttStr.height / 2.0
         self.drawLabel(context, attributesText: maxPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMaxPriceAttStr.width, sizeMaxPriceAttStr.height))
         
-        labelX = self.contentRight - sizeMidPriceAttStr.width - edgeInset
-        labelY = (uperChartHeight / 2.0 + self.contentTop) - sizeMidPriceAttStr.height / 2.0
-        self.drawLabel(context, attributesText: midPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMidPriceAttStr.width, sizeMidPriceAttStr.height))
+//        labelX = self.contentRight - sizeMidPriceAttStr.width - edgeInset
+//        labelY = (uperChartHeight / 2.0 + self.contentTop) - sizeMidPriceAttStr.height / 2.0
+//        self.drawLabel(context, attributesText: midPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMidPriceAttStr.width, sizeMidPriceAttStr.height))
         
         labelX = self.contentRight - sizeMinPriceAttStr.width - edgeInset
         labelY = (uperChartHeight + self.contentTop - gapBetweenInnerAndOuterRect - sizeMinPriceAttStr.height / 2.0)
         self.drawLabel(context, attributesText: minPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMinPriceAttStr.width, sizeMinPriceAttStr.height))
     }
+    
+    func drawYAxisLabel(context: CGContextRef, value: CGFloat, y: CGFloat) {
+        let valueString = self.formatPrice(value)
+        let valueAttributedString = NSMutableAttributedString(string: valueString, attributes: self.leftYAxisAttributedDic)
+        let valueAttributedStringSize = valueAttributedString.size()
+        let edgeInset: CGFloat = 5
+        let labelX: CGFloat = self.contentRight - valueAttributedStringSize.width - edgeInset
+        let labelY: CGFloat = y - valueAttributedStringSize.height / 2.0
+        self.drawLabel(context, attributesText: valueAttributedString, rect: CGRectMake(labelX, labelY, valueAttributedStringSize.width, valueAttributedStringSize.height))
+    }
+    
     
     func drawLongPressHighlight(context: CGContextRef, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat) {
         var leftMarkerStr = ""
