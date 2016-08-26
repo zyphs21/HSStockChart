@@ -174,7 +174,7 @@ class HSBaseStockChartView: UIView {
             rightMarkerStr = self.formatPrice(entity.close)
             bottomMarkerStr = entity.date
             leftMarkerStr = entity.rate.toStringWithFormat("%.2f")
-            
+            volumeMarkerStr = entity.volume.toStringWithFormat("%.2f")
         }else{
             
             return

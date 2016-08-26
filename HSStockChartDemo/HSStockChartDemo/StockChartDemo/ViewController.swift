@@ -59,9 +59,10 @@ class ViewController: UIViewController {
             .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
             .UnselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
             .SelectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .MenuItemSeparatorWidth(4.3),
+            .MenuItemSeparatorHidden(true),
             .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorPercentageHeight(0.1)
+            .MenuItemSeparatorPercentageHeight(0.1),
+            .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)

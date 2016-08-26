@@ -156,7 +156,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
 
     }
     
-    //画纵坐标标签
+    // 画纵坐标标签
     func drawLabelPrice(context: CGContextRef) {
         drawYAxisLabel(context, max: maxPrice, mid: (maxPrice + minPrice) / 2.0, min: minPrice)
     }
@@ -181,6 +181,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             let high = ((self.maxPrice - entity.high) * self.candleCoordsScale) + self.contentInnerTop
             let low = ((self.maxPrice - entity.low) * self.candleCoordsScale) + self.contentInnerTop
             let left = (self.candleWidth * CGFloat(i - idex) + self.contentLeft) + self.candleWidth / 6.0
+            let volume = ((entity.volume - 0) * self.volumeCoordsScale)
             
             let candleWidth = self.candleWidth - self.candleWidth / 6.0
             let startX = left + candleWidth / 2.0
@@ -253,20 +254,11 @@ class HSKLineStockChartView: HSBaseStockChartView {
 //                
                 
                 //成交量
-                let volume = ((entity.volume - 0) * self.volumeCoordsScale)
+                
                 self.drawColumnRect(context,rect:CGRectMake(left, self.contentBottom - volume , candleWidth, volume) ,color:color!)
             }
-        }
-        
-        //长按显示线条
-        for i in idex  ..< data.count  {
-            let entity = data[i]
-            let close = ((self.maxPrice - entity.close) * self.candleCoordsScale) + self.contentTop
-            let left = (self.candleWidth * CGFloat(i - idex) + self.contentLeft) + self.candleWidth / 6.0
             
-            let candleWidth = self.candleWidth - self.candleWidth / 6.0
-            let startX = left + candleWidth/2.0
-            
+            //长按显示标记
             if self.longPressToHighlightEnabled {
                 if i == self.highlightLineCurrentIndex {
                     var entity:KLineEntity?
@@ -275,7 +267,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                     }
                     self.drawLongPressHighlight(context,
                                                 pricePoint: CGPointMake(startX, close),
-                                                volumePoint: CGPointMake(startX, close),
+                                                volumePoint: CGPointMake(startX, self.contentBottom - volume),
                                                 idex: idex,
                                                 value: entity!,
                                                 color: self.dataSet!.highlightLineColor,
@@ -286,7 +278,6 @@ class HSKLineStockChartView: HSBaseStockChartView {
 //                    }
                 }
             }
-            
         }
         
         if !self.longPressToHighlightEnabled{

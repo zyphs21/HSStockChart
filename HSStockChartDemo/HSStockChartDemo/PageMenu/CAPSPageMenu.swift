@@ -82,6 +82,7 @@ public enum CAPSPageMenuOption {
     case ScrollAnimationDurationOnMenuItemTap(Int)
     case CenterMenuItems(Bool)
     case HideTopMenuBar(Bool)
+    case MenuItemSeparatorHidden(Bool)
 }
 
 public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
@@ -120,6 +121,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     public var menuItemSeparatorPercentageHeight : CGFloat = 0.2
     public var menuItemSeparatorWidth : CGFloat = 0.5
     public var menuItemSeparatorRoundEdges : Bool = false
+    public var menuItemSeparatorHidden : Bool = false
     
     public var addBottomMenuHairline : Bool = true
     public var menuItemWidthBasedOnTitleTextWidth : Bool = false
@@ -223,6 +225,8 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                     centerMenuItems = value
                 case let .HideTopMenuBar(value):
                     hideTopMenuBar = value
+                case let .MenuItemSeparatorHidden(value):
+                    menuItemSeparatorHidden = value
                 }
             }
             
@@ -427,7 +431,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             // Add separator between menu items when using as segmented control
             if useMenuLikeSegmentedControl {
                 if Int(index) < controllerArray.count - 1 {
-                    menuItemView.menuItemSeparator!.hidden = false
+                    menuItemView.menuItemSeparator!.hidden = menuItemSeparatorHidden
                 }
             }
             
