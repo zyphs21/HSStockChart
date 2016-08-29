@@ -7,16 +7,41 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class HSTimeLineModel: NSObject {
 
-    var currtTime: String = ""
-    var preClosePx: CGFloat = 0
-    var avgPirce: CGFloat = 0
-    var lastPirce: CGFloat = 0
-    var totalVolume: CGFloat = 0
-    var volume: CGFloat = 0
-    var trade: CGFloat = 0
-    var rate: CGFloat = 0
+    var day: String = ""
+    var state: Bool = false
+    var preClose: Double = 0
+    var max: Double = 0
+    var min: Double = 0
+    var shares: [Share] = []
     
+    class func createTimeLineModel(json: JSON) -> HSTimeLineModel {
+        let model = HSTimeLineModel()
+        model.day = json["days"].stringValue
+        model.state = json["state"].boolValue
+        model.preClose = json["close"].doubleValue
+        model.max = json["max"].doubleValue
+        model.min = json["min"].doubleValue
+        for (_, jsonData): (String, JSON) in json["shares"] {
+            let share = Share()
+            share.amount = jsonData["amount"].doubleValue
+            share.date = NSDate.toDate(jsonData["dt"].stringValue)
+            share.price = jsonData["price"].doubleValue
+            share.ratio = jsonData["ratio"].doubleValue
+            share.volume = jsonData["volume"].doubleValue
+            model.shares.append(share)
+        }
+        return model
+    }
+}
+
+class Share: NSObject {
+    var date: NSDate = NSDate()
+    var price: Double = 0
+    var volume: Double = 0
+    var amount: Double = 0
+    var ratio: Double = 0
 }

@@ -345,6 +345,13 @@ extension NSDate {
         return dateformatter.stringFromDate(self)
     }
     
+    class func toDate(dateString: String) -> NSDate {
+        let dateformatter = NSDateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateformatter.dateFromString(dateString) ?? NSDate()
+        return date
+    }
+    
     var second:Int{
         get{
             return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).second

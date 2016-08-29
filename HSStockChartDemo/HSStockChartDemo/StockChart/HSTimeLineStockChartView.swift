@@ -125,14 +125,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     override func drawGridBackground(context: CGContextRef, rect: CGRect) {
         super.drawGridBackground(context, rect: rect)
         
-//        //画中间的横虚线
-//        self.drawline(context,
-//                      startPoint: CGPointMake(contentLeft, uperChartHeight / 2.0 + contentTop),
-//                      stopPoint: CGPointMake(contentRight, uperChartHeight / 2.0 + contentTop),
-//                      color: borderColor,
-//                      lineWidth: borderWidth / 2.0,
-//                      isDashLine: true)
-        
         if showFiveDayLabel {
             //五日分时图的四条竖线
             let width = self.contentWidth / 5
@@ -144,9 +136,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             }
             
         } else {
-//            let startPoint = CGPointMake(contentWidth / 2.0 + contentLeft, contentTop)
-//            let stopPoint = CGPointMake(contentWidth / 2.0 + contentLeft, uperChartHeight +  contentTop)
-//            self.drawline(context, startPoint: startPoint, stopPoint: stopPoint, color: borderColor, lineWidth: borderWidth / 2.0)
+            //分时线的中间竖线
+            let startPoint = CGPointMake(contentWidth / 2.0 + contentLeft, contentTop)
+            let stopPoint = CGPointMake(contentWidth / 2.0 + contentLeft, uperChartHeight +  contentTop)
+            self.drawline(context, startPoint: startPoint, stopPoint: stopPoint, color: borderColor, lineWidth: borderWidth / 2.0)
         }
     }
     
@@ -223,6 +216,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         
         //画中间的横虚线
         if let temp = data.first {
+            //日分时图中间区域线代表昨日的收盘价格，五日分时图的则代表五日内的第一天9点30分的价格
             let price = showFiveDayLabel ? temp.lastPirce : temp.preClosePx
             let preClosePriceYaxis = (self.maxPrice - price) * self.candleCoordsScale + self.contentInnerTop
             self.drawline(context,

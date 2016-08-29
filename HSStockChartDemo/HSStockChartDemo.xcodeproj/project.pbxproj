@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C01FBFB61D73DE700068A143 /* HSKLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFB51D73DE700068A143 /* HSKLineModel.swift */; };
 		C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */; };
 		C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */; };
 		C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C01FBFB51D73DE700068A143 /* HSKLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineModel.swift; sourceTree = "<group>"; };
 		C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03E9AAD1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				C03E9AC31D6ECDB900D93016 /* StateModel.swift */,
 				C03E9AC41D6ECDB900D93016 /* TradeModel.swift */,
 				C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */,
+				C01FBFB51D73DE700068A143 /* HSKLineModel.swift */,
 			);
 			path = StockModel;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				C03E9AF11D6ECDB900D93016 /* WeeklyKLineViewController.swift in Sources */,
 				C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */,
 				C03E9AEE1D6ECDB900D93016 /* MonthlyKLineViewController.swift in Sources */,
+				C01FBFB61D73DE700068A143 /* HSKLineModel.swift in Sources */,
 				C03E9AE51D6ECDB900D93016 /* StateModel.swift in Sources */,
 				C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */,
 				C03E9AE91D6ECDB900D93016 /* HSTimeLineStockChartView.swift in Sources */,

@@ -22,7 +22,4 @@ class TimeLineEntity {
     var trade: CGFloat = 0
     var rate: CGFloat = 0
     
-//    init(){
-//        
-//    }
 }
