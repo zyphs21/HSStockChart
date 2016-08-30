@@ -16,7 +16,7 @@ class TimeLineEntity {
     var currtTime: String = ""
     var preClosePx: CGFloat = 0
     var avgPirce: CGFloat = 0
-    var lastPirce: CGFloat = 0
+    var price: CGFloat = 0
     var totalVolume: CGFloat = 0
     var volume: CGFloat = 0
     var trade: CGFloat = 0

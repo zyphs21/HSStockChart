@@ -56,14 +56,17 @@ class FiveDayTimeViewController: UIViewController {
             
             entity.preClosePx = CGFloat(data.preClose)
             
-            entity.lastPirce = CGFloat(model.price)
+            entity.price = CGFloat(model.price)
             if index == 0 {
-                lastAvg = entity.lastPirce
+                lastAvg = entity.price
             }
             
             //涨跌幅
             entity.rate = ((CGFloat(model.price) / CGFloat(preClose)) - 1) * 100
             entity.volume = CGFloat(model.volume) - lastVolume
+            if entity.volume < 0 {
+                entity.volume = 0
+            }
             lastVolume = CGFloat(model.volume)
             entity.avgPirce = CGFloat(model.amount / model.volume)
             

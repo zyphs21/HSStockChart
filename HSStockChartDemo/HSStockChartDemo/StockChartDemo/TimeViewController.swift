@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class TimeViewController: UIViewController {
 
-    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400), topOffSet: 10, leftOffSet: 0, bottomOffSet: 0, rightOffSet: 0)
+    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
     
     
     //MARK: - Life Circle
@@ -49,7 +49,7 @@ class TimeViewController: UIViewController {
             
             entity.preClosePx = CGFloat(data.preClose)
             
-            entity.lastPirce = CGFloat(share.price)
+            entity.price = CGFloat(share.price)
             
             entity.volume = CGFloat(share.volume) - lastVolume // 获得增量的 volume
             

@@ -17,16 +17,14 @@ class HSBaseStockChartView: UIView {
     var statusLabel = UILabel()
     var act = UIActivityIndicatorView()
     
-    //图表距边缘距离
+    // 图表距边缘距离
     var offsetLeft: CGFloat = 0
     var offsetTop: CGFloat = 10
     var offsetRight: CGFloat = 0
     var offsetBottom: CGFloat = 10
     
-    var chartHeight: CGFloat = 0
-    var chartWidth: CGFloat = 0
-    
-    var contentRect: CGRect = CGRectZero // 整个图表的区域
+    // 整个图表的区域
+    var contentRect: CGRect = CGRectZero
     var contentTop: CGFloat = 0
     var contentLeft: CGFloat = 0
     var contentRight: CGFloat = 0
@@ -34,23 +32,38 @@ class HSBaseStockChartView: UIView {
     var contentWidth: CGFloat = 0
     var contentHeight: CGFloat = 0
     
-    var uperChartHeightScale: CGFloat = 0.6 //60%的空间是上部分的走势图
-    var uperChartHeight: CGFloat = 0
+    var chartHeight: CGFloat = 0
+    var chartWidth: CGFloat = 0
     
-    var uperChartDrawAreaRect: CGRect = CGRectZero // 上部分图表的内部画图区域
+    var uperChartHeightScale: CGFloat = 0.7 //60%的空间是上部分的走势图
+    var uperChartHeight: CGFloat = 0
+    var uperChartBottom: CGFloat = 0
+    
+    // 上部分图表的内部画图区域
+    var uperChartDrawAreaRect: CGRect = CGRectZero
     var uperChartDrawAreaTop: CGFloat = 0
     var uperChartDrawAreaBottom: CGFloat = 0
     var uperChartDrawAreaHeight: CGFloat = 0
     
-    var gapBetweenInnerAndOuterRect: CGFloat = 0
+    // 上部分图表里，画图区域间隔与边距的间隔
+    var uperChartDrawingAreaMargin: CGFloat = 10
     
-    var leftYAxisAttributedDic = [NSFontAttributeName: UIFont.systemFontOfSize(9),
+    // 下部分图表区域
+    var lowerChartRect: CGRect = CGRectZero
+    var lowerChartTop: CGFloat = 0
+    var lowerChartBottom: CGFloat = 0
+    var lowerChartHeight: CGFloat = 0
+    var lowerChartDrawAreaMargin: CGFloat = 5
+    
+    var yAxisLabelEdgeInset: CGFloat = 5
+    
+    var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFontOfSize(9),
                                   NSBackgroundColorAttributeName: UIColor.clearColor(),
                                   NSForegroundColorAttributeName: UIColor(rgba: "#8695a6")]
-    var xAxisAttributedDic = [NSFontAttributeName:UIFont.systemFontOfSize(10),
+    var xAxisLabelAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(10),
                               NSBackgroundColorAttributeName: UIColor.clearColor(),
                               NSForegroundColorAttributeName: UIColor(rgba: "#8695a6")]
-    var highlightAttributedDic = [NSFontAttributeName:UIFont.systemFontOfSize(10),
+    var highlightAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(10),
                                   NSBackgroundColorAttributeName: UIColor(rgba: "#8695a6"),
                                   NSForegroundColorAttributeName: UIColor.whiteColor()]
     
@@ -85,9 +98,10 @@ class HSBaseStockChartView: UIView {
         commonInit()
     }
     
-    init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
+    init(frame: CGRect, uperChartHeightScale: CGFloat, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
         super.init(frame: frame)
         
+        self.uperChartHeightScale = uperChartHeightScale
         self.offsetLeft = leftOffSet
         self.offsetRight = rightOffSet
         self.offsetTop = topOffSet
@@ -103,15 +117,11 @@ class HSBaseStockChartView: UIView {
     private func commonInit() {
         chartHeight = frame.height
         chartWidth = frame.width
-        
-        uperChartHeight = (chartHeight - xAxisHeitht) * uperChartHeightScale
-        
+    
         contentRect.origin.x = offsetLeft
         contentRect.origin.y = offsetTop
         contentRect.size.width = self.chartWidth - offsetLeft - offsetRight
         contentRect.size.height = self.chartHeight - offsetBottom - offsetTop
-        
-        uperChartDrawAreaRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + 10, contentRect.width, uperChartHeight - 20)
         
         contentTop = contentRect.origin.y
         contentLeft = contentRect.origin.x
@@ -120,11 +130,20 @@ class HSBaseStockChartView: UIView {
         contentWidth = contentRect.size.width
         contentHeight = contentRect.size.height
         
+        uperChartHeight = (chartHeight - xAxisHeitht) * uperChartHeightScale
+        uperChartBottom = uperChartHeight + contentTop
+            
+        uperChartDrawAreaRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + uperChartDrawingAreaMargin, contentRect.width, uperChartHeight - uperChartDrawingAreaMargin * 2)
+        
+        lowerChartRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + uperChartHeight + xAxisHeitht, contentRect.width, contentRect.height - uperChartHeight - xAxisHeitht)
+
         uperChartDrawAreaTop = uperChartDrawAreaRect.origin.y
         uperChartDrawAreaBottom = uperChartDrawAreaRect.origin.y + uperChartDrawAreaRect.size.height
         uperChartDrawAreaHeight = uperChartDrawAreaRect.size.height
         
-        gapBetweenInnerAndOuterRect = uperChartDrawAreaTop - contentTop
+        lowerChartTop = lowerChartRect.origin.y
+        lowerChartBottom = lowerChartRect.origin.y + lowerChartRect.size.height
+        lowerChartHeight = lowerChartRect.size.height
     }
     
     
@@ -140,69 +159,44 @@ class HSBaseStockChartView: UIView {
         CGContextStrokeRect(context, CGRectMake(self.contentLeft, self.contentTop, self.contentWidth, uperChartHeight))
         
         //画交易量边框
-        CGContextStrokeRect(context, CGRectMake(contentLeft, uperChartHeight + xAxisHeitht, contentWidth, (contentBottom - uperChartHeight - xAxisHeitht)))
+        CGContextStrokeRect(context, CGRectMake(contentLeft, lowerChartTop, contentWidth, lowerChartHeight))
     }
-    
-    func drawYAxisLabel(context: CGContextRef, max: CGFloat, mid: CGFloat, min: CGFloat) {
-        let maxPriceStr = self.formatPrice(max)
-//        let midPriceStr = self.formatPrice(mid)
-        let minPriceStr = self.formatPrice(min)
+
+    func drawYAxisLabel(context: CGContextRef, labelString: String, yAxis: CGFloat, isLeft: Bool) {
         
-        let maxPriceAttStr = NSMutableAttributedString(string: maxPriceStr, attributes: self.leftYAxisAttributedDic)
-//        let midPriceAttStr = NSMutableAttributedString(string: midPriceStr, attributes: self.leftYAxisAttributedDic)
-        let minPriceAttStr = NSMutableAttributedString(string: minPriceStr, attributes: self.leftYAxisAttributedDic)
-        
-        let sizeMaxPriceAttStr = maxPriceAttStr.size()
-//        let sizeMidPriceAttStr = midPriceAttStr.size()
-        let sizeMinPriceAttStr = minPriceAttStr.size()
-        
-        var labelX: CGFloat = 0
-        var labelY: CGFloat = 0
-        let edgeInset: CGFloat = 5
-        
-        labelX = self.contentRight - sizeMaxPriceAttStr.width - edgeInset
-        labelY = self.uperChartDrawAreaTop - sizeMaxPriceAttStr.height / 2.0
-        self.drawLabel(context, attributesText: maxPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMaxPriceAttStr.width, sizeMaxPriceAttStr.height))
-        
-//        labelX = self.contentRight - sizeMidPriceAttStr.width - edgeInset
-//        labelY = (uperChartHeight / 2.0 + self.contentTop) - sizeMidPriceAttStr.height / 2.0
-//        self.drawLabel(context, attributesText: midPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMidPriceAttStr.width, sizeMidPriceAttStr.height))
-        
-        labelX = self.contentRight - sizeMinPriceAttStr.width - edgeInset
-        labelY = (uperChartHeight + self.contentTop - gapBetweenInnerAndOuterRect - sizeMinPriceAttStr.height / 2.0)
-        self.drawLabel(context, attributesText: minPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMinPriceAttStr.width, sizeMinPriceAttStr.height))
-    }
-    
-    func drawYAxisLabel(context: CGContextRef, value: CGFloat, y: CGFloat) {
-        let valueString = self.formatPrice(value)
-        let valueAttributedString = NSMutableAttributedString(string: valueString, attributes: self.leftYAxisAttributedDic)
+        let valueAttributedString = NSMutableAttributedString(string: labelString, attributes: self.yAxisLabelAttribute)
         let valueAttributedStringSize = valueAttributedString.size()
-        let edgeInset: CGFloat = 5
-        let labelX: CGFloat = self.contentRight - valueAttributedStringSize.width - edgeInset
-        let labelY: CGFloat = y - valueAttributedStringSize.height / 2.0
+        var labelX: CGFloat = 0
+        if isLeft {
+            labelX = self.contentLeft + yAxisLabelEdgeInset
+        } else {
+            labelX = self.contentRight - valueAttributedStringSize.width - yAxisLabelEdgeInset
+        }
+        let labelY: CGFloat = yAxis - valueAttributedStringSize.height / 2.0
+        
         self.drawLabel(context, attributesText: valueAttributedString, rect: CGRectMake(labelX, labelY, valueAttributedStringSize.width, valueAttributedStringSize.height))
     }
     
     
     func drawLongPressHighlight(context: CGContextRef, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat) {
-        var leftMarkerStr = ""
-        var bottomMarkerStr = ""
+        var leftMarkerString = ""
+        var bottomMarkerString = ""
         var rightMarkerStr = ""
-        var volumeMarkerStr = ""
+        var volumeMarkerString = ""
         
         if value.isKindOfClass(TimeLineEntity.self) {
             let entity = value as! TimeLineEntity
-            rightMarkerStr = self.formatPrice(entity.lastPirce)
-            bottomMarkerStr = entity.currtTime
-            leftMarkerStr = entity.rate.toStringWithFormat("%.2f")
-            volumeMarkerStr = entity.volume.toStringWithFormat("%.2f")
+            rightMarkerStr = self.formatValue(entity.price)
+            bottomMarkerString = entity.currtTime
+            leftMarkerString = entity.rate.toStringWithFormat("%.2f")
+            volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
             
         } else if value.isKindOfClass(KLineEntity.self){
             let entity = value as! KLineEntity
-            rightMarkerStr = self.formatPrice(entity.close)
-            bottomMarkerStr = entity.date
-            leftMarkerStr = entity.rate.toStringWithFormat("%.2f")
-            volumeMarkerStr = entity.volume.toStringWithFormat("%.2f")
+            rightMarkerStr = self.formatValue(entity.close)
+            bottomMarkerString = entity.date
+            leftMarkerString = entity.rate.toStringWithFormat("%.2f")
+            volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
         }else{
             
             return
@@ -230,49 +224,49 @@ class HSBaseStockChartView: UIView {
         CGContextSetFillColorWithColor(context, color.CGColor)
         CGContextFillEllipseInRect(context, CGRectMake(pricePoint.x-(radius/2.0), pricePoint.y-(radius/2.0), radius, radius))
         
-        let leftMarkerStrAtt = NSMutableAttributedString(string: leftMarkerStr, attributes: highlightAttributedDic)
-        let bottomMarkerStrAtt = NSMutableAttributedString(string: bottomMarkerStr, attributes: highlightAttributedDic)
-        let rightMarkerStrAtt = NSMutableAttributedString(string: rightMarkerStr, attributes: highlightAttributedDic)
-        let volumeMarkerStrAtt = NSMutableAttributedString(string: volumeMarkerStr, attributes: highlightAttributedDic)
+        let leftMarkerStringAttribute = NSMutableAttributedString(string: leftMarkerString, attributes: highlightAttribute)
+        let bottomMarkerStringAttribute = NSMutableAttributedString(string: bottomMarkerString, attributes: highlightAttribute)
+        let rightMarkerStringAttribute = NSMutableAttributedString(string: rightMarkerStr, attributes: highlightAttribute)
+        let volumeMarkerStringAttribute = NSMutableAttributedString(string: volumeMarkerString, attributes: highlightAttribute)
         
-        let leftMarkerStrAttSize = leftMarkerStrAtt.size()
-        let bottomMarkerStrAttSize = bottomMarkerStrAtt.size()
-        let rightMarkerStrAttSize = rightMarkerStrAtt.size()
-        let volumeMarkerStrAttSize = volumeMarkerStrAtt.size()
+        let leftMarkerStringAttributeSize = leftMarkerStringAttribute.size()
+        let bottomMarkerStringAttributeSize = bottomMarkerStringAttribute.size()
+        let rightMarkerStringAttributeSize = rightMarkerStringAttribute.size()
+        let volumeMarkerStringAttributeSize = volumeMarkerStringAttribute.size()
         
         var labelX: CGFloat = 0
         var labelY: CGFloat = 0
         
         labelX = self.contentLeft
-        labelY = pricePoint.y - leftMarkerStrAttSize.height / 2.0
+        labelY = pricePoint.y - leftMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
-                       attributesText: leftMarkerStrAtt,
-                       rect: CGRectMake(labelX, labelY, leftMarkerStrAttSize.width, leftMarkerStrAttSize.height))
+                       attributesText: leftMarkerStringAttribute,
+                       rect: CGRectMake(labelX, labelY, leftMarkerStringAttributeSize.width, leftMarkerStringAttributeSize.height))
         
-        labelX = pricePoint.x - bottomMarkerStrAttSize.width / 2.0
+        labelX = pricePoint.x - bottomMarkerStringAttributeSize.width / 2.0
         labelY = self.uperChartHeight + self.contentTop
         self.drawLabel(context,
-                       attributesText: bottomMarkerStrAtt,
-                       rect: CGRectMake(labelX, labelY, bottomMarkerStrAttSize.width, bottomMarkerStrAttSize.height))
+                       attributesText: bottomMarkerStringAttribute,
+                       rect: CGRectMake(labelX, labelY, bottomMarkerStringAttributeSize.width, bottomMarkerStringAttributeSize.height))
         
-        labelX = self.contentRight - rightMarkerStrAttSize.width
-        labelY = pricePoint.y - rightMarkerStrAttSize.height / 2.0
+        labelX = self.contentRight - rightMarkerStringAttributeSize.width
+        labelY = pricePoint.y - rightMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
-                       attributesText: rightMarkerStrAtt,
-                       rect: CGRectMake(labelX, labelY, rightMarkerStrAttSize.width, rightMarkerStrAttSize.height))
+                       attributesText: rightMarkerStringAttribute,
+                       rect: CGRectMake(labelX, labelY, rightMarkerStringAttributeSize.width, rightMarkerStringAttributeSize.height))
         
-        labelX = self.contentRight - volumeMarkerStrAttSize.width
-        labelY = volumePoint.y - volumeMarkerStrAttSize.height / 2.0
+        labelX = self.contentRight - volumeMarkerStringAttributeSize.width
+        labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
-                       attributesText: volumeMarkerStrAtt,
-                       rect: CGRectMake(labelX, labelY, volumeMarkerStrAttSize.width, volumeMarkerStrAttSize.height))
+                       attributesText: volumeMarkerStringAttribute,
+                       rect: CGRectMake(labelX, labelY, volumeMarkerStringAttributeSize.width, volumeMarkerStringAttributeSize.height))
     }
     
     
     // MARK: - Drawing Util Function
     
-    func formatPrice(price: CGFloat) -> String {
-        return NSString(format: "%.2f", price) as String
+    func formatValue(value: CGFloat) -> String {
+        return NSString(format: "%.2f", value) as String
     }
     
     func formatWithVolume(argVolume: CGFloat) -> String{
