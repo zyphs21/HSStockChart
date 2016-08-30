@@ -17,20 +17,16 @@ class HSBaseStockChartView: UIView {
     var statusLabel = UILabel()
     var act = UIActivityIndicatorView()
     
-    var contentRect: CGRect = CGRectZero // 整个图表的 Rect
-    var contentInnerRect: CGRect = CGRectZero // 图表的内部画图区域
-    
-    var chartHeight: CGFloat = 0
-    var chartWidth: CGFloat = 0
-    
-    var uperChartHeight: CGFloat = 0
-    var uperChartHeightScale: CGFloat = 0.6 //60%的空间是上部分的走势图
-    
+    //图表距边缘距离
     var offsetLeft: CGFloat = 0
     var offsetTop: CGFloat = 10
     var offsetRight: CGFloat = 0
     var offsetBottom: CGFloat = 10
     
+    var chartHeight: CGFloat = 0
+    var chartWidth: CGFloat = 0
+    
+    var contentRect: CGRect = CGRectZero // 整个图表的区域
     var contentTop: CGFloat = 0
     var contentLeft: CGFloat = 0
     var contentRight: CGFloat = 0
@@ -38,9 +34,13 @@ class HSBaseStockChartView: UIView {
     var contentWidth: CGFloat = 0
     var contentHeight: CGFloat = 0
     
-    var contentInnerTop: CGFloat = 0
-    var contentInnerBottom: CGFloat = 0
-    var contentInnerHeight: CGFloat = 0
+    var uperChartHeightScale: CGFloat = 0.6 //60%的空间是上部分的走势图
+    var uperChartHeight: CGFloat = 0
+    
+    var uperChartDrawAreaRect: CGRect = CGRectZero // 上部分图表的内部画图区域
+    var uperChartDrawAreaTop: CGFloat = 0
+    var uperChartDrawAreaBottom: CGFloat = 0
+    var uperChartDrawAreaHeight: CGFloat = 0
     
     var gapBetweenInnerAndOuterRect: CGFloat = 0
     
@@ -76,23 +76,23 @@ class HSBaseStockChartView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        chartHeight = frame.height
-        chartWidth = frame.width
-        
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        commonInit()
     }
     
-    convenience init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
-        self.init(frame: frame)
+    init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
+        super.init(frame: frame)
+        
         self.offsetLeft = leftOffSet
         self.offsetRight = rightOffSet
         self.offsetTop = topOffSet
         self.offsetBottom = bottomOffSet
-        
+
         commonInit()
     }
     
@@ -101,14 +101,17 @@ class HSBaseStockChartView: UIView {
     }
     
     private func commonInit() {
-        uperChartHeight = chartHeight * uperChartHeightScale
+        chartHeight = frame.height
+        chartWidth = frame.width
+        
+        uperChartHeight = (chartHeight - xAxisHeitht) * uperChartHeightScale
         
         contentRect.origin.x = offsetLeft
         contentRect.origin.y = offsetTop
         contentRect.size.width = self.chartWidth - offsetLeft - offsetRight
         contentRect.size.height = self.chartHeight - offsetBottom - offsetTop
         
-        contentInnerRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + 10, contentRect.width, contentRect.height - 20)
+        uperChartDrawAreaRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + 10, contentRect.width, uperChartHeight - 20)
         
         contentTop = contentRect.origin.y
         contentLeft = contentRect.origin.x
@@ -117,11 +120,11 @@ class HSBaseStockChartView: UIView {
         contentWidth = contentRect.size.width
         contentHeight = contentRect.size.height
         
-        contentInnerTop = contentInnerRect.origin.y
-        contentInnerBottom = contentInnerRect.origin.y + contentInnerRect.size.height
-        contentInnerHeight = contentInnerRect.size.height
+        uperChartDrawAreaTop = uperChartDrawAreaRect.origin.y
+        uperChartDrawAreaBottom = uperChartDrawAreaRect.origin.y + uperChartDrawAreaRect.size.height
+        uperChartDrawAreaHeight = uperChartDrawAreaRect.size.height
         
-        gapBetweenInnerAndOuterRect = contentInnerTop - contentTop
+        gapBetweenInnerAndOuterRect = uperChartDrawAreaTop - contentTop
     }
     
     
@@ -158,7 +161,7 @@ class HSBaseStockChartView: UIView {
         let edgeInset: CGFloat = 5
         
         labelX = self.contentRight - sizeMaxPriceAttStr.width - edgeInset
-        labelY = self.contentInnerTop - sizeMaxPriceAttStr.height / 2.0
+        labelY = self.uperChartDrawAreaTop - sizeMaxPriceAttStr.height / 2.0
         self.drawLabel(context, attributesText: maxPriceAttStr, rect: CGRectMake(labelX, labelY, sizeMaxPriceAttStr.width, sizeMaxPriceAttStr.height))
         
 //        labelX = self.contentRight - sizeMidPriceAttStr.width - edgeInset

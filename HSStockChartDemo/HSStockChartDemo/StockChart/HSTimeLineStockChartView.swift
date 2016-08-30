@@ -38,7 +38,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     }
     
     
-    //MARK: - 初始化
+    //MARK: - 构造方法
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,23 +46,16 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         self.addGestureRecognizer(longPressGesture)
     }
     
-//    init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
-//        super.init(frame: frame, topOffSet: topOffSet, leftOffSet: leftOffSet, bottomOffSet: bottomOffSet, rightOffSet: rightOffSet)
-//        self.addGestureRecognizer(longPressGesture)
-//    }
+    override init(frame: CGRect, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
+        super.init(frame: frame, topOffSet: topOffSet, leftOffSet: leftOffSet, bottomOffSet: bottomOffSet, rightOffSet: rightOffSet)
+        
+        self.addGestureRecognizer(longPressGesture)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    convenience init(frame: CGRect, uperChartHeightScale: CGFloat, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
-        //TODO: convenience达不到效果
-        self.init(frame: frame)
-        self.uperChartHeightScale = uperChartHeightScale
-        self.offsetLeft = leftOffSet
-        self.offsetRight = rightOffSet
-        self.offsetTop = topOffSet
-        self.offsetBottom = bottomOffSet
+        
+        self.addGestureRecognizer(longPressGesture)
     }
     
     override func drawRect(rect: CGRect) {
