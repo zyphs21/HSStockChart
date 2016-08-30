@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class HSTimeLineModel: NSObject {
 
-    var day: String = ""
+    var days: [String] = []
     var state: Bool = false
     var preClose: Double = 0
     var max: Double = 0
@@ -20,7 +20,7 @@ class HSTimeLineModel: NSObject {
     
     class func createTimeLineModel(json: JSON) -> HSTimeLineModel {
         let model = HSTimeLineModel()
-        model.day = json["days"].stringValue
+        model.days = json["days"].arrayObject as! [String]
         model.state = json["state"].boolValue
         model.preClose = json["close"].doubleValue
         model.max = json["max"].doubleValue

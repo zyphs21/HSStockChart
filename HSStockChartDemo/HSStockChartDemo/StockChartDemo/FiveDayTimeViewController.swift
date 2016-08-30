@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FiveDayTimeViewController: UIViewController {
 
@@ -16,7 +17,12 @@ class FiveDayTimeViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.addSubview(fiveDaysTimeLineStockChartView)
-        let model: PriceModel = readFile("5dayTimeLine", ext: "json")
+//        let model: PriceModel = readFile("5dayTimeLine", ext: "json")
+        
+        let path = NSBundle.mainBundle().pathForResource("5dayTimeLine", ofType: "json")
+        let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+        let temp = text.dataUsingEncoding(NSUTF8StringEncoding)!
+        let model: HSTimeLineModel = HSTimeLineModel.createTimeLineModel(JSON(data: temp))
         
         setupFiveDaysTimeLineView(model)
     }
@@ -24,64 +30,50 @@ class FiveDayTimeViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 
+    
     //MARK: - Function
     
-    func setupFiveDaysTimeLineView(data: PriceModel) {
+    func setupFiveDaysTimeLineView(data: HSTimeLineModel) {
         
         var timeArray = [TimeLineEntity]()
         var lastVolume = CGFloat(0)
-        let preClose = data.close
+        let preClose = data.preClose
         
         var days = [String]()
-        if let d = data.days{
-            for day in d{
-                let date = day.toDate("yyyy-MM-dd")?.toString("MM-dd")
-                days.append(date!)
-            }
+        for day in data.days{
+            let date = day.toDate("yyyy-MM-dd")?.toString("MM-dd")
+            days.append(date!)
         }
         
         //获取分时线数据
-        if let shares = data.shares {
-            var lastAvg = CGFloat(0)
-            for  (index,dic) in shares.enumerate(){
-                let entity = TimeLineEntity()
-                entity.currtTime = (dic.dt?.toString("HH:mm"))!
-                if let c = data.close{
-                    entity.preClosePx = CGFloat(c)
-                }
-                
-                if let p = dic.price{
-                    entity.lastPirce = CGFloat(p)
-                    if index == 0{
-                        lastAvg = entity.lastPirce
-                    }
-                    
-                    //涨跌幅
-                    if let c = preClose{
-                        entity.rate = (CGFloat(p/c) - 1) * 100
-                    }
-                }
-                
-                if let v = dic.volume{
-                    entity.volume = CGFloat(v) - lastVolume // TODO:
-                    lastVolume = CGFloat(v)
-                    if let a = dic.amount{
-                        //均线
-                        entity.avgPirce = CGFloat(a/v)
-                    }
-                }
-                
-                
-                if isnan(entity.avgPirce) {
-                    entity.avgPirce = lastAvg
-                }else{
-                    lastAvg = entity.avgPirce
-                }
-                
-                timeArray.append(entity)
+        var lastAvg = CGFloat(0)
+        for  (index, model) in data.shares.enumerate() {
+            
+            let entity = TimeLineEntity()
+            
+            entity.currtTime = (model.date.toString("HH:mm"))
+            
+            entity.preClosePx = CGFloat(data.preClose)
+            
+            entity.lastPirce = CGFloat(model.price)
+            if index == 0 {
+                lastAvg = entity.lastPirce
             }
+            
+            //涨跌幅
+            entity.rate = ((CGFloat(model.price) / CGFloat(preClose)) - 1) * 100
+            entity.volume = CGFloat(model.volume) - lastVolume
+            lastVolume = CGFloat(model.volume)
+            entity.avgPirce = CGFloat(model.amount / model.volume)
+            
+            if isnan(entity.avgPirce) {
+                entity.avgPirce = lastAvg
+            }else{
+                lastAvg = entity.avgPirce
+            }
+            
+            timeArray.append(entity)
         }
         
         //拼接画图所需要的数据
@@ -99,14 +91,14 @@ class FiveDayTimeViewController: UIViewController {
         set.volumeTieColor = UIColor(netHex: 0xaaaaaa, alpha: 1)
         set.volumeRiseColor = UIColor(netHex: 0xf24957, alpha: 1)
         set.volumeFallColor = UIColor(netHex: 0x1dbf60, alpha: 1)
-
+        
         set.fillStartColor = UIColor(netHex: 0xe3efff, alpha: 1)
         set.fillStopColor = UIColor(netHex: 0xe3efff, alpha: 1)
         set.fillAlpha = 0.5
         set.drawFilledEnabled = true
         self.fiveDaysTimeLineStockChartView.countOfTimes = 405
         self.fiveDaysTimeLineStockChartView.showFiveDayLabel = true
-//        self.fiveDaysTimeLineStockChartView.endPointShowEnabled = NSDate().isTradingTime()
+        //self.fiveDaysTimeLineStockChartView.endPointShowEnabled = NSDate().isTradingTime()
         self.fiveDaysTimeLineStockChartView.dataSet = set
         
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class KLineViewController: UIViewController {
 
@@ -16,68 +17,57 @@ class KLineViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.addSubview(kLineStockChartView)
-        let model: KLineMessage = readFile("dayKLine", ext: "json")
         
-        setUpDayKLineView(model.message!)
+        let path = NSBundle.mainBundle().pathForResource("dayKLine", ofType: "json")
+        let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+        let temp = text.dataUsingEncoding(NSUTF8StringEncoding)!
+        let model: [HSKLineModel] = HSKLineModel.createKLineModel(JSON(data: temp))
+        
+        setUpDayKLineView(model)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func setUpDayKLineView(data: [KLineModel]) {
+    
+    func setUpDayKLineView(data: [HSKLineModel]) {
         var array = [KLineEntity]()
         
-        for (index,dic) in data.enumerate(){
+        for (index, klineModel) in data.enumerate(){
             let entity = KLineEntity()
-            if let h = dic.high{
-                entity.high = CGFloat(h)
+            
+            entity.high = CGFloat(klineModel.high)
+            
+            entity.open = CGFloat(klineModel.open)
+            
+            if index == 0 {
+                entity.preClosePx = CGFloat(klineModel.open)
+            } else {
+                entity.preClosePx = CGFloat(data[index - 1].close)
             }
             
-            if let o = dic.open{
-                entity.open = CGFloat(o)
-                if index == 0 {
-                    entity.preClosePx = CGFloat(o)
-                } else {
-                    if let c = data[index-1].close {
-                        entity.preClosePx = CGFloat(c)
-                    } else {
-                        entity.preClosePx = CGFloat(o)
-                    }
-                }
-            }
+            entity.low = CGFloat(klineModel.low)
             
-            if let l = dic.low {
-                entity.low = CGFloat(l)
-            }
+            entity.close = CGFloat(klineModel.close)
             
-            if let c = dic.close {
-                entity.close = CGFloat(c)
-            }
+            entity.rate = CGFloat(klineModel.inc)
             
-            if let r = dic.inc {
-                entity.rate = CGFloat(r)
-            }
+            entity.date = klineModel.date
             
-            if let d = dic.dt {
-                entity.date = d
-            }
+            entity.ma5 = CGFloat(klineModel.ma5)
             
-            if let ma5 = dic.ma?.MA5 {
-                entity.ma5 = CGFloat(ma5)
-            }
+            entity.ma10 = CGFloat(klineModel.ma10)
             
-            if let ma10 = dic.ma?.MA10 {
-                entity.ma10 = CGFloat(ma10)
-            }
+            entity.ma20 = CGFloat(klineModel.ma20)
             
-            if let ma20 = dic.ma?.MA20 {
-                entity.ma20 = CGFloat(ma20)
-            }
+            entity.volume = CGFloat(klineModel.vol)
             
-            if let v = dic.vol {
-                entity.volume = CGFloat(v)
-            }
+            entity.diff = CGFloat(klineModel.diff)
+            
+            entity.dea = CGFloat(klineModel.dea)
+            
+            entity.macd = CGFloat(klineModel.macd)
             
             array.append(entity)
         }
@@ -85,8 +75,6 @@ class KLineViewController: UIViewController {
         let dataSet = KLineDataSet()
         dataSet.data = array
         dataSet.highlightLineColor = UIColor(rgba: "#546679")
-//        self.kLineStockChartView.dataSet = dataSet
         self.kLineStockChartView.setUpData(dataSet)
     }
-
 }

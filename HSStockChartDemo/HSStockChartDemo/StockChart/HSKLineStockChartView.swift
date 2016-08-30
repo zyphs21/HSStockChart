@@ -13,11 +13,14 @@ class HSKLineStockChartView: HSBaseStockChartView {
     var dataSet: KLineDataSet?
     var candleCoordsScale: CGFloat = 0
     var volumeCoordsScale: CGFloat = 0
+    var macdCoordsScale: CGFloat = 0
+    
     var candleWidth: CGFloat = 8
     var monthLineLimit = 0
     var candleMaxWidth: CGFloat = 30
     var candleMinWidth: CGFloat = 5
     
+    var maxMACD: CGFloat = CGFloat.min
 //    var offsetLeft: CGFloat = 0
 //    var offsetTop: CGFloat = 10
 //    var offsetRight: CGFloat = 0
@@ -124,6 +127,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.maxRatio = CGFloat.min
             self.minRatio = CGFloat.max
             self.maxVolume = CGFloat.min
+            self.maxMACD = CGFloat.min
             let startIndex = self.startDrawIndex
             //data.count
             let count = (startIndex + countOfshowCandle) > data.count ? data.count : (startIndex + countOfshowCandle)
@@ -132,7 +136,11 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 self.minPrice = self.minPrice < entity.low ? self.minPrice : entity.low
                 self.maxPrice = self.maxPrice > entity.high ? self.maxPrice : entity.high
                 self.maxVolume = self.maxVolume > entity.volume ? self.maxVolume : entity.volume
+                let tempMax = max(abs(entity.diff), abs(entity.dea), abs(entity.macd))
+                self.maxMACD = tempMax > self.maxMACD ? tempMax : self.maxMACD
+                
             }
+            print("max macd  " + "\(maxMACD)")
         }
     }
     
@@ -159,6 +167,23 @@ class HSKLineStockChartView: HSBaseStockChartView {
                       color: self.borderColor,
                       lineWidth: self.borderWidth / 2.0)
 
+        //
+        let startPoint1 = CGPointMake(contentLeft, contentBottom - 10)
+        let stopPoint1 = CGPointMake(contentRight, contentBottom - 10)
+        self.drawline(context, startPoint: startPoint1, stopPoint: stopPoint1, color: borderColor, lineWidth: borderWidth / 2.0)
+        
+        let startPoint2 = CGPointMake(contentLeft, uperChartHeight + xAxisHeitht + 10)
+        let stopPoint2 = CGPointMake(contentRight, uperChartHeight + xAxisHeitht + 10)
+        self.drawline(context, startPoint: startPoint2, stopPoint: stopPoint2, color: borderColor, lineWidth: borderWidth / 2.0)
+        
+        let tempY = (contentHeight - uperChartHeight - xAxisHeitht) / 2
+        let startPoint3 = CGPointMake(contentLeft, uperChartHeight + xAxisHeitht + tempY)
+        let stopPoint3 = CGPointMake(contentRight, uperChartHeight + xAxisHeitht + tempY)
+        self.drawline(context, startPoint: startPoint3, stopPoint: stopPoint3, color: borderColor, lineWidth: borderWidth / 2.0, isDashLine: true)
+        
+        self.drawYAxisLabel(context, value: self.maxMACD, y: uperChartHeight + xAxisHeitht + 10)
+        self.drawYAxisLabel(context, value: -self.maxMACD, y: contentBottom - 10)
+        self.drawYAxisLabel(context, value: 0, y: uperChartHeight + xAxisHeitht + tempY)
     }
     
     // 画纵坐标标签
@@ -175,6 +200,12 @@ class HSKLineStockChartView: HSBaseStockChartView {
         
         self.candleCoordsScale = (self.uperChartHeightScale * self.contentInnerHeight) / (self.maxPrice-self.minPrice)
         self.volumeCoordsScale = (self.contentHeight - uperChartHeight - self.xAxisHeitht) / self.maxVolume
+        
+        let tempY = (contentHeight - uperChartHeight - xAxisHeitht) / 2
+        let zeroBasic = uperChartHeight + xAxisHeitht + tempY
+        let topY = uperChartHeight + xAxisHeitht + 10
+        let macdHeight = topY - (contentBottom - 10)
+        self.macdCoordsScale = macdHeight / (self.maxMACD * 2)
         
         for i in idex ..< data.count {
             let entity = data[i]
@@ -239,25 +270,34 @@ class HSKLineStockChartView: HSBaseStockChartView {
             }
             
             if i > 0 {
-//                let lastEntity = data[i-1]
-//                let lastX = startX - self.candleWidth
-//                
-//                let lastY5 = (self.maxPrice - lastEntity.ma5)*self.candleCoordsScale + self.contentTop
-//                let  y5 = (self.maxPrice - entity.ma5)*self.candleCoordsScale  + self.contentTop
-//                self.drawline(context, startPoint: CGPointMake(lastX, lastY5), stopPoint: CGPointMake(startX, y5), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
-//                
-//                let lastY10 = (self.maxPrice - lastEntity.ma10)*self.candleCoordsScale  + self.contentTop
-//                let  y10 = (self.maxPrice - entity.ma10)*self.candleCoordsScale  + self.contentTop
-//                self.drawline(context, startPoint: CGPointMake(lastX, lastY10) , stopPoint: CGPointMake(startX, y10), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
-//                
-//                let lastY20 = (self.maxPrice - lastEntity.ma20)*self.candleCoordsScale  + self.contentTop
-//                let  y20 = (self.maxPrice - entity.ma20)*self.candleCoordsScale  + self.contentTop
-//                self.drawline(context, startPoint: CGPointMake(lastX, lastY20), stopPoint: CGPointMake(startX, y20), color: self.dataSet!.avgMA20Color, lineWidth: self.dataSet!.avgLineWidth)
-//                
+                let lastEntity = data[i-1]
+                let lastX = startX - self.candleWidth
+                
+                let lastY5 = (self.maxPrice - lastEntity.ma5) * self.candleCoordsScale + self.contentTop
+                let  y5 = (self.maxPrice - entity.ma5) * self.candleCoordsScale  + self.contentTop
+                self.drawline(context, startPoint: CGPointMake(lastX, lastY5), stopPoint: CGPointMake(startX, y5), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
+                
+                let lastY10 = (self.maxPrice - lastEntity.ma10) * self.candleCoordsScale  + self.contentTop
+                let  y10 = (self.maxPrice - entity.ma10) * self.candleCoordsScale  + self.contentTop
+                self.drawline(context, startPoint: CGPointMake(lastX, lastY10) , stopPoint: CGPointMake(startX, y10), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
+                
+                let lastY20 = (self.maxPrice - lastEntity.ma20) * self.candleCoordsScale  + self.contentTop
+                let  y20 = (self.maxPrice - entity.ma20) * self.candleCoordsScale  + self.contentTop
+                self.drawline(context, startPoint: CGPointMake(lastX, lastY20), stopPoint: CGPointMake(startX, y20), color: self.dataSet!.avgMA20Color, lineWidth: self.dataSet!.avgLineWidth)
+
                 
                 //成交量
                 
-                self.drawColumnRect(context,rect:CGRectMake(left, self.contentBottom - volume , candleWidth, volume) ,color:color!)
+//                self.drawColumnRect(context,rect:CGRectMake(left, self.contentBottom - volume , candleWidth, volume) ,color:color!)
+                
+                
+                let lastDiff = zeroBasic - lastEntity.diff * macdCoordsScale
+                let  diff = zeroBasic - entity.diff * macdCoordsScale
+                self.drawline(context, startPoint: CGPointMake(lastX, lastDiff), stopPoint: CGPointMake(startX, diff), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
+                
+                let lastDea = zeroBasic - lastEntity.dea * macdCoordsScale
+                let  dea = zeroBasic - entity.dea * macdCoordsScale
+                self.drawline(context, startPoint: CGPointMake(lastX, lastDea), stopPoint: CGPointMake(startX, dea), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
             }
             
             //长按显示标记
@@ -312,7 +352,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 moveCount = Int(temp)
             }
             
-            print("moveCount: " + "\(moveCount)")
+            //print("moveCount: " + "\(moveCount)")
             
             self.startDrawIndex = self.startDrawIndex - moveCount
             if self.startDrawIndex < 10 {
@@ -348,7 +388,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
         if recognizer.state == UIGestureRecognizerState.Ended {
             if isPanRight {
                 self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
-                print("startDrawIndex  " + "\(startDrawIndex)")
+                //print("startDrawIndex  " + "\(startDrawIndex)")
 //                self.notifyDataSetChanged()
                 self.setNeedsDisplay()
             }

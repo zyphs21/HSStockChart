@@ -22,6 +22,9 @@ class HSKLineModel: NSObject {
     var ma5: Double = 0
     var ma10: Double = 0
     var ma20: Double = 0
+    var diff: Double = 0
+    var dea: Double = 0
+    var macd: Double = 0
     
     class func createKLineModel(json: JSON) -> [HSKLineModel] {
         var models: [HSKLineModel] = []
@@ -38,7 +41,10 @@ class HSKLineModel: NSObject {
             model.ma5 = jsonData["ma"]["MA5"].doubleValue
             model.ma10 = jsonData["ma"]["MA10"].doubleValue
             model.ma20 = jsonData["ma"]["MA20"].doubleValue
-            
+            model.diff = jsonData["macd"]["DIFF"].doubleValue
+            model.dea = jsonData["macd"]["DEA"].doubleValue
+            model.macd = jsonData["macd"]["MACD"].doubleValue
+
             models.append(model)
         }
         return models

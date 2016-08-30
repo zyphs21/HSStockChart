@@ -18,9 +18,15 @@ class KLineEntity: NSObject {
     var date: String = ""
     
     var volume: CGFloat = 0
+    
+    var preClosePx: CGFloat = 0
+    var rate: CGFloat = 0
+    
     var ma5: CGFloat = 0
     var ma10: CGFloat = 0
     var ma20: CGFloat = 0
-    var preClosePx: CGFloat = 0
-    var rate: CGFloat = 0
+    
+    var diff: CGFloat = 0
+    var dea: CGFloat = 0
+    var macd: CGFloat = 0
 }
