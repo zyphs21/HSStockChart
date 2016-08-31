@@ -53,7 +53,7 @@ class HSBaseStockChartView: UIView {
     var lowerChartTop: CGFloat = 0
     var lowerChartBottom: CGFloat = 0
     var lowerChartHeight: CGFloat = 0
-    var lowerChartDrawAreaMargin: CGFloat = 5
+    var lowerChartDrawAreaMargin: CGFloat = 10
     
     var yAxisLabelEdgeInset: CGFloat = 5
     
@@ -66,6 +66,9 @@ class HSBaseStockChartView: UIView {
     var highlightAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(10),
                                   NSBackgroundColorAttributeName: UIColor(rgba: "#8695a6"),
                                   NSForegroundColorAttributeName: UIColor.whiteColor()]
+    var annotationLabelAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(8),
+                                 NSBackgroundColorAttributeName:UIColor.whiteColor(),
+                                 NSForegroundColorAttributeName:UIColor(rgba: "#8695a6")]
     
     var maxPrice = CGFloat.min
     var minPrice = CGFloat.max
@@ -154,7 +157,7 @@ class HSBaseStockChartView: UIView {
         CGContextFillRect(context, rect)
         
         //画外面边框
-        CGContextSetLineWidth(context, self.borderWidth / 2)
+        CGContextSetLineWidth(context, self.borderWidth / 2.0)
         CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor)
         CGContextStrokeRect(context, CGRectMake(self.contentLeft, self.contentTop, self.contentWidth, uperChartHeight))
         
@@ -162,23 +165,25 @@ class HSBaseStockChartView: UIView {
         CGContextStrokeRect(context, CGRectMake(contentLeft, lowerChartTop, contentWidth, lowerChartHeight))
     }
 
-    func drawYAxisLabel(context: CGContextRef, labelString: String, yAxis: CGFloat, isLeft: Bool) {
+    func drawYAxisLabel(context: CGContextRef, labelString: String, yAxis: CGFloat, isLeft: Bool, isInLineCenter: Bool = true) {
         
-        let valueAttributedString = NSMutableAttributedString(string: labelString, attributes: self.yAxisLabelAttribute)
+        let labelAttribute = isInLineCenter ? self.yAxisLabelAttribute : self.annotationLabelAttribute
+        let valueAttributedString = NSMutableAttributedString(string: labelString, attributes: labelAttribute)
         let valueAttributedStringSize = valueAttributedString.size()
+        let labelInLineCenterSize = isInLineCenter ? valueAttributedStringSize.height/2.0 : 0
         var labelX: CGFloat = 0
         if isLeft {
             labelX = self.contentLeft + yAxisLabelEdgeInset
         } else {
             labelX = self.contentRight - valueAttributedStringSize.width - yAxisLabelEdgeInset
         }
-        let labelY: CGFloat = yAxis - valueAttributedStringSize.height / 2.0
+        let labelY: CGFloat = yAxis - labelInLineCenterSize
         
         self.drawLabel(context, attributesText: valueAttributedString, rect: CGRectMake(labelX, labelY, valueAttributedStringSize.width, valueAttributedStringSize.height))
     }
     
     
-    func drawLongPressHighlight(context: CGContextRef, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat) {
+    func drawLongPressHighlight(context: CGContextRef, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat, isShowVolume: Bool = true) {
         var leftMarkerString = ""
         var bottomMarkerString = ""
         var rightMarkerStr = ""
@@ -215,10 +220,12 @@ class HSBaseStockChartView: UIView {
         CGContextAddLineToPoint(context, self.contentRight, pricePoint.y)
         CGContextStrokePath(context)
         
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, self.contentLeft, volumePoint.y)
-        CGContextAddLineToPoint(context, self.contentRight, volumePoint.y)
-        CGContextStrokePath(context)
+        if isShowVolume {
+            CGContextBeginPath(context)
+            CGContextMoveToPoint(context, self.contentLeft, volumePoint.y)
+            CGContextAddLineToPoint(context, self.contentRight, volumePoint.y)
+            CGContextStrokePath(context)
+        }
         
         let radius:CGFloat = 3.0
         CGContextSetFillColorWithColor(context, color.CGColor)
@@ -255,18 +262,27 @@ class HSBaseStockChartView: UIView {
                        attributesText: rightMarkerStringAttribute,
                        rect: CGRectMake(labelX, labelY, rightMarkerStringAttributeSize.width, rightMarkerStringAttributeSize.height))
         
-        labelX = self.contentRight - volumeMarkerStringAttributeSize.width
-        labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
-        self.drawLabel(context,
-                       attributesText: volumeMarkerStringAttribute,
-                       rect: CGRectMake(labelX, labelY, volumeMarkerStringAttributeSize.width, volumeMarkerStringAttributeSize.height))
+        if isShowVolume {
+            labelX = self.contentRight - volumeMarkerStringAttributeSize.width
+            labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
+            self.drawLabel(context,
+                           attributesText: volumeMarkerStringAttribute,
+                           rect: CGRectMake(labelX, labelY, volumeMarkerStringAttributeSize.width, volumeMarkerStringAttributeSize.height))
+        }
     }
+
     
+    func getLabelAttribute(foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> [String: AnyObject] {
+        return [NSFontAttributeName: UIFont.systemFontOfSize(fontSize),
+                NSBackgroundColorAttributeName: backgroundColor,
+                NSForegroundColorAttributeName: foregroundColor]
+    }
     
     // MARK: - Drawing Util Function
     
     func formatValue(value: CGFloat) -> String {
-        return NSString(format: "%.2f", value) as String
+        //return NSString(format: "%.2f", value) as String
+        return String(format: "%.2f", value)
     }
     
     func formatWithVolume(argVolume: CGFloat) -> String{
@@ -310,7 +326,7 @@ class HSBaseStockChartView: UIView {
         CGContextRestoreGState(context)
     }
     
-    func drawLabel(context: CGContextRef,attributesText: NSAttributedString, rect: CGRect) {
+    func drawLabel(context: CGContextRef, attributesText: NSAttributedString, rect: CGRect) {
         CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
         attributesText.drawInRect(rect)
     }

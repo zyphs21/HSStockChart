@@ -266,7 +266,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             
             // 成交量
             let volume = entity.volume * self.volumeCoordsScale
-            print("volume " + "\(entity.volume)")
             self.drawColumnRect(context, rect: CGRectMake(left, lowerChartBottom - volume, candleWidth, volume), color: color)
             
             // 最高成交量标签
@@ -277,7 +276,27 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.drawYAxisLabel(context, labelString: maxVolumeStr, yAxis: y, isLeft: false)
             }
             
-            //长按显示的十字线
+            //结束点高亮显示
+            if self.endPointShowEnabled {
+                if (i == data.count - 1) {
+                    //self.breathingPoint.frame = CGRectMake(startX-4/2, yPrice-4/2, 4, 4)
+                }
+            }
+        }
+        
+        //填充渐变的颜色
+        if self.dataSet!.drawFilledEnabled && data.count > 0 {
+            self.drawLinearGradient(context, path: fillPath, alpha: self.dataSet!.fillAlpha, startColor: self.dataSet!.fillStartColor.CGColor, endColor: self.dataSet!.fillStopColor.CGColor)
+        }
+        
+        // 长按显示（不能放到上面的循环里，不然该高亮部分被上面的线段掩盖）
+        for i in 0 ..< data.count {
+            let entity = data[i]
+            let left = (self.volumeWidth * CGFloat(i) + contentLeft) + self.volumeWidth / 6.0
+            let candleWidth = self.volumeWidth - self.volumeWidth / 3.0
+            let startX = left + candleWidth / 2.0
+            var yPrice: CGFloat = 0
+            let volume = entity.volume * self.volumeCoordsScale
             if self.longPressToHighlightEnabled {
                 if (i == self.highlightLineCurrentIndex) {
                     if (i == 0) {
@@ -292,18 +311,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                                                 lineWidth: self.dataSet!.highlightLineWidth)
                 }
             }
-            
-            //结束点高亮显示
-            if self.endPointShowEnabled {
-                if (i == data.count - 1) {
-                    //self.breathingPoint.frame = CGRectMake(startX-4/2, yPrice-4/2, 4, 4)
-                }
-            }
-        }
-        
-        //填充渐变的颜色
-        if self.dataSet!.drawFilledEnabled && data.count > 0 {
-            self.drawLinearGradient(context, path: fillPath, alpha: self.dataSet!.fillAlpha, startColor: self.dataSet!.fillStartColor.CGColor, endColor: self.dataSet!.fillStopColor.CGColor)
         }
         
         CGContextRestoreGState(context)
