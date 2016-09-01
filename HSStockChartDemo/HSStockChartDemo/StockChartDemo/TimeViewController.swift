@@ -11,8 +11,11 @@ import SwiftyJSON
 
 class TimeViewController: UIViewController {
 
-    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
     
+    var tapGesture : UITapGestureRecognizer{
+        return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
+    }
     
     //MARK: - Life Circle
     
@@ -88,5 +91,17 @@ class TimeViewController: UIViewController {
         set.drawFilledEnabled = true
         
         self.timeLineStockChartView.dataSet = set
+        timeLineStockChartView.userInteractionEnabled = true
+        timeLineStockChartView.addGestureRecognizer(tapGesture)
+    }
+    
+    func handleTapGestureAction(recognizer: UITapGestureRecognizer) {
+//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+//            self.presentViewController(vc, animated: true, completion: nil)
+//        }
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 }

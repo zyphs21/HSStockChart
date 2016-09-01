@@ -61,10 +61,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             let context = UIGraphicsGetCurrentContext()
             setCurrentDataMaxAndMin()
             drawGridBackground(context!, rect: rect)
-            drawTimeLine(context!, data: data)
             drawTimeLabelInXAxis(context!)
             drawPriceLabel(context!)
             drawRatioLabel(context!)
+            drawTimeLine(context!, data: data)
             
         } else {
             // to show error page
@@ -299,9 +299,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             let volume = entity.volume * self.volumeCoordsScale
             if self.longPressToHighlightEnabled {
                 if (i == self.highlightLineCurrentIndex) {
-                    if (i == 0) {
-                        yPrice = (self.maxPrice - entity.price) * self.candleCoordsScale  + self.contentTop;
-                    }
+                    yPrice = (self.maxPrice - entity.price) * self.candleCoordsScale + self.uperChartDrawAreaTop
                     self.drawLongPressHighlight(context,
                                                 pricePoint: CGPointMake(startX, yPrice),
                                                 volumePoint: CGPointMake(startX, self.contentBottom - volume),

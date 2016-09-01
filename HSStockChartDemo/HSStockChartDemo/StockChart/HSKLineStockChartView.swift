@@ -382,9 +382,13 @@ class HSKLineStockChartView: HSBaseStockChartView {
         if let entity = entity where self.longPressToHighlightEnabled {
             
             let space:CGFloat = 4.0
-            let recoverLabelSize = NSMutableAttributedString(string: recoverSign, attributes: self.annotationLabelAttribute).size()
-            var startPoint = CGPointMake(self.contentLeft + space + recoverLabelSize.width + space, self.contentTop)
+            var startPoint = CGPointMake(self.contentLeft + space, self.contentTop)
             
+            let recoverAttribute = NSMutableAttributedString(string: recoverSign, attributes: self.annotationLabelAttribute)
+            let recoverSize = recoverAttribute.size()
+            self.drawLabel(context, attributesText: recoverAttribute, rect: CGRectMake(startPoint.x, startPoint.y, recoverSize.width, recoverSize.height))
+            
+            startPoint.x += recoverSize.width + space
             let ma5 = "MA5:" + "\(formatValue(entity.ma5))"
             let ma5Attribute = NSMutableAttributedString(string: ma5 , attributes: getLabelAttribute((dataSet?.avgMA5Color)!, backgroundColor: UIColor.whiteColor(), fontSize: 8))
             let ma5Size = ma5Attribute.size()

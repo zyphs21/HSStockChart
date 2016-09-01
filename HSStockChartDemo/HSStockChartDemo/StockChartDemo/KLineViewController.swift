@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class KLineViewController: UIViewController {
 
-    var kLineStockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
+    var kLineStockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300))
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class FiveDayTimeViewController: UIViewController {
 
-    var fiveDaysTimeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 400))
+    var fiveDaysTimeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,5 +104,9 @@ class FiveDayTimeViewController: UIViewController {
         //self.fiveDaysTimeLineStockChartView.endPointShowEnabled = NSDate().isTradingTime()
         self.fiveDaysTimeLineStockChartView.dataSet = set
         
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 }

@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     var pageMenu : CAPSPageMenu?
 
+    @IBOutlet weak var button: UIButton!
     
     //MARK: - Life Circle
     
@@ -65,10 +66,20 @@ class ViewController: UIViewController {
             .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
-        
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 150, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu?.moveToPage(2)
         self.view.addSubview(pageMenu!.view)
     }
 
+    @IBAction func showStockMarketData(sender: AnyObject) {
+        
+        let stockMarketViewController = StockMarketDataViewController(nibName: "StockMarketDataViewController", bundle: nil)
+        stockMarketViewController.modalPresentationStyle = .OverCurrentContext
+        self.presentViewController(stockMarketViewController, animated: false, completion: nil)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 }
 
