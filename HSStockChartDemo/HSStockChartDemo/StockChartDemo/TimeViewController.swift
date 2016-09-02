@@ -13,11 +13,11 @@ class TimeViewController: UIViewController {
     
     var timeLineStockChartView: HSTimeLineStockChartView?
     
-    var chartWidth: CGFloat {
-        get {
-            return self.view.frame.width
-        }
-    }
+//    var chartWidth: CGFloat {
+//        get {
+//            return self.view.frame.width
+//        }
+//    }
     
     var tapGesture : UITapGestureRecognizer{
         return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
@@ -28,7 +28,7 @@ class TimeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, chartWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+        timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
         self.view.addSubview(timeLineStockChartView!)
         
         let path = NSBundle.mainBundle().pathForResource("dayTimeLine", ofType: "json")

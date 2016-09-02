@@ -31,16 +31,7 @@ class LandscapeViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
     
-//    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-//        return UIInterfaceOrientationMask.All
-//    }
-//    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-//        return UIInterfaceOrientation.LandscapeLeft
-//    }
     //MARK: - Function
     
     func setUpControllerView() {
@@ -79,7 +70,7 @@ class LandscapeViewController: UIViewController {
             .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 150, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()

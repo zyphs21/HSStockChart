@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     var longPressToShowView = UIView()
     var currentPriceLabel = UILabel()
 
+    @IBOutlet weak var headView: UIView!
     @IBOutlet weak var button: UIButton!
+    
     
     //MARK: - Life Circle
     
@@ -68,7 +70,7 @@ class ViewController: UIViewController {
             .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 150, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 140, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()
@@ -90,10 +92,6 @@ class ViewController: UIViewController {
         self.presentViewController(stockMarketViewController, animated: false, completion: nil)
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
     func showLongPressView(note: NSNotification) {
         let timeLineEntity = note.object as! TimeLineEntity
         longPressToShowView.hidden = false
@@ -104,6 +102,6 @@ class ViewController: UIViewController {
     func showUnLongPressView() {
         longPressToShowView.hidden = true
     }
-    
+
 }
 
