@@ -111,5 +111,9 @@ class TimeViewController: UIViewController {
 //    override func shouldAutorotate() -> Bool {
 //        return false
 //    }
+//    
+//    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+//        return UIInterfaceOrientation.Portrait
+//    }
 }
 

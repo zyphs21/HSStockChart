@@ -102,6 +102,18 @@ class ViewController: UIViewController {
     func showUnLongPressView() {
         longPressToShowView.hidden = true
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.Portrait
+    }
+    
+//    override func viewDidLayoutSubviews() {
+//        self.view.layoutIfNeeded()
+//    }
 
 }
 

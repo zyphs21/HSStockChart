@@ -95,4 +95,8 @@ class LandscapeViewController: UIViewController {
     func showUnLongPressView() {
         longPressToShowView.hidden = true
     }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.LandscapeRight
+    }
 }
