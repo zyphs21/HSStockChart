@@ -77,4 +77,8 @@ class KLineViewController: UIViewController {
         dataSet.highlightLineColor = UIColor(rgba: "#546679")
         self.kLineStockChartView.setUpData(dataSet)
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 }

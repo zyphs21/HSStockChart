@@ -32,4 +32,7 @@ class MonthlyKLineViewController: UIViewController {
     }
     */
 
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 }

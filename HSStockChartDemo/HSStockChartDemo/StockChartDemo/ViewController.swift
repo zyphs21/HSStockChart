@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     var pageMenu : CAPSPageMenu?
+    var longPressToShowView = UIView()
+    var currentPriceLabel = UILabel()
 
     @IBOutlet weak var button: UIButton!
     
@@ -67,8 +69,18 @@ class ViewController: UIViewController {
         ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 150, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
-        pageMenu?.moveToPage(2)
+        
+        longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
+        longPressToShowView.backgroundColor = UIColor.whiteColor()
+        currentPriceLabel.frame = CGRectMake(0, 0, self.view.frame.width, 25)
+        longPressToShowView.addSubview(currentPriceLabel)
+        longPressToShowView.hidden = true
         self.view.addSubview(pageMenu!.view)
+        self.view.addSubview(longPressToShowView)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
+        
     }
 
     @IBAction func showStockMarketData(sender: AnyObject) {
@@ -81,5 +93,17 @@ class ViewController: UIViewController {
     override func shouldAutorotate() -> Bool {
         return false
     }
+    
+    func showLongPressView(note: NSNotification) {
+        let timeLineEntity = note.object as! TimeLineEntity
+        longPressToShowView.hidden = false
+        currentPriceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
+        print("当前价格" + "\(timeLineEntity.price)")
+    }
+    
+    func showUnLongPressView() {
+        longPressToShowView.hidden = true
+    }
+    
 }
 

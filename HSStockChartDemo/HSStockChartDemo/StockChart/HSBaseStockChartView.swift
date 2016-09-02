@@ -308,6 +308,7 @@ class HSBaseStockChartView: UIView {
         }
     }
     
+    // 画线
     func drawline(context: CGContextRef, startPoint: CGPoint, stopPoint: CGPoint, color: UIColor, lineWidth: CGFloat, isDashLine: Bool = false) {
         if (startPoint.x < self.contentLeft || stopPoint.x > self.contentRight || startPoint.y < self.contentTop || stopPoint.y < self.contentTop) {
             return
@@ -326,11 +327,13 @@ class HSBaseStockChartView: UIView {
         CGContextRestoreGState(context)
     }
     
+    // 画标签
     func drawLabel(context: CGContextRef, attributesText: NSAttributedString, rect: CGRect) {
         CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
         attributesText.drawInRect(rect)
     }
     
+    // 画柱形
     func drawColumnRect(context: CGContextRef, rect: CGRect, color: UIColor) {
         if ((rect.origin.x + rect.size.width) > self.contentRight) {
             return
@@ -339,6 +342,7 @@ class HSBaseStockChartView: UIView {
         CGContextFillRect(context, rect)
     }
     
+    // 画渐变色
     func drawLinearGradient(context: CGContextRef, path: CGPathRef, alpha: CGFloat, startColor: CGColorRef, endColor: CGColorRef) {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0.0, 1.0]

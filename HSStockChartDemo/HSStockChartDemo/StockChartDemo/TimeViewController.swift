@@ -10,8 +10,14 @@ import UIKit
 import SwiftyJSON
 
 class TimeViewController: UIViewController {
-
-    var timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+    
+    var timeLineStockChartView: HSTimeLineStockChartView?
+    
+    var chartWidth: CGFloat {
+        get {
+            return self.view.frame.width
+        }
+    }
     
     var tapGesture : UITapGestureRecognizer{
         return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
@@ -22,7 +28,8 @@ class TimeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(timeLineStockChartView)
+        timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, chartWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+        self.view.addSubview(timeLineStockChartView!)
         
         let path = NSBundle.mainBundle().pathForResource("dayTimeLine", ofType: "json")
         let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
@@ -90,18 +97,19 @@ class TimeViewController: UIViewController {
         set.fillAlpha = 0.5
         set.drawFilledEnabled = true
         
-        self.timeLineStockChartView.dataSet = set
-        timeLineStockChartView.userInteractionEnabled = true
-        timeLineStockChartView.addGestureRecognizer(tapGesture)
+        self.timeLineStockChartView!.dataSet = set
+        timeLineStockChartView!.userInteractionEnabled = true
+        timeLineStockChartView!.addGestureRecognizer(tapGesture)
     }
     
     func handleTapGestureAction(recognizer: UITapGestureRecognizer) {
-//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
-//            self.presentViewController(vc, animated: true, completion: nil)
-//        }
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
+//    override func shouldAutorotate() -> Bool {
+//        return false
+//    }
 }
+

@@ -31,5 +31,8 @@ class WeeklyKLineViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 
 }

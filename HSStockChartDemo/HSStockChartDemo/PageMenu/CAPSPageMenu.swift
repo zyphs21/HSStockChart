@@ -83,6 +83,7 @@ public enum CAPSPageMenuOption {
     case CenterMenuItems(Bool)
     case HideTopMenuBar(Bool)
     case MenuItemSeparatorHidden(Bool)
+    case ViewScrollAnimationEnable(Bool)
 }
 
 public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
@@ -122,6 +123,8 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     public var menuItemSeparatorWidth : CGFloat = 0.5
     public var menuItemSeparatorRoundEdges : Bool = false
     public var menuItemSeparatorHidden : Bool = false
+    
+    public var viewScrollAnimationEnable: Bool = false
     
     public var addBottomMenuHairline : Bool = true
     public var menuItemWidthBasedOnTitleTextWidth : Bool = false
@@ -227,6 +230,8 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                     hideTopMenuBar = value
                 case let .MenuItemSeparatorHidden(value):
                     menuItemSeparatorHidden = value
+                case let .ViewScrollAnimationEnable(value):
+                    viewScrollAnimationEnable = value
                 }
             }
             
@@ -835,17 +840,22 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                 }
                 
                 // Move controller scroll view when tapping menu item
-                let duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
-                
-                UIView.animateWithDuration(duration, animations: { () -> Void in
+                if viewScrollAnimationEnable {
+                    
+                    let duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
+                    UIView.animateWithDuration(duration, animations: { () -> Void in
+                        let xOffset : CGFloat = CGFloat(itemIndex) * self.controllerScrollView.frame.width
+                        self.controllerScrollView.setContentOffset(CGPoint(x: xOffset, y: self.controllerScrollView.contentOffset.y), animated: false)
+                    })
+                    
+                } else {
                     let xOffset : CGFloat = CGFloat(itemIndex) * self.controllerScrollView.frame.width
                     self.controllerScrollView.setContentOffset(CGPoint(x: xOffset, y: self.controllerScrollView.contentOffset.y), animated: false)
-                })
+                }
                 
                 if tapTimer != nil {
                     tapTimer!.invalidate()
                 }
-                
                 let timerInterval : NSTimeInterval = Double(scrollAnimationDurationOnMenuItemTap) * 0.001
                 tapTimer = NSTimer.scheduledTimerWithTimeInterval(timerInterval, target: self, selector: #selector(CAPSPageMenu.scrollViewDidEndTapScrollingAnimation), userInfo: nil, repeats: false)
             }

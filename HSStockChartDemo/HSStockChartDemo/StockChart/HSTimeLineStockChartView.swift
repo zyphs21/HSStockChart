@@ -19,7 +19,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     var countOfTimes = 242
     var offsetMaxPrice : CGFloat = 0
     var showFiveDayLabel = false
-
+    
     var longPressGesture : UILongPressGestureRecognizer{
         return UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
     }
@@ -325,13 +325,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.setNeedsDisplay()
             }
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                
+                NSNotificationCenter.defaultCenter().postNotificationName("TimeLineLongpress", object: self.dataSet?.data?[self.highlightLineCurrentIndex])
             }
         }
         
         if recognizer.state == .Ended {
             self.longPressToHighlightEnabled = false
             self.setNeedsDisplay()
+            NSNotificationCenter.defaultCenter().postNotificationName("TimeLineUnLongpress", object: nil)
         }
     }
     
