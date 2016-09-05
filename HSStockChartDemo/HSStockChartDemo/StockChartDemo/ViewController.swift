@@ -10,27 +10,29 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var pageMenu : CAPSPageMenu?
+    @IBOutlet weak var headerStockInfoView: UIView!
+    var pageMenu: CAPSPageMenu?
     var longPressToShowView = UIView()
-    var currentPriceLabel = UILabel()
-
-    @IBOutlet weak var headView: UIView!
-    @IBOutlet weak var button: UIButton!
-    
+    var currentPriceLabel = UILabel()    
     
     //MARK: - Life Circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
         setUpControllerView()
-    
+        
     }
 
+    override func viewDidAppear(animated: Bool) {
+        print("UIDevice.orientation isPortrait " + "\(UIDevice.currentDevice().orientation.isPortrait)")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     
     //MARK: - Function
     
@@ -38,15 +40,16 @@ class ViewController: UIViewController {
         
         var controllerArray : [UIViewController] = []
         
-        let timeViewcontroller : UIViewController = TimeViewController()
+        let timeViewcontroller = TimeViewController(frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height))
         timeViewcontroller.title = "分时"
+        timeViewcontroller.delegate = self
         controllerArray.append(timeViewcontroller)
         
-        let fiveDayTimeViewController : UIViewController = FiveDayTimeViewController()
+        let fiveDayTimeViewController = FiveDayTimeViewController()
         fiveDayTimeViewController.title = "五日"
         controllerArray.append(fiveDayTimeViewController)
         
-        let kLineViewController : UIViewController = KLineViewController()
+        let kLineViewController = KLineViewController()
         kLineViewController.title = "日K"
         controllerArray.append(kLineViewController)
         
@@ -70,15 +73,16 @@ class ViewController: UIViewController {
             .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 140, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, headerStockInfoView.frame.height + 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()
         currentPriceLabel.frame = CGRectMake(0, 0, self.view.frame.width, 25)
         longPressToShowView.addSubview(currentPriceLabel)
         longPressToShowView.hidden = true
+        
         self.view.addSubview(pageMenu!.view)
-        self.view.addSubview(longPressToShowView)
+        self.view.addSubview(longPressToShowView)        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
@@ -104,16 +108,31 @@ class ViewController: UIViewController {
     }
     
     override func shouldAutorotate() -> Bool {
-        return false
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.All
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait
     }
     
+    
 //    override func viewDidLayoutSubviews() {
-//        self.view.layoutIfNeeded()
+//        self.view.layoutSubviews()
 //    }
 
+}
+
+extension ViewController: TimeViewControllerDelegate {
+    func showLandscapeView() {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+//        let test = TestViewController()
+//        self.presentViewController(test, animated: true, completion: nil)
+    }
 }
 

@@ -14,21 +14,31 @@ class LandscapeViewController: UIViewController {
     var longPressToShowView = UIView()
     var currentPriceLabel = UILabel()
     
+    
+    //MARK: - Life Circle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeLeft.rawValue, forKey: "orientation")
         
-        setUpControllerView()
+        //setUpControllerView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpControllerView()
+        self.view.layoutSubviews()
+    }
+    
     
     @IBAction func backButtonDidClick(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
     }
     
     
@@ -37,8 +47,7 @@ class LandscapeViewController: UIViewController {
     func setUpControllerView() {
         
         var controllerArray : [UIViewController] = []
-        
-        let timeViewcontroller : UIViewController = TimeViewController()
+        let timeViewcontroller : UIViewController = TimeViewController(frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height))
         timeViewcontroller.title = "分时"
         controllerArray.append(timeViewcontroller)
         
@@ -70,7 +79,7 @@ class LandscapeViewController: UIViewController {
             .TitleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 30, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()
@@ -78,7 +87,7 @@ class LandscapeViewController: UIViewController {
         longPressToShowView.addSubview(currentPriceLabel)
         longPressToShowView.hidden = true
         self.view.addSubview(pageMenu!.view)
-        self.view.addSubview(longPressToShowView)
+//        self.view.addSubview(longPressToShowView)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
@@ -96,7 +105,5 @@ class LandscapeViewController: UIViewController {
         longPressToShowView.hidden = true
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.LandscapeRight
-    }
+    
 }

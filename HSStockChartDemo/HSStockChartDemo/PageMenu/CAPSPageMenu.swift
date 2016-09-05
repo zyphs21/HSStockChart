@@ -898,7 +898,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         
         let oldCurrentOrientationIsPortrait : Bool = currentOrientationIsPortrait
         currentOrientationIsPortrait = UIApplication.sharedApplication().statusBarOrientation.isPortrait
-        
+
         if (oldCurrentOrientationIsPortrait && UIDevice.currentDevice().orientation.isLandscape) || (!oldCurrentOrientationIsPortrait && UIDevice.currentDevice().orientation.isPortrait) {
             didLayoutSubviewsAfterRotation = true
             

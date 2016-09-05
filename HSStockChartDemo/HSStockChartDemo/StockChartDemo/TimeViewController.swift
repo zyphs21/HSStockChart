@@ -9,26 +9,40 @@
 import UIKit
 import SwiftyJSON
 
+protocol TimeViewControllerDelegate {
+    func showLandscapeView()
+}
+
 class TimeViewController: UIViewController {
     
     var timeLineStockChartView: HSTimeLineStockChartView?
     
-//    var chartWidth: CGFloat {
-//        get {
-//            return self.view.frame.width
-//        }
-//    }
+    var delegate: TimeViewControllerDelegate?
     
     var tapGesture : UITapGestureRecognizer{
         return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
     }
+    
+    
+    // MARK: - Init
+
+    init(frame: CGRect) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.view.frame = frame
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     
     //MARK: - Life Circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, ScreenWidth, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+        timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
         self.view.addSubview(timeLineStockChartView!)
         
         let path = NSBundle.mainBundle().pathForResource("dayTimeLine", ofType: "json")
@@ -39,12 +53,20 @@ class TimeViewController: UIViewController {
         setupTimeLineView(model)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        print("timeViewController appear")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidLayoutSubviews() {
+//        self.timeLineStockChartView?.setNeedsDisplay()
+    }
     
     //MARK: - Function
+    
     func setupTimeLineView(data: HSTimeLineModel) {
         var timeArray = [TimeLineEntity]()
         var lastVolume = CGFloat(0)
@@ -103,15 +125,21 @@ class TimeViewController: UIViewController {
     }
     
     func handleTapGestureAction(recognizer: UITapGestureRecognizer) {
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
+//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+//            self.presentViewController(vc, animated: true, completion: nil)
+//        }
+        
+//        let test = TestViewController()
+//        test.modalTransitionStyle = .CrossDissolve
+//        self.presentViewController(test, animated: true, completion: nil)
+//        
+        delegate?.showLandscapeView()
     }
     
 //    override func shouldAutorotate() -> Bool {
 //        return false
 //    }
-//    
+//
 //    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
 //        return UIInterfaceOrientation.Portrait
 //    }
