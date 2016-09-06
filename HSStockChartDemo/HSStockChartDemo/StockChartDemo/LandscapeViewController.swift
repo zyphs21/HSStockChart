@@ -20,7 +20,7 @@ class LandscapeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeLeft.rawValue, forKey: "orientation")
+//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeLeft.rawValue, forKey: "orientation")
         
         //setUpControllerView()
     }
@@ -35,10 +35,18 @@ class LandscapeViewController: UIViewController {
         self.view.layoutSubviews()
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.LandscapeLeft
+    }
     
     @IBAction func backButtonDidClick(sender: AnyObject) {
+//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
+        self.modalTransitionStyle = .CrossDissolve
         self.dismissViewControllerAnimated(true, completion: nil)
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
     }
     
     
@@ -87,7 +95,7 @@ class LandscapeViewController: UIViewController {
         longPressToShowView.addSubview(currentPriceLabel)
         longPressToShowView.hidden = true
         self.view.addSubview(pageMenu!.view)
-//        self.view.addSubview(longPressToShowView)
+        self.view.addSubview(longPressToShowView)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)

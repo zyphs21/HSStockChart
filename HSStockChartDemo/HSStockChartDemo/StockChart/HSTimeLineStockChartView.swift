@@ -174,8 +174,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     
     // 画比率标签
     func drawRatioLabel(context:CGContextRef){
-        let maxRatioStr = self.formatValue(self.maxRatio) + "%"
-        let minRatioStr = self.formatValue(self.minRatio) + "%"
+        let maxRatioStr = self.formatRatio(self.maxRatio)
+        let minRatioStr = self.formatRatio(self.minRatio)
         
         self.drawYAxisLabel(context, labelString: maxRatioStr, yAxis: uperChartDrawAreaTop, isLeft: true)
         self.drawYAxisLabel(context, labelString: minRatioStr, yAxis: uperChartDrawAreaBottom, isLeft: true)

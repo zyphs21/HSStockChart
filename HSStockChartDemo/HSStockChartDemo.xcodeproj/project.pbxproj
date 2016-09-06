@@ -21,7 +21,6 @@
 		C03E9AD81D6ECDB900D93016 /* 5dayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */; };
 		C03E9AD91D6ECDB900D93016 /* dayKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB51D6ECDB900D93016 /* dayKLine.json */; };
 		C03E9ADA1D6ECDB900D93016 /* dayPriceTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */; };
-		C03E9ADB1D6ECDB900D93016 /* dayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */; };
 		C03E9ADC1D6ECDB900D93016 /* monthKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB81D6ECDB900D93016 /* monthKLine.json */; };
 		C03E9ADD1D6ECDB900D93016 /* stockStateData.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AB91D6ECDB900D93016 /* stockStateData.json */; };
 		C03E9ADE1D6ECDB900D93016 /* weekKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C03E9ABA1D6ECDB900D93016 /* weekKLine.json */; };
@@ -44,6 +43,9 @@
 		C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */; };
 		C0A53C781D77C30800F4192B /* StockMarketDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */; };
 		C0A840B11D6FDB85007C1260 /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */; };
+		C0FAA64E1D7D68D900F15200 /* OneDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */; };
+		C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */; };
+		C0FAA6521D7D736800F15200 /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA6511D7D736800F15200 /* SZ300033.json */; };
 		CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F403C2E489B65B911BF67A02 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +67,6 @@
 		C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5dayTimeLine.json; sourceTree = "<group>"; };
 		C03E9AB51D6ECDB900D93016 /* dayKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayKLine.json; sourceTree = "<group>"; };
 		C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayPriceTrade.json; sourceTree = "<group>"; };
-		C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dayTimeLine.json; sourceTree = "<group>"; };
 		C03E9AB81D6ECDB900D93016 /* monthKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = monthKLine.json; sourceTree = "<group>"; };
 		C03E9AB91D6ECDB900D93016 /* stockStateData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stockStateData.json; sourceTree = "<group>"; };
 		C03E9ABA1D6ECDB900D93016 /* weekKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weekKLine.json; sourceTree = "<group>"; };
@@ -89,6 +90,9 @@
 		C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockMarketDataViewController.xib; sourceTree = "<group>"; };
 		C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
 		C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSStockChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OneDayTimeLine.json; sourceTree = "<group>"; };
+		C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBasicInfoModel.swift; sourceTree = "<group>"; };
+		C0FAA6511D7D736800F15200 /* SZ300033.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SZ300033.json; sourceTree = "<group>"; };
 		F403C2E489B65B911BF67A02 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,10 +152,11 @@
 		C03E9AB31D6ECDB900D93016 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				C0FAA6511D7D736800F15200 /* SZ300033.json */,
+				C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */,
 				C03E9AB41D6ECDB900D93016 /* 5dayTimeLine.json */,
 				C03E9AB51D6ECDB900D93016 /* dayKLine.json */,
 				C03E9AB61D6ECDB900D93016 /* dayPriceTrade.json */,
-				C03E9AB71D6ECDB900D93016 /* dayTimeLine.json */,
 				C03E9AB81D6ECDB900D93016 /* monthKLine.json */,
 				C03E9AB91D6ECDB900D93016 /* stockStateData.json */,
 				C03E9ABA1D6ECDB900D93016 /* weekKLine.json */,
@@ -183,6 +188,7 @@
 				C03E9AC31D6ECDB900D93016 /* StateModel.swift */,
 				C03E9AC41D6ECDB900D93016 /* TradeModel.swift */,
 				C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */,
+				C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */,
 				C01FBFB51D73DE700068A143 /* HSKLineModel.swift */,
 			);
 			path = StockModel;
@@ -295,13 +301,14 @@
 			files = (
 				C03E9AD81D6ECDB900D93016 /* 5dayTimeLine.json in Resources */,
 				C03E9ADC1D6ECDB900D93016 /* monthKLine.json in Resources */,
+				C0FAA64E1D7D68D900F15200 /* OneDayTimeLine.json in Resources */,
 				C03E9AD51D6ECDB900D93016 /* Main.storyboard in Resources */,
+				C0FAA6521D7D736800F15200 /* SZ300033.json in Resources */,
 				C03E9ADD1D6ECDB900D93016 /* stockStateData.json in Resources */,
 				C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */,
 				C03E9AD91D6ECDB900D93016 /* dayKLine.json in Resources */,
 				C03E9ADE1D6ECDB900D93016 /* weekKLine.json in Resources */,
 				C0A53C781D77C30800F4192B /* StockMarketDataViewController.xib in Resources */,
-				C03E9ADB1D6ECDB900D93016 /* dayTimeLine.json in Resources */,
 				C03E9ADA1D6ECDB900D93016 /* dayPriceTrade.json in Resources */,
 				C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -377,6 +384,7 @@
 				C01FBFBB1D76E3AE0068A143 /* HSFiveTransactionView.swift in Sources */,
 				C03E9AF11D6ECDB900D93016 /* WeeklyKLineViewController.swift in Sources */,
 				C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */,
+				C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */,
 				C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */,
 				C03E9AEE1D6ECDB900D93016 /* MonthlyKLineViewController.swift in Sources */,
 				C01FBFC01D76E4010068A143 /* KLineDataSet.swift in Sources */,

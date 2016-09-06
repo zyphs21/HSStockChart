@@ -108,17 +108,16 @@ class ViewController: UIViewController {
     }
     
     override func shouldAutorotate() -> Bool {
-        return true
+        return false
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.All
-    }
+//    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+//        return UIInterfaceOrientationMask.All
+//    }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait
     }
-    
     
 //    override func viewDidLayoutSubviews() {
 //        self.view.layoutSubviews()
@@ -129,10 +128,9 @@ class ViewController: UIViewController {
 extension ViewController: TimeViewControllerDelegate {
     func showLandscapeView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+            vc.modalTransitionStyle = .CrossDissolve
             self.presentViewController(vc, animated: true, completion: nil)
         }
-//        let test = TestViewController()
-//        self.presentViewController(test, animated: true, completion: nil)
     }
 }
 

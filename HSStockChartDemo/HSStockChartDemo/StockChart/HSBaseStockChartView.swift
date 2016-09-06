@@ -287,6 +287,10 @@ class HSBaseStockChartView: UIView {
         return String(format: "%.2f", value)
     }
     
+    func formatRatio(value: CGFloat) -> String {
+        return String(format: "%.2f", value * 100) + "%"
+    }
+    
     func formatWithVolume(argVolume: CGFloat) -> String{
         let volume = argVolume / 100.0;
         

@@ -340,14 +340,16 @@ extension NSDate {
     
     func toString(format:String) -> String {
         let dateformatter = NSDateFormatter()
-        dateformatter.timeZone=NSTimeZone.localTimeZone()
+        dateformatter.timeZone = NSTimeZone.localTimeZone()
         dateformatter.dateFormat = format
         return dateformatter.stringFromDate(self)
     }
     
-    class func toDate(dateString: String) -> NSDate {
+    class func toDate(dateString: String, format: String) -> NSDate {
         let dateformatter = NSDateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateformatter.dateFormat = format
+        dateformatter.locale = NSLocale(localeIdentifier: "en_US")
         let date = dateformatter.dateFromString(dateString) ?? NSDate()
         return date
     }

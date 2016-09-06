@@ -45,12 +45,18 @@ class TimeViewController: UIViewController {
         timeLineStockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300), uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
         self.view.addSubview(timeLineStockChartView!)
         
-        let path = NSBundle.mainBundle().pathForResource("dayTimeLine", ofType: "json")
-        let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
-        let temp = text.dataUsingEncoding(NSUTF8StringEncoding)!
-        let model: HSTimeLineModel = HSTimeLineModel.createTimeLineModel(JSON(data: temp))
+        var pathForResource = NSBundle.mainBundle().pathForResource("OneDayTimeLine", ofType: "json")
+        var content = try! String(contentsOfFile: pathForResource!, encoding: NSUTF8StringEncoding)
+        var jsonContent = content.dataUsingEncoding(NSUTF8StringEncoding)!
+        let modelArray = HSTimeLineModel.getTimeLineModelArray(JSON(data: jsonContent))
         
-        setupTimeLineView(model)
+        pathForResource = NSBundle.mainBundle().pathForResource("SZ300033", ofType: "json")
+        content = try! String(contentsOfFile: pathForResource!, encoding: NSUTF8StringEncoding)
+        jsonContent = content.dataUsingEncoding(NSUTF8StringEncoding)!
+        let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(JSON(data: jsonContent))
+        
+        setUpTimeLineView(modelArray, info: stockBasicInfo)
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -62,42 +68,32 @@ class TimeViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-//        self.timeLineStockChartView?.setNeedsDisplay()
+        //self.timeLineStockChartView?.setNeedsDisplay()
     }
+    
     
     //MARK: - Function
     
-    func setupTimeLineView(data: HSTimeLineModel) {
+    func setUpTimeLineView(data: [HSTimeLineModel], info: HSStockBasicInfoModel) {
         var timeArray = [TimeLineEntity]()
-        var lastVolume = CGFloat(0)
         
         //获取分时线数据
-        var lastAvg = CGFloat(0)
-        for share in data.shares {
+        for data in data {
             
             let entity = TimeLineEntity()
             
-            entity.currtTime = share.date.toString("HH:mm")
+            entity.currtTime = data.currentTime
             
-            entity.preClosePx = CGFloat(data.preClose)
+            entity.preClosePx = info.preClosePrice
             
-            entity.price = CGFloat(share.price)
+            entity.price = data.price
             
-            entity.volume = CGFloat(share.volume) - lastVolume // 获得增量的 volume
+            entity.volume = data.volume
             
-            lastVolume = CGFloat(share.volume)
+            entity.avgPirce = data.averagePirce
             
-            entity.avgPirce = CGFloat(share.amount / share.volume)
-            
-            if isnan(entity.avgPirce) {
-                entity.avgPirce = lastAvg
-            }else {
-                lastAvg = entity.avgPirce
-            }
-            
-            //涨跌幅
-            entity.rate = CGFloat(share.ratio)
-            //entity.rate = (CGFloat(dic.price!) - CGFloat(data.close!)) / CGFloat(data.close!)
+            // 涨跌幅
+            entity.rate = (data.price - info.preClosePrice) / info.preClosePrice
             
             timeArray.append(entity)
         }
@@ -109,11 +105,11 @@ class TimeViewController: UIViewController {
         set.avgLineCorlor = UIColor(rgba: "#ffc004")
         set.priceLineCorlor = UIColor(rgba: "#0095ff")
         set.highlightLineColor = UIColor(rgba: "#546679")
-
+        
         set.volumeTieColor = UIColor(rgba: "#aaaaaa")
         set.volumeRiseColor = UIColor(rgba: "#f24957")
         set.volumeFallColor = UIColor(rgba: "#1dbf60")
-
+        
         set.fillStartColor = UIColor(rgba: "#e3efff")
         set.fillStopColor = UIColor(rgba: "#e3efff")
         set.fillAlpha = 0.5
@@ -125,23 +121,8 @@ class TimeViewController: UIViewController {
     }
     
     func handleTapGestureAction(recognizer: UITapGestureRecognizer) {
-//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
-//            self.presentViewController(vc, animated: true, completion: nil)
-//        }
-        
-//        let test = TestViewController()
-//        test.modalTransitionStyle = .CrossDissolve
-//        self.presentViewController(test, animated: true, completion: nil)
-//        
         delegate?.showLandscapeView()
     }
     
-//    override func shouldAutorotate() -> Bool {
-//        return false
-//    }
-//
-//    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-//        return UIInterfaceOrientation.Portrait
-//    }
 }
 

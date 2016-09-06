@@ -18,6 +18,24 @@ class HSTimeLineModel: NSObject {
     var min: Double = 0
     var shares: [Share] = []
     
+    var currentTime: String = ""
+    var averagePirce: CGFloat = 0
+    var price: CGFloat = 0
+    var volume: CGFloat = 0
+    
+    class func getTimeLineModelArray(json: JSON) -> [HSTimeLineModel] {
+        var modelArray = [HSTimeLineModel]()
+        for (_, jsonData): (String, JSON) in json["chartlist"] {
+            let model = HSTimeLineModel()
+            model.currentTime = NSDate.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
+            model.averagePirce = CGFloat(jsonData["avg_price"].doubleValue)
+            model.price = CGFloat(jsonData["current"].doubleValue)
+            model.volume = CGFloat(jsonData["volume"].doubleValue)
+            modelArray.append(model)
+        }
+        return modelArray
+    }
+    
     class func createTimeLineModel(json: JSON) -> HSTimeLineModel {
         let model = HSTimeLineModel()
         model.days = json["days"].arrayObject as! [String]
@@ -28,7 +46,7 @@ class HSTimeLineModel: NSObject {
         for (_, jsonData): (String, JSON) in json["shares"] {
             let share = Share()
             share.amount = jsonData["amount"].doubleValue
-            share.date = NSDate.toDate(jsonData["dt"].stringValue)
+            share.date = NSDate.toDate(jsonData["dt"].stringValue, format: "yyyy-MM-dd HH:mm:ss")
             share.price = jsonData["price"].doubleValue
             share.ratio = jsonData["ratio"].doubleValue
             share.volume = jsonData["volume"].doubleValue
