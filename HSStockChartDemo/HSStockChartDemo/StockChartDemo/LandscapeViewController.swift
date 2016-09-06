@@ -19,8 +19,6 @@ class LandscapeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeLeft.rawValue, forKey: "orientation")
         
         //setUpControllerView()
     }
@@ -31,7 +29,10 @@ class LandscapeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // 横屏切换时，frame 的 width 和 Height 在 viewDidLayoutSubviews 中才变化
         setUpControllerView()
+        
         self.view.layoutSubviews()
     }
     
@@ -40,11 +41,10 @@ class LandscapeViewController: UIViewController {
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.LandscapeLeft
+        return UIInterfaceOrientation.LandscapeRight
     }
     
     @IBAction func backButtonDidClick(sender: AnyObject) {
-//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
         self.modalTransitionStyle = .CrossDissolve
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -55,27 +55,32 @@ class LandscapeViewController: UIViewController {
     func setUpControllerView() {
         
         var controllerArray : [UIViewController] = []
-        let timeViewcontroller : UIViewController = TimeViewController(frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height))
+
+        let timeViewcontroller = ChartViewController()
+        timeViewcontroller.chartType = HSChartType.timeLineForDay
         timeViewcontroller.title = "分时"
         controllerArray.append(timeViewcontroller)
         
-        let fiveDayTimeViewController : UIViewController = FiveDayTimeViewController()
+        let fiveDayTimeViewController = ChartViewController()
+        fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
         fiveDayTimeViewController.title = "五日"
         controllerArray.append(fiveDayTimeViewController)
         
-        let kLineViewController : UIViewController = KLineViewController()
+        let kLineViewController = ChartViewController()
+        kLineViewController.chartType = HSChartType.kLineForDay
         kLineViewController.title = "日K"
         controllerArray.append(kLineViewController)
         
-        let weeklyKLineViewController : UIViewController = WeeklyKLineViewController()
+        let weeklyKLineViewController = ChartViewController()
+        weeklyKLineViewController.chartType = HSChartType.kLineForWeek
         weeklyKLineViewController.title = "周K"
         controllerArray.append(weeklyKLineViewController)
         
-        let monthlyKLineViewController : UIViewController = MonthlyKLineViewController()
+        let monthlyKLineViewController = ChartViewController()
+        monthlyKLineViewController.chartType = HSChartType.kLineForMonth
         monthlyKLineViewController.title = "月K"
         controllerArray.append(monthlyKLineViewController)
         
-        // Customize page menu to your liking (optional) or use default settings by sending nil for 'options' in the init
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),

@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class HSTimeLineModel: NSObject {
 
-    var days: [String] = []
     var state: Bool = false
     var preClose: Double = 0
     var max: Double = 0
@@ -22,6 +21,7 @@ class HSTimeLineModel: NSObject {
     var averagePirce: CGFloat = 0
     var price: CGFloat = 0
     var volume: CGFloat = 0
+    var days: [String] = []
     
     class func getTimeLineModelArray(json: JSON) -> [HSTimeLineModel] {
         var modelArray = [HSTimeLineModel]()
@@ -31,6 +31,7 @@ class HSTimeLineModel: NSObject {
             model.averagePirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)
+            model.days = (json["days"].arrayObject as? [String]) ?? [""]
             modelArray.append(model)
         }
         return modelArray

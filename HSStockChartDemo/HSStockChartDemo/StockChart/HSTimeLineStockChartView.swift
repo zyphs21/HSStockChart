@@ -16,7 +16,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     var endPointShowEnabled = true
     var isDrawAvgLine = true
     
-    var countOfTimes = 242
+    var countOfTimes = 242 // 分时线的横坐标
     var offsetMaxPrice : CGFloat = 0
     var showFiveDayLabel = false
     

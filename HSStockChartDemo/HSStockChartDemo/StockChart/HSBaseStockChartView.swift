@@ -119,7 +119,6 @@ class HSBaseStockChartView: UIView {
     
     private func commonInit() {
         
-        print("chart frame " + "\(frame)")
         chartHeight = frame.height
         chartWidth = frame.width
     

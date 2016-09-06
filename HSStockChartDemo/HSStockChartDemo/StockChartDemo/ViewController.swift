@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
         setUpControllerView()
         
     }
@@ -33,6 +32,14 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.Portrait
+    }
+    
     
     //MARK: - Function
     
@@ -40,28 +47,32 @@ class ViewController: UIViewController {
         
         var controllerArray : [UIViewController] = []
         
-        let timeViewcontroller = TimeViewController(frame: CGRectMake(0.0, 20, self.view.frame.width, self.view.frame.height))
+        let timeViewcontroller = ChartViewController()
+        timeViewcontroller.chartType = HSChartType.timeLineForDay
         timeViewcontroller.title = "分时"
         timeViewcontroller.delegate = self
         controllerArray.append(timeViewcontroller)
         
-        let fiveDayTimeViewController = FiveDayTimeViewController()
+        let fiveDayTimeViewController = ChartViewController()
+        fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
         fiveDayTimeViewController.title = "五日"
         controllerArray.append(fiveDayTimeViewController)
         
-        let kLineViewController = KLineViewController()
+        let kLineViewController = ChartViewController()
+        kLineViewController.chartType = HSChartType.kLineForDay
         kLineViewController.title = "日K"
         controllerArray.append(kLineViewController)
         
-        let weeklyKLineViewController : UIViewController = WeeklyKLineViewController()
+        let weeklyKLineViewController = ChartViewController()
+        weeklyKLineViewController.chartType = HSChartType.kLineForWeek
         weeklyKLineViewController.title = "周K"
         controllerArray.append(weeklyKLineViewController)
         
-        let monthlyKLineViewController : UIViewController = MonthlyKLineViewController()
+        let monthlyKLineViewController = ChartViewController()
+        monthlyKLineViewController.chartType = HSChartType.kLineForMonth
         monthlyKLineViewController.title = "月K"
         controllerArray.append(monthlyKLineViewController)
         
-        // Customize page menu to your liking (optional) or use default settings by sending nil for 'options' in the init
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
@@ -106,27 +117,12 @@ class ViewController: UIViewController {
     func showUnLongPressView() {
         longPressToShowView.hidden = true
     }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-//    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-//        return UIInterfaceOrientationMask.All
-//    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait
-    }
-    
-//    override func viewDidLayoutSubviews() {
-//        self.view.layoutSubviews()
-//    }
 
 }
 
-extension ViewController: TimeViewControllerDelegate {
-    func showLandscapeView() {
+
+extension ViewController: ChartViewControllerDelegate {
+    func showLandscapeChartView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
             vc.modalTransitionStyle = .CrossDissolve
             self.presentViewController(vc, animated: true, completion: nil)
