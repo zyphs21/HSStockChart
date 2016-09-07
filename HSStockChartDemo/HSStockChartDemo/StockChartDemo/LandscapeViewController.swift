@@ -13,6 +13,7 @@ class LandscapeViewController: UIViewController {
     var pageMenu : CAPSPageMenu?
     var longPressToShowView = UIView()
     var currentPriceLabel = UILabel()
+    var viewindex: Int = 0
     
     
     //MARK: - Life Circle
@@ -34,6 +35,10 @@ class LandscapeViewController: UIViewController {
         setUpControllerView()
         
         self.view.layoutSubviews()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        print("LandscapeViewController UIDevice.orientation isPortrait " + "\(UIDevice.currentDevice().orientation.isPortrait)")
     }
     
     override func shouldAutorotate() -> Bool {
@@ -93,6 +98,7 @@ class LandscapeViewController: UIViewController {
         ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 30, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu?.moveToPage(self.viewindex)
         
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()

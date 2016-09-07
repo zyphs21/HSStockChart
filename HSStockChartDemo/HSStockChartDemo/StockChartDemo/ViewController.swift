@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        print("UIDevice.orientation isPortrait " + "\(UIDevice.currentDevice().orientation.isPortrait)")
+        print("viewcontroller UIDevice.orientation isPortrait " + "\(UIDevice.currentDevice().orientation.isPortrait)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,21 +56,25 @@ class ViewController: UIViewController {
         let fiveDayTimeViewController = ChartViewController()
         fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
         fiveDayTimeViewController.title = "五日"
+        fiveDayTimeViewController.delegate = self
         controllerArray.append(fiveDayTimeViewController)
         
         let kLineViewController = ChartViewController()
         kLineViewController.chartType = HSChartType.kLineForDay
         kLineViewController.title = "日K"
+        kLineViewController.delegate = self
         controllerArray.append(kLineViewController)
         
         let weeklyKLineViewController = ChartViewController()
         weeklyKLineViewController.chartType = HSChartType.kLineForWeek
         weeklyKLineViewController.title = "周K"
+        weeklyKLineViewController.delegate = self
         controllerArray.append(weeklyKLineViewController)
         
         let monthlyKLineViewController = ChartViewController()
         monthlyKLineViewController.chartType = HSChartType.kLineForMonth
         monthlyKLineViewController.title = "月K"
+        monthlyKLineViewController.delegate = self
         controllerArray.append(monthlyKLineViewController)
         
         let parameters: [CAPSPageMenuOption] = [
@@ -85,7 +89,7 @@ class ViewController: UIViewController {
         ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, headerStockInfoView.frame.height + 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
-        
+
         longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
         longPressToShowView.backgroundColor = UIColor.whiteColor()
         currentPriceLabel.frame = CGRectMake(0, 0, self.view.frame.width, 25)
@@ -122,9 +126,10 @@ class ViewController: UIViewController {
 
 
 extension ViewController: ChartViewControllerDelegate {
-    func showLandscapeChartView() {
+    func showLandscapeChartView(index: Int) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
             vc.modalTransitionStyle = .CrossDissolve
+            vc.viewindex = index
             self.presentViewController(vc, animated: true, completion: nil)
         }
     }

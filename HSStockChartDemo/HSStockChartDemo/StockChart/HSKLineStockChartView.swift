@@ -16,7 +16,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     var macdCoordsScale: CGFloat = 0
     
     var candleWidth: CGFloat = 8
-    var monthLineLimit = 0
+    var monthInterval = 0
     var candleMaxWidth: CGFloat = 30
     var candleMinWidth: CGFloat = 5
     
@@ -222,7 +222,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     func drawCandleLine(context: CGContextRef, data: [KLineEntity]) {
         CGContextSaveGState(context)
         
-        var oldDate: NSDate?
+        var lastDate: NSDate?
         let idex = self.startDrawIndex
         
         self.candleCoordsScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
@@ -245,12 +245,12 @@ class HSKLineStockChartView: HSBaseStockChartView {
             let candleWidth = self.candleWidth - self.candleWidth / 6.0
             let startX = left + candleWidth / 2.0
             
-            //画表格灰色竖线
+            //画表格灰色竖线，以及横坐标的标签
             if let date = entity.date.toDate("yyyy-MM-dd") {
-                if oldDate == nil {
-                    oldDate = date
+                if lastDate == nil {
+                    lastDate = date
                 }
-                if date.year > oldDate?.year || date.month > oldDate!.month + monthLineLimit {
+                if date.year > lastDate?.year || date.month > lastDate!.month + monthInterval {
                     self.drawline(context,
                                   startPoint: CGPointMake(startX, self.contentTop),
                                   stopPoint: CGPointMake(startX,  self.uperChartBottom), color: self.borderColor, lineWidth: 0.5)
@@ -259,17 +259,14 @@ class HSKLineStockChartView: HSBaseStockChartView {
                                   startPoint: CGPointMake(startX, lowerChartTop),
                                   stopPoint: CGPointMake(startX, self.contentBottom), color: self.borderColor, lineWidth: 0.5)
                     
-                    if !self.longPressToHighlightEnabled{
-                        let drawAttributes = self.xAxisLabelAttribute
-                        let dateStrAtt = NSMutableAttributedString(string: date.toString("yyyy-MM"), attributes: drawAttributes)
-                        let dateStrAttSize = dateStrAtt.size()
-                        self.drawLabel(context,
-                                       attributesText: dateStrAtt,
-                                       rect: CGRectMake(startX - dateStrAttSize.width/2, (uperChartHeight + self.contentTop), dateStrAttSize.width,dateStrAttSize.height))
-                    }
-                    oldDate = date
+                    let drawAttributes = self.xAxisLabelAttribute
+                    let dateStrAtt = NSMutableAttributedString(string: date.toString("yyyy-MM"), attributes: drawAttributes)
+                    let dateStrAttSize = dateStrAtt.size()
+                    self.drawLabel(context,
+                                   attributesText: dateStrAtt,
+                                   rect: CGRectMake(startX - dateStrAttSize.width/2, (uperChartHeight + self.contentTop), dateStrAttSize.width,dateStrAttSize.height))
+                    lastDate = date
                 }
-                
             }
             
             var color = self.dataSet?.candleRiseColor

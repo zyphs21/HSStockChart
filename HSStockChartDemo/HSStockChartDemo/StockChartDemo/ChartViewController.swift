@@ -18,7 +18,7 @@ enum HSChartType: Int {
 }
 
 protocol ChartViewControllerDelegate {
-    func showLandscapeChartView()
+    func showLandscapeChartView(index: Int)
 }
 
 class ChartViewController: UIViewController {
@@ -42,30 +42,43 @@ class ChartViewController: UIViewController {
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("OneDayTimeLine"))
             stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo)
             stockChartView.userInteractionEnabled = true
+            stockChartView.tag = chartType.rawValue
             stockChartView.addGestureRecognizer(tapGesture)
             self.view.addSubview(stockChartView)
             
         case .timeLineForFiveday:
             let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
-            self.view.addSubview(stockChartView)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("FiveDayTimeLine"))
             stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo)
             stockChartView.showFiveDayLabel = true
             stockChartView.userInteractionEnabled = true
+            stockChartView.tag = chartType.rawValue
             stockChartView.addGestureRecognizer(tapGesture)
+            self.view.addSubview(stockChartView)
             
             
         case .kLineForDay:
             let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
             self.view.addSubview(stockChartView)
-            let modelArray = HSKLineModel.createKLineModel(getJsonDataFromFile("dayKLine"))
+            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
+            stockChartView.tag = chartType.rawValue
             
         case .kLineForWeek:
-            print("kLineForWeek")
+            let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
+            self.view.addSubview(stockChartView)
+            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("WeeklyKLine"))
+            stockChartView.monthInterval = 4
+            stockChartView.setUpData(getKLineViewDataSet(modelArray))
+            stockChartView.tag = chartType.rawValue
             
         case .kLineForMonth:
-            print("kLineForMonth")
+            let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
+            self.view.addSubview(stockChartView)
+            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("MonthlyKLine"))
+            stockChartView.monthInterval = 12
+            stockChartView.setUpData(getKLineViewDataSet(modelArray))
+            stockChartView.tag = chartType.rawValue
         }
     }
     
@@ -128,26 +141,25 @@ class ChartViewController: UIViewController {
         var array = [KLineEntity]()
         for (index, klineModel) in data.enumerate(){
             let entity = KLineEntity()
-            entity.high = CGFloat(klineModel.high)
-            entity.open = CGFloat(klineModel.open)
+            entity.high = klineModel.high
+            entity.open = klineModel.open
             
             if index == 0 {
-                entity.preClosePx = CGFloat(klineModel.open)
+                entity.preClosePx = klineModel.open
             } else {
-                entity.preClosePx = CGFloat(data[index - 1].close)
+                entity.preClosePx = data[index - 1].close
             }
             
-            entity.low = CGFloat(klineModel.low)
-            entity.close = CGFloat(klineModel.close)
-            entity.rate = CGFloat(klineModel.inc)
+            entity.low = klineModel.low
+            entity.close = klineModel.close
             entity.date = klineModel.date
-            entity.ma5 = CGFloat(klineModel.ma5)
-            entity.ma10 = CGFloat(klineModel.ma10)
-            entity.ma20 = CGFloat(klineModel.ma20)
-            entity.volume = CGFloat(klineModel.vol)
-            entity.diff = CGFloat(klineModel.diff)
-            entity.dea = CGFloat(klineModel.dea)
-            entity.macd = CGFloat(klineModel.macd)
+            entity.ma5 = klineModel.ma5
+            entity.ma10 = klineModel.ma10
+            entity.ma20 = klineModel.ma20
+            entity.volume = klineModel.vol
+            entity.diff = klineModel.diff
+            entity.dea = klineModel.dea
+            entity.macd = klineModel.macd
             array.append(entity)
         }
         
@@ -166,7 +178,8 @@ class ChartViewController: UIViewController {
     }
     
     func handleTapGesture(recognizer: UITapGestureRecognizer) {
-        delegate?.showLandscapeChartView()
+        let index = recognizer.view?.tag ?? 0
+        delegate?.showLandscapeChartView(index)
     }
     
 }

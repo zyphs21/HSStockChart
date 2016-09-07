@@ -12,39 +12,36 @@ import SwiftyJSON
 class HSKLineModel: NSObject {
 
     var date: String = ""
-    var tick: String = ""
-    var open: Double = 0
-    var close: Double = 0
-    var high: Double = 0
-    var low: Double = 0
-    var inc: Double = 0
-    var vol: Double = 0
-    var ma5: Double = 0
-    var ma10: Double = 0
-    var ma20: Double = 0
-    var diff: Double = 0
-    var dea: Double = 0
-    var macd: Double = 0
+    var open: CGFloat = 0
+    var close: CGFloat = 0
+    var high: CGFloat = 0
+    var low: CGFloat = 0
+    var vol: CGFloat = 0
+    var ma5: CGFloat = 0
+    var ma10: CGFloat = 0
+    var ma20: CGFloat = 0
+    var ma30: CGFloat = 0
+    var diff: CGFloat = 0
+    var dea: CGFloat = 0
+    var macd: CGFloat = 0
     
-    class func createKLineModel(json: JSON) -> [HSKLineModel] {
-        var models: [HSKLineModel] = []
-        for (_, jsonData): (String, JSON) in json["message"] {
+    class func getKLineModelArray(json: JSON) -> [HSKLineModel] {
+        var models = [HSKLineModel]()
+        for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSKLineModel()
-            model.date = jsonData["dt"].stringValue
-            model.tick = jsonData["tick"].stringValue
-            model.open = jsonData["open"].doubleValue
-            model.close = jsonData["close"].doubleValue
-            model.high = jsonData["high"].doubleValue
-            model.low = jsonData["low"].doubleValue
-            model.inc = jsonData["inc"].doubleValue
-            model.vol = jsonData["vol"].doubleValue
-            model.ma5 = jsonData["ma"]["MA5"].doubleValue
-            model.ma10 = jsonData["ma"]["MA10"].doubleValue
-            model.ma20 = jsonData["ma"]["MA20"].doubleValue
-            model.diff = jsonData["macd"]["DIFF"].doubleValue
-            model.dea = jsonData["macd"]["DEA"].doubleValue
-            model.macd = jsonData["macd"]["MACD"].doubleValue
-
+            model.date = NSDate.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("yyyy-MM-dd")
+            model.open = CGFloat(jsonData["open"].doubleValue)
+            model.close = CGFloat(jsonData["close"].doubleValue)
+            model.high = CGFloat(jsonData["high"].doubleValue)
+            model.low = CGFloat(jsonData["low"].doubleValue)
+            model.vol = CGFloat(jsonData["volume"].doubleValue)
+            model.ma5 = CGFloat(jsonData["ma5"].doubleValue)
+            model.ma10 = CGFloat(jsonData["ma10"].doubleValue)
+            model.ma20 = CGFloat(jsonData["ma20"].doubleValue)
+            model.ma30 = CGFloat(jsonData["ma30"].doubleValue)
+            model.diff = CGFloat(jsonData["dif"].doubleValue)
+            model.dea = CGFloat(jsonData["dea"].doubleValue)
+            model.macd = CGFloat(jsonData["macd"].doubleValue)
             models.append(model)
         }
         return models
