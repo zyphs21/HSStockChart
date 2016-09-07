@@ -11,9 +11,9 @@ import UIKit
 class HSKLineStockChartView: HSBaseStockChartView {
 
     var dataSet: KLineDataSet?
-    var candleCoordsScale: CGFloat = 0
-    var volumeCoordsScale: CGFloat = 0
-    var macdCoordsScale: CGFloat = 0
+    var priceOnYaxisScale: CGFloat = 0
+    var volumeOnYaxisScale: CGFloat = 0
+    var macdOnYaxisScale: CGFloat = 0
     
     var candleWidth: CGFloat = 8
     var monthInterval = 0
@@ -76,6 +76,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     
     var lastPinScale: CGFloat = 0
     
+    
     // MARK: - Initialize
     
     override init(frame: CGRect) {
@@ -109,8 +110,8 @@ class HSKLineStockChartView: HSBaseStockChartView {
         
         if let data  = self.dataSet?.data where data.count > 0{
             let context = UIGraphicsGetCurrentContext()
-            self.setCurrentDataMaxAndMin()
-            self.drawGridBackground(context!, rect: rect)
+            self.setMaxAndMinData()
+            self.drawChartFrame(context!, rect: rect)
             self.drawCandleLine(context!, data: data)
             self.drawLabelPrice(context!)
         }
@@ -135,7 +136,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     
     // MARK: - Function
     
-    func setCurrentDataMaxAndMin() {
+    func setMaxAndMinData() {
         if let data = self.dataSet?.data where data.count > 0 {
             self.maxPrice = CGFloat.min
             self.minPrice = CGFloat.max
@@ -158,8 +159,8 @@ class HSKLineStockChartView: HSBaseStockChartView {
         }
     }
     
-    override func drawGridBackground(context: CGContextRef,rect: CGRect) {
-        super.drawGridBackground(context, rect: rect)
+    override func drawChartFrame(context: CGContextRef,rect: CGRect) {
+        super.drawChartFrame(context, rect: rect)
         
         // K线图 内上边线
         self.drawline(context,
@@ -225,22 +226,22 @@ class HSKLineStockChartView: HSBaseStockChartView {
         var lastDate: NSDate?
         let idex = self.startDrawIndex
         
-        self.candleCoordsScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
-        self.volumeCoordsScale = (lowerChartHeight - lowerChartDrawAreaMargin) / self.maxVolume
+        self.priceOnYaxisScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
+        self.volumeOnYaxisScale = (lowerChartHeight - lowerChartDrawAreaMargin) / self.maxVolume
         
         let zeroBasic = lowerChartTop + lowerChartRect.height / 2
         let macdDrawingHeight = lowerChartHeight - lowerChartDrawAreaMargin * 2
-        self.macdCoordsScale = macdDrawingHeight / (self.maxMACD * 2)
+        self.macdOnYaxisScale = macdDrawingHeight / (self.maxMACD * 2)
         
         for i in idex ..< data.count {
             let entity = data[i]
-            let open = ((self.maxPrice - entity.open) * self.candleCoordsScale) + self.uperChartDrawAreaTop
-            let close = ((self.maxPrice - entity.close) * self.candleCoordsScale) + self.uperChartDrawAreaTop
-            let high = ((self.maxPrice - entity.high) * self.candleCoordsScale) + self.uperChartDrawAreaTop
-            let low = ((self.maxPrice - entity.low) * self.candleCoordsScale) + self.uperChartDrawAreaTop
+            let open = ((self.maxPrice - entity.open) * self.priceOnYaxisScale) + self.uperChartDrawAreaTop
+            let close = ((self.maxPrice - entity.close) * self.priceOnYaxisScale) + self.uperChartDrawAreaTop
+            let high = ((self.maxPrice - entity.high) * self.priceOnYaxisScale) + self.uperChartDrawAreaTop
+            let low = ((self.maxPrice - entity.low) * self.priceOnYaxisScale) + self.uperChartDrawAreaTop
             let left = (self.candleWidth * CGFloat(i - idex) + self.contentLeft) + self.candleWidth / 6.0
-            let volume = ((entity.volume - 0) * self.volumeCoordsScale)
-            let macd = entity.macd * self.macdCoordsScale
+            let volume = ((entity.volume - 0) * self.volumeOnYaxisScale)
+            let macd = entity.macd * self.macdOnYaxisScale
             
             let candleWidth = self.candleWidth - self.candleWidth / 6.0
             let startX = left + candleWidth / 2.0
@@ -296,16 +297,16 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 let lastX = startX - self.candleWidth
                 
                 // 5，10，20日均线
-                let lastY5 = (self.maxPrice - lastEntity.ma5) * self.candleCoordsScale + self.contentTop
-                let  y5 = (self.maxPrice - entity.ma5) * self.candleCoordsScale  + self.contentTop
+                let lastY5 = (self.maxPrice - lastEntity.ma5) * self.priceOnYaxisScale + self.contentTop
+                let  y5 = (self.maxPrice - entity.ma5) * self.priceOnYaxisScale  + self.contentTop
                 self.drawline(context, startPoint: CGPointMake(lastX, lastY5), stopPoint: CGPointMake(startX, y5), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
                 
-                let lastY10 = (self.maxPrice - lastEntity.ma10) * self.candleCoordsScale  + self.contentTop
-                let  y10 = (self.maxPrice - entity.ma10) * self.candleCoordsScale  + self.contentTop
+                let lastY10 = (self.maxPrice - lastEntity.ma10) * self.priceOnYaxisScale  + self.contentTop
+                let  y10 = (self.maxPrice - entity.ma10) * self.priceOnYaxisScale  + self.contentTop
                 self.drawline(context, startPoint: CGPointMake(lastX, lastY10) , stopPoint: CGPointMake(startX, y10), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
                 
-                let lastY20 = (self.maxPrice - lastEntity.ma20) * self.candleCoordsScale  + self.contentTop
-                let  y20 = (self.maxPrice - entity.ma20) * self.candleCoordsScale  + self.contentTop
+                let lastY20 = (self.maxPrice - lastEntity.ma20) * self.priceOnYaxisScale  + self.contentTop
+                let  y20 = (self.maxPrice - entity.ma20) * self.priceOnYaxisScale  + self.contentTop
                 self.drawline(context, startPoint: CGPointMake(lastX, lastY20), stopPoint: CGPointMake(startX, y20), color: self.dataSet!.avgMA20Color, lineWidth: self.dataSet!.avgLineWidth)
                 
                 if self.showMacdEnable {
@@ -313,12 +314,12 @@ class HSKLineStockChartView: HSBaseStockChartView {
                     let macdColor = macd >= 0 ? dataSet?.candleRiseColor : dataSet?.candleFallColor
                     self.drawColumnRect(context, rect: CGRectMake(left, zeroBasic - macd, candleWidth, macd), color: macdColor!)
                     
-                    let lastDiff = zeroBasic - lastEntity.diff * macdCoordsScale
-                    let  diff = zeroBasic - entity.diff * macdCoordsScale
+                    let lastDiff = zeroBasic - lastEntity.diff * macdOnYaxisScale
+                    let  diff = zeroBasic - entity.diff * macdOnYaxisScale
                     self.drawline(context, startPoint: CGPointMake(lastX, lastDiff), stopPoint: CGPointMake(startX, diff), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
                     
-                    let lastDea = zeroBasic - lastEntity.dea * macdCoordsScale
-                    let  dea = zeroBasic - entity.dea * macdCoordsScale
+                    let lastDea = zeroBasic - lastEntity.dea * macdOnYaxisScale
+                    let  dea = zeroBasic - entity.dea * macdOnYaxisScale
                     self.drawline(context, startPoint: CGPointMake(lastX, lastDea), stopPoint: CGPointMake(startX, dea), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
                     
                 } else {
@@ -339,10 +340,10 @@ class HSKLineStockChartView: HSBaseStockChartView {
         // 长按显示
         for i in idex ..< data.count {
             let entity = data[i]
-            let close = ((self.maxPrice - entity.close) * self.candleCoordsScale) + self.uperChartDrawAreaTop
+            let close = ((self.maxPrice - entity.close) * self.priceOnYaxisScale) + self.uperChartDrawAreaTop
             let left = (self.candleWidth * CGFloat(i - idex) + self.contentLeft) + self.candleWidth / 6.0
-            let volume = entity.volume * self.volumeCoordsScale
-            //let macd = entity.macd * self.macdCoordsScale
+            let volume = entity.volume * self.volumeOnYaxisScale
+            //let macd = entity.macd * self.macdOnYaxisScale
             
             let candleWidth = self.candleWidth - self.candleWidth / 6.0
             let startX = left + candleWidth / 2.0
@@ -544,6 +545,9 @@ class HSKLineStockChartView: HSBaseStockChartView {
         if CGRectContainsPoint(self.lowerChartRect, recognizer.locationInView(self)) {
             self.showMacdEnable = !self.showMacdEnable
             self.setNeedsDisplay()
+            
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName(KLineUperChartDidTap, object: recognizer.view?.tag)
         }
     }
     

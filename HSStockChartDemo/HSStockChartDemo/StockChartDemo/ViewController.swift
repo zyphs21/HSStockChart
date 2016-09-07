@@ -99,8 +99,9 @@ class ViewController: UIViewController {
         self.view.addSubview(pageMenu!.view)
         self.view.addSubview(longPressToShowView)        
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: TimeLineLongpress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: TimeLineUnLongpress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLandScapeChartView), name: KLineUperChartDidTap, object: nil)
         
     }
 
@@ -118,8 +119,17 @@ class ViewController: UIViewController {
         print("当前价格" + "\(timeLineEntity.price)")
     }
     
-    func showUnLongPressView() {
+    func showUnLongPressView(note: NSNotification) {
         longPressToShowView.hidden = true
+    }
+    
+    func showLandScapeChartView(note: NSNotification) {
+        let index = note.object as! Int
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
+            vc.modalTransitionStyle = .CrossDissolve
+            vc.viewindex = index
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
     }
 
 }

@@ -12,3 +12,7 @@ import ObjectMapper
 public let ScreenWidth = UIScreen.mainScreen().bounds.width
 
 public let ScreenHeight = UIScreen.mainScreen().bounds.height
+
+public let TimeLineLongpress = "TimeLineLongpress"
+public let TimeLineUnLongpress = "TimeLineUnLongpress"
+public let KLineUperChartDidTap = "KLineUperChartDidTap"

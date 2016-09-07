@@ -86,6 +86,22 @@ class LandscapeViewController: UIViewController {
         monthlyKLineViewController.title = "月K"
         controllerArray.append(monthlyKLineViewController)
         
+        let oneMonthViewController = UIViewController()
+        oneMonthViewController.title = "1月"
+        controllerArray.append(oneMonthViewController)
+        
+        let sixMonthViewController = UIViewController()
+        sixMonthViewController.title = "6月"
+        controllerArray.append(sixMonthViewController)
+        
+        let threeYearViewController = UIViewController()
+        threeYearViewController.title = "3年"
+        controllerArray.append(threeYearViewController)
+        
+        let  allViewController = UIViewController()
+        allViewController.title = "全部"
+        controllerArray.append(allViewController)
+        
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),

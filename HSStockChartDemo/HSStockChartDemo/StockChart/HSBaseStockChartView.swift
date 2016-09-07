@@ -70,11 +70,11 @@ class HSBaseStockChartView: UIView {
                                  NSBackgroundColorAttributeName:UIColor.whiteColor(),
                                  NSForegroundColorAttributeName:UIColor(rgba: "#8695a6")]
     
-    var maxPrice = CGFloat.min
-    var minPrice = CGFloat.max
-    var maxRatio = CGFloat.min
-    var minRatio = CGFloat.max
-    var maxVolume = CGFloat.min
+    var maxPrice: CGFloat = 0
+    var minPrice: CGFloat = 0
+    var maxRatio: CGFloat = 0
+    var minRatio: CGFloat = 0
+    var maxVolume: CGFloat = 0
     
     var gridBackgroundColor = UIColor.whiteColor()
     var borderColor = UIColor(rgba: "#e4e4e4")
@@ -153,7 +153,7 @@ class HSBaseStockChartView: UIView {
     
     // MARK: - Common Function
     
-    func drawGridBackground(context: CGContextRef, rect: CGRect) {
+    func drawChartFrame(context: CGContextRef, rect: CGRect) {
         CGContextSetFillColorWithColor(context, gridBackgroundColor.CGColor)
         CGContextFillRect(context, rect)
         
@@ -194,14 +194,14 @@ class HSBaseStockChartView: UIView {
             let entity = value as! TimeLineEntity
             rightMarkerStr = self.formatValue(entity.price)
             bottomMarkerString = entity.currtTime
-            leftMarkerString = entity.rate.toStringWithFormat("%.2f")
+            leftMarkerString = self.formatRatio(entity.rate)
             volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
             
         } else if value.isKindOfClass(KLineEntity.self){
             let entity = value as! KLineEntity
             rightMarkerStr = self.formatValue(entity.close)
             bottomMarkerString = entity.date
-            leftMarkerString = entity.rate.toStringWithFormat("%.2f")
+            leftMarkerString = entity.rate.toStringWithFormat("%.2f") + "%"
             volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
         }else{
             

@@ -10,14 +10,14 @@ import UIKit
 
 class HSTimeLineStockChartView: HSBaseStockChartView {
     
-    var candleCoordsScale : CGFloat = 0
-    var volumeCoordsScale : CGFloat = 0
+    var priceOnYaxisScale : CGFloat = 0
+    var volumeOnYaxisScale : CGFloat = 0
     
     var endPointShowEnabled = true
     var isDrawAvgLine = true
     
     var countOfTimes = 242 // 分时线的横坐标
-    var offsetMaxPrice : CGFloat = 0
+    var priceMaxOffset : CGFloat = 0
     var showFiveDayLabel = false
     
     var longPressGesture : UILongPressGestureRecognizer{
@@ -59,8 +59,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
 
         if let data = self.dataSet?.data where data.count > 0 {
             let context = UIGraphicsGetCurrentContext()
-            setCurrentDataMaxAndMin()
-            drawGridBackground(context!, rect: rect)
+            setMaxAndMinData()
+            drawChartFrame(context!, rect: rect)
             drawTimeLabelInXAxis(context!)
             drawPriceLabel(context!)
             drawRatioLabel(context!)
@@ -74,33 +74,26 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     
     //MARK: - Function
     
-    func setCurrentDataMaxAndMin() {
+    func setMaxAndMinData() {
         if let data = self.dataSet?.data where data.count > 0{
-            self.maxPrice = -9999
-            self.minPrice = 9999
-            self.maxRatio = -9999
-            self.minRatio = 9999
-            self.maxVolume = -9999
-            self.offsetMaxPrice = -9999
+            self.maxPrice = data[0].price
+            self.minPrice = data[0].price
+            self.maxRatio = data[0].rate
+            self.minRatio = data[0].rate
+            self.maxVolume = data[0].volume
+            // 分时线和五日线的比较基准
+            let toComparePrice = showFiveDayLabel ? data[0].price : data[0].preClosePx
             
             for i in 0 ..< data.count {
                 let entity = data[i]
-                self.offsetMaxPrice = self.offsetMaxPrice > fabs(entity.price - entity.preClosePx) ? self.offsetMaxPrice : fabs(entity.price - entity.preClosePx)
-                
+                self.priceMaxOffset = self.priceMaxOffset > fabs(entity.price - toComparePrice) ? self.priceMaxOffset : fabs(entity.price - toComparePrice)
+                self.maxRatio = self.maxRatio > entity.rate ? self.maxRatio : entity.rate
+                self.minRatio = self.minRatio < entity.rate ? self.minRatio : entity.rate
                 self.maxVolume = self.maxVolume > entity.volume ? self.maxVolume : entity.volume
-                
-                self.maxRatio = self.maxRatio > fabs(entity.rate) ? self.maxRatio : entity.rate
-                self.minRatio = self.minRatio < fabs(entity.rate) ? self.minRatio : entity.rate
             }
             
-            self.maxPrice = data.first!.preClosePx + self.offsetMaxPrice
-            self.minPrice = data.first!.preClosePx - self.offsetMaxPrice
-            
-            /*
-             if self.minPrice >= self.maxPrice{
-             self.maxPrice = self.maxPrice * 1.02
-             self.minPrice = self.minPrice * 0.98
-             } */
+            self.maxPrice = toComparePrice + self.priceMaxOffset
+            self.minPrice = toComparePrice - self.priceMaxOffset
             
             for i in 0 ..< data.count {
                 let entity = data[i]
@@ -111,8 +104,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     }
     
     //画图表边框
-    override func drawGridBackground(context: CGContextRef, rect: CGRect) {
-        super.drawGridBackground(context, rect: rect)
+    override func drawChartFrame(context: CGContextRef, rect: CGRect) {
+        super.drawChartFrame(context, rect: rect)
         
         if showFiveDayLabel {
             //五日分时图的四条竖线
@@ -185,8 +178,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     func drawTimeLine(context: CGContextRef, data: [TimeLineEntity]){
         CGContextSaveGState(context)
 
-        self.candleCoordsScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
-        self.volumeCoordsScale = (lowerChartHeight - lowerChartDrawAreaMargin) / (self.maxVolume - 0)
+        self.priceOnYaxisScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
+        self.volumeOnYaxisScale = (lowerChartHeight - lowerChartDrawAreaMargin) / (self.maxVolume - 0)
         
         let fillPath = CGPathCreateMutable()
         
@@ -200,14 +193,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         if let temp = data.first {
             //日分时图中间区域线代表昨日的收盘价格，五日分时图的则代表五日内的第一天9点30分的价格
             let price = showFiveDayLabel ? temp.price : temp.preClosePx
-            let preClosePriceYaxis = (self.maxPrice - price) * self.candleCoordsScale + self.uperChartDrawAreaTop
+            let preClosePriceYaxis = (self.maxPrice - price) * self.priceOnYaxisScale + self.uperChartDrawAreaTop
             self.drawline(context,
                           startPoint: CGPointMake(contentLeft, preClosePriceYaxis),
                           stopPoint: CGPointMake(contentRight, preClosePriceYaxis),
                           color: borderColor,
                           lineWidth: borderWidth / 2.0,
                           isDashLine: true)
-            self.drawYAxisLabel(context, labelString: formatValue(temp.preClosePx), yAxis: preClosePriceYaxis, isLeft: false)
+            self.drawYAxisLabel(context, labelString: formatValue(price), yAxis: preClosePriceYaxis, isLeft: false)
         }
         
         for i in 0 ..< data.count {
@@ -223,8 +216,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             if i > 0 {
                 let previousEntity = data[i - 1]
                 let preX: CGFloat = startX - self.volumeWidth
-                let previousPrice = (self.maxPrice - previousEntity.price) * self.candleCoordsScale + self.uperChartDrawAreaTop
-                yPrice = (self.maxPrice - entity.price) * self.candleCoordsScale + self.uperChartDrawAreaTop
+                let previousPrice = (self.maxPrice - previousEntity.price) * self.priceOnYaxisScale + self.uperChartDrawAreaTop
+                yPrice = (self.maxPrice - entity.price) * self.priceOnYaxisScale + self.uperChartDrawAreaTop
                 //画分时线
                 self.drawline(context,
                               startPoint: CGPointMake(preX, previousPrice),
@@ -234,8 +227,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 
                 if isDrawAvgLine {
                     //画均线
-                    let lastYAvg = (self.maxPrice - previousEntity.avgPirce) * self.candleCoordsScale  + self.uperChartDrawAreaTop
-                    let yAvg = (self.maxPrice - entity.avgPirce) * self.candleCoordsScale  + self.uperChartDrawAreaTop
+                    let lastYAvg = (self.maxPrice - previousEntity.avgPirce) * self.priceOnYaxisScale  + self.uperChartDrawAreaTop
+                    let yAvg = (self.maxPrice - entity.avgPirce) * self.priceOnYaxisScale  + self.uperChartDrawAreaTop
                     
                     self.drawline(context, startPoint: CGPointMake(preX, lastYAvg), stopPoint: CGPointMake(startX, yAvg), color: self.dataSet!.avgLineCorlor, lineWidth: self.dataSet!.lineWidth)
                 }
@@ -265,7 +258,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             }
             
             // 成交量
-            let volume = entity.volume * self.volumeCoordsScale
+            let volume = entity.volume * self.volumeOnYaxisScale
             self.drawColumnRect(context, rect: CGRectMake(left, lowerChartBottom - volume, candleWidth, volume), color: color)
             
             // 最高成交量标签
@@ -296,10 +289,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             let candleWidth = self.volumeWidth - self.volumeWidth / 3.0
             let startX = left + candleWidth / 2.0
             var yPrice: CGFloat = 0
-            let volume = entity.volume * self.volumeCoordsScale
+            let volume = entity.volume * self.volumeOnYaxisScale
             if self.longPressToHighlightEnabled {
                 if (i == self.highlightLineCurrentIndex) {
-                    yPrice = (self.maxPrice - entity.price) * self.candleCoordsScale + self.uperChartDrawAreaTop
+                    yPrice = (self.maxPrice - entity.price) * self.priceOnYaxisScale + self.uperChartDrawAreaTop
                     self.drawLongPressHighlight(context,
                                                 pricePoint: CGPointMake(startX, yPrice),
                                                 volumePoint: CGPointMake(startX, self.contentBottom - volume),
@@ -325,14 +318,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.setNeedsDisplay()
             }
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                NSNotificationCenter.defaultCenter().postNotificationName("TimeLineLongpress", object: self.dataSet?.data?[self.highlightLineCurrentIndex])
+                NSNotificationCenter.defaultCenter().postNotificationName(TimeLineLongpress, object: self.dataSet?.data?[self.highlightLineCurrentIndex])
             }
         }
         
         if recognizer.state == .Ended {
             self.longPressToHighlightEnabled = false
             self.setNeedsDisplay()
-            NSNotificationCenter.defaultCenter().postNotificationName("TimeLineUnLongpress", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(TimeLineUnLongpress, object: nil)
         }
     }
     

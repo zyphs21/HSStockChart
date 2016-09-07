@@ -24,6 +24,7 @@ class HSKLineModel: NSObject {
     var diff: CGFloat = 0
     var dea: CGFloat = 0
     var macd: CGFloat = 0
+    var rate: CGFloat = 0
     
     class func getKLineModelArray(json: JSON) -> [HSKLineModel] {
         var models = [HSKLineModel]()
@@ -42,6 +43,7 @@ class HSKLineModel: NSObject {
             model.diff = CGFloat(jsonData["dif"].doubleValue)
             model.dea = CGFloat(jsonData["dea"].doubleValue)
             model.macd = CGFloat(jsonData["macd"].doubleValue)
+            model.rate = CGFloat(jsonData["percent"].doubleValue)
             models.append(model)
         }
         return models

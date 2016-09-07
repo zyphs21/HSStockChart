@@ -40,7 +40,7 @@ class ChartViewController: UIViewController {
         case .timeLineForDay:
             let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("OneDayTimeLine"))
-            stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo)
+            stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
             stockChartView.userInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
             stockChartView.addGestureRecognizer(tapGesture)
@@ -49,7 +49,7 @@ class ChartViewController: UIViewController {
         case .timeLineForFiveday:
             let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("FiveDayTimeLine"))
-            stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo)
+            stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
             stockChartView.showFiveDayLabel = true
             stockChartView.userInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
@@ -59,26 +59,26 @@ class ChartViewController: UIViewController {
             
         case .kLineForDay:
             let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
-            self.view.addSubview(stockChartView)
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
             stockChartView.tag = chartType.rawValue
+            self.view.addSubview(stockChartView)
             
         case .kLineForWeek:
             let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
-            self.view.addSubview(stockChartView)
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("WeeklyKLine"))
             stockChartView.monthInterval = 4
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
             stockChartView.tag = chartType.rawValue
+            self.view.addSubview(stockChartView)
             
         case .kLineForMonth:
             let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
-            self.view.addSubview(stockChartView)
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("MonthlyKLine"))
             stockChartView.monthInterval = 12
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
             stockChartView.tag = chartType.rawValue
+            self.view.addSubview(stockChartView)
         }
     }
     
@@ -95,14 +95,20 @@ class ChartViewController: UIViewController {
     
     // MARK: - Function
     
-    func getTimeLineViewDataSet(data: [HSTimeLineModel], info: HSStockBasicInfoModel) -> TimeLineDataSet {
+    func getTimeLineViewDataSet(data: [HSTimeLineModel], info: HSStockBasicInfoModel, type: HSChartType) -> TimeLineDataSet {
         var timeArray = [TimeLineEntity]()
         var days = [String]()
+        var toComparePrice: CGFloat = 0
         if let firstData = data.first {
             for day in firstData.days {
                 let date = day.toDate("yyyy-MM-dd")?.toString("MM-dd") ?? ""
                 days.append(date)
             }
+        }
+        if type == .timeLineForFiveday {
+            toComparePrice = data[0].price
+        } else {
+            toComparePrice = info.preClosePrice
         }
         
         //获取分时线数据
@@ -114,7 +120,7 @@ class ChartViewController: UIViewController {
             entity.volume = data.volume
             entity.avgPirce = data.averagePirce
             // 涨跌幅
-            entity.rate = (data.price - info.preClosePrice) / info.preClosePrice
+            entity.rate = (data.price - toComparePrice) / toComparePrice
             timeArray.append(entity)
         }
         
@@ -153,6 +159,7 @@ class ChartViewController: UIViewController {
             entity.low = klineModel.low
             entity.close = klineModel.close
             entity.date = klineModel.date
+            entity.rate = klineModel.rate
             entity.ma5 = klineModel.ma5
             entity.ma10 = klineModel.ma10
             entity.ma20 = klineModel.ma20
