@@ -12,6 +12,7 @@ class LandscapeViewController: UIViewController {
 
     var pageMenu : CAPSPageMenu?
     var stockBriefView: HSStockBriefView?
+    var kLineBriefView: HSKLineBriefView?
     var controllerArray: [UIViewController] = []
     var parameters: [CAPSPageMenuOption] = []
     var viewindex: Int = 0
@@ -24,6 +25,8 @@ class LandscapeViewController: UIViewController {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartLongPressView), name: KLineChartLongPress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: KLineChartUnLongPress, object: nil)
         
         let timeViewcontroller = ChartViewController()
         timeViewcontroller.chartType = HSChartType.timeLineForDay
@@ -120,8 +123,12 @@ class LandscapeViewController: UIViewController {
         stockBriefView = HSStockBriefView(frame: CGRectMake(0, 30, self.view.frame.width, 34))
         stockBriefView?.hidden = true
         
+        kLineBriefView = HSKLineBriefView(frame: CGRectMake(0, 30, self.view.frame.width, 34))
+        kLineBriefView?.hidden = true
+        
         self.view.addSubview(pageMenu!.view)
         self.view.addSubview(stockBriefView!)
+        self.view.addSubview(kLineBriefView!)
 
     }
     
@@ -136,6 +143,14 @@ class LandscapeViewController: UIViewController {
     
     func showUnLongPressView() {
         stockBriefView?.hidden = true
+    }
+    
+    func showKLineChartLongPressView(note: NSNotification) {
+        kLineBriefView?.hidden = false
+    }
+    
+    func showKLineChartUnLongPressView(note: NSNotification) {
+        kLineBriefView?.hidden = true
     }
     
     
