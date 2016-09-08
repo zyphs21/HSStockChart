@@ -131,10 +131,7 @@ class LandscapeViewController: UIViewController {
     func showLongPressView(note: NSNotification) {
         let timeLineEntity = note.object as! TimeLineEntity
         stockBriefView?.hidden = false
-        stockBriefView?.priceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
-        stockBriefView?.ratioLabel.text = timeLineEntity.rate.toStringWithFormat("%.2f") + "%"
-        stockBriefView?.timeLabel.text = timeLineEntity.currtTime
-        stockBriefView?.volumeLabel.text = timeLineEntity.volume.toStringWithFormat("%.2f")
+        stockBriefView?.configureView(timeLineEntity)
     }
     
     func showUnLongPressView() {

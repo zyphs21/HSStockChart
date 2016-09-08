@@ -26,6 +26,8 @@
 		C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACA1D6ECDB900D93016 /* Common.swift */; };
 		C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ACB1D6ECDB900D93016 /* Extension.swift */; };
 		C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AD01D6ECDB900D93016 /* ViewController.swift */; };
+		C05B3F961D81401600C181BA /* HSKLineBriefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05B3F951D81401600C181BA /* HSKLineBriefView.xib */; };
+		C05B3F981D81492000C181BA /* HSKLineBriefView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B3F971D81492000C181BA /* HSKLineBriefView.swift */; };
 		C06400061D780C9800B2760A /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06400051D780C9800B2760A /* LandscapeViewController.swift */; };
 		C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */; };
 		C0A53C781D77C30800F4192B /* StockMarketDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */; };
@@ -65,6 +67,8 @@
 		C03E9ACA1D6ECDB900D93016 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		C03E9ACB1D6ECDB900D93016 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		C03E9AD01D6ECDB900D93016 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C05B3F951D81401600C181BA /* HSKLineBriefView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSKLineBriefView.xib; sourceTree = "<group>"; };
+		C05B3F971D81492000C181BA /* HSKLineBriefView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineBriefView.swift; sourceTree = "<group>"; };
 		C06400051D780C9800B2760A /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
 		C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockMarketDataViewController.swift; sourceTree = "<group>"; };
 		C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockMarketDataViewController.xib; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				C01FBFBA1D76E3AE0068A143 /* HSFiveTransactionView.swift */,
 				C0A983061D80149A003C3B4C /* HSStockBriefView.swift */,
 				C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */,
+				C05B3F971D81492000C181BA /* HSKLineBriefView.swift */,
+				C05B3F951D81401600C181BA /* HSKLineBriefView.xib */,
 				C03E9AC01D6ECDB900D93016 /* StockModel */,
 			);
 			path = StockChart;
@@ -285,6 +291,7 @@
 				C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */,
 				C0A983031D7FB5EF003C3B4C /* WeeklyKLine.json in Resources */,
 				C0A53C781D77C30800F4192B /* StockMarketDataViewController.xib in Resources */,
+				C05B3F961D81401600C181BA /* HSKLineBriefView.xib in Resources */,
 				C01FB2A71D7E94E6000C2D6D /* FiveDayTimeLine.json in Resources */,
 				C0A983021D7FB5EF003C3B4C /* MonthlyKLine.json in Resources */,
 				C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */,
@@ -359,6 +366,7 @@
 				C01FBFBB1D76E3AE0068A143 /* HSFiveTransactionView.swift in Sources */,
 				C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */,
 				C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */,
+				C05B3F981D81492000C181BA /* HSKLineBriefView.swift in Sources */,
 				C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */,
 				C01FBFC01D76E4010068A143 /* KLineDataSet.swift in Sources */,
 				C01FBFB61D73DE700068A143 /* HSKLineModel.swift in Sources */,

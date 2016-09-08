@@ -17,19 +17,6 @@ class HSStockBriefView: UIView {
     
     weak var view: UIView!
     
-    func instanceViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let nib = UINib(nibName: String(self.dynamicType), bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
-        return view
-    }
-    
-    func setupSubviews() {
-        view = instanceViewFromNib()
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        addSubview(view)
-    }
-    
     override func layoutSubviews() {
         view.frame = bounds
     }
@@ -42,6 +29,38 @@ class HSStockBriefView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupSubviews()
+    }
+    
+    func setupSubviews() {
+        view = instanceViewFromNib()
+        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        addSubview(view)
+    }
+    
+    func instanceViewFromNib() -> UIView {
+        let bundle = NSBundle(forClass: self.dynamicType)
+        let nib = UINib(nibName: String(self.dynamicType), bundle: bundle)
+        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        return view
+    }
+    
+    func configureView(timeLineEntity: TimeLineEntity) {
+        
+        var labelColor: UIColor
+        if timeLineEntity.rate < 0 {
+            labelColor = UIColor.greenColor()
+        } else if timeLineEntity.rate > 0 {
+            labelColor = UIColor.redColor()
+        } else {
+            labelColor = UIColor.grayColor()
+        }
+        priceLabel.textColor = labelColor
+        ratioLabel.textColor = labelColor
+        
+        priceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
+        ratioLabel.text = (timeLineEntity.rate * 100).toStringWithFormat("%.2f") + "%"
+        timeLabel.text = timeLineEntity.currtTime
+        volumeLabel.text = timeLineEntity.volume.toStringWithFormat("%.2f")
     }
 
 }

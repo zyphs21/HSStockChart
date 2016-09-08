@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var headerStockInfoView: UIView!
     var pageMenu: CAPSPageMenu?
     var stockBriefView: HSStockBriefView?
+    var kLineBriefView: HSKLineBriefView?
 
     
     //MARK: - Life Circle
@@ -22,10 +23,6 @@ class ViewController: UIViewController {
 
         setUpControllerView()
         
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        print("viewcontroller UIDevice.orientation isPortrait " + "\(UIDevice.currentDevice().orientation.isPortrait)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,11 +90,17 @@ class ViewController: UIViewController {
         stockBriefView = HSStockBriefView(frame: CGRectMake(0, headerStockInfoView.frame.height + 20, self.view.frame.width, 34))
         stockBriefView?.hidden = true
         
+        kLineBriefView = HSKLineBriefView(frame: CGRectMake(0, headerStockInfoView.frame.height + 20, self.view.frame.width, 34))
+        kLineBriefView?.hidden = true
+        
         self.view.addSubview(pageMenu!.view)
         self.view.addSubview(stockBriefView!)
+        self.view.addSubview(kLineBriefView!)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: TimeLineLongpress, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: TimeLineUnLongpress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartLongPressView), name: KLineChartLongPress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: KLineChartUnLongPress, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLandScapeChartView), name: KLineUperChartDidTap, object: nil)
         
     }
@@ -112,14 +115,19 @@ class ViewController: UIViewController {
     func showLongPressView(note: NSNotification) {
         let timeLineEntity = note.object as! TimeLineEntity
         stockBriefView?.hidden = false
-        stockBriefView?.priceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
-        stockBriefView?.ratioLabel.text = timeLineEntity.rate.toStringWithFormat("%.2f") + "%"
-        stockBriefView?.timeLabel.text = timeLineEntity.currtTime
-        stockBriefView?.volumeLabel.text = timeLineEntity.volume.toStringWithFormat("%.2f")
+        stockBriefView?.configureView(timeLineEntity)
     }
     
     func showUnLongPressView(note: NSNotification) {
         stockBriefView?.hidden = true
+    }
+    
+    func showKLineChartLongPressView(note: NSNotification) {
+        kLineBriefView?.hidden = false
+    }
+    
+    func showKLineChartUnLongPressView(note: NSNotification) {
+        kLineBriefView?.hidden = true
     }
     
     func showLandScapeChartView(note: NSNotification) {
