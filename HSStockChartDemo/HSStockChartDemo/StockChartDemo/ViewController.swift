@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var headerStockInfoView: UIView!
     var pageMenu: CAPSPageMenu?
-    var longPressToShowView = UIView()
-    var currentPriceLabel = UILabel()    
+    var stockBriefView: HSStockBriefView?
+
     
     //MARK: - Life Circle
     
@@ -90,14 +90,11 @@ class ViewController: UIViewController {
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, headerStockInfoView.frame.height + 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
 
-        longPressToShowView.frame = CGRectMake(0, 150, self.view.frame.width, 30)
-        longPressToShowView.backgroundColor = UIColor.whiteColor()
-        currentPriceLabel.frame = CGRectMake(0, 0, self.view.frame.width, 25)
-        longPressToShowView.addSubview(currentPriceLabel)
-        longPressToShowView.hidden = true
+        stockBriefView = HSStockBriefView(frame: CGRectMake(0, headerStockInfoView.frame.height + 20, self.view.frame.width, 34))
+        stockBriefView?.hidden = true
         
         self.view.addSubview(pageMenu!.view)
-        self.view.addSubview(longPressToShowView)        
+        self.view.addSubview(stockBriefView!)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: TimeLineLongpress, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: TimeLineUnLongpress, object: nil)
@@ -114,13 +111,15 @@ class ViewController: UIViewController {
     
     func showLongPressView(note: NSNotification) {
         let timeLineEntity = note.object as! TimeLineEntity
-        longPressToShowView.hidden = false
-        currentPriceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
-        print("当前价格" + "\(timeLineEntity.price)")
+        stockBriefView?.hidden = false
+        stockBriefView?.priceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
+        stockBriefView?.ratioLabel.text = timeLineEntity.rate.toStringWithFormat("%.2f") + "%"
+        stockBriefView?.timeLabel.text = timeLineEntity.currtTime
+        stockBriefView?.volumeLabel.text = timeLineEntity.volume.toStringWithFormat("%.2f")
     }
     
     func showUnLongPressView(note: NSNotification) {
-        longPressToShowView.hidden = true
+        stockBriefView?.hidden = true
     }
     
     func showLandScapeChartView(note: NSNotification) {

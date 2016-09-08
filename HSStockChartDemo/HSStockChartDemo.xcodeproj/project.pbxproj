@@ -34,6 +34,8 @@
 		C0A983021D7FB5EF003C3B4C /* MonthlyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */; };
 		C0A983031D7FB5EF003C3B4C /* WeeklyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */; };
 		C0A983051D7FB6A2003C3B4C /* FiveTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A983041D7FB6A2003C3B4C /* FiveTrade.json */; };
+		C0A983071D80149A003C3B4C /* HSStockBriefView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A983061D80149A003C3B4C /* HSStockBriefView.swift */; };
+		C0A983091D8014AD003C3B4C /* HSStockBriefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */; };
 		C0FAA64E1D7D68D900F15200 /* OneDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */; };
 		C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */; };
 		C0FAA6521D7D736800F15200 /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA6511D7D736800F15200 /* SZ300033.json */; };
@@ -71,6 +73,8 @@
 		C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonthlyKLine.json; sourceTree = "<group>"; };
 		C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeeklyKLine.json; sourceTree = "<group>"; };
 		C0A983041D7FB6A2003C3B4C /* FiveTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveTrade.json; sourceTree = "<group>"; };
+		C0A983061D80149A003C3B4C /* HSStockBriefView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBriefView.swift; sourceTree = "<group>"; };
+		C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSStockBriefView.xib; sourceTree = "<group>"; };
 		C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSStockChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OneDayTimeLine.json; sourceTree = "<group>"; };
 		C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBasicInfoModel.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				C03E9AC71D6ECDB900D93016 /* HSTimeLineStockChartView.swift */,
 				C03E9ABF1D6ECDB900D93016 /* HSKLineStockChartView.swift */,
 				C01FBFBA1D76E3AE0068A143 /* HSFiveTransactionView.swift */,
+				C0A983061D80149A003C3B4C /* HSStockBriefView.swift */,
+				C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */,
 				C03E9AC01D6ECDB900D93016 /* StockModel */,
 			);
 			path = StockChart;
@@ -283,6 +289,7 @@
 				C0A983021D7FB5EF003C3B4C /* MonthlyKLine.json in Resources */,
 				C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */,
 				C0A983011D7FB5EF003C3B4C /* DaylyKLine.json in Resources */,
+				C0A983091D8014AD003C3B4C /* HSStockBriefView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +367,7 @@
 				C06400061D780C9800B2760A /* LandscapeViewController.swift in Sources */,
 				C03E9AE91D6ECDB900D93016 /* HSTimeLineStockChartView.swift in Sources */,
 				C03E9AE21D6ECDB900D93016 /* HSKLineStockChartView.swift in Sources */,
+				C0A983071D80149A003C3B4C /* HSStockBriefView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
