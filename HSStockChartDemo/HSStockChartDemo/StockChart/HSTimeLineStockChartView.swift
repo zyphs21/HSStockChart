@@ -318,14 +318,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.setNeedsDisplay()
             }
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                NSNotificationCenter.defaultCenter().postNotificationName(TimeLineLongpress, object: self.dataSet?.data?[self.highlightLineCurrentIndex])
+                NSNotificationCenter.defaultCenter().postNotificationName(TimeLineLongpress, object: self, userInfo: ["timeLineEntity": (self.dataSet?.data?[self.highlightLineCurrentIndex])!])
             }
         }
         
         if recognizer.state == .Ended {
             self.longPressToHighlightEnabled = false
             self.setNeedsDisplay()
-            NSNotificationCenter.defaultCenter().postNotificationName(TimeLineUnLongpress, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(TimeLineUnLongpress, object: self)
         }
     }
     

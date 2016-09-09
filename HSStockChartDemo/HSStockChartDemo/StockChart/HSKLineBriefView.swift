@@ -46,5 +46,43 @@ class HSKLineBriefView: UIView {
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
         return view
     }
+    
+    func configureView(preClose: CGFloat, kLineEntity: KLineEntity) {
+        let riseColor = UIColor.redColor()
+        let downColor = UIColor(rgba: "#1DBF60")
+
+        if kLineEntity.rate > 0 {
+            close.textColor = riseColor
+            ratio.textColor = riseColor
+        } else {
+            close.textColor = downColor
+            ratio.textColor = downColor
+        }
+        
+        if preClose < kLineEntity.open {
+            open.textColor = riseColor
+        } else {
+            open.textColor = downColor
+        }
+        
+        if preClose < kLineEntity.high {
+            high.textColor = riseColor
+        } else {
+            high.textColor = downColor
+        }
+        
+        if preClose < kLineEntity.low {
+            low.textColor = riseColor
+        } else {
+            low.textColor = downColor
+        }
+        open.text = kLineEntity.open.toStringWithFormat("%.2f")
+        close.text = kLineEntity.close.toStringWithFormat("%.2f")
+        high.text = kLineEntity.high.toStringWithFormat("%.2f")
+        low.text = kLineEntity.low.toStringWithFormat("%.2f")
+        volume.text = (kLineEntity.volume / 10000).toStringWithFormat("%.2f") + "万"
+        ratio.text = kLineEntity.rate.toStringWithFormat("%.2f") + "%"
+        time.text = kLineEntity.date
+    }
 
 }

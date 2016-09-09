@@ -112,26 +112,31 @@ class ViewController: UIViewController {
         self.presentViewController(stockMarketViewController, animated: false, completion: nil)
     }
     
-    func showLongPressView(note: NSNotification) {
-        let timeLineEntity = note.object as! TimeLineEntity
+    func showLongPressView(notification: NSNotification) {
+        let dataDictionary = notification.userInfo as! [String: AnyObject]
+        let timeLineEntity = dataDictionary["timeLineEntity"] as! TimeLineEntity
         stockBriefView?.hidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
     
-    func showUnLongPressView(note: NSNotification) {
+    func showUnLongPressView(notification: NSNotification) {
         stockBriefView?.hidden = true
     }
     
-    func showKLineChartLongPressView(note: NSNotification) {
+    func showKLineChartLongPressView(notification: NSNotification) {
+        let dataDictionary = notification.userInfo as! [String: AnyObject]
+        let preClose = dataDictionary["preClose"] as! CGFloat
+        let klineEntity = dataDictionary["kLineEntity"] as! KLineEntity
+        kLineBriefView?.configureView(preClose, kLineEntity: klineEntity)
         kLineBriefView?.hidden = false
     }
     
-    func showKLineChartUnLongPressView(note: NSNotification) {
+    func showKLineChartUnLongPressView(notification: NSNotification) {
         kLineBriefView?.hidden = true
     }
     
-    func showLandScapeChartView(note: NSNotification) {
-        let index = note.object as! Int
+    func showLandScapeChartView(notification: NSNotification) {
+        let index = notification.object as! Int
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
             vc.modalTransitionStyle = .CrossDissolve
             vc.viewindex = index

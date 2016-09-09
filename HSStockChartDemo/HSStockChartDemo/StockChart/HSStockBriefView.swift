@@ -48,7 +48,7 @@ class HSStockBriefView: UIView {
         
         var labelColor: UIColor
         if timeLineEntity.rate < 0 {
-            labelColor = UIColor.greenColor()
+            labelColor = UIColor(rgba: "#1DBF60")
         } else if timeLineEntity.rate > 0 {
             labelColor = UIColor.redColor()
         } else {

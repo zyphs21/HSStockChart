@@ -496,7 +496,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             }
             
             self.startDrawIndex += moveCount
-            //TODO:回弹效果
+
             if startDrawIndex > self.dataSet?.data?.count {
                 self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
             }
@@ -561,8 +561,10 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 self.setNeedsDisplay()
             }
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                // TODO: 添加 notification 通知显示 viewcontroller 显示具体信息的 view
-                NSNotificationCenter.defaultCenter().postNotificationName(KLineChartLongPress, object: self.dataSet?.data?[self.highlightLineCurrentIndex])
+                let lastData = highlightLineCurrentIndex > 0 ? self.dataSet?.data?[self.highlightLineCurrentIndex - 1] : self.dataSet?.data?[0]
+                let userInfo: [NSObject: AnyObject]? = ["preClose" : (lastData?.close)!,
+                              "kLineEntity" : (self.dataSet?.data?[self.highlightLineCurrentIndex])! ]
+                NSNotificationCenter.defaultCenter().postNotificationName(KLineChartLongPress, object: self, userInfo: userInfo)
             }
         }
         
@@ -570,7 +572,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.longPressToHighlightEnabled = false
             self.setNeedsDisplay()
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                NSNotificationCenter.defaultCenter().postNotificationName(KLineChartUnLongPress, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(KLineChartUnLongPress, object: self)
             }
         }
     }
