@@ -17,7 +17,7 @@ class TimeLineDataSet {
     var highlightLineWidth : CGFloat = 0
     var highlightLineColor = UIColor.blueColor()
     var lineWidth : CGFloat = 1
-    var priceLineCorlor = UIColor.grayColor()
+    var priceLineCorlor = UIColor(rgba: "#0095ff")
     var avgLineCorlor = UIColor.yellowColor()
     var volumeRiseColor = UIColor.redColor()
     var volumeFallColor = UIColor.greenColor()

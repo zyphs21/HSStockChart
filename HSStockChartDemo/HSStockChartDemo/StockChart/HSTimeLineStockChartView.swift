@@ -13,7 +13,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     var priceOnYaxisScale : CGFloat = 0
     var volumeOnYaxisScale : CGFloat = 0
     
-    var endPointShowEnabled = true
+    var enableAnimatePoint = true
     var isDrawAvgLine = true
     
     var countOfTimes = 242 // 分时线的横坐标
@@ -32,6 +32,24 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         }
     }
     
+    var layerWidth: CGFloat = 4
+    lazy var animatePoint: CALayer = {
+        var animatePoint = CALayer()
+        self.layer.addSublayer(animatePoint)
+        animatePoint.backgroundColor = UIColor(rgba: "#0095ff").CGColor
+        animatePoint.cornerRadius = 2
+        
+        let layer = CALayer()
+        layer.frame = CGRectMake(0, 0, 4, 4)
+        layer.backgroundColor = UIColor(rgba: "#0095ff").CGColor
+        layer.cornerRadius = 2
+        layer.addAnimation(self.breathingLightAnimate(2), forKey: nil)
+        
+        animatePoint.addSublayer(layer)
+        
+        return animatePoint
+    }()
+
     
     //MARK: - 构造方法
     
@@ -269,10 +287,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.drawYAxisLabel(context, labelString: maxVolumeStr, yAxis: y, isLeft: false)
             }
             
-            //结束点高亮显示
-            if self.endPointShowEnabled {
+            // 分时线最后一个点动画显示
+            if self.enableAnimatePoint {
                 if (i == data.count - 1) {
-                    //self.breathingPoint.frame = CGRectMake(startX-4/2, yPrice-4/2, 4, 4)
+                    self.animatePoint.frame = CGRectMake(startX - layerWidth/2, yPrice - layerWidth/2, layerWidth, layerWidth)
                 }
             }
         }
@@ -327,6 +345,36 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             self.setNeedsDisplay()
             NSNotificationCenter.defaultCenter().postNotificationName(TimeLineUnLongpress, object: self)
         }
+    }
+    
+    func breathingLightAnimate(time:Double) -> CAAnimationGroup {
+        
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = 1
+        scaleAnimation.toValue = 3
+        scaleAnimation.autoreverses = false
+        scaleAnimation.removedOnCompletion = true
+        scaleAnimation.repeatCount = MAXFLOAT
+        scaleAnimation.duration = time
+        
+        let opacityAnimation = CABasicAnimation(keyPath:"opacity")
+        opacityAnimation.fromValue = 1.0
+        opacityAnimation.toValue = 0
+        opacityAnimation.autoreverses = false
+        opacityAnimation.removedOnCompletion = true
+        opacityAnimation.repeatCount = MAXFLOAT
+        opacityAnimation.duration = time
+        opacityAnimation.fillMode = kCAFillModeForwards
+        
+        let group = CAAnimationGroup()
+        group.duration = time
+        group.autoreverses = false
+        group.removedOnCompletion = true
+        group.fillMode = kCAFillModeForwards
+        group.animations = [scaleAnimation,opacityAnimation]
+        group.repeatCount = MAXFLOAT
+        
+        return group
     }
     
 }
