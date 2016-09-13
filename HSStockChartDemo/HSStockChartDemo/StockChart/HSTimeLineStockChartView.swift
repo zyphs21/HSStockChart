@@ -33,6 +33,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     }
     
     var layerWidth: CGFloat = 4
+    
     lazy var animatePoint: CALayer = {
         var animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
@@ -260,7 +261,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                     color = self.dataSet!.volumeTieColor
                 }
                 
-                //填充渐变颜色
+                // 为填充渐变颜色，包围图形
                 if 1 == i {
                     CGPathMoveToPoint(fillPath, nil, self.contentLeft, uperChartHeight + self.contentTop)
                     CGPathAddLineToPoint(fillPath, nil, self.contentLeft, previousPrice)
@@ -348,7 +349,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     }
     
     func breathingLightAnimate(time:Double) -> CAAnimationGroup {
-        
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.fromValue = 1
         scaleAnimation.toValue = 3
@@ -375,6 +375,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         group.repeatCount = MAXFLOAT
         
         return group
+    }
+    
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        print("animation did stop")
     }
     
 }

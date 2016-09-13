@@ -533,19 +533,19 @@ extension UIImage{
         return theImage
     }
 }
-//
-//extension UILabel{
-//    func getLabelHeight() -> CGFloat{
-//        let constraint = CGSizeMake(self.frame.size.width, 99999)
-//        let context = NSStringDrawingContext()
-//        if let t = self.text{
-//            let boundingBox = (t as NSString).boundingRectWithSize(constraint, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:self.font], context: context).size
-//            let size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height))
-//            return size.height
-//        }
-//        return 0
-//           }
-//}
+
+extension UILabel{
+    func getLabelHeight() -> CGFloat{
+        let constraint = CGSizeMake(self.frame.size.width, 99999)
+        let context = NSStringDrawingContext()
+        if let t = self.text{
+            let boundingBox = (t as NSString).boundingRectWithSize(constraint, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:self.font], context: context).size
+            let size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height))
+            return size.height
+        }
+        return 0
+           }
+}
 
 extension UILabel {
     func heightWithWidth(width: CGFloat) -> CGFloat {

@@ -25,6 +25,7 @@ class ChartViewController: UIViewController {
     
     var chartType: HSChartType = .timeLineForDay
     var delegate: ChartViewControllerDelegate?
+    var timeLineView: HSTimeLineStockChartView?
     var tapGesture : UITapGestureRecognizer{
         return UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
     }
@@ -32,19 +33,35 @@ class ChartViewController: UIViewController {
     
     // MARK: - Life Circle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setUpViewController()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+//        self.timeLineView?.animatePoint.addAnimation(self.breathingLightAnimate(2), forKey: nil)
+    }
+    
+    // MARK: - Function
+    
     func setUpViewController() {
         let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(getJsonDataFromFile("SZ300033"))
         
         switch chartType {
             
         case .timeLineForDay:
-            let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+            timeLineView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("OneDayTimeLine"))
-            stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
-            stockChartView.userInteractionEnabled = true
-            stockChartView.tag = chartType.rawValue
-            stockChartView.addGestureRecognizer(tapGesture)
-            self.view.addSubview(stockChartView)
+            timeLineView!.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
+            timeLineView!.userInteractionEnabled = true
+            timeLineView!.tag = chartType.rawValue
+            timeLineView!.addGestureRecognizer(tapGesture)
+            self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
             let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
@@ -81,19 +98,6 @@ class ChartViewController: UIViewController {
             self.view.addSubview(stockChartView)
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setUpViewController()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    
-    // MARK: - Function
     
     func getTimeLineViewDataSet(data: [HSTimeLineModel], info: HSStockBasicInfoModel, type: HSChartType) -> TimeLineDataSet {
         var timeArray = [TimeLineEntity]()
@@ -189,4 +193,32 @@ class ChartViewController: UIViewController {
         delegate?.showLandscapeChartView(index)
     }
     
+//    func breathingLightAnimate(time:Double) -> CAAnimationGroup {
+//        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+//        scaleAnimation.fromValue = 1
+//        scaleAnimation.toValue = 3
+//        scaleAnimation.autoreverses = false
+//        scaleAnimation.removedOnCompletion = true
+//        scaleAnimation.repeatCount = MAXFLOAT
+//        scaleAnimation.duration = time
+//        
+//        let opacityAnimation = CABasicAnimation(keyPath:"opacity")
+//        opacityAnimation.fromValue = 1.0
+//        opacityAnimation.toValue = 0
+//        opacityAnimation.autoreverses = false
+//        opacityAnimation.removedOnCompletion = true
+//        opacityAnimation.repeatCount = MAXFLOAT
+//        opacityAnimation.duration = time
+//        opacityAnimation.fillMode = kCAFillModeForwards
+//        
+//        let group = CAAnimationGroup()
+//        group.duration = time
+//        group.autoreverses = false
+//        group.removedOnCompletion = true
+//        group.fillMode = kCAFillModeForwards
+//        group.animations = [scaleAnimation,opacityAnimation]
+//        group.repeatCount = MAXFLOAT
+//        
+//        return group
+//    }
 }
