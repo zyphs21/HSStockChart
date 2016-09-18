@@ -11,8 +11,8 @@ import Foundation
 import UIKit
 
 public extension UIView {
-    class func loadFromNibNamed(nibName:String,bundle : NSBundle? = nil) -> UIView? {
-        return UINib(nibName: nibName, bundle: bundle).instantiateWithOwner(nil, options: nil)[0] as? UIView
+    class func loadFromNibNamed(_ nibName:String,bundle : Bundle? = nil) -> UIView? {
+        return UINib(nibName: nibName, bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as? UIView
     }
     
     public var width:CGFloat! {
@@ -90,14 +90,14 @@ extension UIColor {
         var alpha: CGFloat = 1.0
         
         if rgba.hasPrefix("#") {
-            var hexStr = (rgba as NSString).substringFromIndex(1) as NSString
+            var hexStr = (rgba as NSString).substring(from: 1) as NSString
             if hexStr.length == 8 {
-                let alphaHexStr = hexStr.substringFromIndex(6)
-                hexStr = hexStr.substringToIndex(6)
+                let alphaHexStr = hexStr.substring(from: 6)
+                hexStr = hexStr.substring(to: 6) as NSString
                 
                 var alphaHexValue: UInt32 = 0
-                let alphaScanner = NSScanner(string: alphaHexStr)
-                if alphaScanner.scanHexInt(&alphaHexValue) {
+                let alphaScanner = Scanner(string: alphaHexStr)
+                if alphaScanner.scanHexInt32(&alphaHexValue) {
                     let alphaHex = Int(alphaHexValue)
                     alpha = CGFloat(alphaHex & 0x000000FF) / 255.0
                 } else {
@@ -105,9 +105,9 @@ extension UIColor {
                 }
             }
             
-            let rgbScanner = NSScanner(string: hexStr as String)
+            let rgbScanner = Scanner(string: hexStr as String)
             var hexValue: UInt32 = 0
-            if rgbScanner.scanHexInt(&hexValue) {
+            if rgbScanner.scanHexInt32(&hexValue) {
                 if hexStr.length == 6 {
                     let hex = Int(hexValue)
                     red   = CGFloat((hex & 0xFF0000) >> 16) / 255.0
@@ -128,10 +128,10 @@ extension UIColor {
 
 
 extension Double{
-    public func toDate() -> NSDate {
-        let d:NSTimeInterval  = self/1000
+    public func toDate() -> Date {
+        let d:TimeInterval  = self/1000
         
-        return NSDate(timeIntervalSince1970: d)
+        return Date(timeIntervalSince1970: d)
     }
 }
 
@@ -139,7 +139,7 @@ extension String {
     
     //48-57num  65-90A 97-122a
     func allCharacter() -> Bool {
-        if let asciiString = self.cStringUsingEncoding(NSASCIIStringEncoding){
+        if let asciiString = self.cString(using: String.Encoding.ascii){
             for v in 0 ..< asciiString.count - 1 {
                 if (asciiString[v] >= 48 && asciiString[v] <= 57) || (asciiString[v] >= 65 && v <= 90) || (asciiString[v] >= 97 && asciiString[v] <= 122) {
                     return false
@@ -152,7 +152,7 @@ extension String {
     }
     
     func allNumber() -> Bool {
-        if let asciiString = self.cStringUsingEncoding(NSASCIIStringEncoding){
+        if let asciiString = self.cString(using: String.Encoding.ascii){
             for v in 0 ..< asciiString.count - 1 {
                 if !(asciiString[v] >= 48 && asciiString[v] <= 57){
                     return false
@@ -165,7 +165,7 @@ extension String {
     }
     
     func allLetter() -> Bool {
-        if let asciiString = self.cStringUsingEncoding(NSASCIIStringEncoding){
+        if let asciiString = self.cString(using: String.Encoding.ascii){
             for v in 0 ..< asciiString.count - 1 {
                 if !((asciiString[v] >= 65 && asciiString[v] <= 90) || (asciiString[v] >= 97 && asciiString[v] <= 122)) {
                     return false
@@ -184,13 +184,13 @@ extension String {
     func escapeSpaceTillCahractor()->String{
         return self.stringEscapeHeadTail(strs:["\r", " ", "\n"])
     }
-    func escapeHeadStr(str:String)->(String, Bool){
+    func escapeHeadStr(_ str:String)->(String, Bool){
         var result = self as NSString
         var findAtleastOne = false
         while( true ){
-            let range = result.rangeOfString(str)
+            let range = result.range(of: str)
             if range.location == 0 && range.length == 1 {
-                result = result.substringFromIndex(range.length)
+                result = result.substring(from: range.length) as NSString
                 findAtleastOne = true
             }else{
                 break
@@ -198,7 +198,7 @@ extension String {
         }
         return (result as String, findAtleastOne)
     }
-    func escapeSpaceTillCahractor(strs strs:[String])->String{
+    func escapeSpaceTillCahractor(strs:[String])->String{
         var result = self
         while( true ){
             var findAtleastOne = false
@@ -228,23 +228,23 @@ extension String {
         return self.escapeSpaceTillCahractor().reverse().escapeSpaceTillCahractor().reverse()
     }
     
-    func stringEscapeHeadTail(strs strs:[String])->String{
+    func stringEscapeHeadTail(strs:[String])->String{
         return self.escapeSpaceTillCahractor(strs:strs).reverse().escapeSpaceTillCahractor(strs:strs).reverse()
     }
     
-    func toDate(format:String) -> NSDate? {
-        let dateformatter = NSDateFormatter()
-        dateformatter.timeZone=NSTimeZone.localTimeZone()
+    func toDate(_ format:String) -> Date? {
+        let dateformatter = DateFormatter()
+        dateformatter.timeZone=TimeZone.autoupdatingCurrent
         dateformatter.dateFormat = format
         
-        return dateformatter.dateFromString(self)
+        return dateformatter.date(from: self)
     }
     
     func toDouble() -> Double {
         return (self as NSString).doubleValue
     }
     
-    func toRatioAttributedString(isChangeColor:Bool = true,isPlusShow:Bool = false,isSubShow:Bool = false) -> NSMutableAttributedString {
+    func toRatioAttributedString(_ isChangeColor:Bool = true,isPlusShow:Bool = false,isSubShow:Bool = false) -> NSMutableAttributedString {
         let d = self.toDouble()
         
         if d > 0 {
@@ -275,7 +275,7 @@ extension String {
         }
     }
     
-    func toRatioAttributedString(format:String,isChangeColor:Bool = true,isPlusShow:Bool = false,isSubShow:Bool = false) -> NSMutableAttributedString {
+    func toRatioAttributedString(_ format:String,isChangeColor:Bool = true,isPlusShow:Bool = false,isSubShow:Bool = false) -> NSMutableAttributedString {
         
         
         let d = self.toDouble()
@@ -306,103 +306,103 @@ extension String {
         }
     }
     
-    func stringByAppendingPathComponent(pathComponent: String) -> String {
-        return (self as NSString).stringByAppendingPathComponent(pathComponent)
+    func stringByAppendingPathComponent(_ pathComponent: String) -> String {
+        return (self as NSString).appendingPathComponent(pathComponent)
     }
     
 }
 
-extension NSDate {
+extension Date {
     
-    func addYear(year:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Year, value: year, toDate: NSDate(), options: NSCalendarOptions.init(rawValue: 0))!
+    func addYear(_ year:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.year, value: year, to: Date(), options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func addMonth(mon:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Month, value: mon, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+    func addMonth(_ mon:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.month, value: mon, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func addDay(day:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: day, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+    func addDay(_ day:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.day, value: day, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func addHour(hour:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Hour, value: hour, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+    func addHour(_ hour:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.hour, value: hour, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func addMin(min:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Minute, value: min, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+    func addMin(_ min:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.minute, value: min, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func addSecond(second:Int) -> NSDate{
-        return NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Second, value: second, toDate: self, options: NSCalendarOptions.init(rawValue: 0))!
+    func addSecond(_ second:Int) -> Date{
+        return (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.second, value: second, to: self, options: NSCalendar.Options.init(rawValue: 0))!
     }
     
-    func toString(format:String) -> String {
-        let dateformatter = NSDateFormatter()
-        dateformatter.timeZone = NSTimeZone.localTimeZone()
+    func toString(_ format:String) -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.timeZone = TimeZone.autoupdatingCurrent
         dateformatter.dateFormat = format
-        return dateformatter.stringFromDate(self)
+        return dateformatter.string(from: self)
     }
     
-    class func toDate(dateString: String, format: String) -> NSDate {
-        let dateformatter = NSDateFormatter()
+    static func toDate(_ dateString: String, format: String) -> Date {
+        let dateformatter = DateFormatter()
         //dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateformatter.dateFormat = format
-        dateformatter.locale = NSLocale(localeIdentifier: "en_US")
-        let date = dateformatter.dateFromString(dateString) ?? NSDate()
+        dateformatter.locale = Locale(identifier: "en_US")
+        let date = dateformatter.date(from: dateString) ?? Date()
         return date
     }
     
     var second:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).second
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).second!
         }
     }
     
     var min:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).minute
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).minute!
         }
     }
     
     var hour:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).hour
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).hour!
         }
     }
     
     var day:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).day
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).day!
         }
     }
     
     var month:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).month
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).month!
         }
     }
     
     var year:Int{
         get{
-            return NSCalendar.currentCalendar().components([.Day,.Month,.Year,.Hour,.Minute,.Second], fromDate: self).year
+            return (Calendar.current as NSCalendar).components([.day,.month,.year,.hour,.minute,.second], from: self).year!
         }
     }
     
     // @Brief 判断时间是否为交易时间
     func isTradingTime() -> Bool {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Hour,.Minute], fromDate: self)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.hour,.minute], from: self)
         
         let hour = components.hour
         let minutes = components.minute
-        let is1 = hour >= 9 && hour < 10 && minutes >= 15
-        let is2 = hour >= 10 && hour <= 11
-        let is3 = hour > 11  && hour < 11 && minutes <= 31
-        let is4 = hour >= 13 && hour < 14
-        let is5 = hour >= 14 && hour < 15
-        let is6 = hour >= 15 && minutes <= 1
+        let is1 = hour! >= 9 && hour! < 10 && minutes! >= 15
+        let is2 = hour! >= 10 && hour! <= 11
+        let is3 = hour! > 11  && hour! < 11 && minutes! <= 31
+        let is4 = hour! >= 13 && hour! < 14
+        let is5 = hour! >= 14 && hour! < 15
+        let is6 = hour! >= 15 && minutes! <= 1
         
         
         if is1 || is2 || is3 || is4 || is5 || is6 {
@@ -413,9 +413,9 @@ extension NSDate {
     }
     
     func isToday() ->Bool{
-        let calender = NSCalendar.currentCalendar()
-        let selfCmps = calender.components([.Day,.Month,.Year], fromDate: self)
-        let nowCmps = calender.components([.Day,.Month,.Year], fromDate: NSDate())
+        let calender = Calendar.current
+        let selfCmps = (calender as NSCalendar).components([.day,.month,.year], from: self)
+        let nowCmps = (calender as NSCalendar).components([.day,.month,.year], from: Date())
         if selfCmps.year == nowCmps.year && selfCmps.month == nowCmps.month && selfCmps.day == nowCmps.day {
             return true
         }else{
@@ -435,7 +435,7 @@ extension NSDate {
     //        return false
     //    }
     //是否新股
-    func isNewStock(lsdt:NSDate) ->Bool{
+    func isNewStock(_ lsdt:Date) ->Bool{
         
         let nowTimeDifference = self.timeIntervalSince1970
         let lsdtTimeDifference = lsdt.timeIntervalSince1970
@@ -452,18 +452,18 @@ extension NSDate {
 
 extension CGFloat{
     /// %.2f 不带科学计数
-    func toStringWithFormat(format:String) -> String! {
-        return NSString(format: format, self) as String
+    func toStringWithFormat(_ format:String) -> String! {
+        return NSString(format: format as NSString, self) as String
     }
     
     /// "###,##0.00"
     /// "0.00"
     /// 科学计数
-    func toStringWithFormat1(format:String) -> String! {
-        let nsnumberformaer = NSNumberFormatter()
+    func toStringWithFormat1(_ format:String) -> String! {
+        let nsnumberformaer = NumberFormatter()
         nsnumberformaer.positiveFormat = format
-        nsnumberformaer.locale = NSLocale.currentLocale()
-        let BB = nsnumberformaer.stringFromNumber(self)!
+        nsnumberformaer.locale = Locale.current
+        let BB = nsnumberformaer.string(from: NSNumber(value: Float(self)))!
         
         return BB
     }
@@ -472,24 +472,24 @@ extension CGFloat{
 extension Double {
     
     /// %.2f 不带科学计数
-    func toStringWithFormat(format:String) -> String! {
-        return NSString(format: format, self) as String
+    func toStringWithFormat(_ format:String) -> String! {
+        return NSString(format: format as NSString, self) as String
     }
     
     /// "###,##0.00"
     /// "0.00"
     /// 科学计数
-    func toStringWithFormat1(format:String) -> String! {
-        let nsnumberformaer = NSNumberFormatter()
+    func toStringWithFormat1(_ format:String) -> String! {
+        let nsnumberformaer = NumberFormatter()
         nsnumberformaer.positiveFormat = format
-        nsnumberformaer.locale = NSLocale.currentLocale()
-        let BB = nsnumberformaer.stringFromNumber(self)!
+        nsnumberformaer.locale = Locale.current
+        let BB = nsnumberformaer.string(from: NSNumber(value: self))!
         
         return BB
     }
     
     
-    func toRatioAttributedString(isChangeColor:Bool = true,isPlusShow:Bool = true,isSubShow:Bool = true) -> NSMutableAttributedString {
+    func toRatioAttributedString(_ isChangeColor:Bool = true,isPlusShow:Bool = true,isSubShow:Bool = true) -> NSMutableAttributedString {
         let d = self
         
         if d > 0 {
@@ -520,27 +520,27 @@ extension Double {
 }
 
 extension UIImage{
-    class func imageWithColor(color:UIColor) -> UIImage
+    class func imageWithColor(_ color:UIColor) -> UIImage
     {
-        let rect = CGRectMake(0, 0, 1, 1)
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
         
         let theImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return theImage
+        return theImage!
     }
 }
 
 extension UILabel{
     func getLabelHeight() -> CGFloat{
-        let constraint = CGSizeMake(self.frame.size.width, 99999)
+        let constraint = CGSize(width: self.frame.size.width, height: 99999)
         let context = NSStringDrawingContext()
         if let t = self.text{
-            let boundingBox = (t as NSString).boundingRectWithSize(constraint, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:self.font], context: context).size
-            let size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height))
+            let boundingBox = (t as NSString).boundingRect(with: constraint, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:self.font], context: context).size
+            let size = CGSize(width: ceil(boundingBox.width), height: ceil(boundingBox.height))
             return size.height
         }
         return 0
@@ -548,14 +548,14 @@ extension UILabel{
 }
 
 extension UILabel {
-    func heightWithWidth(width: CGFloat) -> CGFloat {
+    func heightWithWidth(_ width: CGFloat) -> CGFloat {
         guard let text = text else {
             return 0
         }
         return text.heightWithWidth(width, font: font)
     }
     
-    func heightWithAttributedWidth(width: CGFloat) -> CGFloat {
+    func heightWithAttributedWidth(_ width: CGFloat) -> CGFloat {
         guard let attributedText = attributedText else {
             return 0
         }
@@ -564,24 +564,24 @@ extension UILabel {
 }
 
 extension String {
-    func heightWithWidth(width: CGFloat, font: UIFont) -> CGFloat {
-        let maxSize = CGSize(width: width, height: CGFloat.max)
-        let actualSize = self.boundingRectWithSize(maxSize, options: [.UsesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: nil)
+    func heightWithWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        let actualSize = self.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: nil)
         return actualSize.height
     }
 }
 
 extension NSAttributedString {
-    func heightWithWidth(width: CGFloat) -> CGFloat {
-        let maxSize = CGSize(width: width, height: CGFloat.max)
-        let actualSize = boundingRectWithSize(maxSize, options: [.UsesLineFragmentOrigin], context: nil)
+    func heightWithWidth(_ width: CGFloat) -> CGFloat {
+        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        let actualSize = boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], context: nil)
         return actualSize.height
     }
 }
 
 
 extension UIFont {
-    func sizeOfString(string:String,constrainedToWidth width: CGFloat) -> CGSize {
-        return NSString(string: string).boundingRectWithSize(CGSize(width: width, height: 9999), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:self], context: nil).size
+    func sizeOfString(_ string:String,constrainedToWidth width: CGFloat) -> CGSize {
+        return NSString(string: string).boundingRect(with: CGSize(width: width, height: 9999), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:self], context: nil).size
     }
 }

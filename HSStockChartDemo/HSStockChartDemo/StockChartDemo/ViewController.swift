@@ -29,14 +29,29 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return false
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait
+    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+        return UIInterfaceOrientation.portrait
     }
     
+    override func viewWillLayoutSubviews() {
+        print("----------viewWillLayoutSubviews--------------- ")
+        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
+        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
+        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
+        print("------------------------------------- ")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("----------viewDidLayoutSubviews--------------- ")
+        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
+        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
+        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
+        print("------------------------------------- ")
+    }
     
     //MARK: - Function
     
@@ -75,72 +90,77 @@ class ViewController: UIViewController {
         controllerArray.append(monthlyKLineViewController)
         
         let parameters: [CAPSPageMenuOption] = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .UnselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
-            .SelectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .MenuItemSeparatorHidden(true),
-            .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorPercentageHeight(0.1),
-            .TitleTextSizeBasedOnMenuItemWidth(true)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .selectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .unselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
+            .selectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .menuItemSeparatorHidden(true),
+            .useMenuLikeSegmentedControl(true),
+            .menuItemSeparatorPercentageHeight(0.1),
+            .titleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, headerStockInfoView.frame.height + 20, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
-
-        stockBriefView = HSStockBriefView(frame: CGRectMake(0, headerStockInfoView.frame.height + 20, self.view.frame.width, 34))
-        stockBriefView?.hidden = true
+        print("----------viewDidLoad--------------- ")
+        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
+        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
+        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
+        print("------------------------------------- ")
         
-        kLineBriefView = HSKLineBriefView(frame: CGRectMake(0, headerStockInfoView.frame.height + 20, self.view.frame.width, 34))
-        kLineBriefView?.hidden = true
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 120 + 20, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
+
+        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.height + 20, width: self.view.frame.width, height: 34))
+        stockBriefView?.isHidden = true
+        
+        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.height + 20, width: self.view.frame.width, height: 34))
+        kLineBriefView?.isHidden = true
         
         self.view.addSubview(pageMenu!.view)
         self.view.addSubview(stockBriefView!)
         self.view.addSubview(kLineBriefView!)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: TimeLineLongpress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: TimeLineUnLongpress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartLongPressView), name: KLineChartLongPress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: KLineChartUnLongPress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLandScapeChartView), name: KLineUperChartDidTap, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(showLongPressView), name: NSNotification.Name(rawValue: TimeLineLongpress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showUnLongPressView), name: NSNotification.Name(rawValue: TimeLineUnLongpress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartLongPressView), name: NSNotification.Name(rawValue: KLineChartLongPress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: NSNotification.Name(rawValue: KLineChartUnLongPress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: KLineUperChartDidTap), object: nil)
     }
 
-    @IBAction func showStockMarketData(sender: AnyObject) {
+    @IBAction func showStockMarketData(_ sender: AnyObject) {
         
         let stockMarketViewController = StockMarketDataViewController(nibName: "StockMarketDataViewController", bundle: nil)
-        stockMarketViewController.modalPresentationStyle = .OverCurrentContext
-        self.presentViewController(stockMarketViewController, animated: false, completion: nil)
+        stockMarketViewController.modalPresentationStyle = .overCurrentContext
+        self.present(stockMarketViewController, animated: false, completion: nil)
     }
     
-    func showLongPressView(notification: NSNotification) {
-        let dataDictionary = notification.userInfo as! [String: AnyObject]
+    func showLongPressView(_ notification: Notification) {
+        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let timeLineEntity = dataDictionary["timeLineEntity"] as! TimeLineEntity
-        stockBriefView?.hidden = false
+        stockBriefView?.isHidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
     
-    func showUnLongPressView(notification: NSNotification) {
-        stockBriefView?.hidden = true
+    func showUnLongPressView(_ notification: Notification) {
+        stockBriefView?.isHidden = true
     }
     
-    func showKLineChartLongPressView(notification: NSNotification) {
-        let dataDictionary = notification.userInfo as! [String: AnyObject]
+    func showKLineChartLongPressView(_ notification: Notification) {
+        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let preClose = dataDictionary["preClose"] as! CGFloat
         let klineEntity = dataDictionary["kLineEntity"] as! KLineEntity
         kLineBriefView?.configureView(preClose, kLineEntity: klineEntity)
-        kLineBriefView?.hidden = false
+        kLineBriefView?.isHidden = false
     }
     
-    func showKLineChartUnLongPressView(notification: NSNotification) {
-        kLineBriefView?.hidden = true
+    func showKLineChartUnLongPressView(_ notification: Notification) {
+        kLineBriefView?.isHidden = true
     }
     
-    func showLandScapeChartView(notification: NSNotification) {
+    func showLandScapeChartView(_ notification: Notification) {
         let index = notification.object as! Int
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
-            vc.modalTransitionStyle = .CrossDissolve
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
+            vc.modalTransitionStyle = .crossDissolve
             vc.viewindex = index
-            self.presentViewController(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
         }
     }
 
@@ -148,11 +168,11 @@ class ViewController: UIViewController {
 
 
 extension ViewController: ChartViewControllerDelegate {
-    func showLandscapeChartView(index: Int) {
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController {
-            vc.modalTransitionStyle = .CrossDissolve
+    func showLandscapeChartView(_ index: Int) {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
+            vc.modalTransitionStyle = .crossDissolve
             vc.viewindex = index
-            self.presentViewController(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }

@@ -26,11 +26,11 @@ class HSKLineModel: NSObject {
     var macd: CGFloat = 0
     var rate: CGFloat = 0
     
-    class func getKLineModelArray(json: JSON) -> [HSKLineModel] {
+    class func getKLineModelArray(_ json: JSON) -> [HSKLineModel] {
         var models = [HSKLineModel]()
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSKLineModel()
-            model.date = NSDate.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("yyyy-MM-dd")
+            model.date = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("yyyy-MM-dd")
             model.open = CGFloat(jsonData["open"].doubleValue)
             model.close = CGFloat(jsonData["close"].doubleValue)
             model.high = CGFloat(jsonData["high"].doubleValue)

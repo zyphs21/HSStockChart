@@ -18,7 +18,7 @@ enum HSChartType: Int {
 }
 
 protocol ChartViewControllerDelegate {
-    func showLandscapeChartView(index: Int)
+    func showLandscapeChartView(_ index: Int)
 }
 
 class ChartViewController: UIViewController {
@@ -43,7 +43,7 @@ class ChartViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 //        self.timeLineView?.animatePoint.addAnimation(self.breathingLightAnimate(2), forKey: nil)
     }
     
@@ -55,34 +55,34 @@ class ChartViewController: UIViewController {
         switch chartType {
             
         case .timeLineForDay:
-            timeLineView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+            timeLineView = HSTimeLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("OneDayTimeLine"))
             timeLineView!.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
-            timeLineView!.userInteractionEnabled = true
+            timeLineView!.isUserInteractionEnabled = true
             timeLineView!.tag = chartType.rawValue
             timeLineView!.addGestureRecognizer(tapGesture)
             self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
-            let stockChartView = HSTimeLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+            let stockChartView = HSTimeLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("FiveDayTimeLine"))
             stockChartView.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
             stockChartView.showFiveDayLabel = true
-            stockChartView.userInteractionEnabled = true
+            stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
             stockChartView.addGestureRecognizer(tapGesture)
             self.view.addSubview(stockChartView)
             
             
         case .kLineForDay:
-            let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
+            let stockChartView = HSKLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300))
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
             stockChartView.tag = chartType.rawValue
             self.view.addSubview(stockChartView)
             
         case .kLineForWeek:
-            let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
+            let stockChartView = HSKLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300))
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("WeeklyKLine"))
             stockChartView.monthInterval = 4
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
@@ -90,7 +90,7 @@ class ChartViewController: UIViewController {
             self.view.addSubview(stockChartView)
             
         case .kLineForMonth:
-            let stockChartView = HSKLineStockChartView(frame: CGRectMake(0, 0, self.view.frame.width, 300))
+            let stockChartView = HSKLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300))
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("MonthlyKLine"))
             stockChartView.monthInterval = 12
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
@@ -99,7 +99,7 @@ class ChartViewController: UIViewController {
         }
     }
     
-    func getTimeLineViewDataSet(data: [HSTimeLineModel], info: HSStockBasicInfoModel, type: HSChartType) -> TimeLineDataSet {
+    func getTimeLineViewDataSet(_ data: [HSTimeLineModel], info: HSStockBasicInfoModel, type: HSChartType) -> TimeLineDataSet {
         var timeArray = [TimeLineEntity]()
         var days = [String]()
         var toComparePrice: CGFloat = 0
@@ -147,9 +147,9 @@ class ChartViewController: UIViewController {
         return set
     }
     
-    func getKLineViewDataSet(data: [HSKLineModel]) -> KLineDataSet {
+    func getKLineViewDataSet(_ data: [HSKLineModel]) -> KLineDataSet {
         var array = [KLineEntity]()
-        for (index, klineModel) in data.enumerate(){
+        for (index, klineModel) in data.enumerated(){
             let entity = KLineEntity()
             entity.high = klineModel.high
             entity.open = klineModel.open
@@ -181,14 +181,14 @@ class ChartViewController: UIViewController {
         return dataSet
     }
     
-    func getJsonDataFromFile(fileName: String) -> JSON {
-        let pathForResource = NSBundle.mainBundle().pathForResource(fileName, ofType: "json")
-        let content = try! String(contentsOfFile: pathForResource!, encoding: NSUTF8StringEncoding)
-        let jsonContent = content.dataUsingEncoding(NSUTF8StringEncoding)!
+    func getJsonDataFromFile(_ fileName: String) -> JSON {
+        let pathForResource = Bundle.main.path(forResource: fileName, ofType: "json")
+        let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
+        let jsonContent = content.data(using: String.Encoding.utf8)!
         return JSON(data: jsonContent)
     }
     
-    func handleTapGesture(recognizer: UITapGestureRecognizer) {
+    func handleTapGesture(_ recognizer: UITapGestureRecognizer) {
         let index = recognizer.view?.tag ?? 0
         delegate?.showLandscapeChartView(index)
     }

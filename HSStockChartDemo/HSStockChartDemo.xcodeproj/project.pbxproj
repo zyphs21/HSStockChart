@@ -10,7 +10,6 @@
 		C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */; };
 		C01FB2A71D7E94E6000C2D6D /* FiveDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */; };
 		C01FBFB61D73DE700068A143 /* HSKLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFB51D73DE700068A143 /* HSKLineModel.swift */; };
-		C01FBFBB1D76E3AE0068A143 /* HSFiveTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFBA1D76E3AE0068A143 /* HSFiveTransactionView.swift */; };
 		C01FBFC01D76E4010068A143 /* KLineDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFBC1D76E4010068A143 /* KLineDataSet.swift */; };
 		C01FBFC11D76E4010068A143 /* KLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFBD1D76E4010068A143 /* KLineEntity.swift */; };
 		C01FBFC21D76E4010068A143 /* TimeLineDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFBE1D76E4010068A143 /* TimeLineDataSet.swift */; };
@@ -50,7 +49,6 @@
 		C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveDayTimeLine.json; sourceTree = "<group>"; };
 		C01FBFB51D73DE700068A143 /* HSKLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineModel.swift; sourceTree = "<group>"; };
-		C01FBFBA1D76E3AE0068A143 /* HSFiveTransactionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSFiveTransactionView.swift; sourceTree = "<group>"; };
 		C01FBFBC1D76E4010068A143 /* KLineDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineDataSet.swift; sourceTree = "<group>"; };
 		C01FBFBD1D76E4010068A143 /* KLineEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineEntity.swift; sourceTree = "<group>"; };
 		C01FBFBE1D76E4010068A143 /* TimeLineDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineDataSet.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 				C03E9ABC1D6ECDB900D93016 /* HSBaseStockChartView.swift */,
 				C03E9AC71D6ECDB900D93016 /* HSTimeLineStockChartView.swift */,
 				C03E9ABF1D6ECDB900D93016 /* HSKLineStockChartView.swift */,
-				C01FBFBA1D76E3AE0068A143 /* HSFiveTransactionView.swift */,
 				C0A983061D80149A003C3B4C /* HSStockBriefView.swift */,
 				C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */,
 				C05B3F971D81492000C181BA /* HSKLineBriefView.swift */,
@@ -253,11 +250,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = hanson;
 				TargetAttributes = {
 					C0D065721D61C17A00AC5AAF = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = BM6K3RMBX6;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -363,7 +362,6 @@
 				C01FBFC11D76E4010068A143 /* KLineEntity.swift in Sources */,
 				C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */,
 				C01FBFC31D76E4010068A143 /* TimeLineEntity.swift in Sources */,
-				C01FBFBB1D76E3AE0068A143 /* HSFiveTransactionView.swift in Sources */,
 				C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */,
 				C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */,
 				C05B3F981D81492000C181BA /* HSKLineBriefView.swift in Sources */,
@@ -415,10 +413,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -443,6 +444,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -461,8 +463,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -481,6 +485,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -490,14 +496,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = BM6K3RMBX6;
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
 				PRODUCT_NAME = HSStockChartDemo;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -505,12 +514,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BM6K3RMBX6;
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
 				PRODUCT_NAME = HSStockChartDemo;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

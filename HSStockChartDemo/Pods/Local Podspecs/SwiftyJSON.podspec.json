@@ -1,6 +1,6 @@
 {
   "name": "SwiftyJSON",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "summary": "SwiftyJSON makes it easy to deal with JSON data in Swift",
   "homepage": "https://github.com/SwiftyJSON/SwiftyJSON",
   "license": {
@@ -19,7 +19,7 @@
   },
   "source": {
     "git": "https://github.com/SwiftyJSON/SwiftyJSON.git",
-    "tag": "2.3.2"
+    "tag": "3.0.0"
   },
   "source_files": "Source/*.swift"
 }

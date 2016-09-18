@@ -15,16 +15,16 @@ class TimeLineDataSet {
     var days : [String]?  //五日图的日期
     var data : [TimeLineEntity]?
     var highlightLineWidth : CGFloat = 0
-    var highlightLineColor = UIColor.blueColor()
+    var highlightLineColor = UIColor.blue
     var lineWidth : CGFloat = 1
     var priceLineCorlor = UIColor(rgba: "#0095ff")
-    var avgLineCorlor = UIColor.yellowColor()
-    var volumeRiseColor = UIColor.redColor()
-    var volumeFallColor = UIColor.greenColor()
-    var volumeTieColor = UIColor.grayColor()
+    var avgLineCorlor = UIColor.yellow
+    var volumeRiseColor = UIColor.red
+    var volumeFallColor = UIColor.green
+    var volumeTieColor = UIColor.gray
     var drawFilledEnabled = false
-    var fillStartColor = UIColor.orangeColor()
-    var fillStopColor = UIColor.blackColor()
+    var fillStartColor = UIColor.orange
+    var fillStopColor = UIColor.black
     var fillAlpha:CGFloat = 0.5
 }
 

@@ -23,10 +23,10 @@ class LandscapeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLongPressView), name: "TimeLineLongpress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showUnLongPressView), name: "TimeLineUnLongpress", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartLongPressView), name: KLineChartLongPress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: KLineChartUnLongPress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLongPressView), name: NSNotification.Name(rawValue: "TimeLineLongpress"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showUnLongPressView), name: NSNotification.Name(rawValue: "TimeLineUnLongpress"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartLongPressView), name: NSNotification.Name(rawValue: KLineChartLongPress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: NSNotification.Name(rawValue: KLineChartUnLongPress), object: nil)
         
         let timeViewcontroller = ChartViewController()
         timeViewcontroller.chartType = HSChartType.timeLineForDay
@@ -70,14 +70,14 @@ class LandscapeViewController: UIViewController {
         controllerArray.append(allViewController)
         
         parameters = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .SelectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .UnselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
-            .SelectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
-            .MenuItemSeparatorHidden(true),
-            .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorPercentageHeight(0.1),
-            .TitleTextSizeBasedOnMenuItemWidth(true)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .selectedMenuItemLabelColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .unselectedMenuItemLabelColor(UIColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)),
+            .selectionIndicatorColor(UIColor(red: 18.0/255.0, green: 150.0/255.0, blue: 225.0/255.0, alpha: 1.0)),
+            .menuItemSeparatorHidden(true),
+            .useMenuLikeSegmentedControl(true),
+            .menuItemSeparatorPercentageHeight(0.1),
+            .titleTextSizeBasedOnMenuItemWidth(true)
         ]
         
     }
@@ -93,23 +93,23 @@ class LandscapeViewController: UIViewController {
         //setUpControllerView()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         setUpControllerView()
         
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return false
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.LandscapeRight
+    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+        return UIInterfaceOrientation.landscapeRight
     }
     
-    @IBAction func backButtonDidClick(sender: AnyObject) {
-        self.modalTransitionStyle = .CrossDissolve
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func backButtonDidClick(_ sender: AnyObject) {
+        self.modalTransitionStyle = .crossDissolve
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -117,14 +117,14 @@ class LandscapeViewController: UIViewController {
     
     func setUpControllerView() {
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 30, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 30, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
         pageMenu?.moveToPage(self.viewindex)
         
-        stockBriefView = HSStockBriefView(frame: CGRectMake(0, 30, self.view.frame.width, 34))
-        stockBriefView?.hidden = true
+        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: 30, width: self.view.frame.width, height: 34))
+        stockBriefView?.isHidden = true
         
-        kLineBriefView = HSKLineBriefView(frame: CGRectMake(0, 30, self.view.frame.width, 34))
-        kLineBriefView?.hidden = true
+        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: 30, width: self.view.frame.width, height: 34))
+        kLineBriefView?.isHidden = true
         
         self.view.addSubview(pageMenu!.view)
         self.view.addSubview(stockBriefView!)
@@ -135,27 +135,27 @@ class LandscapeViewController: UIViewController {
     
     // MARK: - Handle Notification function
     
-    func showLongPressView(notification: NSNotification) {
-        let dataDictionary = notification.userInfo as! [String: AnyObject]
+    func showLongPressView(_ notification: Notification) {
+        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let timeLineEntity = dataDictionary["timeLineEntity"] as! TimeLineEntity
-        stockBriefView?.hidden = false
+        stockBriefView?.isHidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
     
     func showUnLongPressView() {
-        stockBriefView?.hidden = true
+        stockBriefView?.isHidden = true
     }
     
-    func showKLineChartLongPressView(notification: NSNotification) {
-        let dataDictionary = notification.userInfo as! [String: AnyObject]
+    func showKLineChartLongPressView(_ notification: Notification) {
+        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let preClose = dataDictionary["preClose"] as! CGFloat
         let klineEntity = dataDictionary["kLineEntity"] as! KLineEntity
         kLineBriefView?.configureView(preClose, kLineEntity: klineEntity)
-        kLineBriefView?.hidden = false
+        kLineBriefView?.isHidden = false
     }
     
-    func showKLineChartUnLongPressView(notification: NSNotification) {
-        kLineBriefView?.hidden = true
+    func showKLineChartUnLongPressView(_ notification: Notification) {
+        kLineBriefView?.isHidden = true
     }
     
     

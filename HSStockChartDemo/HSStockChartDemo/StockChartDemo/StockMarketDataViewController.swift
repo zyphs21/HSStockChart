@@ -22,8 +22,8 @@ class StockMarketDataViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func backButtonDidClick(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false, completion: nil)
+    @IBAction func backButtonDidClick(_ sender: AnyObject) {
+        self.dismiss(animated: false, completion: nil)
     }
 
 }

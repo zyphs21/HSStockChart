@@ -24,7 +24,7 @@ class HSBaseStockChartView: UIView {
     var offsetBottom: CGFloat = 10
     
     // 整个图表的区域
-    var contentRect: CGRect = CGRectZero
+    var contentRect: CGRect = CGRect.zero
     var contentTop: CGFloat = 0
     var contentLeft: CGFloat = 0
     var contentRight: CGFloat = 0
@@ -40,7 +40,7 @@ class HSBaseStockChartView: UIView {
     var uperChartBottom: CGFloat = 0
     
     // 上部分图表的内部画图区域
-    var uperChartDrawAreaRect: CGRect = CGRectZero
+    var uperChartDrawAreaRect: CGRect = CGRect.zero
     var uperChartDrawAreaTop: CGFloat = 0
     var uperChartDrawAreaBottom: CGFloat = 0
     var uperChartDrawAreaHeight: CGFloat = 0
@@ -49,7 +49,7 @@ class HSBaseStockChartView: UIView {
     var uperChartDrawingAreaMargin: CGFloat = 10
     
     // 下部分图表区域
-    var lowerChartRect: CGRect = CGRectZero
+    var lowerChartRect: CGRect = CGRect.zero
     var lowerChartTop: CGFloat = 0
     var lowerChartBottom: CGFloat = 0
     var lowerChartHeight: CGFloat = 0
@@ -57,17 +57,17 @@ class HSBaseStockChartView: UIView {
     
     var yAxisLabelEdgeInset: CGFloat = 5
     
-    var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFontOfSize(9),
-                                  NSBackgroundColorAttributeName: UIColor.clearColor(),
+    var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 9),
+                                  NSBackgroundColorAttributeName: UIColor.clear,
                                   NSForegroundColorAttributeName: UIColor(rgba: "#8695a6")]
-    var xAxisLabelAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(10),
-                              NSBackgroundColorAttributeName: UIColor.clearColor(),
+    var xAxisLabelAttribute = [NSFontAttributeName:UIFont.systemFont(ofSize: 10),
+                              NSBackgroundColorAttributeName: UIColor.clear,
                               NSForegroundColorAttributeName: UIColor(rgba: "#8695a6")]
-    var highlightAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(10),
+    var highlightAttribute = [NSFontAttributeName:UIFont.systemFont(ofSize: 10),
                                   NSBackgroundColorAttributeName: UIColor(rgba: "#8695a6"),
-                                  NSForegroundColorAttributeName: UIColor.whiteColor()]
-    var annotationLabelAttribute = [NSFontAttributeName:UIFont.systemFontOfSize(8),
-                                 NSBackgroundColorAttributeName:UIColor.whiteColor(),
+                                  NSForegroundColorAttributeName: UIColor.white]
+    var annotationLabelAttribute = [NSFontAttributeName:UIFont.systemFont(ofSize: 8),
+                                 NSBackgroundColorAttributeName:UIColor.white,
                                  NSForegroundColorAttributeName:UIColor(rgba: "#8695a6")]
     
     var maxPrice: CGFloat = 0
@@ -76,7 +76,7 @@ class HSBaseStockChartView: UIView {
     var minRatio: CGFloat = 0
     var maxVolume: CGFloat = 0
     
-    var gridBackgroundColor = UIColor.whiteColor()
+    var gridBackgroundColor = UIColor.white
     var borderColor = UIColor(rgba: "#e4e4e4")
     var borderWidth: CGFloat = 1
     
@@ -84,7 +84,7 @@ class HSBaseStockChartView: UIView {
     
     var longPressToHighlightEnabled = false
     var highlightLineCurrentIndex: Int = 0
-    var highlightLineCurrentPoint: CGPoint = CGPointZero
+    var highlightLineCurrentPoint: CGPoint = CGPoint.zero
     
     
     //MARK: - Life Circle
@@ -117,7 +117,7 @@ class HSBaseStockChartView: UIView {
         print("-----HSBaseStockChartView Deinit-------")
     }
     
-    private func commonInit() {
+    fileprivate func commonInit() {
         
         chartHeight = frame.height
         chartWidth = frame.width
@@ -137,9 +137,9 @@ class HSBaseStockChartView: UIView {
         uperChartHeight = (chartHeight - xAxisHeitht) * uperChartHeightScale
         uperChartBottom = uperChartHeight + contentTop
             
-        uperChartDrawAreaRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + uperChartDrawingAreaMargin, contentRect.width, uperChartHeight - uperChartDrawingAreaMargin * 2)
+        uperChartDrawAreaRect = CGRect(x: contentRect.origin.x, y: contentRect.origin.y + uperChartDrawingAreaMargin, width: contentRect.width, height: uperChartHeight - uperChartDrawingAreaMargin * 2)
         
-        lowerChartRect = CGRectMake(contentRect.origin.x, contentRect.origin.y + uperChartHeight + xAxisHeitht, contentRect.width, contentRect.height - uperChartHeight - xAxisHeitht)
+        lowerChartRect = CGRect(x: contentRect.origin.x, y: contentRect.origin.y + uperChartHeight + xAxisHeitht, width: contentRect.width, height: contentRect.height - uperChartHeight - xAxisHeitht)
 
         uperChartDrawAreaTop = uperChartDrawAreaRect.origin.y
         uperChartDrawAreaBottom = uperChartDrawAreaRect.origin.y + uperChartDrawAreaRect.size.height
@@ -153,20 +153,20 @@ class HSBaseStockChartView: UIView {
     
     // MARK: - Common Function
     
-    func drawChartFrame(context: CGContextRef, rect: CGRect) {
-        CGContextSetFillColorWithColor(context, gridBackgroundColor.CGColor)
-        CGContextFillRect(context, rect)
+    func drawChartFrame(_ context: CGContext, rect: CGRect) {
+        context.setFillColor(gridBackgroundColor.cgColor)
+        context.fill(rect)
         
         //画外面边框
-        CGContextSetLineWidth(context, self.borderWidth / 2.0)
-        CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor)
-        CGContextStrokeRect(context, CGRectMake(self.contentLeft, self.contentTop, self.contentWidth, uperChartHeight))
+        context.setLineWidth(self.borderWidth / 2.0)
+        context.setStrokeColor(self.borderColor.cgColor)
+        context.stroke(CGRect(x: self.contentLeft, y: self.contentTop, width: self.contentWidth, height: uperChartHeight))
         
         //画交易量边框
-        CGContextStrokeRect(context, CGRectMake(contentLeft, lowerChartTop, contentWidth, lowerChartHeight))
+        context.stroke(CGRect(x: contentLeft, y: lowerChartTop, width: contentWidth, height: lowerChartHeight))
     }
 
-    func drawYAxisLabel(context: CGContextRef, labelString: String, yAxis: CGFloat, isLeft: Bool, isInLineCenter: Bool = true) {
+    func drawYAxisLabel(_ context: CGContext, labelString: String, yAxis: CGFloat, isLeft: Bool, isInLineCenter: Bool = true) {
         
         let labelAttribute = isInLineCenter ? self.yAxisLabelAttribute : self.annotationLabelAttribute
         let valueAttributedString = NSMutableAttributedString(string: labelString, attributes: labelAttribute)
@@ -180,24 +180,24 @@ class HSBaseStockChartView: UIView {
         }
         let labelY: CGFloat = yAxis - labelInLineCenterSize
         
-        self.drawLabel(context, attributesText: valueAttributedString, rect: CGRectMake(labelX, labelY, valueAttributedStringSize.width, valueAttributedStringSize.height))
+        self.drawLabel(context, attributesText: valueAttributedString, rect: CGRect(x: labelX, y: labelY, width: valueAttributedStringSize.width, height: valueAttributedStringSize.height))
     }
     
     
-    func drawLongPressHighlight(context: CGContextRef, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat, isShowVolume: Bool = true) {
+    func drawLongPressHighlight(_ context: CGContext, pricePoint: CGPoint, volumePoint: CGPoint, idex: Int, value: AnyObject, color: UIColor, lineWidth: CGFloat, isShowVolume: Bool = true) {
         var leftMarkerString = ""
         var bottomMarkerString = ""
         var rightMarkerStr = ""
         var volumeMarkerString = ""
         
-        if value.isKindOfClass(TimeLineEntity.self) {
+        if value.isKind(of: TimeLineEntity.self) {
             let entity = value as! TimeLineEntity
             rightMarkerStr = self.formatValue(entity.price)
             bottomMarkerString = entity.currtTime
             leftMarkerString = self.formatRatio(entity.rate)
             volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
             
-        } else if value.isKindOfClass(KLineEntity.self){
+        } else if value.isKind(of: KLineEntity.self){
             let entity = value as! KLineEntity
             rightMarkerStr = self.formatValue(entity.close)
             bottomMarkerString = entity.date
@@ -208,29 +208,29 @@ class HSBaseStockChartView: UIView {
             return
         }
         
-        CGContextSetStrokeColorWithColor(context,color.CGColor)
-        CGContextSetLineWidth(context, lineWidth)
+        context.setStrokeColor(color.cgColor)
+        context.setLineWidth(lineWidth)
         
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, pricePoint.x, self.contentTop)
-        CGContextAddLineToPoint(context, pricePoint.x, self.contentBottom)
-        CGContextStrokePath(context)
+        context.beginPath()
+        context.move(to: CGPoint(x: pricePoint.x, y: self.contentTop))
+        context.addLine(to: CGPoint(x: pricePoint.x, y: self.contentBottom))
+        context.strokePath()
         
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, self.contentLeft, pricePoint.y)
-        CGContextAddLineToPoint(context, self.contentRight, pricePoint.y)
-        CGContextStrokePath(context)
+        context.beginPath()
+        context.move(to: CGPoint(x: self.contentLeft, y: pricePoint.y))
+        context.addLine(to: CGPoint(x: self.contentRight, y: pricePoint.y))
+        context.strokePath()
         
         if isShowVolume {
-            CGContextBeginPath(context)
-            CGContextMoveToPoint(context, self.contentLeft, volumePoint.y)
-            CGContextAddLineToPoint(context, self.contentRight, volumePoint.y)
-            CGContextStrokePath(context)
+            context.beginPath()
+            context.move(to: CGPoint(x: self.contentLeft, y: volumePoint.y))
+            context.addLine(to: CGPoint(x: self.contentRight, y: volumePoint.y))
+            context.strokePath()
         }
         
         let radius:CGFloat = 3.0
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillEllipseInRect(context, CGRectMake(pricePoint.x-(radius/2.0), pricePoint.y-(radius/2.0), radius, radius))
+        context.setFillColor(color.cgColor)
+        context.fillEllipse(in: CGRect(x: pricePoint.x-(radius/2.0), y: pricePoint.y-(radius/2.0), width: radius, height: radius))
         
         let leftMarkerStringAttribute = NSMutableAttributedString(string: leftMarkerString, attributes: highlightAttribute)
         let bottomMarkerStringAttribute = NSMutableAttributedString(string: bottomMarkerString, attributes: highlightAttribute)
@@ -249,48 +249,48 @@ class HSBaseStockChartView: UIView {
         labelY = pricePoint.y - leftMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
                        attributesText: leftMarkerStringAttribute,
-                       rect: CGRectMake(labelX, labelY, leftMarkerStringAttributeSize.width, leftMarkerStringAttributeSize.height))
+                       rect: CGRect(x: labelX, y: labelY, width: leftMarkerStringAttributeSize.width, height: leftMarkerStringAttributeSize.height))
         
         labelX = pricePoint.x - bottomMarkerStringAttributeSize.width / 2.0
         labelY = self.uperChartHeight + self.contentTop
         self.drawLabel(context,
                        attributesText: bottomMarkerStringAttribute,
-                       rect: CGRectMake(labelX, labelY, bottomMarkerStringAttributeSize.width, bottomMarkerStringAttributeSize.height))
+                       rect: CGRect(x: labelX, y: labelY, width: bottomMarkerStringAttributeSize.width, height: bottomMarkerStringAttributeSize.height))
         
         labelX = self.contentRight - rightMarkerStringAttributeSize.width
         labelY = pricePoint.y - rightMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
                        attributesText: rightMarkerStringAttribute,
-                       rect: CGRectMake(labelX, labelY, rightMarkerStringAttributeSize.width, rightMarkerStringAttributeSize.height))
+                       rect: CGRect(x: labelX, y: labelY, width: rightMarkerStringAttributeSize.width, height: rightMarkerStringAttributeSize.height))
         
         if isShowVolume {
             labelX = self.contentRight - volumeMarkerStringAttributeSize.width
             labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
             self.drawLabel(context,
                            attributesText: volumeMarkerStringAttribute,
-                           rect: CGRectMake(labelX, labelY, volumeMarkerStringAttributeSize.width, volumeMarkerStringAttributeSize.height))
+                           rect: CGRect(x: labelX, y: labelY, width: volumeMarkerStringAttributeSize.width, height: volumeMarkerStringAttributeSize.height))
         }
     }
 
     
-    func getLabelAttribute(foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> [String: AnyObject] {
-        return [NSFontAttributeName: UIFont.systemFontOfSize(fontSize),
+    func getLabelAttribute(_ foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> [String: AnyObject] {
+        return [NSFontAttributeName: UIFont.systemFont(ofSize: fontSize),
                 NSBackgroundColorAttributeName: backgroundColor,
                 NSForegroundColorAttributeName: foregroundColor]
     }
     
     // MARK: - Drawing Util Function
     
-    func formatValue(value: CGFloat) -> String {
+    func formatValue(_ value: CGFloat) -> String {
         //return NSString(format: "%.2f", value) as String
         return String(format: "%.2f", value)
     }
     
-    func formatRatio(value: CGFloat) -> String {
+    func formatRatio(_ value: CGFloat) -> String {
         return String(format: "%.2f", value * 100) + "%"
     }
     
-    func formatWithVolume(argVolume: CGFloat) -> String{
+    func formatWithVolume(_ argVolume: CGFloat) -> String{
         let volume = argVolume / 100.0;
         
         if (volume < 10000.0) {
@@ -302,7 +302,7 @@ class HSBaseStockChartView: UIView {
         }
     }
     
-    func formatNumWithVolume(argVolume: CGFloat) -> String{
+    func formatNumWithVolume(_ argVolume: CGFloat) -> String{
         let volume = argVolume/100.0;
         if (volume < 10000.0) {
             return NSString(format: "%.0f", volume) as String
@@ -314,57 +314,57 @@ class HSBaseStockChartView: UIView {
     }
     
     // 画线
-    func drawline(context: CGContextRef, startPoint: CGPoint, stopPoint: CGPoint, color: UIColor, lineWidth: CGFloat, isDashLine: Bool = false) {
+    func drawline(_ context: CGContext, startPoint: CGPoint, stopPoint: CGPoint, color: UIColor, lineWidth: CGFloat, isDashLine: Bool = false) {
         if (startPoint.x < self.contentLeft || stopPoint.x > self.contentRight || startPoint.y < self.contentTop || stopPoint.y < self.contentTop) {
             return
         }
-        CGContextSaveGState(context)
-        CGContextSetStrokeColorWithColor(context, color.CGColor)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, startPoint.x, startPoint.y)
-        CGContextAddLineToPoint(context, stopPoint.x, stopPoint.y)
+        context.saveGState()
+        context.setStrokeColor(color.cgColor)
+        context.setLineWidth(lineWidth)
+        context.beginPath()
+        context.move(to: CGPoint(x: startPoint.x, y: startPoint.y))
+        context.addLine(to: CGPoint(x: stopPoint.x, y: stopPoint.y))
         if isDashLine {
             let arr: [CGFloat] = [6, 3]
-            CGContextSetLineDash(context, 0, arr, arr.count)
+            context.setLineDash(phase: 0, lengths: arr)
         }
-        CGContextStrokePath(context)
-        CGContextRestoreGState(context)
+        context.strokePath()
+        context.restoreGState()
     }
     
     // 画标签
-    func drawLabel(context: CGContextRef, attributesText: NSAttributedString, rect: CGRect) {
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-        attributesText.drawInRect(rect)
+    func drawLabel(_ context: CGContext, attributesText: NSAttributedString, rect: CGRect) {
+        context.setFillColor(UIColor.clear.cgColor)
+        attributesText.draw(in: rect)
     }
     
     // 画柱形
-    func drawColumnRect(context: CGContextRef, rect: CGRect, color: UIColor) {
+    func drawColumnRect(_ context: CGContext, rect: CGRect, color: UIColor) {
         if ((rect.origin.x + rect.size.width) > self.contentRight) {
             return
         }
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
     }
     
     // 画渐变色
-    func drawLinearGradient(context: CGContextRef, path: CGPathRef, alpha: CGFloat, startColor: CGColorRef, endColor: CGColorRef) {
+    func drawLinearGradient(_ context: CGContext, path: CGPath, alpha: CGFloat, startColor: CGColor, endColor: CGColor) {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0.0, 1.0]
         let colors = [startColor, endColor]
-        let gradient = CGGradientCreateWithColors(colorSpace, colors, locations)
-        let pathRect = CGPathGetBoundingBox(path)
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: locations)
+        let pathRect = path.boundingBox
         
         //具体方向可根据需求修改
-        let startPoint = CGPointMake(CGRectGetMidX(pathRect), CGRectGetMinY(pathRect))
-        let endPoint = CGPointMake(CGRectGetMidX(pathRect), CGRectGetMaxY(pathRect))
+        let startPoint = CGPoint(x: pathRect.midX, y: pathRect.minY)
+        let endPoint = CGPoint(x: pathRect.midX, y: pathRect.maxY)
         
-        CGContextSaveGState(context)
-        CGContextAddPath(context, path)
-        CGContextClip(context)
-        CGContextSetAlpha(context, 0.5)
-        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, .DrawsBeforeStartLocation)
-        CGContextRestoreGState(context)
+        context.saveGState()
+        context.addPath(path)
+        context.clip()
+        context.setAlpha(0.5)
+        context.drawLinearGradient(gradient!, start: startPoint, end: endPoint, options: .drawsBeforeStartLocation)
+        context.restoreGState()
     }
 
 }

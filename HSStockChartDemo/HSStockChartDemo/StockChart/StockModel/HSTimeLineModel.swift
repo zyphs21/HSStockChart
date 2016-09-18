@@ -17,11 +17,11 @@ class HSTimeLineModel: NSObject {
     var volume: CGFloat = 0
     var days: [String] = []
     
-    class func getTimeLineModelArray(json: JSON) -> [HSTimeLineModel] {
+    class func getTimeLineModelArray(_ json: JSON) -> [HSTimeLineModel] {
         var modelArray = [HSTimeLineModel]()
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSTimeLineModel()
-            model.currentTime = NSDate.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
+            model.currentTime = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
             model.averagePirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)

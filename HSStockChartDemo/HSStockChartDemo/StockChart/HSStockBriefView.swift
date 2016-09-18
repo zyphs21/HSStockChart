@@ -33,26 +33,26 @@ class HSStockBriefView: UIView {
     
     func setupSubviews() {
         view = instanceViewFromNib()
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         addSubview(view)
     }
     
     func instanceViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let nib = UINib(nibName: String(self.dynamicType), bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
-    func configureView(timeLineEntity: TimeLineEntity) {
+    func configureView(_ timeLineEntity: TimeLineEntity) {
         
         var labelColor: UIColor
         if timeLineEntity.rate < 0 {
             labelColor = UIColor(rgba: "#1DBF60")
         } else if timeLineEntity.rate > 0 {
-            labelColor = UIColor.redColor()
+            labelColor = UIColor.red
         } else {
-            labelColor = UIColor.grayColor()
+            labelColor = UIColor.gray
         }
         priceLabel.textColor = labelColor
         ratioLabel.textColor = labelColor
