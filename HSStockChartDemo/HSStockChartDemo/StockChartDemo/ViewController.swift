@@ -37,21 +37,6 @@ class ViewController: UIViewController {
         return UIInterfaceOrientation.portrait
     }
     
-    override func viewWillLayoutSubviews() {
-        print("----------viewWillLayoutSubviews--------------- ")
-        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
-        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
-        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
-        print("------------------------------------- ")
-    }
-    
-    override func viewDidLayoutSubviews() {
-        print("----------viewDidLayoutSubviews--------------- ")
-        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
-        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
-        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
-        print("------------------------------------- ")
-    }
     
     //MARK: - Function
     
@@ -100,18 +85,12 @@ class ViewController: UIViewController {
             .titleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        print("----------viewDidLoad--------------- ")
-        print("headerStockInfoView.frame.height " + "\(headerStockInfoView.frame.height )")
-        print("headerStockInfoView.bounds.height " + "\(headerStockInfoView.bounds.height )")
-        print("headerStockInfoView.height  " + "\(headerStockInfoView.height )")
-        print("------------------------------------- ")
-        
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 120 + 20, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
 
-        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.height + 20, width: self.view.frame.width, height: 34))
+        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: 120 + 20, width: self.view.frame.width, height: 34))
         stockBriefView?.isHidden = true
         
-        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.height + 20, width: self.view.frame.width, height: 34))
+        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: 120 + 20, width: self.view.frame.width, height: 34))
         kLineBriefView?.isHidden = true
         
         self.view.addSubview(pageMenu!.view)

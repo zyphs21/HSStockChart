@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -387,9 +388,6 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         
         return group
     }
-    
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        print("animation did stop")
-    }
+
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -175,7 +176,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 let tempMax = max(abs(entity.diff), abs(entity.dea), abs(entity.macd))
                 self.maxMACD = tempMax > self.maxMACD ? tempMax : self.maxMACD
             }
-            print("max macd  " + "\(maxMACD)")
+            
         }
     }
     
