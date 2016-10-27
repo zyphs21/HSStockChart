@@ -1,6 +1,6 @@
 use_frameworks!
 
-pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
+pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
