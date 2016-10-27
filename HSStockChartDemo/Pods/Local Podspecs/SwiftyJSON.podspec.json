@@ -1,6 +1,6 @@
 {
   "name": "SwiftyJSON",
-  "version": "3.0.0",
+  "version": "3.1.1",
   "summary": "SwiftyJSON makes it easy to deal with JSON data in Swift",
   "homepage": "https://github.com/SwiftyJSON/SwiftyJSON",
   "license": {
@@ -19,7 +19,10 @@
   },
   "source": {
     "git": "https://github.com/SwiftyJSON/SwiftyJSON.git",
-    "tag": "3.0.0"
+    "tag": "v3.1.1"
   },
-  "source_files": "Source/*.swift"
+  "source_files": "Source/*.swift",
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "3.0"
+  }
 }

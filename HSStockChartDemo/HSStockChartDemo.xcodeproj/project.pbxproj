@@ -40,12 +40,12 @@
 		C0FAA64E1D7D68D900F15200 /* OneDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */; };
 		C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */; };
 		C0FAA6521D7D736800F15200 /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA6511D7D736800F15200 /* SZ300033.json */; };
-		CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F403C2E489B65B911BF67A02 /* Pods.framework */; };
+		C38E89D3CEC76FC32FFDE2D7 /* Pods_HSStockChartDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		91CC8D58DAF1D622DA5BF254 /* Pods-HSStockChartDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChartDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo.release.xcconfig"; sourceTree = "<group>"; };
+		B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChartDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveDayTimeLine.json; sourceTree = "<group>"; };
 		C01FBFB51D73DE700068A143 /* HSKLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineModel.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OneDayTimeLine.json; sourceTree = "<group>"; };
 		C0FAA64F1D7D72D700F15200 /* HSStockBasicInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBasicInfoModel.swift; sourceTree = "<group>"; };
 		C0FAA6511D7D736800F15200 /* SZ300033.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SZ300033.json; sourceTree = "<group>"; };
-		F403C2E489B65B911BF67A02 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D969CF6DAE6EF7311BBD930D /* Pods-HSStockChartDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChartDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,28 +89,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC3B4E94BE8F25351698E863 /* Pods.framework in Frameworks */,
+				C38E89D3CEC76FC32FFDE2D7 /* Pods_HSStockChartDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5E23547A2E469C51C24A1BF5 /* Pods */ = {
+		15E286114257ED8F46EC389B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */,
-				0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		73606337C9621AE370570253 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F403C2E489B65B911BF67A02 /* Pods.framework */,
+				B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6B26B4A8F4D22DD7D16D41DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D969CF6DAE6EF7311BBD930D /* Pods-HSStockChartDemo.debug.xcconfig */,
+				91CC8D58DAF1D622DA5BF254 /* Pods-HSStockChartDemo.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		C03E9AA91D6ECDB900D93016 /* HSStockChartDemo */ = {
@@ -207,8 +207,8 @@
 			children = (
 				C03E9AA91D6ECDB900D93016 /* HSStockChartDemo */,
 				C0D065741D61C17A00AC5AAF /* Products */,
-				5E23547A2E469C51C24A1BF5 /* Pods */,
-				73606337C9621AE370570253 /* Frameworks */,
+				6B26B4A8F4D22DD7D16D41DF /* Pods */,
+				15E286114257ED8F46EC389B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -227,12 +227,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0D065851D61C17A00AC5AAF /* Build configuration list for PBXNativeTarget "HSStockChartDemo" */;
 			buildPhases = (
-				265F26B28BA552ECA02B43E4 /* Check Pods Manifest.lock */,
+				8F97D56C18CB7DA8A3B29D03 /* [CP] Check Pods Manifest.lock */,
 				C0D0656F1D61C17A00AC5AAF /* Sources */,
 				C0D065701D61C17A00AC5AAF /* Frameworks */,
 				C0D065711D61C17A00AC5AAF /* Resources */,
-				41A33FEE579BDE804BD3EFA5 /* Embed Pods Frameworks */,
-				3E1B0B30B9F5536A9320ECBE /* Copy Pods Resources */,
+				1FB52C879023D2145F95F52B /* [CP] Embed Pods Frameworks */,
+				777FD046FC3E5E43E8103DB7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,49 +302,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		265F26B28BA552ECA02B43E4 /* Check Pods Manifest.lock */ = {
+		1FB52C879023D2145F95F52B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3E1B0B30B9F5536A9320ECBE /* Copy Pods Resources */ = {
+		777FD046FC3E5E43E8103DB7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		41A33FEE579BDE804BD3EFA5 /* Embed Pods Frameworks */ = {
+		8F97D56C18CB7DA8A3B29D03 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -494,7 +494,7 @@
 		};
 		C0D065861D61C17A00AC5AAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13137C63C2D72A2AE41607B1 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = D969CF6DAE6EF7311BBD930D /* Pods-HSStockChartDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -504,6 +504,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
 				PRODUCT_NAME = HSStockChartDemo;
 				SWIFT_VERSION = 3.0;
@@ -512,7 +513,7 @@
 		};
 		C0D065871D61C17A00AC5AAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0526D484F787A98DB4DC5054 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 91CC8D58DAF1D622DA5BF254 /* Pods-HSStockChartDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -520,6 +521,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChartDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.hanson.HSStockChartDemo;
 				PRODUCT_NAME = HSStockChartDemo;
 				SWIFT_VERSION = 3.0;
