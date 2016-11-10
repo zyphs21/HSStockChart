@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C01E2A141DD4086000F192C8 /* HSKLineAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E2A131DD4086000F192C8 /* HSKLineAreaView.swift */; };
 		C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */; };
 		C01FB2A71D7E94E6000C2D6D /* FiveDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */; };
 		C01FBFB61D73DE700068A143 /* HSKLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FBFB51D73DE700068A143 /* HSKLineModel.swift */; };
@@ -28,6 +29,11 @@
 		C05B3F961D81401600C181BA /* HSKLineBriefView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C05B3F951D81401600C181BA /* HSKLineBriefView.xib */; };
 		C05B3F981D81492000C181BA /* HSKLineBriefView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B3F971D81492000C181BA /* HSKLineBriefView.swift */; };
 		C06400061D780C9800B2760A /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06400051D780C9800B2760A /* LandscapeViewController.swift */; };
+		C09BB07F1DD218D800A16610 /* HSScrollKLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09BB07E1DD218D800A16610 /* HSScrollKLineView.swift */; };
+		C09BB0811DD2B6C700A16610 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09BB0801DD2B6C700A16610 /* TestViewController.swift */; };
+		C09BB0831DD2BBBD00A16610 /* HSKLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09BB0821DD2BBBD00A16610 /* HSKLineView.swift */; };
+		C09BB0861DD2D93D00A16610 /* HSCandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09BB0851DD2D93D00A16610 /* HSCandle.swift */; };
+		C09BB0881DD2EDD700A16610 /* KLineCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09BB0871DD2EDD700A16610 /* KLineCoordinate.swift */; };
 		C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */; };
 		C0A53C781D77C30800F4192B /* StockMarketDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */; };
 		C0A840B11D6FDB85007C1260 /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */; };
@@ -46,6 +52,7 @@
 /* Begin PBXFileReference section */
 		91CC8D58DAF1D622DA5BF254 /* Pods-HSStockChartDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChartDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChartDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C01E2A131DD4086000F192C8 /* HSKLineAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineAreaView.swift; sourceTree = "<group>"; };
 		C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveDayTimeLine.json; sourceTree = "<group>"; };
 		C01FBFB51D73DE700068A143 /* HSKLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineModel.swift; sourceTree = "<group>"; };
@@ -68,6 +75,11 @@
 		C05B3F951D81401600C181BA /* HSKLineBriefView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSKLineBriefView.xib; sourceTree = "<group>"; };
 		C05B3F971D81492000C181BA /* HSKLineBriefView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineBriefView.swift; sourceTree = "<group>"; };
 		C06400051D780C9800B2760A /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
+		C09BB07E1DD218D800A16610 /* HSScrollKLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSScrollKLineView.swift; sourceTree = "<group>"; };
+		C09BB0801DD2B6C700A16610 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		C09BB0821DD2BBBD00A16610 /* HSKLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineView.swift; sourceTree = "<group>"; };
+		C09BB0851DD2D93D00A16610 /* HSCandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSCandle.swift; sourceTree = "<group>"; };
+		C09BB0871DD2EDD700A16610 /* KLineCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineCoordinate.swift; sourceTree = "<group>"; };
 		C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockMarketDataViewController.swift; sourceTree = "<group>"; };
 		C0A53C761D77C30800F4192B /* StockMarketDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockMarketDataViewController.xib; sourceTree = "<group>"; };
 		C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
@@ -154,9 +166,13 @@
 		C03E9ABB1D6ECDB900D93016 /* StockChart */ = {
 			isa = PBXGroup;
 			children = (
+				C09BB0841DD2D8EC00A16610 /* ScrollKline */,
 				C03E9ABC1D6ECDB900D93016 /* HSBaseStockChartView.swift */,
 				C03E9AC71D6ECDB900D93016 /* HSTimeLineStockChartView.swift */,
 				C03E9ABF1D6ECDB900D93016 /* HSKLineStockChartView.swift */,
+				C09BB07E1DD218D800A16610 /* HSScrollKLineView.swift */,
+				C01E2A131DD4086000F192C8 /* HSKLineAreaView.swift */,
+				C09BB0821DD2BBBD00A16610 /* HSKLineView.swift */,
 				C0A983061D80149A003C3B4C /* HSStockBriefView.swift */,
 				C0A983081D8014AD003C3B4C /* HSStockBriefView.xib */,
 				C05B3F971D81492000C181BA /* HSKLineBriefView.swift */,
@@ -171,6 +187,7 @@
 			children = (
 				C01FBFBF1D76E4010068A143 /* TimeLineEntity.swift */,
 				C01FBFBD1D76E4010068A143 /* KLineEntity.swift */,
+				C09BB0871DD2EDD700A16610 /* KLineCoordinate.swift */,
 				C01FBFBE1D76E4010068A143 /* TimeLineDataSet.swift */,
 				C01FBFBC1D76E4010068A143 /* KLineDataSet.swift */,
 				C0A840B01D6FDB85007C1260 /* HSTimeLineModel.swift */,
@@ -185,6 +202,7 @@
 			children = (
 				C03E9AC91D6ECDB900D93016 /* Common */,
 				C03E9AD01D6ECDB900D93016 /* ViewController.swift */,
+				C09BB0801DD2B6C700A16610 /* TestViewController.swift */,
 				C06400051D780C9800B2760A /* LandscapeViewController.swift */,
 				C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */,
 				C0A53C751D77C30800F4192B /* StockMarketDataViewController.swift */,
@@ -200,6 +218,14 @@
 				C03E9ACB1D6ECDB900D93016 /* Extension.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		C09BB0841DD2D8EC00A16610 /* ScrollKline */ = {
+			isa = PBXGroup;
+			children = (
+				C09BB0851DD2D93D00A16610 /* HSCandle.swift */,
+			);
+			name = ScrollKline;
 			sourceTree = "<group>";
 		};
 		C0D0656A1D61C17A00AC5AAF = {
@@ -250,7 +276,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = hanson;
 				TargetAttributes = {
 					C0D065721D61C17A00AC5AAF = {
@@ -356,13 +382,19 @@
 			files = (
 				C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */,
 				C0A840B11D6FDB85007C1260 /* HSTimeLineModel.swift in Sources */,
+				C09BB0811DD2B6C700A16610 /* TestViewController.swift in Sources */,
+				C09BB0861DD2D93D00A16610 /* HSCandle.swift in Sources */,
 				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
 				C03E9ADF1D6ECDB900D93016 /* HSBaseStockChartView.swift in Sources */,
 				C03E9AD71D6ECDB900D93016 /* CAPSPageMenu.swift in Sources */,
 				C01FBFC11D76E4010068A143 /* KLineEntity.swift in Sources */,
+				C01E2A141DD4086000F192C8 /* HSKLineAreaView.swift in Sources */,
 				C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */,
 				C01FBFC31D76E4010068A143 /* TimeLineEntity.swift in Sources */,
+				C09BB0881DD2EDD700A16610 /* KLineCoordinate.swift in Sources */,
 				C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */,
+				C09BB0831DD2BBBD00A16610 /* HSKLineView.swift in Sources */,
+				C09BB07F1DD218D800A16610 /* HSScrollKLineView.swift in Sources */,
 				C0FAA6501D7D72D700F15200 /* HSStockBasicInfoModel.swift in Sources */,
 				C05B3F981D81492000C181BA /* HSKLineBriefView.swift in Sources */,
 				C03E9AEA1D6ECDB900D93016 /* Common.swift in Sources */,

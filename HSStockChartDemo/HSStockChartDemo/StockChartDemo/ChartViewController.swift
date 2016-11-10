@@ -79,6 +79,7 @@ class ChartViewController: UIViewController {
             let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
             stockChartView.setUpData(getKLineViewDataSet(modelArray))
             stockChartView.tag = chartType.rawValue
+            
             self.view.addSubview(stockChartView)
             
         case .kLineForWeek:

@@ -85,12 +85,12 @@ class ViewController: UIViewController {
             .titleTextSizeBasedOnMenuItemWidth(true)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 120 + 20, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 120 + 20 + 64, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
 
-        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: 120 + 20, width: self.view.frame.width, height: 34))
+        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: 120 + 20 + 64, width: self.view.frame.width, height: 34))
         stockBriefView?.isHidden = true
         
-        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: 120 + 20, width: self.view.frame.width, height: 34))
+        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: 120 + 20 + 64, width: self.view.frame.width, height: 34))
         kLineBriefView?.isHidden = true
         
         self.view.addSubview(pageMenu!.view)
@@ -143,6 +143,9 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func forTest(_ sender: Any) {
+        self.navigationController?.pushViewController(TestViewController(), animated: true)
+    }
 }
 
 

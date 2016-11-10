@@ -9,28 +9,28 @@
 import UIKit
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
 class HSKLineStockChartView: HSBaseStockChartView {
-
+    
     var dataSet: KLineDataSet?
     var priceOnYaxisScale: CGFloat = 0
     var volumeOnYaxisScale: CGFloat = 0
@@ -123,6 +123,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
         self.addGestureRecognizer(tapGesture)
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(panGesture)
+        pinGesture.delegate = self
         self.addGestureRecognizer(pinGesture)
     }
     
@@ -140,7 +141,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     
     func setUpData(_ dataSet: KLineDataSet) {
         if let d = dataSet.data , self.countOfshowCandle > 0 {
-
+            
             self.dataSet = dataSet
             //dataSet.data = [KLineEntity](d)
             
@@ -153,7 +154,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             //self.showFailStatusView()
         }
     }
-
+    
     
     // MARK: - Function
     
@@ -166,7 +167,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.maxVolume = CGFloat.leastNormalMagnitude
             self.maxMACD = CGFloat.leastNormalMagnitude
             let startIndex = self.startDrawIndex
-            //data.count
+            
             let count = (startIndex + countOfshowCandle) > data.count ? data.count : (startIndex + countOfshowCandle)
             for i in startIndex ..< count {
                 let entity = data[i]
@@ -176,7 +177,6 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 let tempMax = max(abs(entity.diff), abs(entity.dea), abs(entity.macd))
                 self.maxMACD = tempMax > self.maxMACD ? tempMax : self.maxMACD
             }
-            
         }
     }
     
@@ -204,7 +204,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
                       lineWidth: self.borderWidth / 4.0)
         
         self.drawYAxisLabel(context, labelString: recoverSign, yAxis: contentTop, isLeft: true, isInLineCenter: false)
-
+        
         // 显示macd的坐标线及标签
         if showMacdEnable {
             let startPoint1 = CGPoint(x: contentLeft, y: lowerChartBottom - lowerChartDrawAreaMargin)
@@ -391,7 +391,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
         }
         
         if !self.longPressToHighlightEnabled{
-//            self.drawAvgMarker(context, idex: 0)
+            //            self.drawAvgMarker(context, idex: 0)
         }
         
         context.restoreGState()
@@ -494,9 +494,9 @@ class HSKLineStockChartView: HSBaseStockChartView {
             
             self.startDrawIndex = self.startDrawIndex - moveCount
             if self.startDrawIndex < 10 {
-//                if self.delegate != nil {
-//                    self.delegate?.chartKlineScrollLeft!(self)
-//                }
+                //                if self.delegate != nil {
+                //                    self.delegate?.chartKlineScrollLeft!(self)
+                //                }
             }
             
         } else {
@@ -517,7 +517,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             }
             
             self.startDrawIndex += moveCount
-
+            
             if startDrawIndex > self.dataSet?.data?.count {
                 self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
             }
@@ -527,7 +527,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             if isPanRight {
                 self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
                 //print("startDrawIndex  " + "\(startDrawIndex)")
-//                self.notifyDataSetChanged()
+                //                self.notifyDataSetChanged()
                 self.setNeedsDisplay()
             }
         }
@@ -557,7 +557,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.candleWidth = self.candleMinWidth
         }
         
-//        self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
+        //        self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
         self.setNeedsDisplay()
         self.lastPinScale = recognizer.scale
     }
@@ -584,7 +584,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
                 let lastData = highlightLineCurrentIndex > 0 ? self.dataSet?.data?[self.highlightLineCurrentIndex - 1] : self.dataSet?.data?[0]
                 let userInfo: [AnyHashable: Any]? = ["preClose" : (lastData?.close)!,
-                              "kLineEntity" : (self.dataSet?.data?[self.highlightLineCurrentIndex])! ]
+                                                     "kLineEntity" : (self.dataSet?.data?[self.highlightLineCurrentIndex])! ]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
             }
         }
@@ -598,5 +598,17 @@ class HSKLineStockChartView: HSBaseStockChartView {
         }
     }
     
+    
+    
+}
+
+
+// MARK: - 同时响应多个手势事件，解决 panGesture 导致冲突无法向上滑动
+
+extension HSKLineStockChartView: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
