@@ -8,14 +8,12 @@
 
 import UIKit
 import SwiftyJSON
-import SnapKit
 
 class HSScrollKLineView: UIView {
     
     var scrollView: UIScrollView!
     var kLineView: HSKLineView!
     var widthOfKLineView: CGFloat = 0
-    var kLineViewWidthConstraint: Constraint!
     
     var oldRightOffset: CGFloat = -1
 
@@ -33,12 +31,6 @@ class HSScrollKLineView: UIView {
         
         kLineView = HSKLineView(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
         scrollView.addSubview(kLineView)
-//        kLineView.snp.makeConstraints { (make) in
-//            kLineViewWidthConstraint = make.width.equalTo(0).constraint   //937
-////            make.top.left.equalTo(scrollView)
-////            make.height.equalTo(300)
-//        }
-//        self.layoutIfNeeded()
         
         let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
         self.configureView(dataSet: getKLineViewDataSet(modelArray))
@@ -77,11 +69,6 @@ class HSScrollKLineView: UIView {
             print("总长度 " + "\(kLineViewWidth)")
             // 更新长度
             kLineView.frame = CGRect(x: kLineView.frame.origin.x, y: kLineView.frame.origin.y, width: kLineViewWidth, height: 300)
-//            kLineViewWidthConstraint.deactivate()
-//            kLineView.snp.makeConstraints { (make) in
-//                kLineViewWidthConstraint = make.width.equalTo(kLineViewWidth).constraint
-//            }
-//            kLineView.layoutIfNeeded()
             //self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: self.frame.height)
             
             print("klineview frame " + "\(kLineView.frame)")

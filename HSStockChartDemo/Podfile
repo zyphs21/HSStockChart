@@ -4,5 +4,4 @@ use_frameworks!
 
 target 'HSStockChartDemo' do
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-    pod 'SnapKit', '~> 3.0'
 end
