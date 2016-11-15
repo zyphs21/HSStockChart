@@ -84,27 +84,19 @@ class HSKLineView: UIView {
     var startIndex: Int {
         get {
             let scrollViewOffsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x
-//            let rightSideCandleCount = (self.frame.width - scrollViewOffsetX - candleWidth) / ( candleWidth + gapBetweenCandle)
             let leftCandleCount = abs(scrollViewOffsetX) / (candleWidth + gapBetweenCandle)
-//            let leftCandleCount = abs(scrollViewOffsetX - gapBetweenCandle) / ( candleWidth + gapBetweenCandle)
-            print("leftCandleCount " + "\(Int(leftCandleCount))")
-            print("data count")
             
             if leftCandleCount == 0 {
                 return Int(leftCandleCount)
             } else {
                 return Int(leftCandleCount) + 1
             }
-//            return Int(leftCandleCount)
         }
     }
     
     // 当前显示区域起始横坐标 x
     var startX: CGFloat {
         get {
-//            let start = CGFloat(startIndex)
-//            let temp = start * candleWidth + gapBetweenCandle / 2
-//            return (start + 1) * gapBetweenCandle + temp
             let scrollViewOffsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x
             return scrollViewOffsetX
         }
@@ -113,8 +105,6 @@ class HSKLineView: UIView {
     // 当前显示区域最多显示的蜡烛图个数
     var countOfshowCandle: Int {
         get{
-            print("countOfShowCandle " + "\((scrollView.frame.width - candleWidth) / ( candleWidth + gapBetweenCandle))")
-            print("countOfShowCandle " + "\(Int((scrollView.frame.width - candleWidth) / ( candleWidth + gapBetweenCandle)))")
             return Int((scrollView.frame.width - candleWidth) / ( candleWidth + gapBetweenCandle))
         }
     }
@@ -160,8 +150,6 @@ class HSKLineView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        print("draw " + "\(rect)")
-        print("startIndex " + "\(startIndex)")
         
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(UIColor.white.cgColor)
@@ -194,9 +182,7 @@ class HSKLineView: UIView {
             print("in klineview scrollView?.contentOffset.x " + "\(scrollView?.contentOffset.x)")
             let diff = abs(scrollView!.contentOffset.x - self.oldContentOffsetX)
             if diff >= candleWidth + gapBetweenCandle {
-                print("oldContentOffsetX " + "\(oldContentOffsetX)")
                 self.oldContentOffsetX = (self.scrollView?.contentOffset.x)!
-                
                 // 拖动 ScrollView 改变当前显示的 klineview
                 drawCurrentKlineView()
             }
@@ -209,19 +195,13 @@ class HSKLineView: UIView {
     func updateKlineViewWidth() {
         if let data = dataSet?.data {
             let count = CGFloat(data.count)
-            print("data count" + "\(count)")
             // 总长度
             var kLineViewWidth = count * candleWidth + (count + 1) * gapBetweenCandle
             if kLineViewWidth < ScreenWidth {
                 kLineViewWidth = ScreenWidth
             }
-            //self.widthOfKLineView = kLineViewWidth
-            print("总长度 " + "\(kLineViewWidth)")
             // 更新长度
             self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: 300)
-            
-            print("klineview frame " + "\(self.frame)")
-            
             self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: 300)
             
         } else {
@@ -355,10 +335,6 @@ class HSKLineView: UIView {
         let count = (startIndex + countOfshowCandle + 1) > data.count ? data.count : (startIndex + countOfshowCandle + 1)
         
         for i in startIndex ..< count {
-            print("startIndex " + "\(startIndex)")
-            print("startX " + "\(startX)")
-            print("i " + "\(i)")
-            print("count " + "\(count)")
             let entity = data[i]
             let open = ((self.maxPrice - entity.open) * self.priceOnYaxisScale) + self.klineMaxValueY
             let close = ((self.maxPrice - entity.close) * self.priceOnYaxisScale) + self.klineMaxValueY
@@ -503,10 +479,8 @@ extension HSKLineView {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: self)
             
-            print("longPressPoint " + "\(point)")
             self.showLongPressHighlight = true
             self.highLightIndex = Int(point.x / (candleWidth + gapBetweenCandle))
-            print("highLightIndex " + "\(highLightIndex)")
             self.setNeedsDisplay()
             
 //            if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
@@ -535,12 +509,8 @@ extension HSKLineView {
         }
         self.showLongPressHighlight = false
         
-        let point = recognizer.location(in: self)
-        let pinchIndex = Int(point.x / (candleWidth + gapBetweenCandle))
-        print("pointIndex  " + "\(pinchIndex)")
-        print("point  " + "\(point)")
-        print("scale " + "\(recognizer.scale)")
-        print("v " + "\(recognizer.velocity)")
+        //let point = recognizer.location(in: self)
+        //let pinchIndex = Int(point.x / (candleWidth + gapBetweenCandle))
         
         if (recognizer.state == .began) {
             lastPinScale = 1.0

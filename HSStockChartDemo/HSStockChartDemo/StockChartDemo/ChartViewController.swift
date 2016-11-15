@@ -17,18 +17,10 @@ enum HSChartType: Int {
     case kLineForMonth
 }
 
-protocol ChartViewControllerDelegate {
-    func showLandscapeChartView(_ index: Int)
-}
-
 class ChartViewController: UIViewController {
     
     var chartType: HSChartType = .timeLineForDay
-    var delegate: ChartViewControllerDelegate?
     var timeLineView: HSTimeLineStockChartView?
-    var tapGesture : UITapGestureRecognizer{
-        return UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-    }
 
     
     // MARK: - Life Circle
@@ -60,7 +52,6 @@ class ChartViewController: UIViewController {
             timeLineView!.dataSet = getTimeLineViewDataSet(modelArray, info: stockBasicInfo, type: chartType)
             timeLineView!.isUserInteractionEnabled = true
             timeLineView!.tag = chartType.rawValue
-            timeLineView!.addGestureRecognizer(tapGesture)
             self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
@@ -70,7 +61,6 @@ class ChartViewController: UIViewController {
             stockChartView.showFiveDayLabel = true
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
-            stockChartView.addGestureRecognizer(tapGesture)
             self.view.addSubview(stockChartView)
             
             
@@ -187,11 +177,6 @@ class ChartViewController: UIViewController {
         let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
         let jsonContent = content.data(using: String.Encoding.utf8)!
         return JSON(data: jsonContent)
-    }
-    
-    func handleTapGesture(_ recognizer: UITapGestureRecognizer) {
-        let index = recognizer.view?.tag ?? 0
-        delegate?.showLandscapeChartView(index)
     }
     
 //    func breathingLightAnimate(time:Double) -> CAAnimationGroup {

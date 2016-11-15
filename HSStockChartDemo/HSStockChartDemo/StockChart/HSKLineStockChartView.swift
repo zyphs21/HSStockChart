@@ -123,7 +123,6 @@ class HSKLineStockChartView: HSBaseStockChartView {
         self.addGestureRecognizer(tapGesture)
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(panGesture)
-        pinGesture.delegate = self
         self.addGestureRecognizer(pinGesture)
     }
     

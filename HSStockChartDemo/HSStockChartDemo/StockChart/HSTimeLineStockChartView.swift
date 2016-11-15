@@ -35,6 +35,11 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         return UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
     }
     
+    var tapGesture: UITapGestureRecognizer {
+        get{
+            return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
+        }
+    }
     var volumeWidth: CGFloat = 0
     
     var dataSet : TimeLineDataSet? {
@@ -69,6 +74,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         super.init(frame: frame)
         
         self.addGestureRecognizer(longPressGesture)
+        self.addGestureRecognizer(tapGesture)
     }
     
     override init(frame: CGRect, uperChartHeightScale: CGFloat, topOffSet: CGFloat, leftOffSet: CGFloat, bottomOffSet: CGFloat, rightOffSet: CGFloat) {
@@ -76,12 +82,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         super.init(frame: frame, uperChartHeightScale: uperChartHeightScale, topOffSet: topOffSet, leftOffSet: leftOffSet, bottomOffSet: bottomOffSet, rightOffSet: rightOffSet)
         
         self.addGestureRecognizer(longPressGesture)
+        self.addGestureRecognizer(tapGesture)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.addGestureRecognizer(longPressGesture)
+        self.addGestureRecognizer(tapGesture)
     }
     
     override func draw(_ rect: CGRect) {
@@ -358,6 +366,10 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             self.setNeedsDisplay()
             NotificationCenter.default.post(name: Notification.Name(rawValue: TimeLineUnLongpress), object: self)
         }
+    }
+    
+    func handleTapGestureAction(_ recognizer: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: TimeLineChartDidTap), object: recognizer.view?.tag)
     }
     
     func breathingLightAnimate(_ time:Double) -> CAAnimationGroup {

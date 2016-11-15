@@ -43,7 +43,7 @@ class HSScrollKLineView: UIView {
     func configureView(dataSet: KLineDataSet) {
         kLineView.dataSet = dataSet
         
-        //updateKlineViewWidth()  //更新 KLineView 的长度
+        //更新 KLineView 的长度
         self.kLineView.updateKlineViewWidth()
         
         var contentOffsetX: CGFloat = 0
@@ -56,29 +56,6 @@ class HSScrollKLineView: UIView {
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
     }
     
-    func updateKlineViewWidth() {
-        if let data = kLineView.dataSet?.data {
-            let count = CGFloat(data.count)
-            print("data count" + "\(count)")
-            // 总长度
-            var kLineViewWidth = count * kLineView.candleWidth + (count + 1) * kLineView.gapBetweenCandle
-            if kLineViewWidth < ScreenWidth {
-                kLineViewWidth = ScreenWidth
-            }
-            self.widthOfKLineView = kLineViewWidth
-            print("总长度 " + "\(kLineViewWidth)")
-            // 更新长度
-            kLineView.frame = CGRect(x: kLineView.frame.origin.x, y: kLineView.frame.origin.y, width: kLineViewWidth, height: 300)
-            //self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: self.frame.height)
-            
-            print("klineview frame " + "\(kLineView.frame)")
-            
-            self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: 300)
-            
-        } else {
-            //self.showFailStatusView()
-        }
-    }
     
     // MARK: - 获取数据
     

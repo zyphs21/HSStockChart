@@ -26,7 +26,6 @@
 		C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */; };
 		C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */; };
 		C03E9AD51D6ECDB900D93016 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAE1D6ECDB900D93016 /* Main.storyboard */; };
-		C03E9AD71D6ECDB900D93016 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */; };
 		C03E9ADF1D6ECDB900D93016 /* HSBaseStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABC1D6ECDB900D93016 /* HSBaseStockChartView.swift */; };
 		C03E9AE21D6ECDB900D93016 /* HSKLineStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9ABF1D6ECDB900D93016 /* HSKLineStockChartView.swift */; };
 		C03E9AE91D6ECDB900D93016 /* HSTimeLineStockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AC71D6ECDB900D93016 /* HSTimeLineStockChartView.swift */; };
@@ -71,7 +70,6 @@
 		C03E9AAD1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C03E9AAF1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C03E9AB01D6ECDB900D93016 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		C03E9ABC1D6ECDB900D93016 /* HSBaseStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSBaseStockChartView.swift; sourceTree = "<group>"; };
 		C03E9ABF1D6ECDB900D93016 /* HSKLineStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineStockChartView.swift; sourceTree = "<group>"; };
 		C03E9AC71D6ECDB900D93016 /* HSTimeLineStockChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineStockChartView.swift; sourceTree = "<group>"; };
@@ -151,20 +149,11 @@
 				C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */,
 				C03E9AAE1D6ECDB900D93016 /* Main.storyboard */,
 				C03E9AB01D6ECDB900D93016 /* Info.plist */,
-				C03E9AB11D6ECDB900D93016 /* PageMenu */,
 				C03E9AB31D6ECDB900D93016 /* SampleData */,
 				C03E9ABB1D6ECDB900D93016 /* StockChart */,
 				C03E9AC81D6ECDB900D93016 /* StockChartDemo */,
 			);
 			path = HSStockChartDemo;
-			sourceTree = "<group>";
-		};
-		C03E9AB11D6ECDB900D93016 /* PageMenu */ = {
-			isa = PBXGroup;
-			children = (
-				C03E9AB21D6ECDB900D93016 /* CAPSPageMenu.swift */,
-			);
-			path = PageMenu;
 			sourceTree = "<group>";
 		};
 		C03E9AB31D6ECDB900D93016 /* SampleData */ = {
@@ -392,7 +381,6 @@
 				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
 				C03E9ADF1D6ECDB900D93016 /* HSBaseStockChartView.swift in Sources */,
 				C00FC4171DDAF49E00C03D2C /* HSKLineView.swift in Sources */,
-				C03E9AD71D6ECDB900D93016 /* CAPSPageMenu.swift in Sources */,
 				C01FBFC11D76E4010068A143 /* KLineEntity.swift in Sources */,
 				C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */,
 				C01FBFC31D76E4010068A143 /* TimeLineEntity.swift in Sources */,

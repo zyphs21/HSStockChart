@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var headerStockInfoView: UIView!
     var segmentMenu: SegmentMenu!
     var viewForChart: UIView!
-    var pageMenu: CAPSPageMenu?
     var stockBriefView: HSStockBriefView?
     var kLineBriefView: HSKLineBriefView?
     var currentShowingChartVC: UIViewController?
@@ -46,6 +45,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartLongPressView), name: NSNotification.Name(rawValue: KLineChartLongPress), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: NSNotification.Name(rawValue: KLineChartUnLongPress), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: KLineUperChartDidTap), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: TimeLineChartDidTap), object: nil)
         
         setUpControllerView()
         
@@ -56,6 +56,9 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    
+    //MARK: - 确保从横屏展示切换回来，布局仍以竖屏模式展示
+    
     override var shouldAutorotate : Bool {
         return false
     }
@@ -63,7 +66,6 @@ class ViewController: UIViewController {
     override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
         return UIInterfaceOrientation.portrait
     }
-    
     
     //MARK: - 添加图表的 viewcontroller
     
@@ -174,17 +176,4 @@ extension ViewController: SegmentMenuDelegate {
     }
 }
 
-
-// MARK: - ChartViewControllerDelegate
-
-extension ViewController: ChartViewControllerDelegate {
-    
-    func showLandscapeChartView(_ index: Int) {
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
-            vc.modalTransitionStyle = .crossDissolve
-            vc.viewindex = index
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
-}
 
