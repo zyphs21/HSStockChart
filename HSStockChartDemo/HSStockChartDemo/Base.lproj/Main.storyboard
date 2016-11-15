@@ -134,13 +134,6 @@
                                             <action selector="showStockMarketData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ThU-8t-G7T"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbz-vN-pHH">
-                                        <rect key="frame" x="289" y="5" width="51" height="30"/>
-                                        <state key="normal" title="ForTest"/>
-                                        <connections>
-                                            <action selector="forTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Uv-a0-WxE"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -155,7 +148,6 @@
                                     <constraint firstItem="JBt-8P-Seg" firstAttribute="top" secondItem="P82-mE-8D6" secondAttribute="top" id="A94-WT-o7X"/>
                                     <constraint firstItem="7Rf-IE-md8" firstAttribute="centerY" secondItem="5PH-Xv-XXc" secondAttribute="centerY" id="Bab-d8-AKV"/>
                                     <constraint firstItem="ha8-h2-W7U" firstAttribute="leading" secondItem="5PH-Xv-XXc" secondAttribute="leading" id="DFz-MU-xnI"/>
-                                    <constraint firstItem="Pbz-vN-pHH" firstAttribute="top" secondItem="fFt-WB-PH1" secondAttribute="top" constant="5" id="Dyd-Ob-Y3b"/>
                                     <constraint firstItem="tCp-P5-Hxd" firstAttribute="centerY" secondItem="5PH-Xv-XXc" secondAttribute="centerY" id="Eoa-DJ-FFV"/>
                                     <constraint firstItem="7q6-u0-dz3" firstAttribute="centerY" secondItem="P82-mE-8D6" secondAttribute="centerY" id="GgZ-Gx-622"/>
                                     <constraint firstItem="PU9-Dn-sXj" firstAttribute="centerY" secondItem="P82-mE-8D6" secondAttribute="centerY" id="IAb-5s-Vkl"/>
@@ -183,7 +175,6 @@
                                     <constraint firstItem="PU9-Dn-sXj" firstAttribute="leading" secondItem="bvi-Ij-yJI" secondAttribute="trailing" constant="15" id="lui-us-HZk"/>
                                     <constraint firstItem="a5P-Fe-ZH8" firstAttribute="centerY" secondItem="5PH-Xv-XXc" secondAttribute="centerY" id="n55-G2-aYM"/>
                                     <constraint firstItem="ajr-96-faj" firstAttribute="leading" secondItem="7oF-VL-bzv" secondAttribute="leading" id="nCw-D0-Vad"/>
-                                    <constraint firstItem="Pbz-vN-pHH" firstAttribute="leading" secondItem="ajr-96-faj" secondAttribute="trailing" constant="117" id="oWH-Tq-DYi"/>
                                     <constraint firstItem="PU9-Dn-sXj" firstAttribute="centerY" secondItem="bvi-Ij-yJI" secondAttribute="centerY" id="ocC-xA-PdC"/>
                                     <constraint firstAttribute="trailing" secondItem="JBt-8P-Seg" secondAttribute="trailing" constant="10" id="tDQ-ln-3NP"/>
                                     <constraint firstItem="7q6-u0-dz3" firstAttribute="centerY" secondItem="PU9-Dn-sXj" secondAttribute="centerY" id="vFc-9f-rkr"/>
@@ -238,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8t-Oc-VjN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2080.8000000000002" y="495.20239880059972"/>
+            <point key="canvasLocation" x="2076" y="487"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L8u-Cm-JjA">

@@ -13,7 +13,7 @@ import SnapKit
 class HSScrollKLineView: UIView {
     
     var scrollView: UIScrollView!
-    var kLineView: HSKLineAreaView!
+    var kLineView: HSKLineView!
     var widthOfKLineView: CGFloat = 0
     var kLineViewWidthConstraint: Constraint!
     
@@ -22,7 +22,8 @@ class HSScrollKLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        scrollView = UIScrollView(frame: frame)
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 300))
+        scrollView.backgroundColor = UIColor.white
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 1.0
@@ -30,7 +31,7 @@ class HSScrollKLineView: UIView {
         scrollView.delegate = self
         self.addSubview(scrollView)
         
-        kLineView = HSKLineAreaView(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
+        kLineView = HSKLineView(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
         scrollView.addSubview(kLineView)
 //        kLineView.snp.makeConstraints { (make) in
 //            kLineViewWidthConstraint = make.width.equalTo(0).constraint   //937
@@ -50,13 +51,14 @@ class HSScrollKLineView: UIView {
     func configureView(dataSet: KLineDataSet) {
         kLineView.dataSet = dataSet
         
-        updateKlineViewWidth()  //更新 KLineView 的长度
+        //updateKlineViewWidth()  //更新 KLineView 的长度
+        self.kLineView.updateKlineViewWidth()
         
         var contentOffsetX: CGFloat = 0
         if self.oldRightOffset < 0 {
-            contentOffsetX = widthOfKLineView - scrollView.frame.width
+            contentOffsetX = kLineView.frame.width - scrollView.frame.width //widthOfKLineView - scrollView.frame.width
         } else {
-            contentOffsetX = widthOfKLineView - self.oldRightOffset
+            contentOffsetX = kLineView.frame.width - self.oldRightOffset//widthOfKLineView - self.oldRightOffset
         }
         print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
@@ -138,11 +140,11 @@ class HSScrollKLineView: UIView {
 extension HSScrollKLineView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        // MARK: - 加载更多 KLine 数据
         if (scrollView.contentOffset.x < 0) {
-            print("load more")
+//            print("load more")
 //            self.oldRightOffset = scrollView.contentSize.width - scrollView.contentOffset.x
-//            // 加载更多 KLine 数据
-//            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("WeeklyKLine"))
+//            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
 //            let dataSet = getKLineViewDataSet(modelArray)
 //            dataSet.data? += (getKLineViewDataSet(modelArray).data!)
 //            self.configureView(dataSet: dataSet)
