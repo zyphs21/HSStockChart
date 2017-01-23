@@ -190,19 +190,19 @@ class HSBaseStockChartView: UIView {
         var rightMarkerStr = ""
         var volumeMarkerString = ""
         
-        if value.isKind(of: TimeLineEntity.self) {
-            let entity = value as! TimeLineEntity
+        if value.isKind(of: HSTimeLineModel.self) {
+            let entity = value as! HSTimeLineModel
             rightMarkerStr = self.formatValue(entity.price)
-            bottomMarkerString = entity.currtTime
+            bottomMarkerString = entity.currentTime
             leftMarkerString = self.formatRatio(entity.rate)
             volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
             
-        } else if value.isKind(of: KLineEntity.self){
-            let entity = value as! KLineEntity
+        } else if value.isKind(of: HSKLineModel.self){
+            let entity = value as! HSKLineModel
             rightMarkerStr = self.formatValue(entity.close)
-            bottomMarkerString = entity.date
-            leftMarkerString = entity.rate.toStringWithFormat("%.2f") + "%"
-            volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
+            bottomMarkerString = entity.date.toDate("yyyyMMddHHmmss")?.toString("MM-dd") ?? ""
+            leftMarkerString = entity.rate.toStringWithFormat(".2") + "%"
+            volumeMarkerString = entity.volume.toStringWithFormat(".2")
         }else{
             
             return

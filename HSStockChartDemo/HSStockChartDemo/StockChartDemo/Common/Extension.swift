@@ -135,6 +135,38 @@ extension Double{
     }
 }
 
+extension CGFloat {
+    
+    
+    /// 输出格式化的String
+    ///
+    /// - Parameter format: eg: ".2" 保留两位小数
+    /// - Returns: Formated String
+    func toStringWithFormat(_ format: String) -> String {
+        return String(format: "%\(format)f", self)
+    }
+    
+    /// "###,##0.00"
+    /// "0.00"
+    /// 科学计数
+    func toStringWithFormat1(_ format:String) -> String! {
+        let nsnumberformaer = NumberFormatter()
+        nsnumberformaer.positiveFormat = format
+        nsnumberformaer.locale = Locale.current
+        let BB = nsnumberformaer.string(from: NSNumber(value: Float(self)))!
+        
+        return BB
+    }
+    
+    
+    /// 输出为百分数
+    ///
+    /// - Returns: 以%结尾的 百分数输出
+    func toPercentFormat() -> String {
+        return String(format: "%.2f", self) + "%"
+    }
+}
+
 extension String {
     
     //48-57num  65-90A 97-122a
@@ -450,24 +482,6 @@ extension Date {
     
 }
 
-extension CGFloat{
-    /// %.2f 不带科学计数
-    func toStringWithFormat(_ format:String) -> String! {
-        return NSString(format: format as NSString, self) as String
-    }
-    
-    /// "###,##0.00"
-    /// "0.00"
-    /// 科学计数
-    func toStringWithFormat1(_ format:String) -> String! {
-        let nsnumberformaer = NumberFormatter()
-        nsnumberformaer.positiveFormat = format
-        nsnumberformaer.locale = Locale.current
-        let BB = nsnumberformaer.string(from: NSNumber(value: Float(self)))!
-        
-        return BB
-    }
-}
 
 extension Double {
     

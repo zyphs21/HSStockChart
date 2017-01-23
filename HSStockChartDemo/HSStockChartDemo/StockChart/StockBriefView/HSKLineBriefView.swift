@@ -47,11 +47,11 @@ class HSKLineBriefView: UIView {
         return view
     }
     
-    func configureView(_ preClose: CGFloat, kLineEntity: KLineEntity) {
+    func configureView(_ preClose: CGFloat, kLineModel: HSKLineModel) {
         let riseColor = UIColor.red
         let downColor = UIColor(rgba: "#1DBF60")
 
-        if kLineEntity.rate > 0 {
+        if kLineModel.rate > 0 {
             close.textColor = riseColor
             ratio.textColor = riseColor
         } else {
@@ -59,30 +59,30 @@ class HSKLineBriefView: UIView {
             ratio.textColor = downColor
         }
         
-        if preClose < kLineEntity.open {
+        if preClose < kLineModel.open {
             open.textColor = riseColor
         } else {
             open.textColor = downColor
         }
         
-        if preClose < kLineEntity.high {
+        if preClose < kLineModel.high {
             high.textColor = riseColor
         } else {
             high.textColor = downColor
         }
         
-        if preClose < kLineEntity.low {
+        if preClose < kLineModel.low {
             low.textColor = riseColor
         } else {
             low.textColor = downColor
         }
-        open.text = kLineEntity.open.toStringWithFormat("%.2f")
-        close.text = kLineEntity.close.toStringWithFormat("%.2f")
-        high.text = kLineEntity.high.toStringWithFormat("%.2f")
-        low.text = kLineEntity.low.toStringWithFormat("%.2f")
-        volume.text = (kLineEntity.volume / 10000).toStringWithFormat("%.2f") + "万"
-        ratio.text = kLineEntity.rate.toStringWithFormat("%.2f") + "%"
-        time.text = kLineEntity.date
+        open.text = kLineModel.open.toStringWithFormat(".2")
+        close.text = kLineModel.close.toStringWithFormat(".2")
+        high.text = kLineModel.high.toStringWithFormat(".2")
+        low.text = kLineModel.low.toStringWithFormat(".2")
+        volume.text = (kLineModel.volume / 10000).toStringWithFormat(".2") + "万"
+        ratio.text = kLineModel.rate.toStringWithFormat(".2") + "%"
+        time.text = kLineModel.date.toDate("yyyyMMddHHmmss")?.toString("yyyy-MM-dd")
     }
 
 }

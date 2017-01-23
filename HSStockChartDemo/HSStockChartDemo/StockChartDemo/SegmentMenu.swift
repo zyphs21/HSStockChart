@@ -29,7 +29,7 @@ class SegmentMenu: UIView {
     
     var selectedButton: UIButton? {
         willSet (newSelectButton) {
-            if (newSelectButton == selectedButton) {
+            if newSelectButton == selectedButton {
                 return
             }
             selectedButton?.setTitleColor(UIColor.black, for: .normal)

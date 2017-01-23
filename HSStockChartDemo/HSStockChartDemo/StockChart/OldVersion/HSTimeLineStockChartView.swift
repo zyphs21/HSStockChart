@@ -40,13 +40,16 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             return UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
         }
     }
+    
     var volumeWidth: CGFloat = 0
     
-    var dataSet : TimeLineDataSet? {
+    var dataT: [HSTimeLineModel]! {
         didSet {
             self.setNeedsDisplay()
         }
     }
+    
+    var theme = HSTimeLineTheme()
     
     var layerWidth: CGFloat = 4
     
@@ -95,14 +98,14 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        if let data = self.dataSet?.data , data.count > 0 {
+        if dataT.count > 0 {
             let context = UIGraphicsGetCurrentContext()
             setMaxAndMinData()
             drawChartFrame(context!, rect: rect)
             drawTimeLabelInXAxis(context!)
             drawPriceLabel(context!)
             drawRatioLabel(context!)
-            drawTimeLine(context!, data: data)
+            drawTimeLine(context!, data: dataT)
             
         } else {
             // to show error page
@@ -113,28 +116,28 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     //MARK: - Function
     
     func setMaxAndMinData() {
-        if let data = self.dataSet?.data , data.count > 0{
-            self.maxPrice = data[0].price
-            self.minPrice = data[0].price
-            self.maxRatio = data[0].rate
-            self.minRatio = data[0].rate
-            self.maxVolume = data[0].volume
+        if dataT.count > 0{
+            self.maxPrice = dataT[0].price
+            self.minPrice = dataT[0].price
+            self.maxRatio = dataT[0].rate
+            self.minRatio = dataT[0].rate
+            self.maxVolume = dataT[0].volume
             // 分时线和五日线的比较基准
-            let toComparePrice = showFiveDayLabel ? data[0].price : data[0].preClosePx
+            let toComparePrice = showFiveDayLabel ? dataT.first?.price : dataT.first?.preClosePx
             
-            for i in 0 ..< data.count {
-                let entity = data[i]
-                self.priceMaxOffset = self.priceMaxOffset > fabs(entity.price - toComparePrice) ? self.priceMaxOffset : fabs(entity.price - toComparePrice)
+            for i in 0 ..< dataT.count {
+                let entity = dataT[i]
+                self.priceMaxOffset = self.priceMaxOffset > fabs(entity.price - toComparePrice!) ? self.priceMaxOffset : fabs(entity.price - toComparePrice!)
                 self.maxRatio = self.maxRatio > entity.rate ? self.maxRatio : entity.rate
                 self.minRatio = self.minRatio < entity.rate ? self.minRatio : entity.rate
                 self.maxVolume = self.maxVolume > entity.volume ? self.maxVolume : entity.volume
             }
             
-            self.maxPrice = toComparePrice + self.priceMaxOffset
-            self.minPrice = toComparePrice - self.priceMaxOffset
+            self.maxPrice = toComparePrice! + self.priceMaxOffset
+            self.minPrice = toComparePrice! - self.priceMaxOffset
             
-            for i in 0 ..< data.count {
-                let entity = data[i]
+            for i in 0 ..< dataT.count {
+                let entity = dataT[i]
                 entity.avgPirce = entity.avgPirce < self.minPrice ? self.minPrice : entity.avgPirce
                 entity.avgPirce = entity.avgPirce > self.maxPrice ? self.maxPrice : entity.avgPirce
             }
@@ -166,9 +169,9 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     //画横坐标的时间标签
     func drawTimeLabelInXAxis(_ context:CGContext) {
         
-        if let d = self.dataSet?.days , showFiveDayLabel {
+        if showFiveDayLabel {
             let width = self.contentWidth / 5
-            for (index, day) in d.enumerated() {
+            for (index, day) in (dataT.first?.days.enumerated())! {
                 let drawAttributes = self.xAxisLabelAttribute
                 let startTimeAttributedString = NSMutableAttributedString(string: day, attributes: drawAttributes)
                 let sizestartTimeAttributedString = startTimeAttributedString.size()
@@ -213,7 +216,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
     }
     
     // 画分时线，均线，成交量
-    func drawTimeLine(_ context: CGContext, data: [TimeLineEntity]){
+    func drawTimeLine(_ context: CGContext, data: [HSTimeLineModel]){
         context.saveGState()
 
         self.priceOnYaxisScale = uperChartDrawAreaHeight / (self.maxPrice - self.minPrice)
@@ -249,7 +252,7 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
             let startX = left + candleWidth / 2.0
             var yPrice: CGFloat = 0
             
-            var color = self.dataSet!.volumeRiseColor
+            var color = theme.volumeRiseColor
             
             if i > 0 {
                 let previousEntity = data[i - 1]
@@ -260,24 +263,24 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.drawline(context,
                               startPoint: CGPoint(x: preX, y: previousPrice),
                               stopPoint: CGPoint(x: startX, y: yPrice),
-                              color: self.dataSet!.priceLineCorlor,
-                              lineWidth: self.dataSet!.lineWidth)
+                              color: theme.priceLineCorlor,
+                              lineWidth: theme.lineWidth)
                 
                 if isDrawAvgLine {
                     //画均线
                     let lastYAvg = (self.maxPrice - previousEntity.avgPirce) * self.priceOnYaxisScale  + self.uperChartDrawAreaTop
                     let yAvg = (self.maxPrice - entity.avgPirce) * self.priceOnYaxisScale  + self.uperChartDrawAreaTop
                     
-                    self.drawline(context, startPoint: CGPoint(x: preX, y: lastYAvg), stopPoint: CGPoint(x: startX, y: yAvg), color: self.dataSet!.avgLineCorlor, lineWidth: self.dataSet!.lineWidth)
+                    self.drawline(context, startPoint: CGPoint(x: preX, y: lastYAvg), stopPoint: CGPoint(x: startX, y: yAvg), color: theme.avgLineCorlor, lineWidth: theme.lineWidth)
                 }
                 
                 //设置成交量的颜色
                 if (entity.price > previousEntity.price) {
-                    color = self.dataSet!.volumeRiseColor
+                    color = theme.volumeRiseColor
                 }else if (entity.price < previousEntity.price){
-                    color = self.dataSet!.volumeFallColor
+                    color = theme.volumeFallColor
                 }else{
-                    color = self.dataSet!.volumeTieColor
+                    color = theme.volumeTieColor
                 }
                 
                 // 为填充渐变颜色，包围图形
@@ -316,8 +319,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
         }
         
         //填充渐变的颜色
-        if self.dataSet!.drawFilledEnabled && data.count > 0 {
-            self.drawLinearGradient(context, path: fillPath, alpha: self.dataSet!.fillAlpha, startColor: self.dataSet!.fillStartColor.cgColor, endColor: self.dataSet!.fillStopColor.cgColor)
+        if theme.drawFilledEnabled && data.count > 0 {
+            self.drawLinearGradient(context, path: fillPath, alpha: theme.fillAlpha, startColor: theme.fillStartColor.cgColor, endColor: theme.fillStopColor.cgColor)
         }
         
         // 长按显示（不能放到上面的循环里，不然该高亮部分被上面的线段掩盖）
@@ -336,8 +339,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                                                 volumePoint: CGPoint(x: startX, y: self.contentBottom - volume),
                                                 idex: i,
                                                 value: entity,
-                                                color: self.dataSet!.highlightLineColor,
-                                                lineWidth: self.dataSet!.highlightLineWidth)
+                                                color: theme.highlightLineColor,
+                                                lineWidth: theme.highlightLineWidth)
                 }
             }
         }
@@ -356,8 +359,8 @@ class HSTimeLineStockChartView: HSBaseStockChartView {
                 self.setNeedsDisplay()
             }
             // TODO: count 没有解包，可以最上面的方法解决
-            if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: TimeLineLongpress), object: self, userInfo: ["timeLineEntity": (self.dataSet?.data?[self.highlightLineCurrentIndex])!])
+            if self.highlightLineCurrentIndex < dataT.count {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: TimeLineLongpress), object: self, userInfo: ["timeLineEntity": (dataT[self.highlightLineCurrentIndex])])
             }
         }
         

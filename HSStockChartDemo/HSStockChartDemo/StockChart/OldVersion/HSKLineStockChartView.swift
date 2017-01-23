@@ -31,7 +31,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class HSKLineStockChartView: HSBaseStockChartView {
     
-    var dataSet: KLineDataSet?
+    var dataK: [HSKLineModel] = []
+    var theme = HSKLineTheme()
     var priceOnYaxisScale: CGFloat = 0
     var volumeOnYaxisScale: CGFloat = 0
     var macdOnYaxisScale: CGFloat = 0
@@ -64,7 +65,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
             }else{
                 temp = value
             }
-            if (temp + self.countOfshowCandle > self.dataSet!.data!.count) {
+            if (temp + self.countOfshowCandle > dataK.count) {
                 //temp = self.dataSet!.data!.count - self.countOfshowCandle
             }
             _startDrawIndex = temp
@@ -129,23 +130,22 @@ class HSKLineStockChartView: HSBaseStockChartView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        if let data  = self.dataSet?.data , data.count > 0{
+        if dataK.count > 0{
             let context = UIGraphicsGetCurrentContext()
             self.setMaxAndMinData()
             self.drawChartFrame(context!, rect: rect)
-            self.drawCandleLine(context!, data: data)
+            self.drawCandleLine(context!, data: dataK)
             self.drawLabelPrice(context!)
         }
     }
     
-    func setUpData(_ dataSet: KLineDataSet) {
-        if let d = dataSet.data , self.countOfshowCandle > 0 {
+    func setUpData(_ dataSet: [HSKLineModel]) {
+        if self.countOfshowCandle > 0 {
             
-            self.dataSet = dataSet
-            //dataSet.data = [KLineEntity](d)
+            self.dataK = dataSet
             
-            if d.count > self.countOfshowCandle {
-                self.startDrawIndex = d.count - self.countOfshowCandle
+            if dataSet.count > self.countOfshowCandle {
+                self.startDrawIndex = dataSet.count - self.countOfshowCandle
             }
             self.self.setNeedsDisplay()
             
@@ -158,7 +158,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     // MARK: - Function
     
     func setMaxAndMinData() {
-        if let data = self.dataSet?.data , data.count > 0 {
+        if dataK.count > 0 {
             self.maxPrice = CGFloat.leastNormalMagnitude
             self.minPrice = CGFloat.greatestFiniteMagnitude
             self.maxRatio = CGFloat.leastNormalMagnitude
@@ -167,9 +167,9 @@ class HSKLineStockChartView: HSBaseStockChartView {
             self.maxMACD = CGFloat.leastNormalMagnitude
             let startIndex = self.startDrawIndex
             
-            let count = (startIndex + countOfshowCandle) > data.count ? data.count : (startIndex + countOfshowCandle)
+            let count = (startIndex + countOfshowCandle) > dataK.count ? dataK.count : (startIndex + countOfshowCandle)
             for i in startIndex ..< count {
-                let entity = data[i]
+                let entity = dataK[i]
                 self.minPrice = self.minPrice < entity.low ? self.minPrice : entity.low
                 self.maxPrice = self.maxPrice > entity.high ? self.maxPrice : entity.high
                 self.maxVolume = self.maxVolume > entity.volume ? self.maxVolume : entity.volume
@@ -240,7 +240,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
     }
     
     // 画 K 线
-    func drawCandleLine(_ context: CGContext, data: [KLineEntity]) {
+    func drawCandleLine(_ context: CGContext, data: [HSKLineModel]) {
         context.saveGState()
         
         var lastDate: Date?
@@ -290,26 +290,26 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 }
             }
             
-            var color = self.dataSet?.candleRiseColor
+            var color = theme.candleRiseColor
             if open < close {
-                color = self.dataSet?.candleFallColor
-                self.drawColumnRect(context, rect: CGRect(x: left, y: open, width: candleWidth, height: close - open), color: color!)
-                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color!, lineWidth: self.dataSet!.candleTopBottmLineWidth)
+                color = theme.candleFallColor
+                self.drawColumnRect(context, rect: CGRect(x: left, y: open, width: candleWidth, height: close - open), color: color)
+                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color, lineWidth: theme.lineWidth)
                 
             } else if open == close {
                 if i > 1 {
                     let lastEntity = data[i-1]
                     if lastEntity.close > entity.close{
-                        color = self.dataSet?.candleFallColor
+                        color = theme.candleFallColor
                     }
                 }
-                self.drawColumnRect(context, rect: CGRect(x: left, y: open, width: candleWidth, height: 1.5), color: color!)
-                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color!, lineWidth: self.dataSet!.candleTopBottmLineWidth)
+                self.drawColumnRect(context, rect: CGRect(x: left, y: open, width: candleWidth, height: 1.5), color: color)
+                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color, lineWidth: theme.lineWidth)
                 
             } else {
-                color = self.dataSet?.candleRiseColor
-                self.drawColumnRect(context, rect: CGRect(x: left, y: close, width: candleWidth, height: open-close), color: color!)
-                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color!, lineWidth: self.dataSet!.candleTopBottmLineWidth)
+                color = theme.candleRiseColor
+                self.drawColumnRect(context, rect: CGRect(x: left, y: close, width: candleWidth, height: open-close), color: color)
+                self.drawline(context, startPoint: CGPoint(x: startX, y: high), stopPoint: CGPoint(x: startX, y: low), color: color, lineWidth: theme.lineWidth)
             }
             
             if i > 0 {
@@ -319,32 +319,32 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 // 5，10，20日均线
                 let lastY5 = (self.maxPrice - lastEntity.ma5) * self.priceOnYaxisScale + self.contentTop
                 let  y5 = (self.maxPrice - entity.ma5) * self.priceOnYaxisScale  + self.contentTop
-                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY5), stopPoint: CGPoint(x: startX, y: y5), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
+                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY5), stopPoint: CGPoint(x: startX, y: y5), color: theme.ma5Color, lineWidth: theme.lineWidth)
                 
                 let lastY10 = (self.maxPrice - lastEntity.ma10) * self.priceOnYaxisScale  + self.contentTop
                 let  y10 = (self.maxPrice - entity.ma10) * self.priceOnYaxisScale  + self.contentTop
-                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY10) , stopPoint: CGPoint(x: startX, y: y10), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
+                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY10) , stopPoint: CGPoint(x: startX, y: y10), color: theme.ma10Color, lineWidth: theme.lineWidth)
                 
                 let lastY20 = (self.maxPrice - lastEntity.ma20) * self.priceOnYaxisScale  + self.contentTop
                 let  y20 = (self.maxPrice - entity.ma20) * self.priceOnYaxisScale  + self.contentTop
-                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY20), stopPoint: CGPoint(x: startX, y: y20), color: self.dataSet!.avgMA20Color, lineWidth: self.dataSet!.avgLineWidth)
+                self.drawline(context, startPoint: CGPoint(x: lastX, y: lastY20), stopPoint: CGPoint(x: startX, y: y20), color: theme.ma20Color, lineWidth: theme.lineWidth)
                 
                 if self.showMacdEnable {
                     // 显示 MACD 值
-                    let macdColor = macd >= 0 ? dataSet?.candleRiseColor : dataSet?.candleFallColor
-                    self.drawColumnRect(context, rect: CGRect(x: left, y: zeroBasic - macd, width: candleWidth, height: macd), color: macdColor!)
+                    let macdColor = macd >= 0 ? theme.candleRiseColor : theme.candleFallColor
+                    self.drawColumnRect(context, rect: CGRect(x: left, y: zeroBasic - macd, width: candleWidth, height: macd), color: macdColor)
                     
                     let lastDiff = zeroBasic - lastEntity.diff * macdOnYaxisScale
                     let  diff = zeroBasic - entity.diff * macdOnYaxisScale
-                    self.drawline(context, startPoint: CGPoint(x: lastX, y: lastDiff), stopPoint: CGPoint(x: startX, y: diff), color: self.dataSet!.avgMA5Color, lineWidth: self.dataSet!.avgLineWidth)
+                    self.drawline(context, startPoint: CGPoint(x: lastX, y: lastDiff), stopPoint: CGPoint(x: startX, y: diff), color: theme.ma5Color, lineWidth: theme.lineWidth)
                     
                     let lastDea = zeroBasic - lastEntity.dea * macdOnYaxisScale
                     let  dea = zeroBasic - entity.dea * macdOnYaxisScale
-                    self.drawline(context, startPoint: CGPoint(x: lastX, y: lastDea), stopPoint: CGPoint(x: startX, y: dea), color: self.dataSet!.avgMA10Color, lineWidth: self.dataSet!.avgLineWidth)
+                    self.drawline(context, startPoint: CGPoint(x: lastX, y: lastDea), stopPoint: CGPoint(x: startX, y: dea), color: theme.ma10Color, lineWidth: theme.lineWidth)
                     
                 } else {
                     // 成交量
-                    self.drawColumnRect(context,rect:CGRect(x: left, y: self.lowerChartBottom - volume , width: candleWidth, height: volume) ,color:color!)
+                    self.drawColumnRect(context,rect:CGRect(x: left, y: self.lowerChartBottom - volume , width: candleWidth, height: volume) ,color:color)
                     
                     // 最高成交量标签
                     if entity.volume == self.maxVolume {
@@ -375,8 +375,8 @@ class HSKLineStockChartView: HSBaseStockChartView {
                                                 volumePoint: CGPoint(x: startX, y: self.contentBottom - volume),
                                                 idex: idex,
                                                 value: entity,
-                                                color: self.dataSet!.highlightLineColor,
-                                                lineWidth: self.dataSet!.highlightLineWidth,
+                                                color: theme.crossLineColor,
+                                                lineWidth: theme.lineWidth,
                                                 isShowVolume: !showMacdEnable)
                     if showMacdEnable {
                         self.drawMACDLabel(context, index: i)
@@ -396,12 +396,14 @@ class HSKLineStockChartView: HSBaseStockChartView {
         context.restoreGState()
     }
     
+    
+    
     func drawMALabel(_ context: CGContext, index: Int) {
-        var entity : KLineEntity?
+        var entity: HSKLineModel?
         if index == 0{
-            entity = self.dataSet?.data?.last
+            entity = dataK.last
         }else{
-            entity = self.dataSet?.data?[index]
+            entity = dataK[index]
         }
         
         if let entity = entity , self.longPressToHighlightEnabled {
@@ -415,19 +417,19 @@ class HSKLineStockChartView: HSBaseStockChartView {
             
             startPoint.x += recoverSize.width + space
             let ma5 = "MA5:" + "\(formatValue(entity.ma5))"
-            let ma5Attribute = NSMutableAttributedString(string: ma5 , attributes: getLabelAttribute((dataSet?.avgMA5Color)!, backgroundColor: UIColor.white, fontSize: 8))
+            let ma5Attribute = NSMutableAttributedString(string: ma5 , attributes: getLabelAttribute(theme.ma5Color, backgroundColor: UIColor.white, fontSize: 8))
             let ma5Size = ma5Attribute.size()
             self.drawLabel(context, attributesText: ma5Attribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: ma5Size.width, height: ma5Size.height))
             
             startPoint.x += ma5Size.width + space
             let ma10 = "MA10:" + "\(formatValue(entity.ma10))"
-            let ma10Attribute = NSMutableAttributedString(string: ma10 , attributes: getLabelAttribute((dataSet?.avgMA10Color)!, backgroundColor: UIColor.white, fontSize: 8))
+            let ma10Attribute = NSMutableAttributedString(string: ma10 , attributes: getLabelAttribute(theme.ma10Color, backgroundColor: UIColor.white, fontSize: 8))
             let ma10Size = ma10Attribute.size()
             self.drawLabel(context, attributesText: ma10Attribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: ma10Size.width, height: ma10Size.height))
             
             startPoint.x += ma10Size.width + space
             let ma20 = "MA20:" + "\(formatValue(entity.ma20))"
-            let ma20Attribute = NSMutableAttributedString(string: ma20 , attributes: getLabelAttribute((dataSet?.avgMA20Color)!, backgroundColor: UIColor.white, fontSize: 8))
+            let ma20Attribute = NSMutableAttributedString(string: ma20 , attributes: getLabelAttribute(theme.ma20Color, backgroundColor: UIColor.white, fontSize: 8))
             let ma20Size = ma20Attribute.size()
             self.drawLabel(context, attributesText: ma20Attribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: ma20Size.width, height: ma20Size.height))
             
@@ -435,11 +437,11 @@ class HSKLineStockChartView: HSBaseStockChartView {
     }
     
     func drawMACDLabel(_ context: CGContext, index: Int) {
-        var entity : KLineEntity?
+        var entity : HSKLineModel?
         if index == 0{
-            entity = self.dataSet?.data?.last
+            entity = dataK.last
         }else{
-            entity = self.dataSet?.data?[index]
+            entity = dataK[index]
         }
         
         if let entity = entity , self.longPressToHighlightEnabled {
@@ -448,19 +450,19 @@ class HSKLineStockChartView: HSBaseStockChartView {
             var startPoint = CGPoint(x: self.contentLeft + space, y: self.lowerChartTop)
             
             let diff = "DIFF:" + "\(formatValue(entity.diff))"
-            let diffAttribute = NSMutableAttributedString(string: diff , attributes: getLabelAttribute((dataSet?.avgMA5Color)!, backgroundColor: UIColor.white, fontSize: 8))
+            let diffAttribute = NSMutableAttributedString(string: diff , attributes: getLabelAttribute(theme.ma5Color, backgroundColor: UIColor.white, fontSize: 8))
             let diffSize = diffAttribute.size()
             self.drawLabel(context, attributesText: diffAttribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: diffSize.width, height: diffSize.height))
             
             startPoint.x += diffSize.width + space
             let dea = "DEA:" + "\(formatValue(entity.dea))"
-            let deaAttribute = NSMutableAttributedString(string: dea , attributes: getLabelAttribute((dataSet?.avgMA10Color)!, backgroundColor: UIColor.white, fontSize: 8))
+            let deaAttribute = NSMutableAttributedString(string: dea , attributes: getLabelAttribute(theme.ma10Color, backgroundColor: UIColor.white, fontSize: 8))
             let deaSize = deaAttribute.size()
             self.drawLabel(context, attributesText: deaAttribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: deaSize.width, height: deaSize.height))
             
             startPoint.x += deaSize.width + space
             let macd = "MACD:" + "\(formatValue(entity.macd))"
-            let macdAttribute = NSMutableAttributedString(string: macd , attributes: getLabelAttribute((dataSet?.highlightLineColor)!, backgroundColor: UIColor.white, fontSize: 8))
+            let macdAttribute = NSMutableAttributedString(string: macd , attributes: getLabelAttribute(theme.crossLineColor, backgroundColor: UIColor.white, fontSize: 8))
             let macdSize = macdAttribute.size()
             self.drawLabel(context, attributesText: macdAttribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: macdSize.width, height: macdSize.height))
             
@@ -501,7 +503,7 @@ class HSKLineStockChartView: HSBaseStockChartView {
         } else {
             // 判断是否拖动到右边缘尽头
             let count = Int(CGFloat(self.startDrawIndex + self.countOfshowCandle) + (-offset/self.candleWidth))
-            if count > self.dataSet?.data?.count {
+            if count > dataK.count {
                 isPanRight = true
                 print("isPanRight  " + "\(isPanRight)")
             }
@@ -517,14 +519,14 @@ class HSKLineStockChartView: HSBaseStockChartView {
             
             self.startDrawIndex += moveCount
             
-            if startDrawIndex > self.dataSet?.data?.count {
-                self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
+            if startDrawIndex > dataK.count {
+                self.startDrawIndex = dataK.count - self.countOfshowCandle
             }
         }
         
         if recognizer.state == UIGestureRecognizerState.ended {
             if isPanRight {
-                self.startDrawIndex = self.dataSet!.data!.count - self.countOfshowCandle
+                self.startDrawIndex = dataK.count - self.countOfshowCandle
                 //print("startDrawIndex  " + "\(startDrawIndex)")
                 //                self.notifyDataSetChanged()
                 self.setNeedsDisplay()
@@ -580,10 +582,10 @@ class HSKLineStockChartView: HSBaseStockChartView {
                 self.highlightLineCurrentIndex = startDrawIndex + Int((point.x - contentLeft) / candleWidth)
                 self.setNeedsDisplay()
             }
-            if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
-                let lastData = highlightLineCurrentIndex > 0 ? self.dataSet?.data?[self.highlightLineCurrentIndex - 1] : self.dataSet?.data?[0]
-                let userInfo: [AnyHashable: Any]? = ["preClose" : (lastData?.close)!,
-                                                     "kLineEntity" : (self.dataSet?.data?[self.highlightLineCurrentIndex])! ]
+            if self.highlightLineCurrentIndex < dataK.count {
+                let lastData = highlightLineCurrentIndex > 0 ? dataK[self.highlightLineCurrentIndex - 1] : dataK[0]
+                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close,
+                                                     "kLineEntity" : dataK[self.highlightLineCurrentIndex]]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
             }
         }
@@ -591,23 +593,9 @@ class HSKLineStockChartView: HSBaseStockChartView {
         if recognizer.state == .ended {
             self.longPressToHighlightEnabled = false
             self.setNeedsDisplay()
-            if self.highlightLineCurrentIndex < self.dataSet?.data?.count {
+            if self.highlightLineCurrentIndex < dataK.count {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
             }
         }
     }
-    
-    
-    
 }
-
-
-// MARK: - 同时响应多个手势事件，解决 panGesture 导致冲突无法向上滑动
-
-extension HSKLineStockChartView: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-}
-

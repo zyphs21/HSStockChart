@@ -10,7 +10,7 @@ import UIKit
 
 class DayKLineViewController: UIViewController {
 
-    var scrollKLineView: HSScrollKLineView!
+    var klineView: HSKLineViews!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,8 +18,8 @@ class DayKLineViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.gray
         
-        scrollKLineView = HSScrollKLineView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 300))
-        self.view.addSubview(scrollKLineView)
+        klineView = HSKLineViews(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 300), lineType: HSChartType.kLineForDay)
+        self.view.addSubview(klineView)
     }
     
     override func didReceiveMemoryWarning() {

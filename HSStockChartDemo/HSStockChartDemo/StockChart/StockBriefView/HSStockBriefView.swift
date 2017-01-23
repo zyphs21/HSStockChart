@@ -44,7 +44,7 @@ class HSStockBriefView: UIView {
         return view
     }
     
-    func configureView(_ timeLineEntity: TimeLineEntity) {
+    func configureView(_ timeLineEntity: HSTimeLineModel) {
         
         var labelColor: UIColor
         if timeLineEntity.rate < 0 {
@@ -57,10 +57,10 @@ class HSStockBriefView: UIView {
         priceLabel.textColor = labelColor
         ratioLabel.textColor = labelColor
         
-        priceLabel.text = timeLineEntity.price.toStringWithFormat("%.2f")
-        ratioLabel.text = (timeLineEntity.rate * 100).toStringWithFormat("%.2f") + "%"
-        timeLabel.text = timeLineEntity.currtTime
-        volumeLabel.text = timeLineEntity.volume.toStringWithFormat("%.2f")
+        priceLabel.text = timeLineEntity.price.toStringWithFormat(".2")
+        ratioLabel.text = (timeLineEntity.rate * 100).toStringWithFormat(".2") + "%"
+        timeLabel.text = timeLineEntity.currentTime
+        volumeLabel.text = timeLineEntity.volume.toStringWithFormat(".2")
     }
 
 }
