@@ -1,16 +1,16 @@
 //
 //  HSBasicBrush.swift
-//  HSStockChartDemo
+//  dingdong
 //
-//  Created by Hanson on 2017/1/22.
-//  Copyright © 2017年 hanson. All rights reserved.
+//  Created by Hanson on 2017/1/23.
+//  Copyright © 2017年 vanyun. All rights reserved.
 //
 
 import UIKit
 
 /// 基本画笔类
 class HSBasicBrush: UIView {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

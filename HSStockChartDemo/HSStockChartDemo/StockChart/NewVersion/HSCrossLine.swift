@@ -1,42 +1,44 @@
 //
 //  HSCrossLine.swift
-//  HSStockChartDemo
+//  dingdong
 //
-//  Created by Hanson on 2017/1/22.
-//  Copyright © 2017年 hanson. All rights reserved.
+//  Created by Hanson on 2017/1/23.
+//  Copyright © 2017年 vanyun. All rights reserved.
 //
 
 import UIKit
 
 class HSCrossLine: HSBasicBrush {
     
-    var context: CGContext!
     var leftEdgeX: CGFloat!
     var showContentWidth: CGFloat!
-    var theme: HSKLineTheme!
+    var contentTop: CGFloat!
+    var contentLeft: CGFloat!
+    var contentBottom: CGFloat!
+    var contentRight: CGFloat!
+    var contentWidth: CGFloat!
+    var theme: HSBasicTheme!
     
-    init(frame: CGRect, context: CGContext, theme: HSKLineTheme) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.context = context
-        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func draw(pricePoint: CGPoint, volumePoint: CGPoint, leftEdgeX: CGFloat, model: HSKLineModel, contentWidth: CGFloat) {
+    func draw(context: CGContext, theme: HSBasicTheme, contentRect: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject) {
         
-        self.leftEdgeX = leftEdgeX
-        self.showContentWidth = contentWidth
+        self.theme = theme
+        self.contentLeft = contentRect.origin.x
+        self.contentTop = contentRect.origin.y
+        self.contentBottom = contentRect.maxY
+        self.contentRight = contentRect.maxX
+        self.contentWidth = contentRect.width
         
         drawLongPressHighlight(context, pricePoint: pricePoint, volumePoint: volumePoint, value: model)
-        drawMALabel(context, entity: model)
     }
     
-
     
     /// 画出长按的十字线及标记
     ///
@@ -59,20 +61,26 @@ class HSCrossLine: HSBasicBrush {
             leftMarkerString = entity.rate.toPercentFormat()
             volumeMarkerString = entity.volume.toStringWithFormat(".2")
             
+        } else if value.isKind(of: HSTimeLineModel.self){
+            let entity = value as! HSTimeLineModel
+            rightMarkerStr = entity.price.toStringWithFormat(".2")
+            bottomMarkerString = entity.time
+            leftMarkerString = (entity.rate * 100).toPercentFormat()
+            volumeMarkerString = entity.volume.toStringWithFormat(".2")
+            
         } else{
             return
         }
         
         // 交叉线
-        self.drawline(context, startPoint: CGPoint(x: pricePoint.x, y: 0), stopPoint: CGPoint(x: pricePoint.x, y: self.frame.height), color: theme.crossLineColor, lineWidth: theme.lineWidth)
-        self.drawline(context, startPoint: CGPoint(x: 0, y: pricePoint.y), stopPoint: CGPoint(x: frame.width, y: pricePoint.y), color: theme.crossLineColor, lineWidth: theme.lineWidth)
+        // 竖线
+        self.drawline(context, startPoint: CGPoint(x: pricePoint.x, y: contentTop), stopPoint: CGPoint(x: pricePoint.x, y: contentBottom), color: theme.crossLineColor, lineWidth: theme.lineWidth)
+        // 横线
+        self.drawline(context, startPoint: CGPoint(x: contentLeft, y: pricePoint.y), stopPoint: CGPoint(x: contentRight, y: pricePoint.y), color: theme.crossLineColor, lineWidth: theme.lineWidth)
         
         if isShowVolume {
-            // 标记交易量的竖线
-            context.beginPath()
-            context.move(to: CGPoint(x: 0, y: volumePoint.y))
-            context.addLine(to: CGPoint(x: frame.width, y: volumePoint.y))
-            context.strokePath()
+            // 标记交易量的横线
+            self.drawline(context, startPoint: CGPoint(x: contentLeft, y: volumePoint.y), stopPoint: CGPoint(x: contentRight, y: volumePoint.y), color: theme.crossLineColor, lineWidth: theme.lineWidth)
         }
         
         // 交叉点
@@ -97,28 +105,28 @@ class HSCrossLine: HSBasicBrush {
         var labelY: CGFloat = 0
         
         // 左标签
-        labelX = leftEdgeX
+        labelX = contentLeft
         labelY = pricePoint.y - leftMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
                        attributesText: leftMarkerStringAttribute,
                        rect: CGRect(x: labelX, y: labelY, width: leftMarkerStringAttributeSize.width, height: leftMarkerStringAttributeSize.height))
         
         // 右标签
-        labelX = leftEdgeX + self.showContentWidth - rightMarkerStringAttributeSize.width
+        labelX = contentRight - rightMarkerStringAttributeSize.width
         labelY = pricePoint.y - rightMarkerStringAttributeSize.height / 2.0
         self.drawLabel(context,
                        attributesText: rightMarkerStringAttribute,
                        rect: CGRect(x: labelX, y: labelY, width: rightMarkerStringAttributeSize.width, height: rightMarkerStringAttributeSize.height))
         
         // 底部时间标签
-        let maxX = self.frame.width - bottomMarkerStringAttributeSize.width
+        let maxX = contentRight - bottomMarkerStringAttributeSize.width
         labelX = pricePoint.x - bottomMarkerStringAttributeSize.width / 2.0
-        labelY = self.frame.height * theme.kLineChartHeightScale
-        if labelX - self.frame.width > maxX {
-            labelX = leftEdgeX + self.showContentWidth - bottomMarkerStringAttributeSize.width
+        labelY = frame.height * theme.uperChartHeightScale
+        if labelX > maxX {
+            labelX = contentRight - bottomMarkerStringAttributeSize.width
             
-        } else if labelX < leftEdgeX {
-            labelX = leftEdgeX
+        } else if labelX < contentLeft {
+            labelX = contentLeft
         }
         self.drawLabel(context,
                        attributesText: bottomMarkerStringAttribute,
@@ -127,8 +135,8 @@ class HSCrossLine: HSBasicBrush {
         
         if isShowVolume {
             // 交易量右标签
-            let maxY = self.frame.height - volumeMarkerStringAttributeSize.height
-            labelX = leftEdgeX + self.showContentWidth - volumeMarkerStringAttributeSize.width
+            let maxY = contentBottom - volumeMarkerStringAttributeSize.height
+            labelX = contentRight - volumeMarkerStringAttributeSize.width
             labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
             labelY = labelY > maxY ? maxY : labelY
             self.drawLabel(context,
@@ -146,7 +154,7 @@ class HSCrossLine: HSBasicBrush {
     func drawMALabel(_ context: CGContext, entity: HSKLineModel) {
         
         let space:CGFloat = 5.0
-        var startPoint = CGPoint(x: self.leftEdgeX + space, y: 0)
+        var startPoint = CGPoint(x: contentLeft + space, y: 0)
         
         let recoverAttribute = NSMutableAttributedString(string: "不复权", attributes: self.theme.annotationLabelAttribute)
         let recoverSize = recoverAttribute.size()

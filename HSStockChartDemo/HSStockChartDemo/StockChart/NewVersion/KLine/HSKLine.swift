@@ -13,6 +13,7 @@ class HSKLine: HSBasicBrush {
     var scrollView: UIScrollView!
     var crossLine: HSCrossLine?
     
+    
     var kLineType: HSChartType!
     var theme: HSKLineTheme = HSKLineTheme()
     
@@ -113,7 +114,7 @@ class HSKLine: HSBasicBrush {
             convertToPositionModel(data: dataK, context: context!)
             _ = HSKLineBrush(frame: rect, context: context!, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
             if showLongPressHighlight {
-                crossLine = HSCrossLine(frame: rect, context: context!, theme: theme)
+                crossLine = HSCrossLine(frame: rect)
                 drawCrossLine(context!)
             }
             drawLabelPrice(context!)
@@ -334,11 +335,12 @@ class HSKLine: HSBasicBrush {
             let highLightVolume = entity.volume * self.volumeUnit
             let highLightClose = ((self.maxPrice - entity.close) * self.priceUnit) + theme.viewMinYGap
             
-            crossLine?.draw(pricePoint: CGPoint(x: centerX, y: highLightClose),
+            crossLine?.draw(context: context,
+                            theme: self.theme,
+                            contentRect: CGRect(x: startX, y: 0, width: showContentWidth, height: frame.height),
+                            pricePoint: CGPoint(x: centerX, y: highLightClose),
                             volumePoint: CGPoint(x: centerX, y: self.frame.height - highLightVolume),
-                            leftEdgeX: self.startX,
-                            model: entity,
-                            contentWidth: self.showContentWidth)
+                            model: entity)
         }
     }
     

@@ -20,7 +20,7 @@ enum HSChartType: Int {
 class ChartViewController: UIViewController {
     
     var chartType: HSChartType = .timeLineForDay
-    var timeLineView: HSTimeLineStockChartView?
+    var timeLineView: HSTimeLineView?
 
     
     // MARK: - Life Circle
@@ -46,9 +46,7 @@ class ChartViewController: UIViewController {
         switch chartType {
             
         case .timeLineForDay:
-            timeLineView = HSTimeLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width,
-                                                    height: 300),
-                                                    uperChartHeightScale: 0.7,
+            timeLineView = HSTimeLineView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300),
                                                     topOffSet: 10,
                                                     leftOffSet: 5,
                                                     bottomOffSet: 5,
@@ -60,7 +58,7 @@ class ChartViewController: UIViewController {
             self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
-            let stockChartView = HSTimeLineStockChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300),uperChartHeightScale: 0.7, topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
+            let stockChartView = HSTimeLineView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300), topOffSet: 10, leftOffSet: 5, bottomOffSet: 5, rightOffSet: 5)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("FiveDayTimeLine"), type: chartType, basicInfo: stockBasicInfo)
             stockChartView.dataT = modelArray
             stockChartView.showFiveDayLabel = true

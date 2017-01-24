@@ -193,7 +193,7 @@ class HSBaseStockChartView: UIView {
         if value.isKind(of: HSTimeLineModel.self) {
             let entity = value as! HSTimeLineModel
             rightMarkerStr = self.formatValue(entity.price)
-            bottomMarkerString = entity.currentTime
+            bottomMarkerString = entity.time
             leftMarkerString = self.formatRatio(entity.rate)
             volumeMarkerString = entity.volume.toStringWithFormat("%.2f")
             

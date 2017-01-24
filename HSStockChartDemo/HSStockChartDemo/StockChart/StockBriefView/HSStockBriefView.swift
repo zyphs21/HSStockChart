@@ -59,7 +59,7 @@ class HSStockBriefView: UIView {
         
         priceLabel.text = timeLineEntity.price.toStringWithFormat(".2")
         ratioLabel.text = (timeLineEntity.rate * 100).toStringWithFormat(".2") + "%"
-        timeLabel.text = timeLineEntity.currentTime
+        timeLabel.text = timeLineEntity.time
         volumeLabel.text = timeLineEntity.volume.toStringWithFormat(".2")
     }
 

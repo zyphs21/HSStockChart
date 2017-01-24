@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class HSTimeLineModel: NSObject {
     
-    var currentTime: String = ""
+    var time: String = ""
     var price: CGFloat = 0
     var volume: CGFloat = 0
     var days: [String] = []
@@ -25,7 +25,7 @@ class HSTimeLineModel: NSObject {
         var modelArray = [HSTimeLineModel]()
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSTimeLineModel()
-            model.currentTime = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
+            model.time = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
             model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)
@@ -48,7 +48,7 @@ class HSTimeLineModel: NSObject {
         
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSTimeLineModel()
-            model.currentTime = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
+            model.time = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")
             model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)
