@@ -96,6 +96,8 @@ class HSTimeLineView: HSBasicBrush {
         timeLine = HSTimeLineBrush(frame: frame)
         crossLine = HSCrossLine(frame: frame)
         addGestures()
+        
+        self.addSubview(timeLine!)
     }
     
     required init?(coder aDecoder: NSCoder) {

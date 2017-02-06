@@ -67,6 +67,12 @@ class HSTimeLineBrush: HSBasicBrush {
                 fillPath.addLine(to: positionModels[index].pricePoint)
                 fillPath.addLine(to: CGPoint(x: positionModels[index].pricePoint.x, y: theme.uperChartHeightScale * frame.height))
                 fillPath.closeSubpath()
+                
+                // MARK: - TODO: 分时线最后一个点的动画显示
+//                if Date().isTradingTime() {
+                    self.animatePoint.frame = CGRect(x: positionModels[index].pricePoint.x - 3/2, y: positionModels[index].pricePoint.y - 3/2, width: 3, height: 3)
+//                }
+                
             }
             
             
@@ -109,17 +115,6 @@ class HSTimeLineBrush: HSBasicBrush {
         context.restoreGState()
     }
     
-    
-//    // 分时线最后一个点动画显示
-//    if Date().isTradingTime() {
-//    if self.enableAnimatePoint {
-//    if (i == data.count - 1) {
-//    // let xPosition = contentLeft + self.volumeWidth * CGFloat(data[i].numOfTime) - self.volumeWidth / 2
-//    self.animatePoint.frame = CGRect(x: startX - layerWidth/2, y: yPrice - layerWidth/2, width: layerWidth, height: layerWidth)
-//    }
-//    }
-//    }
-    
     func breathingLightAnimate(_ time:Double) -> CAAnimationGroup {
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.fromValue = 1
@@ -141,7 +136,7 @@ class HSTimeLineBrush: HSBasicBrush {
         let group = CAAnimationGroup()
         group.duration = time
         group.autoreverses = false
-        group.isRemovedOnCompletion = true
+        group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
         group.fillMode = kCAFillModeForwards
         group.animations = [scaleAnimation,opacityAnimation]
         group.repeatCount = MAXFLOAT
@@ -153,12 +148,12 @@ class HSTimeLineBrush: HSBasicBrush {
         let animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
         animatePoint.backgroundColor = UIColor(rgba: "#0095ff").cgColor
-        animatePoint.cornerRadius = 2
+        animatePoint.cornerRadius = 1.5
         
         let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: 4, height: 4)
+        layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
         layer.backgroundColor = UIColor(rgba: "#0095ff").cgColor
-        layer.cornerRadius = 2
+        layer.cornerRadius = 1.5
         layer.add(self.breathingLightAnimate(2), forKey: nil)
         
         animatePoint.addSublayer(layer)

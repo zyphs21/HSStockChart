@@ -13,7 +13,6 @@ class HSKLine: HSBasicBrush {
     var scrollView: UIScrollView!
     var crossLine: HSCrossLine?
     
-    
     var kLineType: HSChartType!
     var theme: HSKLineTheme = HSKLineTheme()
     
