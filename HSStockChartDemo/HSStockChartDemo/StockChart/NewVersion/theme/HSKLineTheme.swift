@@ -10,7 +10,6 @@ import UIKit
 
 class HSKLineTheme: HSBasicTheme {
 
-    var borderColor = UIColor(rgba: "#e4e4e4")
     var borderWidth: CGFloat = 1
     
     var xAxisHeitht: CGFloat = 20

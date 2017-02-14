@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class HSKLineViews: UIView {
     
+    var chartFrame: HSChartFrame!
     var scrollView: UIScrollView!
     var kLine: HSKLine!
     var kLineType: HSChartType!
@@ -22,9 +23,12 @@ class HSKLineViews: UIView {
 
     init(frame: CGRect, lineType: HSChartType) {
         super.init(frame: frame)
+        backgroundColor = UIColor.white
+        
+        chartFrame = HSChartFrame(frame: frame)
+        addSubview(chartFrame)
         
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 300))
-        scrollView.backgroundColor = UIColor.white
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
@@ -47,7 +51,7 @@ class HSKLineViews: UIView {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(UIScrollView.contentOffset) {
             print("in klineview scrollView?.contentOffset.x " + "\(scrollView?.contentOffset.x)")
 
@@ -76,7 +80,6 @@ class HSKLineViews: UIView {
 
         // 更新view长度
         kLine.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: currentWidth, height: self.frame.height)
-
 
         var contentOffsetX: CGFloat = 0
 

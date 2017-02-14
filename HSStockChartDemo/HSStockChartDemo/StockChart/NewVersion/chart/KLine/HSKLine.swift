@@ -9,6 +9,7 @@
 import UIKit
 
 class HSKLine: HSBasicBrush {
+    
     var crossLine: HSCrossLine?
     
     var kLineType: HSChartType!
@@ -87,13 +88,14 @@ class HSKLine: HSBasicBrush {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = UIColor.clear
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(pinGesture)
-        self.contentMode = .right
+        self.contentMode = .right  // MARK: WHY
         
     }
     
@@ -105,21 +107,22 @@ class HSKLine: HSBasicBrush {
         super.draw(rect)
 
         renderRect = rect
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.white.cgColor)
-        context?.fill(rect)
+        print("renderRect " + "\(renderRect)")
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        context.setFillColor(UIColor.clear.cgColor)
+        context.fill(rect)
         
         if dataK.count > 0 {
             setMaxAndMinData()
-            drawChartFrame(context!)
-            convertToPositionModel(data: dataK, context: context!)
-            _ = HSKLineBrush(frame: rect, context: context!, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
+            convertToPositionModel(data: dataK, context: context)
+            _ = HSKLineBrush(frame: rect, context: context, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
             if showLongPressHighlight {
                 crossLine = HSCrossLine(frame: rect)
-                drawCrossLine(context!)
+                drawCrossLine(context)
             }
-            drawLabelPrice(context!)
-            
+            drawLabelPrice(context)
             
         } else {
             
@@ -163,54 +166,6 @@ class HSKLine: HSBasicBrush {
             self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
             self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
         }
-    }
-    
-    
-    // MARK: - 画边线
-    
-    func drawChartFrame(_ context: CGContext) {
-        // K线图 顶部边界线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: 0),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: 0),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // K线图 内上边线 即最高价格线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: theme.viewMinYGap),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: theme.viewMinYGap),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // K线图 内下边线 即最低价格线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: uperChartHeight - theme.viewMinYGap),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: uperChartHeight - theme.viewMinYGap),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // K线图 中间的横线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: uperChartHeight / 2.0),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: uperChartHeight / 2.0),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // K线图 底部边界线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: uperChartHeight),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: uperChartHeight),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // 交易量图 上边界线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: uperChartHeight + theme.xAxisHeitht),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: uperChartHeight + theme.xAxisHeitht),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
-        // 交易量图 内上边线 即最高交易量格线
-        self.drawline(context,
-                      startPoint: CGPoint(x: self.startX, y: uperChartHeight + theme.xAxisHeitht + theme.volumeMaxGap),
-                      stopPoint: CGPoint(x: self.startX + self.showContentWidth, y: uperChartHeight + theme.xAxisHeitht + theme.volumeMaxGap),
-                      color: theme.borderColor,
-                      lineWidth: theme.borderWidth / 4.0)
     }
     
     

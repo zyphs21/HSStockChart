@@ -43,6 +43,7 @@
 		C0A817081E481224007B821D /* HSBasicTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A816FE1E481224007B821D /* HSBasicTheme.swift */; };
 		C0A817091E481224007B821D /* HSKLineTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A816FF1E481224007B821D /* HSKLineTheme.swift */; };
 		C0A8170A1E481224007B821D /* HSTimeLineTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A817001E481224007B821D /* HSTimeLineTheme.swift */; };
+		C0A96AFE1E52EA1800D187DA /* HSChartFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A96AFD1E52EA1800D187DA /* HSChartFrame.swift */; };
 		C0A983011D7FB5EF003C3B4C /* DaylyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A982FE1D7FB5EF003C3B4C /* DaylyKLine.json */; };
 		C0A983021D7FB5EF003C3B4C /* MonthlyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */; };
 		C0A983031D7FB5EF003C3B4C /* WeeklyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */; };
@@ -92,6 +93,7 @@
 		C0A816FE1E481224007B821D /* HSBasicTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSBasicTheme.swift; sourceTree = "<group>"; };
 		C0A816FF1E481224007B821D /* HSKLineTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineTheme.swift; sourceTree = "<group>"; };
 		C0A817001E481224007B821D /* HSTimeLineTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineTheme.swift; sourceTree = "<group>"; };
+		C0A96AFD1E52EA1800D187DA /* HSChartFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSChartFrame.swift; sourceTree = "<group>"; };
 		C0A982FE1D7FB5EF003C3B4C /* DaylyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DaylyKLine.json; sourceTree = "<group>"; };
 		C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonthlyKLine.json; sourceTree = "<group>"; };
 		C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeeklyKLine.json; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				C0A816F71E481224007B821D /* HSKLine.swift */,
 				C0A816F81E481224007B821D /* HSKLineBrush.swift */,
 				C0A816F91E481224007B821D /* HSKLineViews.swift */,
+				C0A96AFD1E52EA1800D187DA /* HSChartFrame.swift */,
 			);
 			path = KLine;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				C0A817091E481224007B821D /* HSKLineTheme.swift in Sources */,
 				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
 				C0477E641E35B32B00AA4B8A /* HSBaseStockChartView.swift in Sources */,
+				C0A96AFE1E52EA1800D187DA /* HSChartFrame.swift in Sources */,
 				C03E9AF01D6ECDB900D93016 /* ViewController.swift in Sources */,
 				C0A53C771D77C30800F4192B /* StockMarketDataViewController.swift in Sources */,
 				C0A817041E481224007B821D /* HSKLineBrush.swift in Sources */,

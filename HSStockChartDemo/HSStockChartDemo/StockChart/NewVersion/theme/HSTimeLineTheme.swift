@@ -16,7 +16,6 @@ class HSTimeLineTheme: HSBasicTheme {
     var volumeWidth: CGFloat = 0
     
     var gridBackgroundColor = UIColor.white
-    var borderColor = UIColor(rgba: "#e4e4e4")
     var borderWidth: CGFloat = 1
     
     var xAxisHeitht: CGFloat = 30

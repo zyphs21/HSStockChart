@@ -11,6 +11,8 @@ import UIKit
 class HSBasicTheme: NSObject {
 
     var lineWidth: CGFloat = 1
+    var frameWidth: CGFloat = 0.25
+    var borderColor = UIColor(rgba: "#e4e4e4")
     var crossLineColor = UIColor(rgba: "#546679")
     
     var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 9),
@@ -25,7 +27,6 @@ class HSBasicTheme: NSObject {
     var annotationLabelAttribute = [NSFontAttributeName:UIFont.systemFont(ofSize: 8),
                                     NSBackgroundColorAttributeName:UIColor.white,
                                     NSForegroundColorAttributeName:UIColor(rgba: "#8695a6")]
-    
     
     var ma5Color = UIColor(netHex: 0xe8de85, alpha: 1)
     var ma10Color = UIColor(netHex: 0x6fa8bb, alpha: 1)
