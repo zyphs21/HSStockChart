@@ -9,8 +9,6 @@
 import UIKit
 
 class HSKLine: HSBasicBrush {
-    
-    var scrollView: UIScrollView!
     var crossLine: HSCrossLine?
     
     var kLineType: HSChartType!
@@ -38,6 +36,8 @@ class HSKLine: HSBasicBrush {
     var showMacdEnable = false
     var showMA = false
     var showLongPressHighlight = false
+
+    var renderRect: CGRect = CGRect.zero
     
     var uperChartHeight: CGFloat {
         get {
@@ -53,7 +53,7 @@ class HSKLine: HSBasicBrush {
     // 计算处于当前显示区域左边隐藏的蜡烛图的个数，即为当前显示的初始 index
     var startIndex: Int {
         get {
-            let scrollViewOffsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x
+            let scrollViewOffsetX = renderRect.minX < 0 ? 0 : renderRect.minX
             var leftCandleCount = Int(abs(scrollViewOffsetX) / (theme.candleWidth + theme.candleGap))
             
             if leftCandleCount > dataK.count {
@@ -70,7 +70,7 @@ class HSKLine: HSBasicBrush {
     // 当前显示区域起始横坐标 x
     var startX: CGFloat {
         get {
-            let scrollViewOffsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x
+            let scrollViewOffsetX = renderRect.minX < 0 ? 0 : renderRect.minX
             return scrollViewOffsetX
         }
     }
@@ -78,7 +78,7 @@ class HSKLine: HSBasicBrush {
     // 当前显示区域最多显示的蜡烛图个数
     var countOfshowCandle: Int {
         get{
-            return Int((scrollView.frame.width - theme.candleWidth) / ( theme.candleWidth + theme.candleGap))
+            return Int((renderRect.width - theme.candleWidth) / ( theme.candleWidth + theme.candleGap))
         }
     }
     
@@ -93,6 +93,7 @@ class HSKLine: HSBasicBrush {
         
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(pinGesture)
+        self.contentMode = .right
         
     }
     
@@ -102,7 +103,8 @@ class HSKLine: HSBasicBrush {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+
+        renderRect = rect
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(UIColor.white.cgColor)
         context?.fill(rect)
@@ -122,45 +124,6 @@ class HSKLine: HSBasicBrush {
         } else {
             
         }
-    }
-    
-    
-    // MARK: - 当前 view 被添加到 subview 后调用
-    
-    override func didMoveToSuperview() {
-        self.scrollView = self.superview as? UIScrollView
-        scrollView?.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
-        showContentWidth = self.scrollView.frame.width
-        super.didMoveToSuperview()
-    }
-    
-    
-    // MARK: - 通过监听获取 scrollview 的 contentOffset 变化
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentOffset" {
-            print("in klineview scrollView?.contentOffset.x " + "\(scrollView?.contentOffset.x)")
-            self.oldContentOffsetX = (self.scrollView?.contentOffset.x)!
-            
-            // 拖动 ScrollView 时重绘当前显示的 klineview
-            setNeedsDisplay()
-        }
-    }
-    
-    
-    // MARK: - 更新 View 的整体长度
-    
-    func updateKlineViewWidth() {
-        let count = CGFloat(dataK.count)
-        // 总长度
-        var kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
-        if kLineViewWidth < ScreenWidth {
-            kLineViewWidth = ScreenWidth
-        }
-        self.kLineViewTotalWidth = kLineViewWidth
-        // 更新view长度
-        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: self.frame.height)
-        self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
     }
 
     
@@ -400,8 +363,8 @@ extension HSKLine {
             guard recognizer.numberOfTouches == 2 else {
                 return
             }
-            let point1 = recognizer.location(ofTouch: 0, in: self.scrollView)
-            let point2 = recognizer.location(ofTouch: 1, in: self.scrollView)
+            let point1 = recognizer.location(ofTouch: 0, in: self)
+            let point2 = recognizer.location(ofTouch: 1, in: self)
             let pinCenterX = (point1.x + point2.x) / 2
             
             // 中心点数据index
@@ -419,21 +382,21 @@ extension HSKLine {
                 self.theme.candleWidth = newCandleWidth
             }
             
-            // 更新容纳的总长度
-            self.updateKlineViewWidth()
-            
-            let newPinCenterX = pinCenterLeftCount * theme.candleWidth + (pinCenterLeftCount - 1) * theme.candleGap
-            
-            // 设置scrollview的contentoffset = newPinCenterX - pinCenterX
-            let count = CGFloat(dataK.count)
-            if ( count * theme.candleWidth + (count + 1) * theme.candleGap > self.scrollView.width ) {
-                let newOffsetX = newPinCenterX - (pinCenterX - self.scrollView.contentOffset.x);
-                self.scrollView.contentOffset = CGPoint(x: newOffsetX > 0 ? newOffsetX : 0 , y: self.scrollView.contentOffset.y)
-                
-            } else {
-                self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
-            }
-            updateKlineViewWidth()
+//            // 更新容纳的总长度
+//            self.updateKlineViewWidth()
+//            
+//            let newPinCenterX = pinCenterLeftCount * theme.candleWidth + (pinCenterLeftCount - 1) * theme.candleGap
+//            
+//            // 设置scrollview的contentoffset = newPinCenterX - pinCenterX
+//            let count = CGFloat(dataK.count)
+//            if ( count * theme.candleWidth + (count + 1) * theme.candleGap > self.scrollView.width ) {
+//                let newOffsetX = newPinCenterX - (pinCenterX - renderRect.minX);
+//                self.scrollView.contentOffset = CGPoint(x: newOffsetX > 0 ? newOffsetX : 0 , y: self.scrollView.contentOffset.y)
+//                
+//            } else {
+//                self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
+//            }
+//            updateKlineViewWidth()
             self.setNeedsDisplay()
         }
     }
