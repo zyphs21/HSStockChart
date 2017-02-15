@@ -10,8 +10,6 @@ import UIKit
 
 class HSKLine: HSBasicBrush {
     
-    var crossLine: HSCrossLine?
-    
     var kLineType: HSChartType = HSChartType.kLineForDay
     var theme: HSKLineTheme = HSKLineTheme()
     
@@ -98,8 +96,8 @@ class HSKLine: HSBasicBrush {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         print("Rect " + "\(rect)")
-        if rect.width > 375 {
-            renderRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: 375.0, height: rect.height)
+        if rect.width > ScreenWidth {
+            renderRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: ScreenWidth, height: rect.height)
         } else {
             renderRect = rect
         }
@@ -229,26 +227,6 @@ class HSKLine: HSBasicBrush {
                 self.positionModels.append(positionModel)
                 self.klineModels.append(model)
             }
-        }
-    }
-    
-    
-    // MARK: - 画十字标记线
-    
-    func drawCrossLine(_ context: CGContext) {
-        if highLightIndex < dataK.count {
-            let entity = dataK[highLightIndex]
-            let left = self.startX + CGFloat(highLightIndex - startIndex) * (self.theme.candleWidth + theme.candleGap)
-            let centerX = left + theme.candleWidth / 2.0
-            let highLightVolume = entity.volume * self.volumeUnit
-            let highLightClose = ((self.maxPrice - entity.close) * self.priceUnit) + theme.viewMinYGap
-            
-            crossLine?.draw(context: context,
-                            theme: self.theme,
-                            contentRect: CGRect(x: startX, y: 0, width: ScreenWidth/*showContentWidth*/, height: frame.height),
-                            pricePoint: CGPoint(x: centerX, y: highLightClose),
-                            volumePoint: CGPoint(x: centerX, y: self.frame.height - highLightVolume),
-                            model: entity)
         }
     }
 }
