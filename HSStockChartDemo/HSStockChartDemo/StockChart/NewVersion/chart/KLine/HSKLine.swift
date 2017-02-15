@@ -33,10 +33,6 @@ class HSKLine: HSBasicBrush {
     
     var priceUnit: CGFloat = 0.1
     var volumeUnit: CGFloat = 0
-    
-    var showMacdEnable = false
-    var showMA = false
-    var showLongPressHighlight = false
 
     var renderRect: CGRect = CGRect.zero
     
@@ -90,13 +86,9 @@ class HSKLine: HSBasicBrush {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         
-//        self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(pinGesture)
-        self.contentMode = .right  // MARK: WHY
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -105,8 +97,13 @@ class HSKLine: HSBasicBrush {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-
-        renderRect = rect
+        print("Rect " + "\(rect)")
+        if rect.width > 375 {
+            renderRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: 375.0, height: rect.height)
+        } else {
+            renderRect = rect
+        }
+//        renderRect = rect
         print("renderRect " + "\(renderRect)")
         guard let context = UIGraphicsGetCurrentContext() else {
             return
@@ -118,11 +115,6 @@ class HSKLine: HSBasicBrush {
             setMaxAndMinData()
             convertToPositionModel(data: dataK, context: context)
             _ = HSKLineBrush(frame: rect, context: context, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
-            if showLongPressHighlight {
-//                crossLine = HSCrossLine(frame: rect)
-//                drawCrossLine(context)
-            }
-            drawLabelPrice(context)
             
         } else {
             
@@ -259,51 +251,10 @@ class HSKLine: HSBasicBrush {
                             model: entity)
         }
     }
-    
-    
-    // MARK: - 画纵坐标标签
-    
-    func drawLabelPrice(_ context: CGContext) {
-        let maxPriceStr = maxPrice.toStringWithFormat(".2")
-        let minPriceStr = minPrice.toStringWithFormat(".2")
-        
-        self.drawYAxisLabel(context, str: maxPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: self.startX + self.showContentWidth, yAxis: theme.viewMinYGap, isLeft: false)
-        self.drawYAxisLabel(context, str: minPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: self.startX + self.showContentWidth, yAxis: uperChartHeight - theme.viewMinYGap, isLeft: false)
-    }
 }
 
 
 extension HSKLine {
-    
-    
-    // MARK: - 处理长按操作
-    
-//    func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
-//        if recognizer.state == .began || recognizer.state == .changed {
-//            let  point = recognizer.location(in: self)
-//            
-//            self.showLongPressHighlight = true
-//            self.highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
-//            
-//            if self.highLightIndex < dataK.count {
-//                self.setNeedsDisplay(self.renderRect)
-//                
-//                let lastData = highLightIndex > 0 ? dataK[self.highLightIndex - 1] : dataK[0]
-//                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close,
-//                                                     "kLineEntity" : dataK[self.highLightIndex]]
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
-//            }
-//        }
-//        
-//        if recognizer.state == .ended {
-//            self.showLongPressHighlight = false
-//            self.setNeedsDisplay(self.renderRect)
-//            if self.highLightIndex < dataK.count {
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
-//            }
-//        }
-//    }
-    
     
     // MARK: - 处理手指捏合扩大操作
     
@@ -351,7 +302,7 @@ extension HSKLine {
 //                self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
 //            }
 //            updateKlineViewWidth()
-            self.setNeedsDisplay()
+            self.setNeedsDisplay(self.renderRect)
         }
     }
 }

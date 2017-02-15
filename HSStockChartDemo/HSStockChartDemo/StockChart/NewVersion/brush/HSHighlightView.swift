@@ -15,6 +15,13 @@ class HSHighlightView: HSBasicBrush {
     var volumePoint: CGPoint = CGPoint.zero
     var isShowVolume: Bool = true
     var model: AnyObject?
+    var maxPrice: CGFloat = 0
+    var minPrice: CGFloat = 0
+    var uperChartHeight: CGFloat {
+        get {
+            return theme.kLineChartHeightScale * self.frame.height
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +39,8 @@ class HSHighlightView: HSBasicBrush {
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }
-        toDraw(rect: rect, context: context)
+        drawLabelPrice(rect: rect, context: context)
+        drawHighLight(rect: rect, context: context)
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -53,7 +61,28 @@ class HSHighlightView: HSBasicBrush {
         setNeedsDisplay()
     }
     
-    fileprivate func toDraw(rect: CGRect, context: CGContext) {
+    func drawYAxisMark(maxPrice: CGFloat, minPrice: CGFloat) {
+        self.maxPrice = maxPrice
+        self.minPrice = minPrice
+        
+        setNeedsDisplay()
+    }
+    
+    fileprivate func drawLabelPrice(rect: CGRect, context: CGContext) {
+        let maxPriceStr = maxPrice.toStringWithFormat(".2")
+        let minPriceStr = minPrice.toStringWithFormat(".2")
+        let midPriceStr = ((maxPrice + minPrice) / 2).toStringWithFormat(".2")
+        
+        self.drawYAxisLabel(context, str: maxPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: rect.maxX, yAxis: theme.viewMinYGap, isLeft: false)
+        self.drawYAxisLabel(context, str: minPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: rect.maxX, yAxis: uperChartHeight - theme.viewMinYGap, isLeft: false)
+        self.drawYAxisLabel(context, str: midPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: rect.maxX, yAxis: uperChartHeight / 2, isLeft: false)
+        
+        let recoverAttribute = NSMutableAttributedString(string: "不复权", attributes: self.theme.annotationLabelAttribute)
+        let recoverSize = recoverAttribute.size()
+        self.drawLabel(context, attributesText: recoverAttribute, rect: CGRect(x: 5, y: 0, width: recoverSize.width, height: recoverSize.height))
+    }
+    
+    fileprivate func drawHighLight(rect: CGRect, context: CGContext) {
         var leftMarkerString = ""
         var bottomMarkerString = ""
         var rightMarkerStr = ""
@@ -166,7 +195,7 @@ class HSHighlightView: HSBasicBrush {
         
         let recoverAttribute = NSMutableAttributedString(string: "不复权", attributes: self.theme.annotationLabelAttribute)
         let recoverSize = recoverAttribute.size()
-        self.drawLabel(context, attributesText: recoverAttribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: recoverSize.width, height: recoverSize.height))
+//        self.drawLabel(context, attributesText: recoverAttribute, rect: CGRect(x: startPoint.x, y: startPoint.y, width: recoverSize.width, height: recoverSize.height))
         
         startPoint.x += recoverSize.width + space
         let ma5 = "MA5: " + entity.ma5.toStringWithFormat(".2")

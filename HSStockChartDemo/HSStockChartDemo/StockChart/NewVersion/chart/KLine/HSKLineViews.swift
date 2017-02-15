@@ -29,14 +29,12 @@ class HSKLineViews: UIView {
         
         chartFrame = HSChartFrame(frame: frame)
         addSubview(chartFrame)
-        
-        
-        
+
         scrollView = UIScrollView(frame: frame)
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
-//        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
+        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
         addSubview(scrollView)
         
         kLine = HSKLine()
@@ -50,6 +48,7 @@ class HSKLineViews: UIView {
         kLine.addGestureRecognizer(longPressGesture)
         
         dataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
+//        self.configureView(data: dataK)
         self.configureView(data: Array(dataK[dataK.count-70..<dataK.count]))
     }
     
@@ -65,14 +64,15 @@ class HSKLineViews: UIView {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
     }
 
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-//        if keyPath == #keyPath(UIScrollView.contentOffset) {
-//            print("in klineview scrollView?.contentOffset.x " + "\(scrollView?.contentOffset.x)")
-//
-//            // 拖动 ScrollView 时重绘当前显示的 klineview
-//            kLine.setNeedsDisplay(CGRect(x: scrollView.contentOffset.x, y: 0, width: scrollView.width, height: kLine.frame.height))
-//        }
-//    }
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(UIScrollView.contentOffset) {
+            print("in klineview scrollView?.contentOffset.x " + "\(scrollView?.contentOffset.x)")
+
+            // 拖动 ScrollView 时重绘当前显示的 klineview
+            kLine.setNeedsDisplay(CGRect(x: scrollView.contentOffset.x, y: 0, width: scrollView.width, height: kLine.frame.height))
+            highlightView.drawYAxisMark(maxPrice: kLine.maxPrice, minPrice: kLine.minPrice)
+        }
+    }
 
     func configureView(data: [HSKLineModel]) {
 
@@ -93,7 +93,9 @@ class HSKLineViews: UIView {
         }
 
         // 更新view长度
+        print("currentWidth " + "\(currentWidth)")
         kLine.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: currentWidth, height: scrollView.frame.height)
+//        kLine.frame.size.width = currentWidth
 
         var contentOffsetX: CGFloat = 0
 
@@ -104,9 +106,13 @@ class HSKLineViews: UIView {
             contentOffsetX = kLine.frame.width - scrollView.frame.width
         }
 
+        kLine.setNeedsDisplay(CGRect(x: scrollView.contentOffset.x, y: 0, width: scrollView.width, height: kLine.frame.height))
+        
         scrollView.contentSize = CGSize(width: currentWidth, height: self.frame.height)
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
         print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
+        
+        
     }
     
     func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
@@ -150,8 +156,7 @@ class HSKLineViews: UIView {
 
 extension HSKLineViews: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        kLine.setNeedsDisplay(CGRect(x: scrollView.contentOffset.x, y: 0, width: kLine.frame.width, height: scrollView.frame.height))
+
         // MARK: - 用于滑动加载更多 KLine 数据
         if (scrollView.contentOffset.x < 0) {
                 print("load more")
