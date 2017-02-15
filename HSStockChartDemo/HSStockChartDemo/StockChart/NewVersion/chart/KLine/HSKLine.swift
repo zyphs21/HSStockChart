@@ -12,7 +12,7 @@ class HSKLine: HSBasicBrush {
     
     var crossLine: HSCrossLine?
     
-    var kLineType: HSChartType!
+    var kLineType: HSChartType = HSChartType.kLineForDay
     var theme: HSKLineTheme = HSKLineTheme()
     
     var dataK: [HSKLineModel] = []
@@ -90,10 +90,10 @@ class HSKLine: HSBasicBrush {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         
-        self.addGestureRecognizer(longPressGesture)
+//        self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(pinGesture)
         self.contentMode = .right  // MARK: WHY
         
@@ -119,8 +119,8 @@ class HSKLine: HSBasicBrush {
             convertToPositionModel(data: dataK, context: context)
             _ = HSKLineBrush(frame: rect, context: context, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
             if showLongPressHighlight {
-                crossLine = HSCrossLine(frame: rect)
-                drawCrossLine(context)
+//                crossLine = HSCrossLine(frame: rect)
+//                drawCrossLine(context)
             }
             drawLabelPrice(context)
             
@@ -186,7 +186,6 @@ class HSKLine: HSBasicBrush {
         let count = (startIndex + countOfshowCandle + 1) > data.count ? data.count : (startIndex + countOfshowCandle + 1)
         if startIndex < count {
             for index in startIndex ..< count {
-                
                 let model = data[index]
                 let xPosition = startX + CGFloat(index - startIndex) * (theme.candleWidth + theme.candleGap) + theme.candleWidth / 2.0
                 let highPoint = CGPoint(x: xPosition, y: (maxPrice - model.high) * priceUnit + minY)
@@ -254,7 +253,7 @@ class HSKLine: HSBasicBrush {
             
             crossLine?.draw(context: context,
                             theme: self.theme,
-                            contentRect: CGRect(x: startX, y: 0, width: showContentWidth, height: frame.height),
+                            contentRect: CGRect(x: startX, y: 0, width: ScreenWidth/*showContentWidth*/, height: frame.height),
                             pricePoint: CGPoint(x: centerX, y: highLightClose),
                             volumePoint: CGPoint(x: centerX, y: self.frame.height - highLightVolume),
                             model: entity)
@@ -279,31 +278,31 @@ extension HSKLine {
     
     // MARK: - 处理长按操作
     
-    func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == .began || recognizer.state == .changed {
-            let  point = recognizer.location(in: self)
-            
-            self.showLongPressHighlight = true
-            self.highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
-            
-            if self.highLightIndex < dataK.count {
-                self.setNeedsDisplay()
-                
-                let lastData = highLightIndex > 0 ? dataK[self.highLightIndex - 1] : dataK[0]
-                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close,
-                                                     "kLineEntity" : dataK[self.highLightIndex]]
-                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
-            }
-        }
-        
-        if recognizer.state == .ended {
-            self.showLongPressHighlight = false
-            self.setNeedsDisplay()
-            if self.highLightIndex < dataK.count {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
-            }
-        }
-    }
+//    func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
+//        if recognizer.state == .began || recognizer.state == .changed {
+//            let  point = recognizer.location(in: self)
+//            
+//            self.showLongPressHighlight = true
+//            self.highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
+//            
+//            if self.highLightIndex < dataK.count {
+//                self.setNeedsDisplay(self.renderRect)
+//                
+//                let lastData = highLightIndex > 0 ? dataK[self.highLightIndex - 1] : dataK[0]
+//                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close,
+//                                                     "kLineEntity" : dataK[self.highLightIndex]]
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
+//            }
+//        }
+//        
+//        if recognizer.state == .ended {
+//            self.showLongPressHighlight = false
+//            self.setNeedsDisplay(self.renderRect)
+//            if self.highLightIndex < dataK.count {
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
+//            }
+//        }
+//    }
     
     
     // MARK: - 处理手指捏合扩大操作
