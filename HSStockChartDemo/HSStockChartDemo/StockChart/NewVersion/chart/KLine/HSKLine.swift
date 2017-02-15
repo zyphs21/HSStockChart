@@ -19,7 +19,7 @@ class HSKLine: HSBasicBrush {
     
     var kLineViewTotalWidth: CGFloat = 0
     var showContentWidth: CGFloat = 0
-    var oldContentOffsetX: CGFloat = 0
+    var contentOffsetX: CGFloat = 0
     var highLightIndex: Int = 0
     
     var maxPrice: CGFloat = 0
@@ -33,6 +33,7 @@ class HSKLine: HSBasicBrush {
     var volumeUnit: CGFloat = 0
 
     var renderRect: CGRect = CGRect.zero
+    var renderWidth: CGFloat = 0
     
     var uperChartHeight: CGFloat {
         get {
@@ -48,7 +49,7 @@ class HSKLine: HSBasicBrush {
     // 计算处于当前显示区域左边隐藏的蜡烛图的个数，即为当前显示的初始 index
     var startIndex: Int {
         get {
-            let scrollViewOffsetX = renderRect.minX < 0 ? 0 : renderRect.minX
+            let scrollViewOffsetX = contentOffsetX < 0 ? 0 : contentOffsetX
             var leftCandleCount = Int(abs(scrollViewOffsetX) / (theme.candleWidth + theme.candleGap))
             
             if leftCandleCount > dataK.count {
@@ -65,7 +66,7 @@ class HSKLine: HSBasicBrush {
     // 当前显示区域起始横坐标 x
     var startX: CGFloat {
         get {
-            let scrollViewOffsetX = renderRect.minX < 0 ? 0 : renderRect.minX
+            let scrollViewOffsetX = contentOffsetX < 0 ? 0 : contentOffsetX
             return scrollViewOffsetX
         }
     }
@@ -73,7 +74,7 @@ class HSKLine: HSBasicBrush {
     // 当前显示区域最多显示的蜡烛图个数
     var countOfshowCandle: Int {
         get{
-            return Int((renderRect.width - theme.candleWidth) / ( theme.candleWidth + theme.candleGap))
+            return Int((renderWidth - theme.candleWidth) / ( theme.candleWidth + theme.candleGap))
         }
     }
     
@@ -96,12 +97,7 @@ class HSKLine: HSBasicBrush {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         print("Rect " + "\(rect)")
-        if rect.width > ScreenWidth {
-            renderRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: ScreenWidth, height: rect.height)
-        } else {
-            renderRect = rect
-        }
-//        renderRect = rect
+        renderRect = rect
         print("renderRect " + "\(renderRect)")
         guard let context = UIGraphicsGetCurrentContext() else {
             return
@@ -280,7 +276,7 @@ extension HSKLine {
 //                self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
 //            }
 //            updateKlineViewWidth()
-            self.setNeedsDisplay(self.renderRect)
+            self.setNeedsDisplay()
         }
     }
 }
