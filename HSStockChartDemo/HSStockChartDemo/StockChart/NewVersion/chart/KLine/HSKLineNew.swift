@@ -1,15 +1,15 @@
 //
-//  HSKLine.swift
+//  HSKLineNew.swift
 //  HSStockChartDemo
 //
-//  Created by Hanson on 2017/1/20.
+//  Created by Hanson on 2017/2/16.
 //  Copyright © 2017年 hanson. All rights reserved.
 //
 
 import UIKit
 
-class HSKLine: HSBasicBrush {
-    
+class HSKLineNew: UIView {
+
     var kLineType: HSChartType = HSChartType.kLineForDay
     var theme: HSKLineTheme = HSKLineTheme()
     
@@ -31,7 +31,7 @@ class HSKLine: HSBasicBrush {
     
     var priceUnit: CGFloat = 0.1
     var volumeUnit: CGFloat = 0
-
+    
     var renderRect: CGRect = CGRect.zero
     var renderWidth: CGFloat = 0
     
@@ -85,36 +85,21 @@ class HSKLine: HSBasicBrush {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         
-//        let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
-//        
-//        self.addGestureRecognizer(pinGesture)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        print("Rect " + "\(rect)")
-        renderRect = rect
-        print("renderRect " + "\(renderRect)")
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        context.setFillColor(UIColor.clear.cgColor)
-        context.fill(rect)
-        
-        if dataK.count > 0 {
-            setMaxAndMinData()
-            convertToPositionModel(data: dataK, context: context)
-            _ = HSKLineBrush(frame: rect, context: context, klineModels: klineModels, positionModels: positionModels, theme: theme, kLineType: kLineType)
-            
-        } else {
-            
-        }
+    
+    // MARK: - 绘图
+    
+    func drawKLineView() {
+        setMaxAndMinData()
+        convertToPositionModel(data: dataK)
+        addKLineChartLayer(array: positionModels)
     }
-
     
     // MARK: - 设置当前显示区域的最大最小值
     
@@ -157,7 +142,7 @@ class HSKLine: HSBasicBrush {
     
     // MARK: - 转换为坐标model
     
-    func convertToPositionModel(data: [HSKLineModel], context: CGContext) {
+    func convertToPositionModel(data: [HSKLineModel]) {
         
         self.positionModels.removeAll()
         self.klineModels.removeAll()
@@ -173,46 +158,46 @@ class HSKLine: HSBasicBrush {
         if startIndex < count {
             for index in startIndex ..< count {
                 let model = data[index]
-                let xPosition = startX + CGFloat(index - startIndex) * (theme.candleWidth + theme.candleGap) + theme.candleWidth / 2.0
+                let leftPosition = startX + CGFloat(index - startIndex) * (theme.candleWidth + theme.candleGap)
+                let xPosition = leftPosition + theme.candleWidth / 2.0
+                
                 let highPoint = CGPoint(x: xPosition, y: (maxPrice - model.high) * priceUnit + minY)
                 let lowPoint = CGPoint(x: xPosition, y: (maxPrice - model.low) * priceUnit + minY)
-                var openPoint = CGPoint(x: xPosition, y: (maxPrice - model.open) * priceUnit + minY)
+                
                 let ma5Point = CGPoint(x: xPosition, y: (maxPrice - model.ma5) * priceUnit + minY)
                 let ma10Point = CGPoint(x: xPosition, y: (maxPrice - model.ma10) * priceUnit + minY)
                 let ma20Point = CGPoint(x: xPosition, y: (maxPrice - model.ma20) * priceUnit + minY)
-                var closePointY = (maxPrice - model.close) * priceUnit + minY
+                
+                let openPointY = (maxPrice - model.open) * priceUnit + minY
+                let closePointY = (maxPrice - model.close) * priceUnit + minY
+                var fillCandleColor = UIColor.black
+                var candleRect = CGRect.zero
                 
                 let volume = (model.volume - 0) * volumeUnit
                 let volumeStartPoint = CGPoint(x: xPosition, y: self.frame.height - volume)
                 let volumeEndPoint = CGPoint(x: xPosition, y: self.frame.height)
                 
-                let minCandleH = theme.candleMinHeight
-                
-                if(abs(closePointY - openPoint.y) < minCandleH) {
-                    if(openPoint.y > closePointY) {
-                        openPoint.y = closePointY + minCandleH
-                        
-                    } else if(openPoint.y < closePointY) {
-                        closePointY = openPoint.y + minCandleH
-                        
-                    } else {
-                        if(index > 0) {
-                            let preKLineModel = data[index - 1]
-                            if(model.open > preKLineModel.close) {
-                                openPoint.y = closePointY + minCandleH
-                            } else {
-                                closePointY = openPoint.y + minCandleH
-                            }
+                if(openPointY > closePointY) {
+                    fillCandleColor = theme.candleRiseColor
+                    candleRect = CGRect(x: leftPosition, y: closePointY, width: theme.candleWidth, height: openPointY - closePointY)
+                    
+                } else if(openPointY < closePointY) {
+                    fillCandleColor = theme.candleFallColor
+                    candleRect = CGRect(x: leftPosition, y: openPointY, width: theme.candleWidth, height: closePointY - openPointY)
+                    
+                } else {
+                    candleRect = CGRect(x: leftPosition, y: closePointY, width: theme.candleWidth, height: theme.candleMinHeight)
+                    if(index > 0) {
+                        let preKLineModel = data[index - 1]
+                        if(model.open > preKLineModel.close) {
+                            fillCandleColor = theme.candleRiseColor
                         } else {
-                            openPoint.y = closePointY - minCandleH
+                            fillCandleColor = theme.candleFallColor
                         }
                     }
                 }
-                let closePoint = CGPoint(x: xPosition, y: closePointY)
                 
                 let positionModel = HSKLineCoordModel()
-                positionModel.openPoint = openPoint
-                positionModel.closePoint = closePoint
                 positionModel.highPoint = highPoint
                 positionModel.lowPoint = lowPoint
                 positionModel.ma5Point = ma5Point
@@ -220,9 +205,57 @@ class HSKLine: HSBasicBrush {
                 positionModel.ma20Point = ma20Point
                 positionModel.volumeStartPoint = volumeStartPoint
                 positionModel.volumeEndPoint = volumeEndPoint
+                positionModel.candleFillColor = fillCandleColor
+                positionModel.candleRect = candleRect
                 self.positionModels.append(positionModel)
                 self.klineModels.append(model)
             }
         }
     }
+    
+    
+    
+    // 获取单个蜡烛图的layer
+    func getCandleLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+
+        // K线
+        let linePath = UIBezierPath(rect: model.candleRect)
+        
+        // 影线
+        linePath.move(to: model.lowPoint)
+        linePath.addLine(to: model.highPoint)
+        
+        let klayer = CAShapeLayer()
+        klayer.path = linePath.cgPath
+        klayer.strokeColor = model.candleFillColor.cgColor
+        klayer.fillColor = model.candleFillColor.cgColor
+        
+        return klayer
+    }
+    
+    func getVolumeLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+        let linePath = UIBezierPath()
+        linePath.move(to: model.volumeStartPoint)
+        linePath.addLine(to: model.volumeEndPoint)
+        
+        let vlayer = CAShapeLayer()
+        vlayer.path = linePath.cgPath
+        vlayer.lineWidth = theme.candleWidth
+        vlayer.strokeColor = model.candleFillColor.cgColor
+        vlayer.fillColor = model.candleFillColor.cgColor
+        
+        return vlayer
+    }
+    
+    func addKLineChartLayer(array: [HSKLineCoordModel]) {
+        self.layer.sublayers?.removeAll()
+        for object in array.enumerated() {
+            let candleLayer = getCandleLayer(model: object.element)
+            let volumeLayer = getVolumeLayer(model: object.element)
+            self.layer.addSublayer(candleLayer)
+            self.layer.addSublayer(volumeLayer)
+        }
+    }
+    
+
 }

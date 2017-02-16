@@ -12,6 +12,9 @@
 		C01CA6E01E372C40006DCBEE /* HSTimeLineCoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01CA6DF1E372C40006DCBEE /* HSTimeLineCoordModel.swift */; };
 		C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */; };
 		C01FB2A71D7E94E6000C2D6D /* FiveDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */; };
+		C03022A31E55965C000E5749 /* HSHighLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03022A21E55965C000E5749 /* HSHighLight.swift */; };
+		C03022A51E559C1E000E5749 /* HSKLineNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03022A41E559C1E000E5749 /* HSKLineNew.swift */; };
+		C03022A71E55AF53000E5749 /* HSKLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03022A61E55AF53000E5749 /* HSKLineView.swift */; };
 		C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */; };
 		C03E9AD31D6ECDB900D93016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */; };
 		C03E9AD41D6ECDB900D93016 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03E9AAC1D6ECDB900D93016 /* LaunchScreen.storyboard */; };
@@ -62,6 +65,9 @@
 		C01CA6DF1E372C40006DCBEE /* HSTimeLineCoordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineCoordModel.swift; sourceTree = "<group>"; };
 		C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		C01FB2A61D7E94E6000C2D6D /* FiveDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveDayTimeLine.json; sourceTree = "<group>"; };
+		C03022A21E55965C000E5749 /* HSHighLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSHighLight.swift; sourceTree = "<group>"; };
+		C03022A41E559C1E000E5749 /* HSKLineNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineNew.swift; sourceTree = "<group>"; };
+		C03022A61E55AF53000E5749 /* HSKLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineView.swift; sourceTree = "<group>"; };
 		C03E9AAA1D6ECDB900D93016 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03E9AAB1D6ECDB900D93016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03E9AAD1D6ECDB900D93016 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -248,6 +254,7 @@
 				C0A816F31E481224007B821D /* HSBasicBrush.swift */,
 				C0A816F41E481224007B821D /* HSCrossLine.swift */,
 				C0A96AFF1E5370F100D187DA /* HSHighlightView.swift */,
+				C03022A21E55965C000E5749 /* HSHighLight.swift */,
 			);
 			path = brush;
 			sourceTree = "<group>";
@@ -265,8 +272,10 @@
 			isa = PBXGroup;
 			children = (
 				C0A816F71E481224007B821D /* HSKLine.swift */,
+				C03022A41E559C1E000E5749 /* HSKLineNew.swift */,
 				C0A816F81E481224007B821D /* HSKLineBrush.swift */,
 				C0A816F91E481224007B821D /* HSKLineViews.swift */,
+				C03022A61E55AF53000E5749 /* HSKLineView.swift */,
 				C0A96AFD1E52EA1800D187DA /* HSChartFrame.swift */,
 			);
 			path = KLine;
@@ -450,6 +459,7 @@
 				C0A8170A1E481224007B821D /* HSTimeLineTheme.swift in Sources */,
 				C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */,
 				C00FC4111DDAE57700C03D2C /* SegmentMenu.swift in Sources */,
+				C03022A71E55AF53000E5749 /* HSKLineView.swift in Sources */,
 				C0A817011E481224007B821D /* HSBasicBrush.swift in Sources */,
 				C0477E6B1E35B32B00AA4B8A /* HSKLineCoordModel.swift in Sources */,
 				C0477E6E1E35B32B00AA4B8A /* HSTimeLineModel.swift in Sources */,
@@ -465,6 +475,7 @@
 				C0477E651E35B32B00AA4B8A /* HSKLineStockChartView.swift in Sources */,
 				C0477E691E35B32B00AA4B8A /* HSStockBriefView.swift in Sources */,
 				C0477E6D1E35B32B00AA4B8A /* HSStockBasicInfoModel.swift in Sources */,
+				C03022A51E559C1E000E5749 /* HSKLineNew.swift in Sources */,
 				C0477E661E35B32B00AA4B8A /* HSTimeLineStockChartView.swift in Sources */,
 				C00FC4131DDAF04200C03D2C /* DayKLineViewController.swift in Sources */,
 				C0477E6C1E35B32B00AA4B8A /* HSKLineModel.swift in Sources */,
@@ -474,6 +485,7 @@
 				C0A817021E481224007B821D /* HSCrossLine.swift in Sources */,
 				C03E9AD21D6ECDB900D93016 /* AppDelegate.swift in Sources */,
 				C06400061D780C9800B2760A /* LandscapeViewController.swift in Sources */,
+				C03022A31E55965C000E5749 /* HSHighLight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

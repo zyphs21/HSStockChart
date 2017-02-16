@@ -2,18 +2,18 @@
 //  HSKLineView.swift
 //  HSStockChartDemo
 //
-//  Created by Hanson on 2017/1/20.
+//  Created by Hanson on 2017/2/16.
 //  Copyright © 2017年 hanson. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-class HSKLineViews: UIView {
-    
+class HSKLineView: UIView {
+
     var chartFrame: HSChartFrame!
     var scrollView: UIScrollView!
-    var kLine: HSKLine!
+    var kLine: HSKLineNew!
     var highlightView: HSHighlightView!
     
     var kLineType: HSChartType!
@@ -21,14 +21,14 @@ class HSKLineViews: UIView {
     let theme: HSKLineTheme = HSKLineTheme()
     var dataK: [HSKLineModel] = []
     var kLineViewWidth: CGFloat = 0.0
-
+    
     init(frame: CGRect, kLineType: HSChartType) {
         super.init(frame: frame)
         backgroundColor = UIColor.white
         
         chartFrame = HSChartFrame(frame: frame)
         addSubview(chartFrame)
-
+        
         scrollView = UIScrollView(frame: frame)
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.alwaysBounceHorizontal = true
@@ -36,10 +36,10 @@ class HSKLineViews: UIView {
         scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
         addSubview(scrollView)
         
-        kLine = HSKLine()
+        kLine = HSKLineNew()
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
-
+        
         highlightView = HSHighlightView(frame: frame)
         addSubview(highlightView)
         
@@ -50,35 +50,30 @@ class HSKLineViews: UIView {
         
         dataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
         self.configureView(data: Array(dataK[dataK.count-70..<dataK.count]))
-//        self.configureView(data: dataK)
-    }
-    
-    override func layoutSubviews() {
-
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
     }
-
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(UIScrollView.contentOffset) {
             print("in klineview scrollView?.contentOffset.x " + "\(scrollView.contentOffset.x)")
-
+            
             // 拖动 ScrollView 时重绘当前显示的 klineview
             kLine.contentOffsetX = scrollView.contentOffset.x
             kLine.renderWidth = scrollView.frame.width
-            kLine.setNeedsDisplay()
+            kLine.drawKLineView()
             highlightView.drawYAxisMark(maxPrice: kLine.maxPrice, minPrice: kLine.minPrice)
         }
     }
-
+    
     func configureView(data: [HSKLineModel]) {
-
+        
         if kLine.dataK.count == data.count {
             return
         }
@@ -96,7 +91,6 @@ class HSKLineViews: UIView {
         // 更新view长度
         print("currentWidth " + "\(kLineViewWidth)")
         kLine.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: scrollView.frame.height)
-        //        kLine.frame.size.width = currentWidth
         
         var contentOffsetX: CGFloat = 0
         
@@ -106,8 +100,6 @@ class HSKLineViews: UIView {
             // 首次加载，将 kLine 的右边和scrollview的右边对齐
             contentOffsetX = kLine.frame.width - scrollView.frame.width
         }
-        
-        kLine.setNeedsDisplay(CGRect(x: scrollView.contentOffset.x, y: 0, width: scrollView.width, height: kLine.frame.height))
         
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
@@ -143,8 +135,8 @@ class HSKLineViews: UIView {
                 let highLightClose = kLine.positionModels[index].closePoint.y
                 
                 highlightView.drawLongPressHighlight(pricePoint: CGPoint(x: centerX, y: highLightClose),
-                                                 volumePoint: CGPoint(x: centerX, y: highLightVolume),
-                                                 value: entity)
+                                                     volumePoint: CGPoint(x: centerX, y: highLightVolume),
+                                                     value: entity)
                 
                 let lastData = highLightIndex > 0 ? dataK[highLightIndex - 1] : dataK[0]
                 let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : dataK[highLightIndex]]
@@ -170,17 +162,17 @@ class HSKLineViews: UIView {
         
         guard recognizer.numberOfTouches == 2 else { return }
         
-//        if fabs(velocity) > 0.1 {   //速度的绝对值大于0.1才起作用
-//            if scale > 1 {
-//                //双指张开
-//                self.setNeedsDisplay()
-//                
-//            } else {
-//                //双指合拢
-//                self.setNeedsDisplay()
-//            }
-//        }
-
+        //        if fabs(velocity) > 0.1 {   //速度的绝对值大于0.1才起作用
+        //            if scale > 1 {
+        //                //双指张开
+        //                self.setNeedsDisplay()
+        //
+        //            } else {
+        //                //双指合拢
+        //                self.setNeedsDisplay()
+        //            }
+        //        }
+        
         if abs(diffScale) > kLineScaleBound {
             let point1 = recognizer.location(ofTouch: 0, in: self)
             let point2 = recognizer.location(ofTouch: 1, in: self)
@@ -203,22 +195,22 @@ class HSKLineViews: UIView {
             
             // 更新容纳的总长度
             self.updateKlineViewWidth()
-
+            
             let newPinCenterX = pinCenterLeftCount * theme.candleWidth + (pinCenterLeftCount - 1) * theme.candleGap
-
+            
             // 设置scrollview的contentoffset = newPinCenterX - pinCenterX
             let count = CGFloat(dataK.count)
             if ( count * theme.candleWidth + (count + 1) * theme.candleGap > self.scrollView.width ) {
                 let newOffsetX = newPinCenterX - pinCenterX
                 self.scrollView.contentOffset = CGPoint(x: newOffsetX > 0 ? newOffsetX : 0 , y: self.scrollView.contentOffset.y)
-
+                
             } else {
                 self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
             }
-            self.setNeedsDisplay()
+            kLine.drawKLineView()
         }
         
-//        recognizer.scale = 1
+        //        recognizer.scale = 1
     }
     
     func getJsonDataFromFile(_ fileName: String) -> JSON {
@@ -229,13 +221,13 @@ class HSKLineViews: UIView {
     }
 }
 
-extension HSKLineViews: UIScrollViewDelegate {
+extension HSKLineView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+        
         // MARK: - 用于滑动加载更多 KLine 数据
         if (scrollView.contentOffset.x < 0) {
-                print("load more")
-                self.configureView(data: dataK)
+            print("load more")
+            self.configureView(data: dataK)
         } else {
             
         }

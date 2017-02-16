@@ -21,4 +21,7 @@ class HSKLineCoordModel: NSObject {
     
     var volumeStartPoint: CGPoint = .zero
     var volumeEndPoint: CGPoint = .zero
+    
+    var candleFillColor: UIColor = UIColor.black
+    var candleRect: CGRect = CGRect.zero
 }
