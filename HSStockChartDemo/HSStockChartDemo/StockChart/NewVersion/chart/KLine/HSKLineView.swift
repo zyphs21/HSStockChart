@@ -21,6 +21,7 @@ class HSKLineView: UIView {
     let theme: HSKLineTheme = HSKLineTheme()
     var dataK: [HSKLineModel] = []
     var kLineViewWidth: CGFloat = 0.0
+    var oldRightOffset: CGFloat = -1
     
     init(frame: CGRect, kLineType: HSChartType) {
         super.init(frame: frame)
@@ -48,6 +49,7 @@ class HSKLineView: UIView {
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         kLine.addGestureRecognizer(pinGesture)
         
+        // MARK: - TODO
         dataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
         self.configureView(data: Array(dataK[dataK.count-70..<dataK.count]))
     }
@@ -78,6 +80,7 @@ class HSKLineView: UIView {
             return
         }
         kLine.dataK = data
+//        self.dataK = data
         let count: CGFloat = CGFloat(data.count)
         
         // 总长度
@@ -104,10 +107,34 @@ class HSKLineView: UIView {
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
         print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
+        
+//        if kLine.dataK.count == data.count {
+//            return
+//        }
+//        kLine.dataK = data
+//        self.dataK = data
+//        let count: CGFloat = CGFloat(data.count)
+//        
+//        // 总长度
+//        var kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
+//        if kLineViewWidth < scrollView.frame.width {
+//            kLineViewWidth = scrollView.frame.width
+//        }
+//        kLine.frame = CGRect(x: 0, y: 0, width: kLineViewWidth, height: scrollView.frame.height)
+//        self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: scrollView.frame.height)
+//
+//        var contentOffsetX: CGFloat = 0
+//        if self.oldRightOffset < 0 {
+//            contentOffsetX = kLine.frame.width - scrollView.frame.width
+//        } else {
+//            contentOffsetX = kLine.frame.width - self.oldRightOffset
+//        }
+//        print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
+//        scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
     }
     
     func updateKlineViewWidth() {
-        let count: CGFloat = CGFloat(dataK.count)
+        let count: CGFloat = CGFloat(kLine.dataK.count)
         // 总长度
         kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
         if kLineViewWidth < ScreenWidth {
@@ -119,6 +146,24 @@ class HSKLineView: UIView {
         // 更新view长度
         print("currentWidth " + "\(kLineViewWidth)")
         kLine.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: scrollView.frame.height)
+        var contentOffsetX: CGFloat = 0
+        if scrollView.contentSize.width > 0 {
+            contentOffsetX = kLineViewWidth - scrollView.contentSize.width
+        } else {
+            // 首次加载，将 kLine 的右边和scrollview的右边对齐
+            contentOffsetX = kLine.frame.width - scrollView.frame.width
+        }
+        scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
+        scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
+        
+//        let count = CGFloat(dataK.count)
+//        // 总长度
+//        var kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
+//        if kLineViewWidth < scrollView.frame.width {
+//            kLineViewWidth = scrollView.frame.width
+//        }
+//        kLine.frame = CGRect(x: 0, y: 0, width: kLineViewWidth, height: scrollView.frame.height)
+//        self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: scrollView.frame.height)
     }
     
     // 长按操作
@@ -126,20 +171,20 @@ class HSKLineView: UIView {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: kLine)
             let highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
-            if highLightIndex < dataK.count {
+            if highLightIndex < kLine.dataK.count {
                 let index = highLightIndex - kLine.startIndex
-                let entity = dataK[highLightIndex]
+                let entity = kLine.dataK[highLightIndex]
                 let left = kLine.startX + CGFloat(highLightIndex - kLine.startIndex) * (self.theme.candleWidth + theme.candleGap) - scrollView.contentOffset.x
                 let centerX = left + theme.candleWidth / 2.0
                 let highLightVolume = kLine.positionModels[index].volumeStartPoint.y
-                let highLightClose = kLine.positionModels[index].closePoint.y
+                let highLightClose = kLine.positionModels[index].closeY
                 
                 highlightView.drawLongPressHighlight(pricePoint: CGPoint(x: centerX, y: highLightClose),
                                                      volumePoint: CGPoint(x: centerX, y: highLightVolume),
                                                      value: entity)
                 
-                let lastData = highLightIndex > 0 ? dataK[highLightIndex - 1] : dataK[0]
-                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : dataK[highLightIndex]]
+                let lastData = highLightIndex > 0 ? kLine.dataK[highLightIndex - 1] : kLine.dataK[0]
+                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : kLine.dataK[highLightIndex]]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
             }
         }
@@ -185,12 +230,15 @@ class HSKLineView: UIView {
             let newCandleWidth = theme.candleWidth * (diffScale > 0 ? (1 + kLineScaleFactor) : (1 - kLineScaleFactor))
             if newCandleWidth > theme.candleMaxWidth {
                 self.theme.candleWidth = theme.candleMaxWidth
+                kLine.theme.candleWidth = theme.candleMaxWidth
                 
             } else if newCandleWidth < theme.candleMinWidth {
                 self.theme.candleWidth = theme.candleMinWidth
+                kLine.theme.candleWidth = theme.candleMinWidth
                 
             } else {
                 self.theme.candleWidth = newCandleWidth
+                kLine.theme.candleWidth = newCandleWidth
             }
             
             // 更新容纳的总长度
@@ -226,6 +274,7 @@ extension HSKLineView: UIScrollViewDelegate {
         
         // MARK: - 用于滑动加载更多 KLine 数据
         if (scrollView.contentOffset.x < 0) {
+            self.oldRightOffset = scrollView.contentSize.width - scrollView.contentOffset.x
             print("load more")
             self.configureView(data: dataK)
         } else {

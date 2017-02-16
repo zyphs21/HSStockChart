@@ -24,4 +24,6 @@ class HSKLineCoordModel: NSObject {
     
     var candleFillColor: UIColor = UIColor.black
     var candleRect: CGRect = CGRect.zero
+    
+    var closeY: CGFloat = 0
 }

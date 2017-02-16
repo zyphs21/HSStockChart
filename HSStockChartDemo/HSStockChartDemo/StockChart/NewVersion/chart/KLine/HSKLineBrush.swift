@@ -86,9 +86,9 @@ class HSKLineBrush: HSBasicBrush {
                           lineWidth: theme.lineWidth)
             // MA 线
             if index > 0 {
-//                self.drawline(context, startPoint: positionModels[index - 1].ma5Point, stopPoint: position.ma5Point, color: theme.ma5Color, lineWidth: theme.lineWidth)
-//                self.drawline(context, startPoint: positionModels[index - 1].ma10Point, stopPoint: position.ma10Point, color: theme.ma10Color, lineWidth: theme.lineWidth)
-//                self.drawline(context, startPoint: positionModels[index - 1].ma20Point, stopPoint: position.ma20Point, color: theme.ma20Color, lineWidth: theme.lineWidth)
+                self.drawline(context, startPoint: positionModels[index - 1].ma5Point, stopPoint: position.ma5Point, color: theme.ma5Color, lineWidth: theme.lineWidth)
+                self.drawline(context, startPoint: positionModels[index - 1].ma10Point, stopPoint: position.ma10Point, color: theme.ma10Color, lineWidth: theme.lineWidth)
+                self.drawline(context, startPoint: positionModels[index - 1].ma20Point, stopPoint: position.ma20Point, color: theme.ma20Color, lineWidth: theme.lineWidth)
             }
             
             // 交易量

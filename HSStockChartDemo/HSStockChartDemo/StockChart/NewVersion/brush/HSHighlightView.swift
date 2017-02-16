@@ -38,8 +38,8 @@ class HSHighlightView: HSBasicBrush {
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }
-        drawLabelPrice(rect: rect, context: context)
         drawHighLight(rect: rect, context: context)
+        drawLabelPrice(rect: rect, context: context)
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

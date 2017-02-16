@@ -200,6 +200,7 @@ class HSKLineNew: UIView {
                 let positionModel = HSKLineCoordModel()
                 positionModel.highPoint = highPoint
                 positionModel.lowPoint = lowPoint
+                positionModel.closeY = closePointY
                 positionModel.ma5Point = ma5Point
                 positionModel.ma10Point = ma10Point
                 positionModel.ma20Point = ma20Point
@@ -233,6 +234,7 @@ class HSKLineNew: UIView {
         return klayer
     }
     
+    // 获取单个交易量图的layer
     func getVolumeLayer(model: HSKLineCoordModel) -> CAShapeLayer {
         let linePath = UIBezierPath()
         linePath.move(to: model.volumeStartPoint)
@@ -247,6 +249,49 @@ class HSKLineNew: UIView {
         return vlayer
     }
     
+    func drawMALayer(array: [HSKLineCoordModel]) -> CAShapeLayer {
+        let ma5LinePath = UIBezierPath()
+        let ma10LinePath = UIBezierPath()
+        let ma20LinePath = UIBezierPath()
+        for index in 1 ..< array.count {
+            let preMa5Point = array[index - 1].ma5Point
+            let ma5Point = array[index].ma5Point
+            ma5LinePath.move(to: preMa5Point)
+            ma5LinePath.addLine(to: ma5Point)
+            
+            let preMa10Point = array[index - 1].ma10Point
+            let ma10Point = array[index].ma10Point
+            ma10LinePath.move(to: preMa10Point)
+            ma10LinePath.addLine(to: ma10Point)
+            
+            let preMa20Point = array[index - 1].ma20Point
+            let ma20Point = array[index].ma20Point
+            ma20LinePath.move(to: preMa20Point)
+            ma20LinePath.addLine(to: ma20Point)
+        }
+        let ma5layer = CAShapeLayer()
+        ma5layer.path = ma5LinePath.cgPath
+        ma5layer.strokeColor = theme.ma5Color.cgColor
+        ma5layer.fillColor = UIColor.clear.cgColor
+        
+        let ma10layer = CAShapeLayer()
+        ma10layer.path = ma10LinePath.cgPath
+        ma10layer.strokeColor = theme.ma10Color.cgColor
+        ma10layer.fillColor = UIColor.clear.cgColor
+        
+        let ma20layer = CAShapeLayer()
+        ma20layer.path = ma20LinePath.cgPath
+        ma20layer.strokeColor = theme.ma20Color.cgColor
+        ma20layer.fillColor = UIColor.clear.cgColor
+        
+        let malayer = CAShapeLayer()
+        malayer.addSublayer(ma5layer)
+        malayer.addSublayer(ma10layer)
+        malayer.addSublayer(ma20layer)
+        
+        return malayer
+    }
+    
     func addKLineChartLayer(array: [HSKLineCoordModel]) {
         self.layer.sublayers?.removeAll()
         for object in array.enumerated() {
@@ -255,6 +300,7 @@ class HSKLineNew: UIView {
             self.layer.addSublayer(candleLayer)
             self.layer.addSublayer(volumeLayer)
         }
+        self.layer.addSublayer(drawMALayer(array: array))
     }
     
 
