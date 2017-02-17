@@ -20,6 +20,10 @@ class HSKLineView: UIView {
     var widthOfKLineView: CGFloat = 0
     let theme: HSKLineTheme = HSKLineTheme()
     var dataK: [HSKLineModel] = []
+
+    var allDataK: [HSKLineModel] = []
+    var enableKVO: Bool = true
+
     var kLineViewWidth: CGFloat = 0.0
     var oldRightOffset: CGFloat = -1
     
@@ -50,8 +54,9 @@ class HSKLineView: UIView {
         kLine.addGestureRecognizer(pinGesture)
         
         // MARK: - TODO
-        dataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
-        self.configureView(data: Array(dataK[dataK.count-70..<dataK.count]))
+        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
+        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+        self.configureView(data: tmpDataK)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,7 +68,7 @@ class HSKLineView: UIView {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == #keyPath(UIScrollView.contentOffset) {
+        if keyPath == #keyPath(UIScrollView.contentOffset) && enableKVO {
             print("in klineview scrollView?.contentOffset.x " + "\(scrollView.contentOffset.x)")
             
             // 拖动 ScrollView 时重绘当前显示的 klineview
@@ -76,12 +81,8 @@ class HSKLineView: UIView {
     }
     
     func configureView(data: [HSKLineModel]) {
-        
-        if kLine.dataK.count == data.count {
-            return
-        }
+        dataK = data
         kLine.dataK = data
-//        self.dataK = data
         let count: CGFloat = CGFloat(data.count)
         
         // 总长度
@@ -107,31 +108,9 @@ class HSKLineView: UIView {
         
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
         scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
+        kLine.contentOffsetX = scrollView.contentOffset.x
         print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
-        
-//        if kLine.dataK.count == data.count {
-//            return
-//        }
-//        kLine.dataK = data
-//        self.dataK = data
-//        let count: CGFloat = CGFloat(data.count)
-//        
-//        // 总长度
-//        var kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
-//        if kLineViewWidth < scrollView.frame.width {
-//            kLineViewWidth = scrollView.frame.width
-//        }
-//        kLine.frame = CGRect(x: 0, y: 0, width: kLineViewWidth, height: scrollView.frame.height)
-//        self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: scrollView.frame.height)
-//
-//        var contentOffsetX: CGFloat = 0
-//        if self.oldRightOffset < 0 {
-//            contentOffsetX = kLine.frame.width - scrollView.frame.width
-//        } else {
-//            contentOffsetX = kLine.frame.width - self.oldRightOffset
-//        }
-//        print("ScrollKLine contentOffsetX " + "\(contentOffsetX)")
-//        scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
+
     }
     
     func updateKlineViewWidth() {
@@ -147,24 +126,7 @@ class HSKLineView: UIView {
         // 更新view长度
         print("currentWidth " + "\(kLineViewWidth)")
         kLine.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: kLineViewWidth, height: scrollView.frame.height)
-        var contentOffsetX: CGFloat = 0
-        if scrollView.contentSize.width > 0 {
-            contentOffsetX = kLineViewWidth - scrollView.contentSize.width
-        } else {
-            // 首次加载，将 kLine 的右边和scrollview的右边对齐
-            contentOffsetX = kLine.frame.width - scrollView.frame.width
-        }
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
-        scrollView.contentOffset = CGPoint(x: contentOffsetX, y: 0)
-        
-//        let count = CGFloat(dataK.count)
-//        // 总长度
-//        var kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
-//        if kLineViewWidth < scrollView.frame.width {
-//            kLineViewWidth = scrollView.frame.width
-//        }
-//        kLine.frame = CGRect(x: 0, y: 0, width: kLineViewWidth, height: scrollView.frame.height)
-//        self.scrollView.contentSize = CGSize(width: kLineViewWidth, height: scrollView.frame.height)
     }
     
     // 长按操作
@@ -195,34 +157,36 @@ class HSKLineView: UIView {
     }
     
     func handlePinGestureAction(_ recognizer: UIPinchGestureRecognizer) {
+
+        guard recognizer.numberOfTouches == 2 else { return }
+
         let scale = recognizer.scale
-        let velocity = recognizer.velocity
         let originScale: CGFloat = 1.0
         let kLineScaleFactor: CGFloat = 0.06
         let kLineScaleBound: CGFloat = 0.03
         let diffScale = scale - originScale // 获取缩放倍数
-        
-        guard recognizer.numberOfTouches == 2 else { return }
-        
-        //        if fabs(velocity) > 0.1 {   //速度的绝对值大于0.1才起作用
-        //            if scale > 1 {
-        //                //双指张开
-        //                self.setNeedsDisplay()
-        //
-        //            } else {
-        //                //双指合拢
-        //                self.setNeedsDisplay()
-        //            }
-        //        }
-        
+
+        switch recognizer.state {
+        case .began:
+            enableKVO = false
+            scrollView.isScrollEnabled = false
+        case .ended:
+            enableKVO = true
+            scrollView.isScrollEnabled = true
+        default:
+            break
+        }
+
         if abs(diffScale) > kLineScaleBound {
             let point1 = recognizer.location(ofTouch: 0, in: self)
             let point2 = recognizer.location(ofTouch: 1, in: self)
+
             let pinCenterX = (point1.x + point2.x) / 2
+            let scrollViewPinCenterX = pinCenterX + scrollView.contentOffset.x
             
             // 中心点数据index
-            let pinCenterLeftCount = pinCenterX / (theme.candleWidth + theme.candleGap)
-            
+            let pinCenterLeftCount = scrollViewPinCenterX / (theme.candleWidth + theme.candleGap)
+
             // 缩放后的candle宽度
             let newCandleWidth = theme.candleWidth * (diffScale > 0 ? (1 + kLineScaleFactor) : (1 - kLineScaleFactor))
             if newCandleWidth > theme.candleMaxWidth {
@@ -242,20 +206,12 @@ class HSKLineView: UIView {
             self.updateKlineViewWidth()
             
             let newPinCenterX = pinCenterLeftCount * theme.candleWidth + (pinCenterLeftCount - 1) * theme.candleGap
-            
-            // 设置scrollview的contentoffset = newPinCenterX - pinCenterX
-            let count = CGFloat(dataK.count)
-            if ( count * theme.candleWidth + (count + 1) * theme.candleGap > self.scrollView.width ) {
-                let newOffsetX = newPinCenterX - pinCenterX
-                self.scrollView.contentOffset = CGPoint(x: newOffsetX > 0 ? newOffsetX : 0 , y: self.scrollView.contentOffset.y)
-                
-            } else {
-                self.scrollView.contentOffset = CGPoint(x: 0 , y: self.scrollView.contentOffset.y)
-            }
+            let newOffsetX = newPinCenterX - pinCenterX
+            self.scrollView.contentOffset = CGPoint(x: newOffsetX > 0 ? newOffsetX : 0 , y: self.scrollView.contentOffset.y)
+
+            kLine.contentOffsetX = scrollView.contentOffset.x
             kLine.drawKLineView()
         }
-        
-        //        recognizer.scale = 1
     }
     
     func getJsonDataFromFile(_ fileName: String) -> JSON {
@@ -270,10 +226,10 @@ extension HSKLineView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         // MARK: - 用于滑动加载更多 KLine 数据
-        if (scrollView.contentOffset.x < 0) {
+        if (scrollView.contentOffset.x < 0 && dataK.count < allDataK.count) {
             self.oldRightOffset = scrollView.contentSize.width - scrollView.contentOffset.x
             print("load more")
-            self.configureView(data: dataK)
+            self.configureView(data: allDataK)
         } else {
             
         }
