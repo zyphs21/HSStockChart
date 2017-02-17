@@ -52,6 +52,8 @@
 		C0A983021D7FB5EF003C3B4C /* MonthlyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */; };
 		C0A983031D7FB5EF003C3B4C /* WeeklyKLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */; };
 		C0A983051D7FB6A2003C3B4C /* FiveTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C0A983041D7FB6A2003C3B4C /* FiveTrade.json */; };
+		C0BE045C1E56D20E00F2DA47 /* HSTimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE045B1E56D20E00F2DA47 /* HSTimeLine.swift */; };
+		C0BE045E1E56DD0000F2DA47 /* HSTimeLineFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE045D1E56DD0000F2DA47 /* HSTimeLineFrame.swift */; };
 		C0FAA64E1D7D68D900F15200 /* OneDayTimeLine.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */; };
 		C0FAA6521D7D736800F15200 /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA6511D7D736800F15200 /* SZ300033.json */; };
 		C38E89D3CEC76FC32FFDE2D7 /* Pods_HSStockChartDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */; };
@@ -106,6 +108,8 @@
 		C0A982FF1D7FB5EF003C3B4C /* MonthlyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonthlyKLine.json; sourceTree = "<group>"; };
 		C0A983001D7FB5EF003C3B4C /* WeeklyKLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeeklyKLine.json; sourceTree = "<group>"; };
 		C0A983041D7FB6A2003C3B4C /* FiveTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveTrade.json; sourceTree = "<group>"; };
+		C0BE045B1E56D20E00F2DA47 /* HSTimeLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLine.swift; sourceTree = "<group>"; };
+		C0BE045D1E56DD0000F2DA47 /* HSTimeLineFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSTimeLineFrame.swift; sourceTree = "<group>"; };
 		C0D065731D61C17A00AC5AAF /* HSStockChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSStockChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FAA64D1D7D68D900F15200 /* OneDayTimeLine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OneDayTimeLine.json; sourceTree = "<group>"; };
 		C0FAA6511D7D736800F15200 /* SZ300033.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SZ300033.json; sourceTree = "<group>"; };
@@ -286,6 +290,8 @@
 			children = (
 				C0A816FB1E481224007B821D /* HSTimeLineBrush.swift */,
 				C0A816FC1E481224007B821D /* HSTimeLineView.swift */,
+				C0BE045B1E56D20E00F2DA47 /* HSTimeLine.swift */,
+				C0BE045D1E56DD0000F2DA47 /* HSTimeLineFrame.swift */,
 			);
 			path = TimeLine;
 			sourceTree = "<group>";
@@ -457,6 +463,7 @@
 				C0A817061E481224007B821D /* HSTimeLineBrush.swift in Sources */,
 				C0A817051E481224007B821D /* HSKLineViews.swift in Sources */,
 				C0A8170A1E481224007B821D /* HSTimeLineTheme.swift in Sources */,
+				C0BE045E1E56DD0000F2DA47 /* HSTimeLineFrame.swift in Sources */,
 				C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */,
 				C00FC4111DDAE57700C03D2C /* SegmentMenu.swift in Sources */,
 				C03022A71E55AF53000E5749 /* HSKLineView.swift in Sources */,
@@ -475,6 +482,7 @@
 				C0477E651E35B32B00AA4B8A /* HSKLineStockChartView.swift in Sources */,
 				C0477E691E35B32B00AA4B8A /* HSStockBriefView.swift in Sources */,
 				C0477E6D1E35B32B00AA4B8A /* HSStockBasicInfoModel.swift in Sources */,
+				C0BE045C1E56D20E00F2DA47 /* HSTimeLine.swift in Sources */,
 				C03022A51E559C1E000E5749 /* HSKLineNew.swift in Sources */,
 				C0477E661E35B32B00AA4B8A /* HSTimeLineStockChartView.swift in Sources */,
 				C00FC4131DDAF04200C03D2C /* DayKLineViewController.swift in Sources */,

@@ -35,6 +35,12 @@ class HSKLineNew: UIView {
     var renderRect: CGRect = CGRect.zero
     var renderWidth: CGFloat = 0
     
+    var candleChartLayer = CAShapeLayer()
+    var volumeLayer = CAShapeLayer()
+    var ma5LineLayer = CAShapeLayer()
+    var ma10LineLayer = CAShapeLayer()
+    var ma20LineLayer = CAShapeLayer()
+    
     var uperChartHeight: CGFloat {
         get {
             return theme.kLineChartHeightScale * self.frame.height
@@ -79,7 +85,7 @@ class HSKLineNew: UIView {
     }
     
     
-    // MARK: - 初始化方法
+    // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,17 +99,20 @@ class HSKLineNew: UIView {
     }
     
     
-    // MARK: - 绘图
+    // MARK: - Drawing Function
     
     func drawKLineView() {
-        setMaxAndMinData()
+        calcMaxAndMinData()
         convertToPositionModel(data: dataK)
-        addKLineChartLayer(array: positionModels)
+
+        clearLayer()
+        drawCandleChartLayer(array: positionModels)
+        drawVolumeLayer(array: positionModels)
+        drawMALayer(array: positionModels)
     }
     
-    // MARK: - 设置当前显示区域的最大最小值
-    
-    func setMaxAndMinData() {
+    /// 计算当前显示区域的最大最小值
+    fileprivate func calcMaxAndMinData() {
         if dataK.count > 0 {
             self.maxPrice = CGFloat.leastNormalMagnitude
             self.minPrice = CGFloat.greatestFiniteMagnitude
@@ -112,7 +121,6 @@ class HSKLineNew: UIView {
             self.minMA = CGFloat.greatestFiniteMagnitude
             self.maxMACD = CGFloat.leastNormalMagnitude
             let startIndex = self.startIndex
-            //let count = (startIndex + countOfshowCandle) > dataK.count ? dataK.count : (startIndex + countOfshowCandle)
             // 比计算出来的多加一个，是为了避免计算结果的取整导致少画
             let count = (startIndex + countOfshowCandle + 1) > dataK.count ? dataK.count : (startIndex + countOfshowCandle + 1)
             if startIndex < count {
@@ -133,17 +141,17 @@ class HSKLineNew: UIView {
                     self.maxMACD = tempMax > self.maxMACD ? tempMax : self.maxMACD
                 }
             }
-            
+            // 当均线数据缺失时候，注意注释这段，不然 minPrice 为 0，导致整体绘画比例不对
             self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
             self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
         }
     }
     
     
-    // MARK: - 转换为坐标model
-    
-    func convertToPositionModel(data: [HSKLineModel]) {
-        
+    /// 转换为坐标 model
+    ///
+    /// - Parameter data: [HSKLineModel]
+    fileprivate func convertToPositionModel(data: [HSKLineModel]) {
         self.positionModels.removeAll()
         self.klineModels.removeAll()
         
@@ -214,42 +222,28 @@ class HSKLineNew: UIView {
         }
     }
     
-    
-    
-    // 获取单个蜡烛图的layer
-    func getCandleLayer(model: HSKLineCoordModel) -> CAShapeLayer {
-
-        // K线
-        let linePath = UIBezierPath(rect: model.candleRect)
-        
-        // 影线
-        linePath.move(to: model.lowPoint)
-        linePath.addLine(to: model.highPoint)
-        
-        let klayer = CAShapeLayer()
-        klayer.path = linePath.cgPath
-        klayer.strokeColor = model.candleFillColor.cgColor
-        klayer.fillColor = model.candleFillColor.cgColor
-        
-        return klayer
+    /// 画蜡烛图
+    func drawCandleChartLayer(array: [HSKLineCoordModel]) {
+        candleChartLayer.sublayers?.removeAll()
+        for object in array.enumerated() {
+            let candleLayer = getCandleLayer(model: object.element)
+            candleChartLayer.addSublayer(candleLayer)
+        }
+        self.layer.addSublayer(candleChartLayer)
     }
     
-    // 获取单个交易量图的layer
-    func getVolumeLayer(model: HSKLineCoordModel) -> CAShapeLayer {
-        let linePath = UIBezierPath()
-        linePath.move(to: model.volumeStartPoint)
-        linePath.addLine(to: model.volumeEndPoint)
-        
-        let vlayer = CAShapeLayer()
-        vlayer.path = linePath.cgPath
-        vlayer.lineWidth = theme.candleWidth
-        vlayer.strokeColor = model.candleFillColor.cgColor
-        vlayer.fillColor = model.candleFillColor.cgColor
-        
-        return vlayer
+    /// 画交易量图
+    func drawVolumeLayer(array: [HSKLineCoordModel]) {
+        volumeLayer.sublayers?.removeAll()
+        for object in array.enumerated() {
+            let volLayer = getVolumeLayer(model: object.element)
+            volumeLayer.addSublayer(volLayer)
+        }
+        self.layer.addSublayer(volumeLayer)
     }
     
-    func drawMALayer(array: [HSKLineCoordModel]) -> CAShapeLayer {
+    /// 画交均线图
+    func drawMALayer(array: [HSKLineCoordModel]) {
         let ma5LinePath = UIBezierPath()
         let ma10LinePath = UIBezierPath()
         let ma20LinePath = UIBezierPath()
@@ -269,39 +263,64 @@ class HSKLineNew: UIView {
             ma20LinePath.move(to: preMa20Point)
             ma20LinePath.addLine(to: ma20Point)
         }
-        let ma5layer = CAShapeLayer()
-        ma5layer.path = ma5LinePath.cgPath
-        ma5layer.strokeColor = theme.ma5Color.cgColor
-        ma5layer.fillColor = UIColor.clear.cgColor
+        ma5LineLayer = CAShapeLayer()
+        ma5LineLayer.path = ma5LinePath.cgPath
+        ma5LineLayer.strokeColor = theme.ma5Color.cgColor
+        ma5LineLayer.fillColor = UIColor.clear.cgColor
         
-        let ma10layer = CAShapeLayer()
-        ma10layer.path = ma10LinePath.cgPath
-        ma10layer.strokeColor = theme.ma10Color.cgColor
-        ma10layer.fillColor = UIColor.clear.cgColor
+        ma10LineLayer = CAShapeLayer()
+        ma10LineLayer.path = ma10LinePath.cgPath
+        ma10LineLayer.strokeColor = theme.ma10Color.cgColor
+        ma10LineLayer.fillColor = UIColor.clear.cgColor
         
-        let ma20layer = CAShapeLayer()
-        ma20layer.path = ma20LinePath.cgPath
-        ma20layer.strokeColor = theme.ma20Color.cgColor
-        ma20layer.fillColor = UIColor.clear.cgColor
+        ma20LineLayer = CAShapeLayer()
+        ma20LineLayer.path = ma20LinePath.cgPath
+        ma20LineLayer.strokeColor = theme.ma20Color.cgColor
+        ma20LineLayer.fillColor = UIColor.clear.cgColor
         
-        let malayer = CAShapeLayer()
-        malayer.addSublayer(ma5layer)
-        malayer.addSublayer(ma10layer)
-        malayer.addSublayer(ma20layer)
-        
-        return malayer
+        self.layer.addSublayer(ma5LineLayer)
+        self.layer.addSublayer(ma10LineLayer)
+        self.layer.addSublayer(ma20LineLayer)
     }
     
-    func addKLineChartLayer(array: [HSKLineCoordModel]) {
-        self.layer.sublayers?.removeAll()
-        for object in array.enumerated() {
-            let candleLayer = getCandleLayer(model: object.element)
-            let volumeLayer = getVolumeLayer(model: object.element)
-            self.layer.addSublayer(candleLayer)
-            self.layer.addSublayer(volumeLayer)
-        }
-        self.layer.addSublayer(drawMALayer(array: array))
+    /// 清除图层
+    func clearLayer() {
+        ma5LineLayer.removeFromSuperlayer()
+        ma10LineLayer.removeFromSuperlayer()
+        ma20LineLayer.removeFromSuperlayer()
+        candleChartLayer.removeFromSuperlayer()
+        volumeLayer.removeFromSuperlayer()
     }
     
+    /// 获取单个蜡烛图的layer
+    fileprivate func getCandleLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+        // K线
+        let linePath = UIBezierPath(rect: model.candleRect)
+        // 影线
+        linePath.move(to: model.lowPoint)
+        linePath.addLine(to: model.highPoint)
+        
+        let klayer = CAShapeLayer()
+        klayer.path = linePath.cgPath
+        klayer.strokeColor = model.candleFillColor.cgColor
+        klayer.fillColor = model.candleFillColor.cgColor
+        
+        return klayer
+    }
+    
+    /// 获取单个交易量图的layer
+    fileprivate func getVolumeLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+        let linePath = UIBezierPath()
+        linePath.move(to: model.volumeStartPoint)
+        linePath.addLine(to: model.volumeEndPoint)
+        
+        let vlayer = CAShapeLayer()
+        vlayer.path = linePath.cgPath
+        vlayer.lineWidth = theme.candleWidth
+        vlayer.strokeColor = model.candleFillColor.cgColor
+        vlayer.fillColor = model.candleFillColor.cgColor
+        
+        return vlayer
+    }
 
 }
