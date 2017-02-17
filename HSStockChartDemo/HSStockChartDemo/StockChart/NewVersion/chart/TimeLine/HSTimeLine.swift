@@ -97,37 +97,15 @@ class HSTimeLine: HSBasicBrush {
         contentWidth = frame.width - rightOffSet - leftOffSet
         contentHeight = frame.height - topOffSet - bottomOffSet
         
-        // 分时线的 frame 是固定 ，所以不需要在 drawRect 方法中调用
-        timeLine = HSTimeLineBrush(frame: frame)
-        crossLine = HSCrossLine(frame: frame)
         addGestures()
         
-        self.addSubview(timeLine!)
+        drawFrameLayer()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         addGestures()
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.white.cgColor)
-        context?.fill(rect)
-        
-        if dataT.count > 0 {
-            drawChartFrame(context!, rect: rect)
-            drawChartLabel(context!)
-            if showLongPressHighlight {
-                drawCrossLine(context!)
-            }
-            
-        } else {
-            // to show error page
-        }
     }
     
     
@@ -171,59 +149,6 @@ class HSTimeLine: HSBasicBrush {
             }
         }
     }
-    
-    
-    /// 画图表边框
-    ///
-    /// - Parameters:
-    ///   - context:
-    ///   - rect:
-    func drawChartFrame(_ context: CGContext, rect: CGRect) {
-        
-        context.setFillColor(theme.gridBackgroundColor.cgColor)
-        context.fill(rect)
-        
-        //画外面边框
-        context.setLineWidth(theme.borderWidth / 2.0)
-        context.setStrokeColor(theme.borderColor.cgColor)
-        context.stroke(CGRect(x: contentLeft, y: contentTop, width: contentWidth, height: uperChartHeight))
-        
-        //画交易量边框
-        context.stroke(CGRect(x: contentLeft, y: lowerChartTop, width: contentWidth, height: lowerChartHeight))
-        
-        if showFiveDayLabel {
-            //五日分时图的四条竖线
-            let width = self.contentWidth / 5
-            for i in 1 ..< 5 {
-                let lineX = self.contentLeft + width * CGFloat(i)
-                let startPoint = CGPoint(x: lineX, y: contentTop + uperChartHeight)
-                let stopPoint = CGPoint(x: lineX, y: contentTop)
-                self.drawline(context, startPoint: startPoint, stopPoint: stopPoint, color: theme.borderColor, lineWidth: theme.borderWidth / 2.0)
-            }
-            
-        } else {
-            //分时线的中间竖线
-            let startPoint = CGPoint(x: contentWidth / 2.0 + contentLeft, y: contentTop)
-            let stopPoint = CGPoint(x: contentWidth / 2.0 + contentLeft, y: uperChartHeight +  contentTop)
-            self.drawline(context, startPoint: startPoint, stopPoint: stopPoint, color: theme.borderColor, lineWidth: theme.borderWidth / 2.0)
-        }
-        
-        
-        //画中间的横虚线
-        if let temp = dataT.first {
-            //日分时图中间区域线代表昨日的收盘价格，五日分时图的则代表五日内的第一天9点30分的价格
-            let price = showFiveDayLabel ? temp.price : temp.preClosePx
-            let preClosePriceYaxis = (self.maxPrice - price) * self.priceUnit + uperChartDrawAreaTop
-            self.drawline(context,
-                          startPoint: CGPoint(x: contentLeft, y: preClosePriceYaxis),
-                          stopPoint: CGPoint(x: contentRight, y: preClosePriceYaxis),
-                          color: theme.borderColor,
-                          lineWidth: theme.borderWidth / 2.0,
-                          isDashLine: true)
-            self.drawYAxisLabel(context, str: price.toStringWithFormat(".2"), labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight,  yAxis: preClosePriceYaxis, isLeft: false)
-        }
-    }
-    
     
     /// 画图表标签
     ///
@@ -381,7 +306,46 @@ class HSTimeLine: HSBasicBrush {
     }
     
     func drawFrameLayer() {
+        // 分时线区域 frame
+        let framePath = UIBezierPath(rect: CGRect(x: contentLeft, y: contentTop, width: contentWidth, height: uperChartHeight))
+        if showFiveDayLabel {
+            //五日分时图的四条竖线
+            let width = self.contentWidth / 5
+            for i in 1 ..< 5 {
+                let lineX = self.contentLeft + width * CGFloat(i)
+                let startPoint = CGPoint(x: lineX, y: contentTop + uperChartHeight)
+                let stopPoint = CGPoint(x: lineX, y: contentTop)
+                framePath.move(to: startPoint)
+                framePath.addLine(to: stopPoint)
+            }
+        } else {
+            //分时线的中间竖线
+            let startPoint = CGPoint(x: contentWidth / 2.0 + contentLeft, y: contentTop)
+            let stopPoint = CGPoint(x: contentWidth / 2.0 + contentLeft, y: uperChartHeight +  contentTop)
+            framePath.move(to: startPoint)
+            framePath.addLine(to: stopPoint)
+        }
         
+        let frameLayer = CAShapeLayer()
+        frameLayer.path = framePath.cgPath
+        frameLayer.lineWidth = theme.borderWidth / 2.0
+        frameLayer.strokeColor = theme.borderColor.cgColor
+        frameLayer.fillColor = UIColor.clear.cgColor
+        
+        // 交易量区域 frame
+        let volFramePath = UIBezierPath(rect: CGRect(x: contentLeft, y: lowerChartTop, width: contentWidth, height: lowerChartHeight))
+        let y = contentBottom - maxVolume * volumeUnit
+        volFramePath.move(to: CGPoint(x: contentLeft, y: y))
+        volFramePath.addLine(to: CGPoint(x: contentRight, y: y))
+        
+        let volFrameLayer = CAShapeLayer()
+        volFrameLayer.path = volFramePath.cgPath
+        volFrameLayer.lineWidth = theme.borderWidth / 2.0
+        volFrameLayer.strokeColor = theme.borderColor.cgColor
+        volFrameLayer.fillColor = UIColor.clear.cgColor
+        
+        self.layer.addSublayer(frameLayer)
+        self.layer.addSublayer(volFrameLayer)
     }
     
     func drawLineLayer(array: [HSTimeLineCoordModel]) {

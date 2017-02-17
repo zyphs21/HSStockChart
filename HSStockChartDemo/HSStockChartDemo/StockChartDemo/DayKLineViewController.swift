@@ -11,7 +11,7 @@ import SnapKit
 
 class DayKLineViewController: UIViewController {
 
-    var klineView: HSKLineView!
+    var klineView: HSKLineViews!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class DayKLineViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.gray
         
-        klineView = HSKLineView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 300), kLineType: .kLineForDay)
+        klineView = HSKLineViews(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 300), kLineType: .kLineForDay)
         klineView.kLineType = HSChartType.kLineForDay
         view.addSubview(klineView)
     }
