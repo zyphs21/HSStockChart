@@ -14,7 +14,7 @@ class HSKLineView: UIView {
     var chartFrame: HSChartFrame!
     var scrollView: UIScrollView!
     var kLine: HSKLineNew!
-    var highlightView: HSHighlightView!
+    var highlightView: HSHighLight!
     
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
@@ -41,7 +41,7 @@ class HSKLineView: UIView {
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
         
-        highlightView = HSHighlightView(frame: frame)
+        highlightView = HSHighLight(frame: frame)
         addSubview(highlightView)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
@@ -70,7 +70,8 @@ class HSKLineView: UIView {
             kLine.contentOffsetX = scrollView.contentOffset.x
             kLine.renderWidth = scrollView.frame.width
             kLine.drawKLineView()
-            highlightView.drawYAxisMark(maxPrice: kLine.maxPrice, minPrice: kLine.minPrice)
+            
+            highlightView.configureAxis(max: kLine.maxPrice, min: kLine.minPrice, maxVol: kLine.maxVolume)
         }
     }
     
@@ -179,9 +180,7 @@ class HSKLineView: UIView {
                 let highLightVolume = kLine.positionModels[index].volumeStartPoint.y
                 let highLightClose = kLine.positionModels[index].closeY
                 
-                highlightView.drawLongPressHighlight(pricePoint: CGPoint(x: centerX, y: highLightClose),
-                                                     volumePoint: CGPoint(x: centerX, y: highLightVolume),
-                                                     value: entity)
+                highlightView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity)
                 
                 let lastData = highLightIndex > 0 ? kLine.dataK[highLightIndex - 1] : kLine.dataK[0]
                 let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : kLine.dataK[highLightIndex]]
@@ -190,9 +189,7 @@ class HSKLineView: UIView {
         }
         
         if recognizer.state == .ended {
-            highlightView.drawLongPressHighlight(pricePoint: CGPoint.zero,
-                                                 volumePoint: CGPoint.zero,
-                                                 value: nil)
+            highlightView.clearCrossLine()
             NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
         }
     }
