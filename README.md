@@ -16,6 +16,7 @@ HSStockChart 是一个绘制股票分时图、K线图的库。支持流畅的回
 ## Explain
 
 1. 之前绘图的方法是重写 `drawRect` 方法，在方法里获取 `CGContext` 然后利用Core Graphics 来进行绘图，调用 `setNeedsDisplay` 来刷新。但是这种方法有个问题是：
+
 >一旦你实现了 `CALayerDelegate` 协议中的 `-drawLayer:inContext:` 方法或者 `UIView` 中的 `-drawRect:` 方法（其实就是前者的包装方法），图层就创建了一个绘制上下文，这个上下文需要的内存可从这个公式得出：图层宽x图层高x4字节，宽高的单位均为像素。对于一个在 Retina iPad 上的全屏图层来说，这个内存量就是 2048x1526x4字节，相当于12MB内存，图层每次重绘的时候都需要重新抹掉内存然后重新分配。【摘自 iOS Core Animation- Advanced Techniques 中文译本 高效绘图一章】
 
 因为我要达到流畅滑动查看的效果，所以在 `UIScrollView` 上添加了一个 `UIView` 这个 View 的宽度会依据当前展示数据的多少而变化，结合 `UIScrollView` 的 `ContentSize` 就能达到很好的滑动效果。如果我用之前重写 `drawRect` 的方法，那么这个 View 会根据数据量的变大而变大，从而导致绘图内存急剧上升，数据量大的时候会崩溃。基于此，我采用了 `CAShapeLayer` 的方式绘图，此方式的特点如下：
