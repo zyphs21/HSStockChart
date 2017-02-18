@@ -43,7 +43,7 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 
 如果使用中发现问题欢迎添加 issue ，也欢迎 Pull request。
 
-If you find an issue, just it. Pull requests are warmly welcome as well.
+If you find an issue, just open an issue. Pull requests are warmly welcome as well.
 
 ## License
 
