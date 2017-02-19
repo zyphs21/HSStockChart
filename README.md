@@ -30,7 +30,7 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 >- 不会被图层边界剪裁掉，一个 CAShapeLayer 可以在边界之外绘制。你的图层路径不会像在使用 Core Graphics 的普通 CALayer 一样被剪裁掉。
 >- 不会出现像素化。当你给 CAShapeLayer 做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化
 
-最终在真机上测试两种方式的结果如图，内存大大降低并且稳定在13M左右
+最终在真机上测试(注意是在真机上测试)两种方式的结果如图，内存大大降低并且稳定在13M左右
 ![](https://github.com/zyphs21/HSStockChart/blob/master/HSStockChartDemo/memoryUseExample.png)
 
 

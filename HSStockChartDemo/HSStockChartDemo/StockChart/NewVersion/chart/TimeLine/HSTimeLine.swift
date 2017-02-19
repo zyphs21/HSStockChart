@@ -18,6 +18,7 @@ class HSTimeLine: HSBasicBrush {
     var volumeLayer = CAShapeLayer()
     var maLineLayer = CAShapeLayer()
     var frameLayer = CAShapeLayer()
+    var fillColorLayer = CAShapeLayer()
     
     var maxPrice: CGFloat = 0
     var minPrice: CGFloat = 0
@@ -100,6 +101,7 @@ class HSTimeLine: HSBasicBrush {
         addGestures()
         
         drawFrameLayer()
+        drawXAxisLabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -150,49 +152,48 @@ class HSTimeLine: HSBasicBrush {
         }
     }
     
-    /// 画图表标签
-    ///
-    /// - Parameter context:
-    func drawChartLabel(_ context:CGContext) {
+    /// 横坐标轴的标签
+    func drawXAxisLabel() {
+        let drawAttributes = theme.xAxisLabelAttribute
+        let startTimeAttributedString = NSMutableAttributedString(string: "9:30", attributes: drawAttributes)
+        let sizestartTimeAttributedString = startTimeAttributedString.size()
+        let startTime = getTextLayer(text: startTimeAttributedString.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: self.contentLeft, y: contentTop + uperChartHeight, width: sizestartTimeAttributedString.width, height: sizestartTimeAttributedString.height))
         
-        if showFiveDayLabel {
-            
-        } else {
-            let drawAttributes = theme.xAxisLabelAttribute
-            let startTimeAttributedString = NSMutableAttributedString(string: "9:30", attributes: drawAttributes)
-            let sizestartTimeAttributedString = startTimeAttributedString.size()
-            self.drawLabel(context, attributesText: startTimeAttributedString, rect: CGRect(x: self.contentLeft, y: contentTop + uperChartHeight, width: sizestartTimeAttributedString.width, height: sizestartTimeAttributedString.height))
-            
-            let midTimeAttStr = NSMutableAttributedString(string: "11:30/13:00", attributes: drawAttributes)
-            let sizeMidTimeAttStr = midTimeAttStr.size()
-            self.drawLabel(context, attributesText: midTimeAttStr, rect: CGRect(x: self.contentWidth / 2.0 + self.contentLeft - sizeMidTimeAttStr.width / 2.0, y: contentTop + uperChartHeight, width: sizeMidTimeAttStr.width, height: sizeMidTimeAttStr.height))
-            
-            let stopTimeAttStr = NSMutableAttributedString(string: "15:00", attributes: drawAttributes)
-            let sizeStopTimeAttStr = stopTimeAttStr.size()
-            self.drawLabel(context, attributesText: stopTimeAttStr, rect: CGRect(x: self.contentRight - sizeStopTimeAttStr.width, y: contentTop + uperChartHeight, width: sizeStopTimeAttStr.width, height: sizeStopTimeAttStr.height))
-        }
+        let midTimeAttStr = NSMutableAttributedString(string: "11:30/13:00", attributes: drawAttributes)
+        let sizeMidTimeAttStr = midTimeAttStr.size()
+        let midTime = getTextLayer(text: midTimeAttStr.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame:  CGRect(x: self.contentWidth / 2.0 + self.contentLeft - sizeMidTimeAttStr.width / 2.0, y: contentTop + uperChartHeight, width: sizeMidTimeAttStr.width, height: sizeMidTimeAttStr.height))
         
+        let stopTimeAttStr = NSMutableAttributedString(string: "15:00", attributes: drawAttributes)
+        let sizeStopTimeAttStr = stopTimeAttStr.size()
+        let stopTime = getTextLayer(text: stopTimeAttStr.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: self.contentRight - sizeStopTimeAttStr.width, y: contentTop + uperChartHeight, width: sizeStopTimeAttStr.width, height: sizeStopTimeAttStr.height))
+        
+        self.layer.addSublayer(startTime)
+        self.layer.addSublayer(midTime)
+        self.layer.addSublayer(stopTime)
+    }
+    
+    /// 纵坐标轴的标签
+    func drawYAxisLabel() {
         // 画纵坐标的最高和最低价格标签
         let maxPriceStr = maxPrice.toStringWithFormat(".2")
         let minPriceStr = minPrice.toStringWithFormat(".2")
         
-        self.drawYAxisLabel(context, str: maxPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: contentTop + theme.viewMinYGap, isLeft: false)
-        self.drawYAxisLabel(context, str: minPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: uperChartDrawAreaBottom, isLeft: false)
+        self.drawYAxisLabel(str: maxPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: contentTop + theme.viewMinYGap, isLeft: false)
+        self.drawYAxisLabel(str: minPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: uperChartDrawAreaBottom, isLeft: false)
         
         // 最高成交量标签
         let y = contentBottom - maxVolume * volumeUnit
-        self.drawline(context, startPoint: CGPoint(x: contentLeft, y: y), stopPoint: CGPoint(x: contentRight, y: y), color: theme.borderColor, lineWidth: theme.borderWidth / 4.0)
+//        self.drawline(startPoint: CGPoint(x: contentLeft, y: y), stopPoint: CGPoint(x: contentRight, y: y), color: theme.borderColor, lineWidth: theme.borderWidth / 4.0)
         let maxVolumeStr = maxVolume.toStringWithFormat(".2")
-        self.drawYAxisLabel(context, str: maxVolumeStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: y, isLeft: false)
+        self.drawYAxisLabel(str: maxVolumeStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentRight, yAxis: y, isLeft: false)
         
         let maxRatioStr = self.maxRatio.toPercentFormat()
         let minRatioStr = self.minRatio.toPercentFormat()
         
         // 画比率标签
-        self.drawYAxisLabel(context, str: maxRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentLeft, yAxis: uperChartDrawAreaTop, isLeft: true)
-        self.drawYAxisLabel(context, str: minRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentLeft, yAxis: uperChartDrawAreaBottom, isLeft: true)
+        self.drawYAxisLabel(str: maxRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentLeft, yAxis: uperChartDrawAreaTop, isLeft: true)
+        self.drawYAxisLabel(str: minRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: contentLeft, yAxis: uperChartDrawAreaBottom, isLeft: true)
     }
-    
     
     /// 转换为坐标数据
     func convertToPoints(data: [HSTimeLineModel]) {
@@ -297,14 +298,17 @@ class HSTimeLine: HSBasicBrush {
         drawLineLayer(array: positionModels)
         drawVolumeLayer(array: positionModels)
         drawMALineLayer(array: positionModels)
+        drawYAxisLabel()
     }
     
     func clearLayer() {
         timeLineLayer.removeFromSuperlayer()
+        fillColorLayer.removeFromSuperlayer()
         volumeLayer.removeFromSuperlayer()
         maLineLayer.removeFromSuperlayer()
     }
     
+    /// 边框
     func drawFrameLayer() {
         // 分时线区域 frame
         let framePath = UIBezierPath(rect: CGRect(x: contentLeft, y: contentTop, width: contentWidth, height: uperChartHeight))
@@ -348,21 +352,32 @@ class HSTimeLine: HSBasicBrush {
         self.layer.addSublayer(volFrameLayer)
     }
     
+    
+    /// 分时线
     func drawLineLayer(array: [HSTimeLineCoordModel]) {
         let timeLinePath = UIBezierPath()
+        timeLinePath.move(to: array.first!.pricePoint)
         for index in 1 ..< array.count {
-            let prePoint = array[index - 1].pricePoint
-            let point = array[index].pricePoint
-            timeLinePath.move(to: prePoint)
-            timeLinePath.addLine(to: point)
+            timeLinePath.addLine(to: array[index].pricePoint)
         }
         timeLineLayer.path = timeLinePath.cgPath
+        timeLineLayer.lineWidth = 1.5
         timeLineLayer.strokeColor = theme.priceLineCorlor.cgColor
         timeLineLayer.fillColor = UIColor.clear.cgColor
         
+        // 填充颜色
+        timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: theme.uperChartHeightScale * frame.height))
+        timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: theme.uperChartHeightScale * frame.height))
+        fillColorLayer.path = timeLinePath.cgPath
+        fillColorLayer.fillColor = theme.fillStartColor.cgColor
+        fillColorLayer.strokeColor = UIColor.clear.cgColor
+        
         self.layer.addSublayer(timeLineLayer)
+        self.layer.addSublayer(fillColorLayer)
+        self.animatePoint.frame = CGRect(x: array.last!.pricePoint.x - 3/2, y: array.last!.pricePoint.y - 3/2, width: 3, height: 3)
     }
     
+    /// 交易量图
     func drawVolumeLayer(array: [HSTimeLineCoordModel]) {
         volumeLayer.sublayers?.removeAll()
         var strokeColor = UIColor.clear
@@ -386,6 +401,7 @@ class HSTimeLine: HSBasicBrush {
         self.layer.addSublayer(volumeLayer)
     }
     
+    /// 均线
     func drawMALineLayer(array: [HSTimeLineCoordModel]) {
         let maLinePath = UIBezierPath()
         for index in 1 ..< array.count {
@@ -415,6 +431,86 @@ class HSTimeLine: HSBasicBrush {
         return vlayer
     }
     
+    lazy var animatePoint: CALayer = {
+        let animatePoint = CALayer()
+        self.layer.addSublayer(animatePoint)
+        animatePoint.backgroundColor = UIColor(rgba: "#0095ff").cgColor
+        animatePoint.cornerRadius = 1.5
+        
+        let layer = CALayer()
+        layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
+        layer.backgroundColor = UIColor(rgba: "#0095ff").cgColor
+        layer.cornerRadius = 1.5
+        layer.add(self.breathingLightAnimate(2), forKey: nil)
+        
+        animatePoint.addSublayer(layer)
+        
+        return animatePoint
+    }()
     
+    func breathingLightAnimate(_ time:Double) -> CAAnimationGroup {
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = 1
+        scaleAnimation.toValue = 3.5
+        scaleAnimation.autoreverses = false
+        scaleAnimation.isRemovedOnCompletion = true
+        scaleAnimation.repeatCount = MAXFLOAT
+        scaleAnimation.duration = time
+        
+        let opacityAnimation = CABasicAnimation(keyPath:"opacity")
+        opacityAnimation.fromValue = 1.0
+        opacityAnimation.toValue = 0
+        opacityAnimation.autoreverses = false
+        opacityAnimation.isRemovedOnCompletion = true
+        opacityAnimation.repeatCount = MAXFLOAT
+        opacityAnimation.duration = time
+        opacityAnimation.fillMode = kCAFillModeForwards
+        
+        let group = CAAnimationGroup()
+        group.duration = time
+        group.autoreverses = false
+        group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
+        group.fillMode = kCAFillModeForwards
+        group.animations = [scaleAnimation,opacityAnimation]
+        group.repeatCount = MAXFLOAT
+        
+        return group
+    }
+    
+    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.frame = frame
+        textLayer.string = text
+        textLayer.fontSize = 10
+        textLayer.foregroundColor = foregroundColor.cgColor // UIColor(rgba: "#8695a6")
+        textLayer.backgroundColor = backgroundColor.cgColor
+        textLayer.isWrapped = true
+        textLayer.alignmentMode = kCAAlignmentLeft
+        textLayer.truncationMode = kCATruncationEnd
+        textLayer.contentsScale = UIScreen.main.scale
+        
+        return textLayer
+    }
+    
+    func drawYAxisLabel(str: String, labelAttribute: [String : NSObject], xAxis: CGFloat, yAxis: CGFloat, isLeft: Bool) {
+        let valueAttributedString = NSMutableAttributedString(string: str, attributes: labelAttribute)
+        let valueAttributedStringSize = valueAttributedString.size()
+        let labelInLineCenterSize = valueAttributedStringSize.height/2.0
+        let yAxisLabelEdgeInset: CGFloat = 5
+        var labelX: CGFloat = 0
+        
+        if isLeft {
+            labelX = xAxis + yAxisLabelEdgeInset
+            
+        } else {
+            labelX = xAxis - valueAttributedStringSize.width - yAxisLabelEdgeInset
+        }
+        
+        let labelY: CGFloat = yAxis - labelInLineCenterSize
+        
+        let yTextLayer = getTextLayer(text: str, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: labelX, y: labelY, width: valueAttributedStringSize.width, height: valueAttributedStringSize.height))
+        print(yTextLayer.frame)
+        self.layer.addSublayer(yTextLayer)
+    }
 
 }

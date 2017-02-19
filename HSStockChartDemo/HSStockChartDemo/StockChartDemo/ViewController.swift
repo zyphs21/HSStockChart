@@ -85,13 +85,6 @@ class ViewController: UIViewController {
         self.addChildViewController(fiveDayTimeViewController)
         
         // 日 K 线
-        /*这是和周 K 线和月 K 线一样的实现方法
-        let kLineViewController = ChartViewController()
-        kLineViewController.chartType = HSChartType.kLineForDay
-        controllerArray.append(kLineViewController)
-        self.addChildViewController(kLineViewController)*/
-        
-        // 这是另外一种通过 scrollview 实现的方法，可以实现很顺畅的水平滑动
         let kLineViewController = DayKLineViewController()
         controllerArray.append(kLineViewController)
         self.addChildViewController(kLineViewController)

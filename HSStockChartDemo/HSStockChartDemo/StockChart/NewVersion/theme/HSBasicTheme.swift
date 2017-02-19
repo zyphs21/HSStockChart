@@ -15,7 +15,7 @@ class HSBasicTheme: NSObject {
     var borderColor = UIColor(rgba: "#e4e4e4")
     var crossLineColor = UIColor(rgba: "#546679")
     
-    var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 9),
+    var yAxisLabelAttribute = [NSFontAttributeName: UIFont.systemFont(ofSize: 10),
                                NSBackgroundColorAttributeName: UIColor.clear,
                                NSForegroundColorAttributeName: UIColor(rgba: "#8695a6")]
     var xAxisLabelAttribute = [NSFontAttributeName:UIFont.systemFont(ofSize: 10),
