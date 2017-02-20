@@ -4,8 +4,9 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 ![](https://github.com/zyphs21/HSStockChart/blob/master/HSStockChartDemo/HSStockChart.gif)
 
 ## Features
-- [x] 支持绘制分时图，K 线图，MA 线指标，交易量柱等。
-- [x] 利用 `UIScrollView` 达到流畅的滑动查看。
+- [x] 支持绘制分时图，五日分时图，K 线图，MA 线指标，交易量柱等。
+- [x] 支持横屏查看。
+- [x] K 线图利用 `UIScrollView` 达到流畅的滑动查看效果。
 - [x] 使用 `CAShapeLayer` 绘图，内存占用更小，效率更高。
 
 
