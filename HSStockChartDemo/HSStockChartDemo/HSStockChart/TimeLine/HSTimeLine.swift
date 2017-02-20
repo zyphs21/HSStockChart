@@ -8,11 +8,9 @@
 
 import UIKit
 
-class HSTimeLine: HSBasicBrush {
+class HSTimeLine: UIView {
 
     var theme = HSTimeLineTheme()
-    var crossLine: HSCrossLine?
-    var timeLine: HSTimeLineBrush?
     
     var timeLineLayer = CAShapeLayer()
     var volumeLayer = CAShapeLayer()

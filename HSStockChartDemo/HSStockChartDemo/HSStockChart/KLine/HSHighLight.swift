@@ -11,12 +11,6 @@ import UIKit
 class HSHighLight: UIView {
 
     var theme: HSKLineTheme = HSKLineTheme()
-//    var pricePoint: CGPoint = CGPoint.zero
-//    var volumePoint: CGPoint = CGPoint.zero
-//    var isShowVolume: Bool = true
-//    var model: AnyObject?
-//    var maxPrice: CGFloat = 0
-//    var minPrice: CGFloat = 0
     
     var rrLabel: UILabel!
     var volLabel: UILabel!
@@ -33,17 +27,6 @@ class HSHighLight: UIView {
     var leftMarkLayer = CATextLayer()
     var rightMarkLayer = CATextLayer()
     var bottomMarkLayer = CATextLayer()
-
-//    var leftTLayer = CATextLayer()
-//    var volTLayer = CATextLayer()
-//    var ma5TextLayer = CATextLayer()
-//    var ma10TextLayer = CATextLayer()
-//    var ma20TextLayer = CATextLayer()
-//    
-//    var maxPriceTextLayer = CATextLayer()
-//    var minPriceTextLayer = CATextLayer()
-//    var midPriceTextLayer = CATextLayer()
-//    var maxVolTextLayer = CATextLayer()
     
     var uperChartHeight: CGFloat {
         get {
