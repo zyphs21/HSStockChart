@@ -34,7 +34,6 @@ class HSTimeLine: UIView {
     let countOfTimes = 240 // 分时线的横坐标
     let fiveDayCount = 120 // 五日线总横坐标
     
-    var showLongPressHighlight = false
     var isFiveDayTime = false
     
     var volumeStep: CGFloat = 0
@@ -278,7 +277,6 @@ class HSTimeLine: UIView {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: self)
             if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
-                self.showLongPressHighlight = true
                 let index = Int(point.x / volumeStep)
                 
                 if index > dataT.count - 1 {

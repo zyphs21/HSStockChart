@@ -8,6 +8,12 @@
 
 import UIKit
 
+class myShapeLayer: CAShapeLayer {
+    override func action(forKey event: String) -> CAAction? {
+        return nil
+    }
+}
+
 class HSKLine: UIView {
 
     var kLineType: HSChartType = HSChartType.kLineForDay
@@ -35,11 +41,11 @@ class HSKLine: UIView {
     var renderRect: CGRect = CGRect.zero
     var renderWidth: CGFloat = 0
     
-    var candleChartLayer = CAShapeLayer()
-    var volumeLayer = CAShapeLayer()
-    var ma5LineLayer = CAShapeLayer()
-    var ma10LineLayer = CAShapeLayer()
-    var ma20LineLayer = CAShapeLayer()
+    var candleChartLayer = myShapeLayer()
+    var volumeLayer = myShapeLayer()
+    var ma5LineLayer = myShapeLayer()
+    var ma10LineLayer = myShapeLayer()
+    var ma20LineLayer = myShapeLayer()
     
     var uperChartHeight: CGFloat {
         get {
@@ -263,17 +269,17 @@ class HSKLine: UIView {
             ma20LinePath.move(to: preMa20Point)
             ma20LinePath.addLine(to: ma20Point)
         }
-        ma5LineLayer = CAShapeLayer()
+        ma5LineLayer = myShapeLayer()
         ma5LineLayer.path = ma5LinePath.cgPath
         ma5LineLayer.strokeColor = theme.ma5Color.cgColor
         ma5LineLayer.fillColor = UIColor.clear.cgColor
         
-        ma10LineLayer = CAShapeLayer()
+        ma10LineLayer = myShapeLayer()
         ma10LineLayer.path = ma10LinePath.cgPath
         ma10LineLayer.strokeColor = theme.ma10Color.cgColor
         ma10LineLayer.fillColor = UIColor.clear.cgColor
         
-        ma20LineLayer = CAShapeLayer()
+        ma20LineLayer = myShapeLayer()
         ma20LineLayer.path = ma20LinePath.cgPath
         ma20LineLayer.strokeColor = theme.ma20Color.cgColor
         ma20LineLayer.fillColor = UIColor.clear.cgColor
@@ -293,14 +299,14 @@ class HSKLine: UIView {
     }
     
     /// 获取单个蜡烛图的layer
-    fileprivate func getCandleLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+    fileprivate func getCandleLayer(model: HSKLineCoordModel) -> myShapeLayer {
         // K线
         let linePath = UIBezierPath(rect: model.candleRect)
         // 影线
         linePath.move(to: model.lowPoint)
         linePath.addLine(to: model.highPoint)
         
-        let klayer = CAShapeLayer()
+        let klayer = myShapeLayer()
         klayer.path = linePath.cgPath
         klayer.strokeColor = model.candleFillColor.cgColor
         klayer.fillColor = model.candleFillColor.cgColor
@@ -309,12 +315,12 @@ class HSKLine: UIView {
     }
     
     /// 获取单个交易量图的layer
-    fileprivate func getVolumeLayer(model: HSKLineCoordModel) -> CAShapeLayer {
+    fileprivate func getVolumeLayer(model: HSKLineCoordModel) -> myShapeLayer {
         let linePath = UIBezierPath()
         linePath.move(to: model.volumeStartPoint)
         linePath.addLine(to: model.volumeEndPoint)
         
-        let vlayer = CAShapeLayer()
+        let vlayer = myShapeLayer()
         vlayer.path = linePath.cgPath
         vlayer.lineWidth = theme.candleWidth
         vlayer.strokeColor = model.candleFillColor.cgColor
