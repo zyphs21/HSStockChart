@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class HSHighLight: UIView {
 

@@ -85,7 +85,8 @@ class ViewController: UIViewController {
         self.addChildViewController(fiveDayTimeViewController)
         
         // 日 K 线
-        let kLineViewController = DayKLineViewController()
+        let kLineViewController = ChartViewController()
+        kLineViewController.chartType = HSChartType.kLineForDay
         controllerArray.append(kLineViewController)
         self.addChildViewController(kLineViewController)
         
