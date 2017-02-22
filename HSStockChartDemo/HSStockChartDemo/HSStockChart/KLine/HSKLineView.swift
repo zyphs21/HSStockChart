@@ -87,8 +87,8 @@ class HSKLineView: UIView {
         
         // 总长度
         kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
-        if kLineViewWidth < ScreenWidth {
-            kLineViewWidth = ScreenWidth
+        if kLineViewWidth < self.frame.width {
+            kLineViewWidth = self.frame.width
         } else {
             kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
         }
@@ -117,8 +117,8 @@ class HSKLineView: UIView {
         let count: CGFloat = CGFloat(kLine.dataK.count)
         // 总长度
         kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
-        if kLineViewWidth < ScreenWidth {
-            kLineViewWidth = ScreenWidth
+        if kLineViewWidth < self.frame.width {
+            kLineViewWidth = self.frame.width
         } else {
             kLineViewWidth = count * theme.candleWidth + (count + 1) * theme.candleGap
         }

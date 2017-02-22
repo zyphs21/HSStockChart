@@ -16,13 +16,14 @@ class ViewController: UIViewController {
     var stockBriefView: HSStockBriefView?
     var kLineBriefView: HSKLineBriefView?
     var currentShowingChartVC: UIViewController?
-
+    var controllerArray : [UIViewController] = []
+    
     
     // MARK: - Life Circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: ScreenWidth, height: 40))
         segmentMenu.menuTitleArray = ["分时", "五日", "日K", "周K", "月K"]
         segmentMenu.delegate = self
@@ -71,38 +72,38 @@ class ViewController: UIViewController {
     //MARK: - 添加图表的 viewcontroller
     
     func setUpControllerView() {
-        var controllerArray : [UIViewController] = []
+        
         // 分时线
         let timeViewcontroller = ChartViewController()
         timeViewcontroller.chartType = HSChartType.timeLineForDay
         controllerArray.append(timeViewcontroller)
-        self.addChildViewController(timeViewcontroller)
+//        self.addChildViewController(timeViewcontroller)
         
         // 五日分时线
         let fiveDayTimeViewController = ChartViewController()
         fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
         controllerArray.append(fiveDayTimeViewController)
-        self.addChildViewController(fiveDayTimeViewController)
+//        self.addChildViewController(fiveDayTimeViewController)
         
         // 日 K 线
         let kLineViewController = ChartViewController()
         kLineViewController.chartType = HSChartType.kLineForDay
         controllerArray.append(kLineViewController)
-        self.addChildViewController(kLineViewController)
+//        self.addChildViewController(kLineViewController)
         
         // 周 K 线
         let weeklyKLineViewController = ChartViewController()
         weeklyKLineViewController.chartType = HSChartType.kLineForWeek
         controllerArray.append(weeklyKLineViewController)
-        self.addChildViewController(weeklyKLineViewController)
+//        self.addChildViewController(weeklyKLineViewController)
         
         // 月 K 线
         let monthlyKLineViewController = ChartViewController()
         monthlyKLineViewController.chartType = HSChartType.kLineForMonth
         controllerArray.append(monthlyKLineViewController)
-        self.addChildViewController(monthlyKLineViewController)
+//        self.addChildViewController(monthlyKLineViewController)
     }
-
+    
     @IBAction func showStockMarketData(_ sender: AnyObject) {
         let stockMarketViewController = StockMarketDataViewController(nibName: "StockMarketDataViewController", bundle: nil)
         stockMarketViewController.modalPresentationStyle = .overCurrentContext
@@ -149,7 +150,7 @@ class ViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
-
+    
 }
 
 
@@ -158,15 +159,21 @@ class ViewController: UIViewController {
 extension ViewController: SegmentMenuDelegate {
     
     func menuButtonDidClick(index: Int) {
+//        currentShowingChartVC?.willMove(toParentViewController: nil)
+//        currentShowingChartVC?.view.removeFromSuperview()
+//        currentShowingChartVC?.removeFromParentViewController()
         currentShowingChartVC?.view.removeFromSuperview()
         
-        let selectedVC = self.childViewControllers[index]
+        let selectedVC = self.controllerArray[index] as! ChartViewController
         
-        selectedVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 300)
+        selectedVC.chartRect = CGRect(x: 0, y: 0, width: ScreenWidth, height: 300)
+        selectedVC.view.frame = CGRect(x: 0, y: segmentMenu.frame.maxY, width: ScreenWidth, height: 300)
         
+//        addChildViewController(selectedVC)
         if (selectedVC.view.superview == nil){
-            viewForChart.addSubview(selectedVC.view)
+            view.addSubview(selectedVC.view)
         }
+//        selectedVC.didMove(toParentViewController: self)
         currentShowingChartVC = selectedVC
     }
 }
