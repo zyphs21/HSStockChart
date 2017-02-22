@@ -18,7 +18,7 @@ class HSTimeLine: UIView {
     var frameLayer = CAShapeLayer()
     var fillColorLayer = CAShapeLayer()
     var yAxisLayer = CAShapeLayer()
-    var highlightLayer = CAShapeLayer()
+    var highlightLayer = HSCAShapeLayer()
     
     var maxPrice: CGFloat = 0
     var minPrice: CGFloat = 0
