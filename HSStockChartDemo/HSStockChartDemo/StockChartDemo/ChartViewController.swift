@@ -38,7 +38,6 @@ class ChartViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         print(self.view.frame)
-//        setUpViewController()
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,7 +61,7 @@ class ChartViewController: UIViewController {
             
         case .timeLineForDay:
             timeLineView = HSTimeLine(frame: chartRect)
-            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("OneDayTimeLine"), type: chartType, basicInfo: stockBasicInfo)
+            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
             timeLineView?.dataT = modelArray
             timeLineView!.isUserInteractionEnabled = true
             timeLineView!.tag = chartType.rawValue
@@ -70,36 +69,24 @@ class ChartViewController: UIViewController {
             
         case .timeLineForFiveday:
             let stockChartView = HSTimeLine(frame: chartRect, isFiveDay: true)
-            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("FiveDayTimeLine"), type: chartType, basicInfo: stockBasicInfo)
+            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: stockBasicInfo)
             stockChartView.dataT = modelArray
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
             self.view.addSubview(stockChartView)
             
-            
         case .kLineForDay:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay)
-//            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
-//            stockChartView.setUpData(modelArray)
             stockChartView.tag = chartType.rawValue
-            
-            stockChartView.tag = chartType.rawValue
-            
             self.view.addSubview(stockChartView)
             
         case .kLineForWeek:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek)
-//            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("WeeklyKLine"))
-//            stockChartView.monthInterval = 4
-//            stockChartView.setUpData(modelArray)
             stockChartView.tag = chartType.rawValue
             self.view.addSubview(stockChartView)
             
         case .kLineForMonth:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth)
-//            let modelArray = HSKLineModel.getKLineModelArray(getJsonDataFromFile("MonthlyKLine"))
-//            stockChartView.monthInterval = 12
-//            stockChartView.setUpData(modelArray)
             stockChartView.tag = chartType.rawValue
             self.view.addSubview(stockChartView)
         }

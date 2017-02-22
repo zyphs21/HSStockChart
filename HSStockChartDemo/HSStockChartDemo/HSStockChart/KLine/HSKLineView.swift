@@ -53,8 +53,15 @@ class HSKLineView: UIView {
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         kLine.addGestureRecognizer(pinGesture)
         
-        // MARK: - TODO
-        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile("DaylyKLine"))
+        var jsonFile = ""
+        if kLineType == .kLineForDay {
+            jsonFile = "kLineForDay"
+        } else if kLineType == .kLineForWeek {
+            jsonFile = "kLineForWeek"
+        } else {
+            jsonFile = "kLineForMonth"
+        }
+        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
         let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
         self.configureView(data: tmpDataK)
     }

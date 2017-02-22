@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var headerStockInfoView: UIView!
     var segmentMenu: SegmentMenu!
-    var viewForChart: UIView!
     var stockBriefView: HSStockBriefView?
     var kLineBriefView: HSKLineBriefView?
     var currentShowingChartVC: UIViewController?
@@ -24,43 +23,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: ScreenWidth, height: 40))
-        segmentMenu.menuTitleArray = ["分时", "五日", "日K", "周K", "月K"]
-        segmentMenu.delegate = self
+        setUpView()
+        addNoticficationObserve()
+        addChartController()
         
-        viewForChart = UIView(frame: CGRect(x: 0, y: segmentMenu.frame.maxY, width: ScreenWidth, height: 300))
-        
-        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
-        stockBriefView?.isHidden = true
-        
-        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
-        kLineBriefView?.isHidden = true
-        
-        self.view.addSubview(segmentMenu)
-        self.view.addSubview(viewForChart)
-        self.view.addSubview(stockBriefView!)
-        self.view.addSubview(kLineBriefView!)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showLongPressView), name: NSNotification.Name(rawValue: TimeLineLongpress), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showUnLongPressView), name: NSNotification.Name(rawValue: TimeLineUnLongpress), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartLongPressView), name: NSNotification.Name(rawValue: KLineChartLongPress), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: NSNotification.Name(rawValue: KLineChartUnLongPress), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: KLineUperChartDidTap), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: TimeLineChartDidTap), object: nil)
-        
-        setUpControllerView()
-        
-        segmentMenu.setSelectButton(index: 0) // 默认初始选中第一个
+        // 默认展示第一个
+        segmentMenu.setSelectButton(index: 0)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-    //MARK: - 确保从横屏展示切换回来，布局仍以竖屏模式展示
-    
     override var shouldAutorotate : Bool {
+        // 确保从横屏展示切换回来，布局仍以竖屏模式展示
         return false
     }
     
@@ -69,39 +45,58 @@ class ViewController: UIViewController {
     }
     
     
-    //MARK: - 添加图表的 viewcontroller
+    // MARK: - Functioin
     
-    func setUpControllerView() {
+    func setUpView() {
+        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: ScreenWidth, height: 40))
+        segmentMenu.menuTitleArray = ["分时", "五日", "日K", "周K", "月K"]
+        segmentMenu.delegate = self
         
+        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
+        stockBriefView?.isHidden = true
+        
+        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
+        kLineBriefView?.isHidden = true
+        
+        self.view.addSubview(segmentMenu)
+        self.view.addSubview(stockBriefView!)
+        self.view.addSubview(kLineBriefView!)
+    }
+    
+    func addNoticficationObserve() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showLongPressView), name: NSNotification.Name(rawValue: TimeLineLongpress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showUnLongPressView), name: NSNotification.Name(rawValue: TimeLineUnLongpress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartLongPressView), name: NSNotification.Name(rawValue: KLineChartLongPress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKLineChartUnLongPressView), name: NSNotification.Name(rawValue: KLineChartUnLongPress), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: KLineUperChartDidTap), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLandScapeChartView), name: NSNotification.Name(rawValue: TimeLineChartDidTap), object: nil)
+    }
+    
+    func addChartController() {
         // 分时线
         let timeViewcontroller = ChartViewController()
         timeViewcontroller.chartType = HSChartType.timeLineForDay
         controllerArray.append(timeViewcontroller)
-//        self.addChildViewController(timeViewcontroller)
         
         // 五日分时线
         let fiveDayTimeViewController = ChartViewController()
         fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
         controllerArray.append(fiveDayTimeViewController)
-//        self.addChildViewController(fiveDayTimeViewController)
         
         // 日 K 线
         let kLineViewController = ChartViewController()
         kLineViewController.chartType = HSChartType.kLineForDay
         controllerArray.append(kLineViewController)
-//        self.addChildViewController(kLineViewController)
         
         // 周 K 线
         let weeklyKLineViewController = ChartViewController()
         weeklyKLineViewController.chartType = HSChartType.kLineForWeek
         controllerArray.append(weeklyKLineViewController)
-//        self.addChildViewController(weeklyKLineViewController)
         
         // 月 K 线
         let monthlyKLineViewController = ChartViewController()
         monthlyKLineViewController.chartType = HSChartType.kLineForMonth
         controllerArray.append(monthlyKLineViewController)
-//        self.addChildViewController(monthlyKLineViewController)
     }
     
     @IBAction func showStockMarketData(_ sender: AnyObject) {
@@ -111,22 +106,20 @@ class ViewController: UIViewController {
     }
     
     
-    //MARK: - 长按分时线图，显示摘要信息
-    
+    // 长按分时线图，显示摘要信息
     func showLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let timeLineEntity = dataDictionary["timeLineEntity"] as! HSTimeLineModel
         stockBriefView?.isHidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
-    
+
     func showUnLongPressView(_ notification: Notification) {
         stockBriefView?.isHidden = true
     }
     
     
-    //MARK: - 长按 K线图，显示摘要信息
-    
+    // 长按 K线图，显示摘要信息
     func showKLineChartLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let preClose = dataDictionary["preClose"] as! CGFloat
@@ -140,8 +133,7 @@ class ViewController: UIViewController {
     }
     
     
-    //MARK: - 跳转到横屏页面展示
-    
+    // 跳转到横屏页面展示
     func showLandScapeChartView(_ notification: Notification) {
         let index = notification.object as! Int
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
@@ -150,7 +142,6 @@ class ViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
-    
 }
 
 
@@ -159,21 +150,20 @@ class ViewController: UIViewController {
 extension ViewController: SegmentMenuDelegate {
     
     func menuButtonDidClick(index: Int) {
-//        currentShowingChartVC?.willMove(toParentViewController: nil)
-//        currentShowingChartVC?.view.removeFromSuperview()
-//        currentShowingChartVC?.removeFromParentViewController()
+        currentShowingChartVC?.willMove(toParentViewController: nil)
         currentShowingChartVC?.view.removeFromSuperview()
+        currentShowingChartVC?.removeFromParentViewController()
         
         let selectedVC = self.controllerArray[index] as! ChartViewController
-        
         selectedVC.chartRect = CGRect(x: 0, y: 0, width: ScreenWidth, height: 300)
         selectedVC.view.frame = CGRect(x: 0, y: segmentMenu.frame.maxY, width: ScreenWidth, height: 300)
         
-//        addChildViewController(selectedVC)
+        addChildViewController(selectedVC)
         if (selectedVC.view.superview == nil){
             view.addSubview(selectedVC.view)
         }
-//        selectedVC.didMove(toParentViewController: self)
+        selectedVC.didMove(toParentViewController: self)
+        
         currentShowingChartVC = selectedVC
     }
 }
