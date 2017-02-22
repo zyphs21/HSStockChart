@@ -37,6 +37,18 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 ![](https://github.com/zyphs21/HSStockChart/blob/master/HSStockChartDemo/memoryUseExample.png)
 
 
+
+2. 自定义 CAShapeLayer，重写 action(forKey event: String) 方法。目的是 关闭 CAShapeLayer 的隐式动画，避免滑动时候或者十字线出现时有残影的现象(实际上是因为 Layer 的 position 属性变化而产生的隐式动画)
+
+```swift
+class HSCAShapeLayer: CAShapeLayer {
+    override func action(forKey event: String) -> CAAction? {
+        return nil
+    }
+}
+```
+
+
 ## Other
 
 
