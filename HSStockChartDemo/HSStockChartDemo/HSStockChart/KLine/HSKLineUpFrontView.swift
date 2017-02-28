@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     
@@ -49,7 +48,7 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
         if view == self {
-            // 交给下一层级的view响应事件（解决该view在scrollView上面到时scrollView无法滚动问题）
+            // 交给下一层级的view响应事件（解决该 view 在 scrollView 上面到时scrollView无法滚动问题）
             return nil
         }
         return view

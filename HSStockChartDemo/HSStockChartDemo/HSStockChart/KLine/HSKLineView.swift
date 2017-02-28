@@ -145,6 +145,7 @@ class HSKLineView: UIView {
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
     }
     
+    // 画边框
     func drawFrameLayer() {
         // K线图
         let uperFramePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: frame.width, height: uperChartHeight))

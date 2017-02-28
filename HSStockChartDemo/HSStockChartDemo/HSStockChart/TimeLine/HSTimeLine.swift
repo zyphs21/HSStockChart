@@ -38,6 +38,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     var volumeWidth: CGFloat = 0
     
     var positionModels: [HSTimeLineCoordModel] = []
+    
     var dataT: [HSTimeLineModel] = [] {
         didSet {
             self.drawTimeLineChart()
