@@ -11,14 +11,13 @@ import SwiftyJSON
 
 class HSKLineView: UIView {
 
-    var chartFrame: HSChartFrame!
     var scrollView: UIScrollView!
     var kLine: HSKLine!
-    var highlightView: HSHighLight!
+    var upFrontView: HSKLineUpFrontView!
     
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
-    let theme: HSKLineTheme = HSKLineTheme()
+    var theme = HSStockChartTheme()
     var dataK: [HSKLineModel] = []
 
     var allDataK: [HSKLineModel] = []
@@ -27,12 +26,22 @@ class HSKLineView: UIView {
     var kLineViewWidth: CGFloat = 0.0
     var oldRightOffset: CGFloat = -1
     
+    var uperChartHeight: CGFloat {
+        get {
+            return theme.uperChartHeightScale * self.frame.height
+        }
+    }
+    var lowerChartTop: CGFloat {
+        get {
+            return uperChartHeight + theme.xAxisHeitht
+        }
+    }
+    
     init(frame: CGRect, kLineType: HSChartType) {
         super.init(frame: frame)
         backgroundColor = UIColor.white
         
-        chartFrame = HSChartFrame(frame: frame)
-        addSubview(chartFrame)
+        drawFrameLayer()
         
         scrollView = UIScrollView(frame: frame)
         scrollView.showsHorizontalScrollIndicator = true
@@ -45,8 +54,8 @@ class HSKLineView: UIView {
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
         
-        highlightView = HSHighLight(frame: frame)
-        addSubview(highlightView)
+        upFrontView = HSKLineUpFrontView(frame: frame)
+        addSubview(upFrontView)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
         kLine.addGestureRecognizer(longPressGesture)
@@ -83,7 +92,7 @@ class HSKLineView: UIView {
             kLine.renderWidth = scrollView.frame.width
             kLine.drawKLineView()
             
-            highlightView.configureAxis(max: kLine.maxPrice, min: kLine.minPrice, maxVol: kLine.maxVolume)
+            upFrontView.configureAxis(max: kLine.maxPrice, min: kLine.minPrice, maxVol: kLine.maxVolume)
         }
     }
     
@@ -136,6 +145,45 @@ class HSKLineView: UIView {
         scrollView.contentSize = CGSize(width: kLineViewWidth, height: self.frame.height)
     }
     
+    func drawFrameLayer() {
+        // K线图
+        let uperFramePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: frame.width, height: uperChartHeight))
+        
+        // K线图 内上边线 即最高价格线
+        uperFramePath.move(to: CGPoint(x: 0, y: theme.viewMinYGap))
+        uperFramePath.addLine(to: CGPoint(x: frame.maxX, y: theme.viewMinYGap))
+        
+        // K线图 内下边线 即最低价格线
+        uperFramePath.move(to: CGPoint(x: 0, y: uperChartHeight - theme.viewMinYGap))
+        uperFramePath.addLine(to: CGPoint(x: frame.maxX, y: uperChartHeight - theme.viewMinYGap))
+        
+        // K线图 中间的横线
+        uperFramePath.move(to: CGPoint(x: 0, y: uperChartHeight / 2.0))
+        uperFramePath.addLine(to: CGPoint(x: frame.maxX, y: uperChartHeight / 2.0))
+        
+        let uperFrameLayer = CAShapeLayer()
+        uperFrameLayer.lineWidth = theme.frameWidth
+        uperFrameLayer.strokeColor = theme.borderColor.cgColor
+        uperFrameLayer.fillColor = UIColor.clear.cgColor
+        uperFrameLayer.path = uperFramePath.cgPath
+        
+        // 交易量图
+        let volFramePath = UIBezierPath(rect: CGRect(x: 0, y: uperChartHeight + theme.xAxisHeitht, width: frame.width, height: frame.height - uperChartHeight - theme.xAxisHeitht))
+        
+        // 交易量图 内上边线 即最高交易量格线
+        volFramePath.move(to: CGPoint(x: 0, y: uperChartHeight + theme.xAxisHeitht + theme.volumeGap))
+        volFramePath.addLine(to: CGPoint(x: frame.maxX, y: uperChartHeight + theme.xAxisHeitht + theme.volumeGap))
+        
+        let volFrameLayer = CAShapeLayer()
+        volFrameLayer.lineWidth = theme.frameWidth
+        volFrameLayer.strokeColor = theme.borderColor.cgColor
+        volFrameLayer.fillColor = UIColor.clear.cgColor
+        volFrameLayer.path = volFramePath.cgPath
+        
+        self.layer.addSublayer(uperFrameLayer)
+        self.layer.addSublayer(volFrameLayer)
+    }
+    
     // 长按操作
     func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began || recognizer.state == .changed {
@@ -149,7 +197,7 @@ class HSKLineView: UIView {
                 let highLightVolume = kLine.positionModels[index].volumeStartPoint.y
                 let highLightClose = kLine.positionModels[index].closeY
                 
-                highlightView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity)
+                upFrontView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity)
                 
                 let lastData = highLightIndex > 0 ? kLine.dataK[highLightIndex - 1] : kLine.dataK[0]
                 let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : kLine.dataK[highLightIndex]]
@@ -158,11 +206,12 @@ class HSKLineView: UIView {
         }
         
         if recognizer.state == .ended {
-            highlightView.clearCrossLine()
+            upFrontView.removeCrossLine()
             NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartUnLongPress), object: self)
         }
     }
     
+    // 捏合缩放扩大操作
     func handlePinGestureAction(_ recognizer: UIPinchGestureRecognizer) {
 
         guard recognizer.numberOfTouches == 2 else { return }

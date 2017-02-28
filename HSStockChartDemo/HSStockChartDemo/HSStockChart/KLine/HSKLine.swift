@@ -11,7 +11,7 @@ import UIKit
 class HSKLine: UIView {
 
     var kLineType: HSChartType = HSChartType.kLineForDay
-    var theme: HSKLineTheme = HSKLineTheme()
+    var theme = HSStockChartTheme()
     
     var dataK: [HSKLineModel] = []
     var positionModels: [HSKLineCoordModel] = []
@@ -43,12 +43,12 @@ class HSKLine: UIView {
     
     var uperChartHeight: CGFloat {
         get {
-            return theme.kLineChartHeightScale * self.frame.height
+            return theme.uperChartHeightScale * self.frame.height
         }
     }
     var lowerChartHeight: CGFloat {
         get {
-            return self.frame.height * (1 - theme.kLineChartHeightScale) - theme.xAxisHeitht
+            return self.frame.height * (1 - theme.uperChartHeightScale) - theme.xAxisHeitht
         }
     }
     
@@ -160,7 +160,7 @@ class HSKLine: UIView {
         let maxDiff = self.maxPrice - self.minPrice
         if maxDiff > 0, maxVolume > 0 {
             priceUnit = (uperChartHeight - 2 * minY) / maxDiff
-            volumeUnit = (lowerChartHeight - theme.volumeMaxGap) / self.maxVolume
+            volumeUnit = (lowerChartHeight - theme.volumeGap) / self.maxVolume
         }
         let count = (startIndex + countOfshowCandle + 1) > data.count ? data.count : (startIndex + countOfshowCandle + 1)
         if startIndex < count {
@@ -186,11 +186,11 @@ class HSKLine: UIView {
                 let volumeEndPoint = CGPoint(x: xPosition, y: self.frame.height)
                 
                 if(openPointY > closePointY) {
-                    fillCandleColor = theme.candleRiseColor
+                    fillCandleColor = theme.riseColor
                     candleRect = CGRect(x: leftPosition, y: closePointY, width: theme.candleWidth, height: openPointY - closePointY)
                     
                 } else if(openPointY < closePointY) {
-                    fillCandleColor = theme.candleFallColor
+                    fillCandleColor = theme.fallColor
                     candleRect = CGRect(x: leftPosition, y: openPointY, width: theme.candleWidth, height: closePointY - openPointY)
                     
                 } else {
@@ -198,9 +198,9 @@ class HSKLine: UIView {
                     if(index > 0) {
                         let preKLineModel = data[index - 1]
                         if(model.open > preKLineModel.close) {
-                            fillCandleColor = theme.candleRiseColor
+                            fillCandleColor = theme.riseColor
                         } else {
-                            fillCandleColor = theme.candleFallColor
+                            fillCandleColor = theme.fallColor
                         }
                     }
                 }

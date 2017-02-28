@@ -1,16 +1,14 @@
 //
-//  HSTimeLine.swift
+//  HSTimeLineTest.swift
 //  HSStockChartDemo
 //
-//  Created by Hanson on 2017/2/17.
+//  Created by Hanson on 2017/2/28.
 //  Copyright © 2017年 hanson. All rights reserved.
 //
 
 import UIKit
 
-class HSTimeLine: UIView {
-
-    var theme = HSTimeLineTheme()
+class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     var timeLineLayer = CAShapeLayer()
     var volumeLayer = CAShapeLayer()
@@ -18,7 +16,7 @@ class HSTimeLine: UIView {
     var frameLayer = CAShapeLayer()
     var fillColorLayer = CAShapeLayer()
     var yAxisLayer = CAShapeLayer()
-    var highlightLayer = HSCAShapeLayer()
+    var crossLineLayer = CAShapeLayer()
     
     var maxPrice: CGFloat = 0
     var minPrice: CGFloat = 0
@@ -37,6 +35,7 @@ class HSTimeLine: UIView {
     var isFiveDayTime = false
     
     var volumeStep: CGFloat = 0
+    var volumeWidth: CGFloat = 0
     
     var positionModels: [HSTimeLineCoordModel] = []
     var dataT: [HSTimeLineModel] = [] {
@@ -52,7 +51,7 @@ class HSTimeLine: UIView {
     }
     var lowerChartHeight: CGFloat {
         get {
-            return frame.height * (1 - theme.kLineChartHeightScale) - theme.xAxisHeitht
+            return frame.height * (1 - theme.uperChartHeightScale) - theme.xAxisHeitht
         }
     }
     var uperChartDrawAreaTop: CGFloat {
@@ -74,16 +73,9 @@ class HSTimeLine: UIView {
     
     //MARK: - 构造方法
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, isFiveDay: Bool = false) {
         super.init(frame: frame)
         
-        addGestures()
-        drawFrameLayer()
-        drawXAxisLabel()
-    }
-    
-    init(frame: CGRect, isFiveDay: Bool) {
-        super.init(frame: frame)
         self.isFiveDayTime = isFiveDay
         addGestures()
         drawFrameLayer()
@@ -91,13 +83,11 @@ class HSTimeLine: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        addGestures()
+        fatalError("init(coder:) has not been implemented")
     }
     
     
-    // MARK: -
+    // MARK: - Function
     
     func addGestures() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))
@@ -107,6 +97,24 @@ class HSTimeLine: UIView {
         self.addGestureRecognizer(tapGesture)
     }
     
+    // 绘图
+    func drawTimeLineChart() {
+        setMaxAndMinData()
+        convertToPoints(data: dataT)
+        clearLayer()
+        drawLineLayer(array: positionModels)
+        drawVolumeLayer(array: positionModels)
+        drawMALineLayer(array: positionModels)
+        drawYAxisLabel()
+    }
+    
+    func clearLayer() {
+        timeLineLayer.removeFromSuperlayer()
+        fillColorLayer.removeFromSuperlayer()
+        volumeLayer.removeFromSuperlayer()
+        maLineLayer.removeFromSuperlayer()
+        yAxisLayer.removeFromSuperlayer()
+    }
     
     /// 求极限值
     func setMaxAndMinData() {
@@ -118,7 +126,7 @@ class HSTimeLine: UIView {
             self.maxVolume = dataT[0].volume
             // 分时线和五日线的比较基准
             let toComparePrice = isFiveDayTime ? dataT[0].price : dataT[0].preClosePx
-
+            
             if isFiveDayTime {
                 for i in 0 ..< dataT.count {
                     let entity = dataT[i]
@@ -156,18 +164,14 @@ class HSTimeLine: UIView {
         if isFiveDayTime {
             
         } else {
-            let drawAttributes = theme.xAxisLabelAttribute
-            let startTimeAttributedString = NSMutableAttributedString(string: "9:30", attributes: drawAttributes)
-            let sizestartTimeAttributedString = startTimeAttributedString.size()
-            let startTime = getTextLayer(text: startTimeAttributedString.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: 0, y: uperChartHeight, width: sizestartTimeAttributedString.width, height: sizestartTimeAttributedString.height))
+            let startTimeSize = theme.getTextSize(text: "9:30")
+            let startTime = getTextLayer(text: "9:30", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: 0, y: uperChartHeight, width: startTimeSize.width, height: startTimeSize.height))
             
-            let midTimeAttStr = NSMutableAttributedString(string: "11:30/13:00", attributes: drawAttributes)
-            let sizeMidTimeAttStr = midTimeAttStr.size()
-            let midTime = getTextLayer(text: midTimeAttStr.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame:  CGRect(x: self.frame.width / 2.0 - sizeMidTimeAttStr.width / 2.0, y: uperChartHeight, width: sizeMidTimeAttStr.width, height: sizeMidTimeAttStr.height))
+            let midTimeSize = theme.getTextSize(text: "11:30/13:00")
+            let midTime = getTextLayer(text: "11:30/13:00", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: frame.width / 2.0 - midTimeSize.width / 2.0, y: uperChartHeight, width: midTimeSize.width, height: midTimeSize.height))
             
-            let stopTimeAttStr = NSMutableAttributedString(string: "15:00", attributes: drawAttributes)
-            let sizeStopTimeAttStr = stopTimeAttStr.size()
-            let stopTime = getTextLayer(text: stopTimeAttStr.string, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: self.frame.width - sizeStopTimeAttStr.width, y: uperChartHeight, width: sizeStopTimeAttStr.width, height: sizeStopTimeAttStr.height))
+            let stopTimeSize = theme.getTextSize(text: "15:00")
+            let stopTime = getTextLayer(text: "15:00", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: frame.width - stopTimeSize.width, y: uperChartHeight, width: stopTimeSize.width, height: stopTimeSize.height))
             
             self.layer.addSublayer(startTime)
             self.layer.addSublayer(midTime)
@@ -178,17 +182,17 @@ class HSTimeLine: UIView {
     /// 纵坐标轴的标签
     func drawYAxisLabel() {
         yAxisLayer.sublayers?.removeAll()
+        
         // 画纵坐标的最高和最低价格标签
         let maxPriceStr = maxPrice.toStringWithFormat(".2")
         let minPriceStr = minPrice.toStringWithFormat(".2")
-        
-        yAxisLayer.addSublayer(drawYAxisLabel(str: maxPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: frame.width, yAxis: theme.viewMinYGap, isLeft: false))
-        yAxisLayer.addSublayer(drawYAxisLabel(str: minPriceStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: frame.width, yAxis: uperChartDrawAreaBottom, isLeft: false))
+        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxPriceStr, y: theme.viewMinYGap, isLeft: false))
+        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minPriceStr, y: uperChartDrawAreaBottom, isLeft: false))
         
         // 最高成交量标签及其横线
         let y = frame.height - maxVolume * volumeUnit
         let maxVolumeStr = maxVolume.toStringWithFormat(".2")
-        yAxisLayer.addSublayer(drawYAxisLabel(str: maxVolumeStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: frame.width, yAxis: y, isLeft: false))
+        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxVolumeStr, y: y, isLeft: false))
         
         let maxVolLine = UIBezierPath()
         maxVolLine.move(to: CGPoint(x: 0, y: y))
@@ -203,12 +207,12 @@ class HSTimeLine: UIView {
         // 画比率标签
         let maxRatioStr = (self.maxRatio * 100).toPercentFormat()
         let minRatioStr = (self.minRatio * 100).toPercentFormat()
-        yAxisLayer.addSublayer(drawYAxisLabel(str: maxRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: 0, yAxis: uperChartDrawAreaTop, isLeft: true))
-        yAxisLayer.addSublayer(drawYAxisLabel(str: minRatioStr, labelAttribute: theme.yAxisLabelAttribute, xAxis: 0, yAxis: uperChartDrawAreaBottom, isLeft: true))
+        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxRatioStr, y: uperChartDrawAreaTop, isLeft: true))
+        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minRatioStr, y: uperChartDrawAreaBottom, isLeft: true))
         
         // 中间横虚线及其标签
         if let temp = dataT.first {
-            //日分时图中间区域线代表昨日的收盘价格，五日分时图的则代表五日内的第一天9点30分的价格
+            // 日分时图中间区域线代表昨日的收盘价格，五日分时图的则代表五日内的第一天9点30分的价格
             let price = isFiveDayTime ? temp.price : temp.preClosePx
             let preClosePriceYaxis = (self.maxPrice - price) * self.priceUnit + uperChartDrawAreaTop
             
@@ -219,12 +223,12 @@ class HSTimeLine: UIView {
             let dashLineLayer = CAShapeLayer()
             dashLineLayer.path = dashLinePath.cgPath
             dashLineLayer.strokeColor = theme.borderColor.cgColor
-            dashLineLayer.lineWidth = theme.borderWidth / 2
+            dashLineLayer.lineWidth = theme.lineWidth / 2
             dashLineLayer.fillColor = UIColor.clear.cgColor
             dashLineLayer.lineDashPattern = [6, 3]
             yAxisLayer.addSublayer(dashLineLayer)
             
-            yAxisLayer.addSublayer(drawYAxisLabel(str: price.toStringWithFormat(".2"), labelAttribute: theme.yAxisLabelAttribute, xAxis: frame.width,  yAxis: preClosePriceYaxis, isLeft: false))
+            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
         }
         
         self.layer.addSublayer(yAxisLayer)
@@ -235,7 +239,7 @@ class HSTimeLine: UIView {
         let maxDiff = self.maxPrice - self.minPrice
         if maxDiff > 0, maxVolume > 0 {
             priceUnit = (uperChartHeight - 2 * theme.viewMinYGap) / maxDiff
-            volumeUnit = (lowerChartHeight - theme.volumeMinGap) / self.maxVolume
+            volumeUnit = (lowerChartHeight - theme.volumeGap) / self.maxVolume
         }
         
         if isFiveDayTime {
@@ -244,8 +248,7 @@ class HSTimeLine: UIView {
             volumeStep = self.frame.width / CGFloat(countOfTimes)
         }
         
-        let volumeWidth = volumeStep - volumeStep / 3.0
-        self.theme.volumeWidth = volumeWidth
+        volumeWidth = volumeStep - volumeStep / 3.0
         self.positionModels.removeAll()
         for index in 0 ..< data.count {
             let centerX = volumeStep * CGFloat(index) + volumeStep / 2
@@ -272,58 +275,6 @@ class HSTimeLine: UIView {
         }
     }
     
-    /// 处理长按事件
-    func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began || recognizer.state == .changed {
-            let  point = recognizer.location(in: self)
-            if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
-                let index = Int(point.x / volumeStep)
-                
-                if index > dataT.count - 1 {
-                    self.highLightIndex = dataT.count - 1
-                    
-                } else {
-                    self.highLightIndex = index
-                }
-                
-                drawCrossLine(pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex])
-            }
-            if self.highLightIndex < dataT.count {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineLongpress"), object: self, userInfo: ["timeLineEntity": dataT[self.highLightIndex]])
-            }
-        }
-        
-        if recognizer.state == .ended {
-            highlightLayer.removeFromSuperlayer()
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineUnLongpress"), object: self)
-        }
-    }
-    
-    
-    /// 处理点击事件
-    func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
-    }
-    
-    
-    func drawTimeLineChart() {
-        setMaxAndMinData()
-        convertToPoints(data: dataT)
-        clearLayer()
-        drawLineLayer(array: positionModels)
-        drawVolumeLayer(array: positionModels)
-        drawMALineLayer(array: positionModels)
-        drawYAxisLabel()
-    }
-    
-    func clearLayer() {
-        timeLineLayer.removeFromSuperlayer()
-        fillColorLayer.removeFromSuperlayer()
-        volumeLayer.removeFromSuperlayer()
-        maLineLayer.removeFromSuperlayer()
-        yAxisLayer.removeFromSuperlayer()
-    }
-    
     /// 边框
     func drawFrameLayer() {
         // 分时线区域 frame
@@ -348,7 +299,7 @@ class HSTimeLine: UIView {
         
         let frameLayer = CAShapeLayer()
         frameLayer.path = framePath.cgPath
-        frameLayer.lineWidth = theme.borderWidth / 2.0
+        frameLayer.lineWidth = theme.frameWidth
         frameLayer.strokeColor = theme.borderColor.cgColor
         frameLayer.fillColor = UIColor.clear.cgColor
         
@@ -360,7 +311,7 @@ class HSTimeLine: UIView {
         
         let volFrameLayer = CAShapeLayer()
         volFrameLayer.path = volFramePath.cgPath
-        volFrameLayer.lineWidth = theme.borderWidth / 2.0
+        volFrameLayer.lineWidth = theme.frameWidth
         volFrameLayer.strokeColor = theme.borderColor.cgColor
         volFrameLayer.fillColor = UIColor.clear.cgColor
         
@@ -377,7 +328,7 @@ class HSTimeLine: UIView {
             timeLinePath.addLine(to: array[index].pricePoint)
         }
         timeLineLayer.path = timeLinePath.cgPath
-        timeLineLayer.lineWidth = 1.5
+        timeLineLayer.lineWidth = 1
         timeLineLayer.strokeColor = theme.priceLineCorlor.cgColor
         timeLineLayer.fillColor = UIColor.clear.cgColor
         
@@ -385,8 +336,9 @@ class HSTimeLine: UIView {
         timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: theme.uperChartHeightScale * frame.height))
         timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: theme.uperChartHeightScale * frame.height))
         fillColorLayer.path = timeLinePath.cgPath
-        fillColorLayer.fillColor = theme.fillStartColor.cgColor
+        fillColorLayer.fillColor = theme.fillColor.cgColor
         fillColorLayer.strokeColor = UIColor.clear.cgColor
+        fillColorLayer.zPosition -= 1 // 将图层置于下一级，让底部的标记线显示出来
         
         self.layer.addSublayer(timeLineLayer)
         self.layer.addSublayer(fillColorLayer)
@@ -401,14 +353,11 @@ class HSTimeLine: UIView {
         
         for index in 0 ..< array.count {
             let comparePrice = (index == 0) ? preClosePx : dataT[index - 1].price
-            if dataT[index].price > comparePrice {
-                strokeColor = theme.volumeRiseColor
-                
-            } else if dataT[index].price < comparePrice {
-                strokeColor = theme.volumeFallColor
+            if dataT[index].price < comparePrice {
+                strokeColor = theme.fallColor
                 
             } else {
-                strokeColor = theme.volumeTieColor
+                strokeColor = theme.riseColor
             }
             
             let volLayer = getVolumeLayer(model: array[index], fillColor: strokeColor)
@@ -440,13 +389,14 @@ class HSTimeLine: UIView {
         
         let vlayer = CAShapeLayer()
         vlayer.path = linePath.cgPath
-        vlayer.lineWidth = theme.volumeWidth
+        vlayer.lineWidth = volumeWidth
         vlayer.strokeColor = fillColor.cgColor
         vlayer.fillColor = fillColor.cgColor
         
         return vlayer
     }
     
+    // 动态点 呼吸灯动画
     lazy var animatePoint: CALayer = {
         let animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
@@ -487,158 +437,44 @@ class HSTimeLine: UIView {
         group.autoreverses = false
         group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
         group.fillMode = kCAFillModeForwards
-        group.animations = [scaleAnimation,opacityAnimation]
+        group.animations = [scaleAnimation, opacityAnimation]
         group.repeatCount = MAXFLOAT
         
         return group
     }
     
-    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer {
-        let textLayer = CATextLayer()
-        textLayer.frame = frame
-        textLayer.string = text
-        textLayer.fontSize = 10
-        textLayer.foregroundColor = foregroundColor.cgColor // UIColor(rgba: "#8695a6")
-        textLayer.backgroundColor = backgroundColor.cgColor
-        textLayer.isWrapped = true
-        textLayer.alignmentMode = kCAAlignmentLeft
-        textLayer.truncationMode = kCATruncationEnd
-        textLayer.contentsScale = UIScreen.main.scale
+    /// 处理长按事件
+    func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .began || recognizer.state == .changed {
+            let  point = recognizer.location(in: self)
+            if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
+                let index = Int(point.x / volumeStep)
+                
+                if index > dataT.count - 1 {
+                    self.highLightIndex = dataT.count - 1
+                } else {
+                    self.highLightIndex = index
+                }
+                
+                crossLineLayer.removeFromSuperlayer()
+                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex])
+                self.layer.addSublayer(crossLineLayer)
+            }
+            if self.highLightIndex < dataT.count {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineLongpress"), object: self, userInfo: ["timeLineEntity": dataT[self.highLightIndex]])
+            }
+        }
         
-        return textLayer
+        if recognizer.state == .ended {
+            crossLineLayer.removeFromSuperlayer()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineUnLongpress"), object: self)
+        }
     }
     
-    func drawYAxisLabel(str: String, labelAttribute: [String : NSObject], xAxis: CGFloat, yAxis: CGFloat, isLeft: Bool) -> CATextLayer {
-        let valueAttributedString = NSMutableAttributedString(string: str, attributes: labelAttribute)
-        let valueAttributedStringSize = valueAttributedString.size()
-        let labelInLineCenterSize = valueAttributedStringSize.height/2.0
-        let yAxisLabelEdgeInset: CGFloat = 5
-        var labelX: CGFloat = 0
-        
-        if isLeft {
-            labelX = xAxis + yAxisLabelEdgeInset
-            
-        } else {
-            labelX = xAxis - valueAttributedStringSize.width - yAxisLabelEdgeInset
-        }
-        
-        let labelY: CGFloat = yAxis - labelInLineCenterSize
-        
-        let yTextLayer = getTextLayer(text: str, foregroundColor: UIColor(rgba: "#8695a6"), backgroundColor: UIColor.clear, frame: CGRect(x: labelX, y: labelY, width: valueAttributedStringSize.width+10, height: valueAttributedStringSize.height))
-        print(yTextLayer.frame)
-        
-        return yTextLayer
-    }
     
-    func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, isShowVolume: Bool = true) {
-        highlightLayer.removeFromSuperlayer()
-        highlightLayer.sublayers?.removeAll()
-        let corssLineLayer = CAShapeLayer()
-        var volMarkLayer = CATextLayer()
-        var leftMarkLayer = CATextLayer()
-        var rightMarkLayer = CATextLayer()
-        var bottomMarkLayer = CATextLayer()
-        var leftMarkerString = ""
-        var bottomMarkerString = ""
-        var rightMarkerString = ""
-        var volumeMarkerString = ""
-        
-        guard let model = model else { return }
-        
-        if model.isKind(of: HSKLineModel.self) {
-            let entity = model as! HSKLineModel
-            rightMarkerString = entity.close.toStringWithFormat(".2")
-            bottomMarkerString = entity.date.toDate("yyyyMMddHHmmss")?.toString("MM-dd") ?? ""
-            leftMarkerString = entity.rate.toPercentFormat()
-            volumeMarkerString = entity.volume.toStringWithFormat(".2")
-            
-        } else if model.isKind(of: HSTimeLineModel.self){
-            let entity = model as! HSTimeLineModel
-            rightMarkerString = entity.price.toStringWithFormat(".2")
-            bottomMarkerString = entity.time
-            leftMarkerString = (entity.rate * 100).toPercentFormat()
-            volumeMarkerString = entity.volume.toStringWithFormat(".2")
-            
-        } else{
-            return
-        }
-        
-        let linePath = UIBezierPath()
-        // 竖线
-        linePath.move(to: CGPoint(x: pricePoint.x, y: 0))
-        linePath.addLine(to: CGPoint(x: pricePoint.x, y: frame.maxY))
-        
-        // 横线
-        linePath.move(to: CGPoint(x: frame.minX, y: pricePoint.y))
-        linePath.addLine(to: CGPoint(x: frame.maxX, y: pricePoint.y))
-        
-        if isShowVolume {
-            // 标记交易量的横线
-            linePath.move(to: CGPoint(x: frame.minX, y: volumePoint.y))
-            linePath.addLine(to: CGPoint(x: frame.maxX, y: volumePoint.y))
-        }
-        
-        // 交叉点
-        //linePath.addArc(withCenter: pricePoint, radius: 3, startAngle: 0, endAngle: 180, clockwise: true)
-        
-        corssLineLayer.lineWidth = theme.lineWidth
-        corssLineLayer.strokeColor = theme.crossLineColor.cgColor
-        corssLineLayer.fillColor = theme.crossLineColor.cgColor
-        corssLineLayer.path = linePath.cgPath
-        
-        // 标记标签
-        
-        let leftMarkerStringAttribute = NSMutableAttributedString(string: leftMarkerString, attributes: theme.highlightAttribute)
-        let bottomMarkerStringAttribute = NSMutableAttributedString(string: bottomMarkerString, attributes: theme.highlightAttribute)
-        let rightMarkerStringAttribute = NSMutableAttributedString(string: rightMarkerString, attributes: theme.highlightAttribute)
-        let volumeMarkerStringAttribute = NSMutableAttributedString(string: volumeMarkerString, attributes: theme.highlightAttribute)
-        
-        let leftMarkerStringAttributeSize = leftMarkerStringAttribute.size()
-        let bottomMarkerStringAttributeSize = bottomMarkerStringAttribute.size()
-        let rightMarkerStringAttributeSize = rightMarkerStringAttribute.size()
-        let volumeMarkerStringAttributeSize = volumeMarkerStringAttribute.size()
-        
-        var labelX: CGFloat = 0
-        var labelY: CGFloat = 0
-        
-        // 左标签
-        labelX = frame.minX
-        labelY = pricePoint.y - leftMarkerStringAttributeSize.height / 2.0
-        leftMarkLayer = getTextLayer(text: leftMarkerString, foregroundColor: UIColor.white, backgroundColor: UIColor(rgba: "#8695a6"), frame: CGRect(x: labelX, y: labelY, width: leftMarkerStringAttributeSize.width, height: leftMarkerStringAttributeSize.height))
-        
-        // 右标签
-        labelX = frame.maxX - rightMarkerStringAttributeSize.width
-        labelY = pricePoint.y - rightMarkerStringAttributeSize.height / 2.0
-        rightMarkLayer = getTextLayer(text: rightMarkerString, foregroundColor: UIColor.white, backgroundColor: UIColor(rgba: "#8695a6"), frame: CGRect(x: labelX, y: labelY, width: rightMarkerStringAttributeSize.width, height: rightMarkerStringAttributeSize.height))
-        
-        // 底部时间标签
-        let maxX = frame.maxX - bottomMarkerStringAttributeSize.width
-        labelX = pricePoint.x - bottomMarkerStringAttributeSize.width / 2.0
-        labelY = frame.height * theme.uperChartHeightScale
-        if labelX > maxX {
-            labelX = frame.maxX - bottomMarkerStringAttributeSize.width
-            
-        } else if labelX < frame.minX {
-            labelX = frame.minX
-        }
-        bottomMarkLayer = getTextLayer(text: bottomMarkerString, foregroundColor: UIColor.white, backgroundColor: UIColor(rgba: "#8695a6"), frame: CGRect(x: labelX, y: labelY, width: bottomMarkerStringAttributeSize.width, height: bottomMarkerStringAttributeSize.height))
-        
-        
-        if isShowVolume {
-            // 交易量右标签
-            let maxY = frame.maxY - volumeMarkerStringAttributeSize.height
-            labelX = frame.maxX - volumeMarkerStringAttributeSize.width
-            labelY = volumePoint.y - volumeMarkerStringAttributeSize.height / 2.0
-            labelY = labelY > maxY ? maxY : labelY
-            volMarkLayer = getTextLayer(text: volumeMarkerString, foregroundColor: UIColor.white, backgroundColor: UIColor(rgba: "#8695a6"), frame: CGRect(x: labelX, y: labelY, width: volumeMarkerStringAttributeSize.width, height: volumeMarkerStringAttributeSize.height))
-        }
-        
-        highlightLayer.addSublayer(corssLineLayer)
-        highlightLayer.addSublayer(leftMarkLayer)
-        highlightLayer.addSublayer(rightMarkLayer)
-        highlightLayer.addSublayer(bottomMarkLayer)
-        highlightLayer.addSublayer(volMarkLayer)
-        self.layer.addSublayer(highlightLayer)
+    /// 处理点击事件
+    func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
     }
 
 }
