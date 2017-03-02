@@ -43,7 +43,7 @@ class HSKLineView: UIView {
         
         drawFrameLayer()
         
-        scrollView = UIScrollView(frame: frame)
+        scrollView = UIScrollView(frame: bounds)
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
@@ -54,7 +54,7 @@ class HSKLineView: UIView {
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
         
-        upFrontView = HSKLineUpFrontView(frame: frame)
+        upFrontView = HSKLineUpFrontView(frame: bounds)
         addSubview(upFrontView)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))

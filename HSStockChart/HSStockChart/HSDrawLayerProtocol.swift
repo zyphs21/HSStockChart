@@ -89,7 +89,7 @@ extension HSDrawLayerProtocol {
         let linePath = UIBezierPath()
         // 竖线
         linePath.move(to: CGPoint(x: pricePoint.x, y: 0))
-        linePath.addLine(to: CGPoint(x: pricePoint.x, y: frame.maxY))
+        linePath.addLine(to: CGPoint(x: pricePoint.x, y: frame.height))
         
         // 横线
         linePath.move(to: CGPoint(x: frame.minX, y: pricePoint.y))
