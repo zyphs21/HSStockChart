@@ -22,6 +22,7 @@ class ChartViewController: UIViewController {
     var chartType: HSChartType = .timeLineForDay
     var timeLineView: HSTimeLine?
     var chartRect: CGRect = CGRect.zero
+    var isLandscapeMode: Bool = false
 
     
     // MARK: - Life Circle
@@ -64,7 +65,8 @@ class ChartViewController: UIViewController {
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
             timeLineView?.dataT = modelArray
             timeLineView!.isUserInteractionEnabled = true
-            timeLineView!.tag = chartType.rawValue
+            timeLineView?.tag = chartType.rawValue
+            timeLineView?.isLandscapeMode = self.isLandscapeMode
             self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
@@ -73,21 +75,25 @@ class ChartViewController: UIViewController {
             stockChartView.dataT = modelArray
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
             self.view.addSubview(stockChartView)
             
         case .kLineForDay:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay)
             stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
             self.view.addSubview(stockChartView)
             
         case .kLineForWeek:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek)
             stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
             self.view.addSubview(stockChartView)
             
         case .kLineForMonth:
             let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth)
             stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
             self.view.addSubview(stockChartView)
         }
     }

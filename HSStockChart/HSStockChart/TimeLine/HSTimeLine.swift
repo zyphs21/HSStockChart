@@ -33,6 +33,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     let fiveDayCount = 120 // 五日线总横坐标
     
     var isFiveDayTime = false
+    var isLandscapeMode = false
     
     var volumeStep: CGFloat = 0
     var volumeWidth: CGFloat = 0
@@ -475,7 +476,9 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     /// 处理点击事件
     func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
+        if !isLandscapeMode {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
+        }
     }
 
 }

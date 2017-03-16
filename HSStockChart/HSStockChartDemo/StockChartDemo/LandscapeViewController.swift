@@ -48,34 +48,43 @@ class LandscapeViewController: UIViewController {
     func addChartViewController() {
         let timeViewcontroller = ChartViewController()
         timeViewcontroller.chartType = HSChartType.timeLineForDay
+        timeViewcontroller.isLandscapeMode = true
         controllerArray.append(timeViewcontroller)
         
         let fiveDayTimeViewController = ChartViewController()
         fiveDayTimeViewController.chartType = HSChartType.timeLineForFiveday
+        fiveDayTimeViewController.isLandscapeMode = true
         controllerArray.append(fiveDayTimeViewController)
         
         let kLineViewController = ChartViewController()
         kLineViewController.chartType = HSChartType.kLineForDay
+        kLineViewController.isLandscapeMode = true
         controllerArray.append(kLineViewController)
         
         let weeklyKLineViewController = ChartViewController()
         weeklyKLineViewController.chartType = HSChartType.kLineForWeek
+        weeklyKLineViewController.isLandscapeMode = true
         controllerArray.append(weeklyKLineViewController)
         
         let monthlyKLineViewController = ChartViewController()
         monthlyKLineViewController.chartType = HSChartType.kLineForMonth
+        monthlyKLineViewController.isLandscapeMode = true
         controllerArray.append(monthlyKLineViewController)
         
         let oneMonthViewController = ChartViewController()
+        oneMonthViewController.isLandscapeMode = true
         controllerArray.append(oneMonthViewController)
         
         let sixMonthViewController = ChartViewController()
+        sixMonthViewController.isLandscapeMode = true
         controllerArray.append(sixMonthViewController)
         
         let threeYearViewController = ChartViewController()
+        threeYearViewController.isLandscapeMode = true
         controllerArray.append(threeYearViewController)
         
-        let  allViewController = ChartViewController()
+        let allViewController = ChartViewController()
+        allViewController.isLandscapeMode = true
         controllerArray.append(allViewController)
     }
     

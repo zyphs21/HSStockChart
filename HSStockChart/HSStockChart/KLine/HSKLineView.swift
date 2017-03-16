@@ -19,6 +19,8 @@ class HSKLineView: UIView {
     var widthOfKLineView: CGFloat = 0
     var theme = HSStockChartTheme()
     var dataK: [HSKLineModel] = []
+    
+    var isLandscapeMode = false
 
     var allDataK: [HSKLineModel] = []
     var enableKVO: Bool = true
@@ -61,6 +63,8 @@ class HSKLineView: UIView {
         kLine.addGestureRecognizer(longPressGesture)
         let pinGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinGestureAction(_:)))
         kLine.addGestureRecognizer(pinGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
+        kLine.addGestureRecognizer(tapGesture)
         
         var jsonFile = ""
         if kLineType == .kLineForDay {
@@ -268,6 +272,16 @@ class HSKLineView: UIView {
 
             kLine.contentOffsetX = scrollView.contentOffset.x
             kLine.drawKLineView()
+        }
+    }
+    
+    /// 处理点击事件
+    func handleTapGestureAction(_ recognizer: UITapGestureRecognizer) {
+        if !isLandscapeMode {
+            let  point = recognizer.location(in: kLine)
+            if point.y < lowerChartTop {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: KLineUperChartDidTap), object: self.tag)
+            }
         }
     }
     
