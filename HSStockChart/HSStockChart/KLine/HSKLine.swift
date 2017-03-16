@@ -40,6 +40,7 @@ class HSKLine: UIView {
     var ma5LineLayer = HSCAShapeLayer()
     var ma10LineLayer = HSCAShapeLayer()
     var ma20LineLayer = HSCAShapeLayer()
+    var xAxisTimeMarkLayer = HSCAShapeLayer()
     
     var uperChartHeight: CGFloat {
         get {
@@ -106,6 +107,7 @@ class HSKLine: UIView {
         convertToPositionModel(data: dataK)
 
         clearLayer()
+        drawxAxisTimeMarkLayer()
         drawCandleChartLayer(array: positionModels)
         drawVolumeLayer(array: positionModels)
         drawMALayer(array: positionModels)
@@ -155,6 +157,7 @@ class HSKLine: UIView {
         self.positionModels.removeAll()
         self.klineModels.removeAll()
         
+        let axisGap = countOfshowCandle / 3
         let gap = theme.viewMinYGap
         let minY = gap
         let maxDiff = self.maxPrice - self.minPrice
@@ -216,6 +219,9 @@ class HSKLine: UIView {
                 positionModel.volumeEndPoint = volumeEndPoint
                 positionModel.candleFillColor = fillCandleColor
                 positionModel.candleRect = candleRect
+                if index % axisGap == 0 {
+                    positionModel.isDrawAxis = true
+                }
                 self.positionModels.append(positionModel)
                 self.klineModels.append(model)
             }
@@ -283,6 +289,29 @@ class HSKLine: UIView {
         self.layer.addSublayer(ma20LineLayer)
     }
     
+    func drawxAxisTimeMarkLayer() {
+        var lastDate: Date?
+        xAxisTimeMarkLayer.sublayers?.removeAll()
+        for (index, position) in positionModels.enumerated() {
+            if let date = klineModels[index].date.toDate("yyyyMMddHHmmss") {
+                if lastDate == nil {
+                    lastDate = date
+                }
+                if position.isDrawAxis {
+                    switch kLineType {
+                    case .kLineForDay, .kLineForWeek, .kLineForMonth:
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.toString("yyyy-MM")))
+                    default:
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.toString("MM-dd")))
+                    }
+                    lastDate = date
+                }
+            }
+        }
+        self.layer.addSublayer(xAxisTimeMarkLayer)
+    }
+    
+    
     /// 清除图层
     func clearLayer() {
         ma5LineLayer.removeFromSuperlayer()
@@ -290,6 +319,7 @@ class HSKLine: UIView {
         ma20LineLayer.removeFromSuperlayer()
         candleChartLayer.removeFromSuperlayer()
         volumeLayer.removeFromSuperlayer()
+        xAxisTimeMarkLayer.removeFromSuperlayer()
     }
     
     /// 获取单个蜡烛图的layer
@@ -321,6 +351,54 @@ class HSKLine: UIView {
         vlayer.fillColor = model.candleFillColor.cgColor
         
         return vlayer
+    }
+    
+    /// 横坐标单个时间标签
+    func drawXaxisTimeMark(xPosition: CGFloat, dateString: String) -> HSCAShapeLayer {
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: xPosition, y: 0))
+        linePath.addLine(to: CGPoint(x: xPosition,  y: self.frame.height * theme.uperChartHeightScale))
+        linePath.move(to: CGPoint(x: xPosition, y: self.frame.height * theme.uperChartHeightScale + theme.xAxisHeitht))
+        linePath.addLine(to: CGPoint(x: xPosition, y: self.frame.height))
+        let lineLayer = HSCAShapeLayer()
+        lineLayer.path = linePath.cgPath
+        lineLayer.lineWidth = 0.25
+        lineLayer.strokeColor = theme.borderColor.cgColor
+        lineLayer.fillColor = UIColor.clear.cgColor
+        
+        let textSize = theme.getTextSize(text: dateString)
+        
+        var labelX: CGFloat = 0
+        var labelY: CGFloat = 0
+        let maxX = frame.maxX - textSize.width
+        labelX = xPosition - textSize.width / 2.0
+        labelY = self.frame.height * theme.uperChartHeightScale
+        if labelX > maxX {
+            labelX = maxX
+            
+        } else if labelX < frame.minX {
+            labelX = frame.minX
+        }
+        let timeLayer = getTextLayer(text: dateString, foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height))
+        
+        let shaperLayer = HSCAShapeLayer()
+        shaperLayer.addSublayer(lineLayer)
+        shaperLayer.addSublayer(timeLayer)
+        
+        return shaperLayer
+    }
+    
+    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.frame = frame
+        textLayer.string = text
+        textLayer.fontSize = 10
+        textLayer.foregroundColor = foregroundColor.cgColor
+        textLayer.backgroundColor = backgroundColor.cgColor
+        textLayer.isWrapped = true
+        textLayer.contentsScale = UIScreen.main.scale
+        
+        return textLayer
     }
 
 }

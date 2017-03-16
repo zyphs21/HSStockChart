@@ -26,4 +26,6 @@ class HSKLineCoordModel: NSObject {
     var candleRect: CGRect = CGRect.zero
     
     var closeY: CGFloat = 0
+    
+    var isDrawAxis: Bool = false
 }
