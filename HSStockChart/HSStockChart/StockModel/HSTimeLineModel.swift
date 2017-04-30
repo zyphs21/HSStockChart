@@ -35,21 +35,6 @@ class HSTimeLineModel: NSObject {
         }
         return modelArray
     }
-  
-    class func getChartlist(fields: String, data: String) -> [String: String]? {
-        let fields = Utils.string2Array(string: fields, separator: "|")
-        let data   = Utils.string2Array(string: data, separator: "|")
-      
-        var dictionary = [String: String]()
-        for (key, value) in zip(fields, data) {
-            if value == "" {
-                return nil
-            } else {
-                dictionary[key] = value
-            }
-        }
-        return dictionary
-    }
     
     class func getTimeLineModelArray(_ json: JSON, type: HSChartType, basicInfo: HSStockBasicInfoModel?) -> [HSTimeLineModel] {
         let snapshot = basicInfo ?? HSStockBasicInfoModel.getStockBasicInfoModel(json["quote"])
@@ -75,7 +60,7 @@ class HSTimeLineModel: NSObject {
         
         
         for (_, jsonData): (String, JSON) in json["data"] {
-            let dict = getChartlist(fields: json["fields"].stringValue, data: jsonData.stringValue)!
+            let dict = Utils.getChartlist(fields: json["fields"].stringValue, data: jsonData.stringValue)!
             let model = HSTimeLineModel()
                 
 //            model.time = Date.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").toString("HH:mm")

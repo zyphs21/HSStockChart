@@ -63,7 +63,7 @@ class ChartViewController: UIViewController {
             
         case .timeLineForDay:
             timeLineView = HSTimeLine(frame: chartRect)
-            getServerData(code: "zanjia") { result in
+            getServerTimeLineData(code: "zanjia") { result in
                 let json = JSON(result)
                 let modelArray = HSTimeLineModel.getTimeLineModelArray(json, type: self.chartType, basicInfo: nil)
                 self.timeLineView?.dataT = modelArray
@@ -116,18 +116,18 @@ class ChartViewController: UIViewController {
         return JSON(data: jsonContent)
     }
   
-    func getServerData(code: String, _ completion: @escaping (Any)->Void) {
-    let provider = MoyaProvider<StockChartsApi>()
-    provider.request(.minlineForDay(code: code)) { result in
-      switch result {
-        case let .success(response):
-          do {
-            let data = try response.mapJSON()
-            completion(data)
-          } catch { }
-        case let .failure(error):
-          print(error)
-      }
+    func getServerTimeLineData(code: String, _ completion: @escaping (Any)->Void) {
+        let provider = MoyaProvider<StockChartsApi>()
+        provider.request(.minlineForDay(code: code)) { result in
+          switch result {
+            case let .success(response):
+              do {
+                let data = try response.mapJSON()
+                completion(data)
+              } catch { }
+            case let .failure(error):
+              print(error)
+          }
+        }
     }
-  }
 }

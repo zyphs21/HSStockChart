@@ -144,8 +144,8 @@ class HSKLine: UIView {
                 }
             }
             // 当均线数据缺失时候，注意注释这段，不然 minPrice 为 0，导致整体绘画比例不对
-            self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
-            self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
+            // self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
+            // self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
         }
     }
     
