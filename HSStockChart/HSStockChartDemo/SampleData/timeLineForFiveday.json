@@ -1,6 +1,19 @@
 {
 	"stock": {
-		"symbol": "SZ300033"
+		"symbol": "SZ300033",
+    "code": "syc",
+    "name": "syccny",
+    "type": 0,
+    "high": "69.16",
+    "low": "68.5",
+    "open": "68.5",
+    "preclose": "68.74",
+    "price": "68.80",
+    "time": 1493424000,
+    "volume": "2499121.0",
+    "balance": 25000,
+    
+    "last_close": "68.74"
 	},
     "days": [
              "2016-08-25",

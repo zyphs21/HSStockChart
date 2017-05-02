@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Moya
 
 enum HSChartType: Int {
     case timeLineForDay
@@ -56,22 +57,32 @@ class ChartViewController: UIViewController {
     // MARK: - Function
     
     func setUpViewController() {
-        let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(getJsonDataFromFile("SZ300033"))
+      // let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(getJsonDataFromFile("SZ300033"))
         
         switch chartType {
             
         case .timeLineForDay:
             timeLineView = HSTimeLine(frame: chartRect)
-            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
-            timeLineView?.dataT = modelArray
-            timeLineView!.isUserInteractionEnabled = true
-            timeLineView?.tag = chartType.rawValue
-            timeLineView?.isLandscapeMode = self.isLandscapeMode
-            self.view.addSubview(timeLineView!)
+            getServerTimeLineData(code: "zanjia") { result in
+                let json = JSON(result)
+                let modelArray = HSTimeLineModel.getTimeLineModelArray(json, type: self.chartType, basicInfo: nil)
+                self.timeLineView?.dataT = modelArray
+                self.timeLineView!.isUserInteractionEnabled = true
+                self.timeLineView?.tag = self.chartType.rawValue
+                self.timeLineView?.isLandscapeMode = self.isLandscapeMode
+                self.view.addSubview(self.timeLineView!)
+            }
+            
+//            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: nil)
+//            timeLineView?.dataT = modelArray
+//            timeLineView!.isUserInteractionEnabled = true
+//            timeLineView?.tag = chartType.rawValue
+//            timeLineView?.isLandscapeMode = self.isLandscapeMode
+//            self.view.addSubview(timeLineView!)
             
         case .timeLineForFiveday:
             let stockChartView = HSTimeLine(frame: chartRect, isFiveDay: true)
-            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: stockBasicInfo)
+            let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: nil)
             stockChartView.dataT = modelArray
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
@@ -103,5 +114,20 @@ class ChartViewController: UIViewController {
         let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
         let jsonContent = content.data(using: String.Encoding.utf8)!
         return JSON(data: jsonContent)
+    }
+  
+    func getServerTimeLineData(code: String, _ completion: @escaping (Any)->Void) {
+        let provider = MoyaProvider<StockChartsApi>()
+        provider.request(.minlineForDay(code: code)) { result in
+          switch result {
+            case let .success(response):
+              do {
+                let data = try response.mapJSON()
+                completion(data)
+              } catch { }
+            case let .failure(error):
+              print(error)
+          }
+        }
     }
 }

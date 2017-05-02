@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Moya
 
 class HSKLineView: UIView {
 
@@ -74,9 +75,29 @@ class HSKLineView: UIView {
         } else {
             jsonFile = "kLineForMonth"
         }
-        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
-        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
-        self.configureView(data: tmpDataK)
+        
+        getServerKLineData(code: "zanjia") { result in
+            let json = JSON(result)
+            self.allDataK = HSKLineModel.getKLineModelArray(json)
+            let tmpStart = [self.allDataK.count-70, 0].max()!
+            let tmpDataK = Array(self.allDataK[tmpStart..<self.allDataK.count])
+            self.configureView(data: tmpDataK)
+        }
+    }
+    
+    func getServerKLineData(code: String, _ completion: @escaping (Any)->Void) {
+        let provider = MoyaProvider<StockChartsApi>()
+        provider.request(.klineForDay(code: code)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let data = try response.mapJSON()
+                    completion(data)
+                } catch { }
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

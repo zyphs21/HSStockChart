@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F1AFF971EB476BB000B4616 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AFF961EB476BA000B4616 /* Api.swift */; };
+		6F1AFF991EB4D892000B4616 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AFF981EB4D892000B4616 /* Utils.swift */; };
 		C00FC4111DDAE57700C03D2C /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FC4101DDAE57700C03D2C /* SegmentMenu.swift */; };
 		C01FB2A31D7E7680000C2D6D /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FB2A21D7E7680000C2D6D /* ChartViewController.swift */; };
 		C01FB2A71D7E94E6000C2D6D /* timeLineForFiveday.json in Resources */ = {isa = PBXBuildFile; fileRef = C01FB2A61D7E94E6000C2D6D /* timeLineForFiveday.json */; };
@@ -46,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F1AFF961EB476BA000B4616 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		6F1AFF981EB4D892000B4616 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		91CC8D58DAF1D622DA5BF254 /* Pods-HSStockChartDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChartDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChartDemo/Pods-HSStockChartDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B4D5F8E2FF58BC1092E5C722 /* Pods_HSStockChartDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChartDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00FC4101DDAE57700C03D2C /* SegmentMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 			children = (
 				C03E9ACA1D6ECDB900D93016 /* Common.swift */,
 				C03E9ACB1D6ECDB900D93016 /* Extension.swift */,
+				6F1AFF961EB476BA000B4616 /* Api.swift */,
+				6F1AFF981EB4D892000B4616 /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -374,7 +380,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -389,6 +395,7 @@
 				C00FC4111DDAE57700C03D2C /* SegmentMenu.swift in Sources */,
 				C03E9AEB1D6ECDB900D93016 /* Extension.swift in Sources */,
 				C060A3141E67CF9200BC59CC /* HSStockBriefView.swift in Sources */,
+				6F1AFF971EB476BB000B4616 /* Api.swift in Sources */,
 				C060A3121E67CF9200BC59CC /* HSKLineBriefView.swift in Sources */,
 				C060A3181E67CF9200BC59CC /* HSStockBasicInfoModel.swift in Sources */,
 				C060A3191E67CF9200BC59CC /* HSTimeLineCoordModel.swift in Sources */,
@@ -406,6 +413,7 @@
 				C060A3111E67CF9200BC59CC /* HSKLineView.swift in Sources */,
 				C060A31B1E67CF9200BC59CC /* HSStockChartTheme.swift in Sources */,
 				C060A31A1E67CF9200BC59CC /* HSTimeLineModel.swift in Sources */,
+				6F1AFF991EB4D892000B4616 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

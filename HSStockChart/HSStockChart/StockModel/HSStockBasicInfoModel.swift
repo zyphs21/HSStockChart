@@ -16,8 +16,8 @@ class HSStockBasicInfoModel: NSObject {
     
     class func getStockBasicInfoModel(_ json: JSON) -> HSStockBasicInfoModel {
         let model = HSStockBasicInfoModel()
-        model.stockName = json["SZ300033"]["name"].stringValue
-        model.preClosePrice = CGFloat(json["SZ300033"]["last_close"].doubleValue)
+        model.stockName = json["name"].stringValue
+        model.preClosePrice = CGFloat(json["last_close"].doubleValue)
         
         return model
     }
