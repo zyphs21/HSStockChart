@@ -1,24 +1,15 @@
 PODS:
   - SnapKit (3.0.2)
-  - SwiftyJSON (3.1.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - SnapKit (~> 3.0)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
-
-EXTERNAL SOURCES:
-  SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
-
-CHECKOUT OPTIONS:
-  SwiftyJSON:
-    :commit: 6a0c3a82e2b4a07723b4958146315c7928220189
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
-  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 1b4211615a3c56bc2a2a88f5c3f5705054464383
+PODFILE CHECKSUM: f5e88e7f57dbf0a47e37eaab3cd594e13f5f5d07
 
 COCOAPODS: 1.1.1
