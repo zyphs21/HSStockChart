@@ -13,7 +13,12 @@ protocol HSDrawLayerProtocol {
     
     var theme: HSStockChartTheme { get }
     
-    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer 
+    func drawLine(lineWidth: CGFloat, startPoint: CGPoint, endPoint: CGPoint, strokeColor: UIColor, fillColor: UIColor, isDash: Bool, isAnimate: Bool) -> CAShapeLayer
+    
+    func drawTextLayer(frame: CGRect, text: String, foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> CATextLayer
+    
+    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer
+    
     func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer
 }
 
@@ -23,8 +28,65 @@ extension HSDrawLayerProtocol {
         return HSStockChartTheme()
     }
     
+    func drawLine(lineWidth: CGFloat,
+                  startPoint: CGPoint,
+                  endPoint: CGPoint,
+                  strokeColor: UIColor,
+                  fillColor: UIColor,
+                  isDash: Bool = false,
+                  isAnimate: Bool = false) -> CAShapeLayer {
+        
+        let linePath = UIBezierPath()
+        linePath.move(to: startPoint)
+        linePath.addLine(to: endPoint)
+        
+        let lineLayer = CAShapeLayer()
+        lineLayer.path = linePath.cgPath
+        lineLayer.lineWidth = lineWidth
+        lineLayer.strokeColor = strokeColor.cgColor
+        lineLayer.fillColor = fillColor.cgColor
+        
+        if isDash {
+            lineLayer.lineDashPattern = [3, 3]
+        }
+        
+        if isAnimate {
+            let path = CABasicAnimation(keyPath: "strokeEnd")
+            path.duration = 1.0
+            path.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            path.fromValue = 0.0
+            path.toValue = 1.0
+            lineLayer.add(path, forKey: "strokeEndAnimation")
+            lineLayer.strokeEnd = 1.0
+        }
+        
+        return lineLayer
+    }
+    
+    func drawTextLayer(frame: CGRect,
+                       text: String,
+                       foregroundColor: UIColor,
+                       backgroundColor: UIColor,
+                       fontSize: CGFloat = 10) -> CATextLayer {
+        
+        let textLayer = CATextLayer()
+        textLayer.frame = frame
+        textLayer.string = text
+        textLayer.fontSize = fontSize
+        textLayer.foregroundColor = foregroundColor.cgColor
+        textLayer.backgroundColor = backgroundColor.cgColor
+        textLayer.alignmentMode = kCAAlignmentCenter
+        textLayer.contentsScale = UIScreen.main.scale
+        
+        return textLayer
+    }
+    
     /// 获取字符图层
-    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer {
+    func getTextLayer(text: String,
+                      foregroundColor: UIColor,
+                      backgroundColor: UIColor,
+                      frame: CGRect) -> CATextLayer {
+        
         let textLayer = CATextLayer()
         textLayer.frame = frame
         textLayer.string = text

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSKLine: UIView {
+class HSKLine: UIView, HSDrawLayerProtocol {
 
     var kLineType: HSChartType = HSChartType.kLineForDay
     var theme = HSStockChartTheme()
