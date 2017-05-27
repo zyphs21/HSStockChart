@@ -91,8 +91,6 @@ class HSKLine: UIView, HSDrawLayerProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -242,7 +240,12 @@ class HSKLine: UIView, HSDrawLayerProtocol {
     func drawVolumeLayer(array: [HSKLineCoordModel]) {
         volumeLayer.sublayers?.removeAll()
         for object in array.enumerated() {
-            let volLayer = getVolumeLayer(model: object.element)
+            let model = object.element
+            let volLayer = drawLine(lineWidth: theme.candleWidth,
+                                    startPoint: model.volumeStartPoint,
+                                    endPoint: model.volumeEndPoint,
+                                    strokeColor: model.candleFillColor,
+                                    fillColor: model.candleFillColor)
             volumeLayer.addSublayer(volLayer)
         }
         self.layer.addSublayer(volumeLayer)
@@ -338,20 +341,6 @@ class HSKLine: UIView, HSDrawLayerProtocol {
         return klayer
     }
     
-    /// 获取单个交易量图的layer
-    fileprivate func getVolumeLayer(model: HSKLineCoordModel) -> HSCAShapeLayer {
-        let linePath = UIBezierPath()
-        linePath.move(to: model.volumeStartPoint)
-        linePath.addLine(to: model.volumeEndPoint)
-        
-        let vlayer = HSCAShapeLayer()
-        vlayer.path = linePath.cgPath
-        vlayer.lineWidth = theme.candleWidth
-        vlayer.strokeColor = model.candleFillColor.cgColor
-        vlayer.fillColor = model.candleFillColor.cgColor
-        
-        return vlayer
-    }
     
     /// 横坐标单个时间标签
     func drawXaxisTimeMark(xPosition: CGFloat, dateString: String) -> HSCAShapeLayer {
@@ -375,30 +364,19 @@ class HSKLine: UIView, HSDrawLayerProtocol {
         labelY = self.frame.height * theme.uperChartHeightScale
         if labelX > maxX {
             labelX = maxX
-            
         } else if labelX < frame.minX {
             labelX = frame.minX
         }
-        let timeLayer = getTextLayer(text: dateString, foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height))
+        
+        let timeLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height),
+                                      text: dateString,
+                                      foregroundColor: theme.textColor)
         
         let shaperLayer = HSCAShapeLayer()
         shaperLayer.addSublayer(lineLayer)
         shaperLayer.addSublayer(timeLayer)
         
         return shaperLayer
-    }
-    
-    func getTextLayer(text: String, foregroundColor: UIColor, backgroundColor: UIColor, frame: CGRect) -> CATextLayer {
-        let textLayer = CATextLayer()
-        textLayer.frame = frame
-        textLayer.string = text
-        textLayer.fontSize = 10
-        textLayer.foregroundColor = foregroundColor.cgColor
-        textLayer.backgroundColor = backgroundColor.cgColor
-        textLayer.isWrapped = true
-        textLayer.contentsScale = UIScreen.main.scale
-        
-        return textLayer
     }
 
 }

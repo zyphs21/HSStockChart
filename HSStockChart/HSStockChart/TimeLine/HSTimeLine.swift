@@ -32,6 +32,10 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     let countOfTimes = 240 // 分时线的横坐标
     let fiveDayCount = 120 // 五日线总横坐标
     
+    fileprivate let openTime: String = "9:30"
+    fileprivate let middleTime: String = "11:30/13:00"
+    fileprivate let closeTime: String = "15:00"
+    
     var isFiveDayTime = false
     var isLandscapeMode = false
     
@@ -166,14 +170,21 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         if isFiveDayTime {
             
         } else {
-            let startTimeSize = theme.getTextSize(text: "9:30")
-            let startTime = getTextLayer(text: "9:30", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: 0, y: uperChartHeight, width: startTimeSize.width, height: startTimeSize.height))
+            let startTimeSize = theme.getTextSize(text: openTime)
             
-            let midTimeSize = theme.getTextSize(text: "11:30/13:00")
-            let midTime = getTextLayer(text: "11:30/13:00", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: frame.width / 2.0 - midTimeSize.width / 2.0, y: uperChartHeight, width: midTimeSize.width, height: midTimeSize.height))
+            let startTime = drawTextLayer(frame: CGRect(x: 0, y: uperChartHeight, width: startTimeSize.width, height: startTimeSize.height),
+                                          text: openTime,
+                                          foregroundColor: theme.textColor)
             
-            let stopTimeSize = theme.getTextSize(text: "15:00")
-            let stopTime = getTextLayer(text: "15:00", foregroundColor: theme.textColor, backgroundColor: UIColor.clear, frame: CGRect(x: frame.width - stopTimeSize.width, y: uperChartHeight, width: stopTimeSize.width, height: stopTimeSize.height))
+            let midTimeSize = theme.getTextSize(text: middleTime)
+            let midTime = drawTextLayer(frame: CGRect(x: frame.width / 2.0 - midTimeSize.width / 2.0, y: uperChartHeight, width: midTimeSize.width, height: midTimeSize.height),
+                                        text: middleTime,
+                                        foregroundColor: theme.textColor)
+            
+            let stopTimeSize = theme.getTextSize(text: closeTime)
+            let stopTime = drawTextLayer(frame: CGRect(x: frame.width - stopTimeSize.width, y: uperChartHeight, width: stopTimeSize.width, height: stopTimeSize.height),
+                                         text: closeTime,
+                                         foregroundColor: theme.textColor)
             
             self.layer.addSublayer(startTime)
             self.layer.addSublayer(midTime)
