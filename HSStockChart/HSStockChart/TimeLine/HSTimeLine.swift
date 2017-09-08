@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSTimeLine: UIView, HSDrawLayerProtocol {
+class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
     
     var timeLineLayer = CAShapeLayer()
     var volumeLayer = CAShapeLayer()
@@ -52,12 +52,12 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     var uperChartHeight: CGFloat {
         get {
-            return frame.height * theme.uperChartHeightScale
+            return frame.height * baseTheme.uperChartHeightScale
         }
     }
     var lowerChartHeight: CGFloat {
         get {
-            return frame.height * (1 - theme.uperChartHeightScale) - theme.xAxisHeitht
+            return frame.height * (1 - baseTheme.uperChartHeightScale) - theme.xAxisHeitht
         }
     }
     var uperChartDrawAreaTop: CGFloat {
@@ -346,8 +346,8 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         timeLineLayer.fillColor = UIColor.clear.cgColor
         
         // 填充颜色
-        timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: theme.uperChartHeightScale * frame.height))
-        timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: theme.uperChartHeightScale * frame.height))
+        timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: baseTheme.uperChartHeightScale * frame.height))
+        timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: baseTheme.uperChartHeightScale * frame.height))
         fillColorLayer.path = timeLinePath.cgPath
         fillColorLayer.fillColor = theme.fillColor.cgColor
         fillColorLayer.strokeColor = UIColor.clear.cgColor
