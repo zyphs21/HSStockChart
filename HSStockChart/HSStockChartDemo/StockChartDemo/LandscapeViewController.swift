@@ -113,18 +113,18 @@ class LandscapeViewController: UIViewController {
 
     }
     
-    func showLongPressView(_ notification: Notification) {
+    @objc func showLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let timeLineEntity = dataDictionary["timeLineEntity"] as! HSTimeLineModel
         stockBriefView?.isHidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
     
-    func showUnLongPressView() {
+    @objc func showUnLongPressView() {
         stockBriefView?.isHidden = true
     }
     
-    func showKLineChartLongPressView(_ notification: Notification) {
+    @objc func showKLineChartLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let preClose = dataDictionary["preClose"] as! CGFloat
         let klineModel = dataDictionary["kLineEntity"] as! HSKLineModel
@@ -132,7 +132,7 @@ class LandscapeViewController: UIViewController {
         kLineBriefView?.isHidden = false
     }
     
-    func showKLineChartUnLongPressView(_ notification: Notification) {
+    @objc func showKLineChartUnLongPressView(_ notification: Notification) {
         kLineBriefView?.isHidden = true
     }
 }

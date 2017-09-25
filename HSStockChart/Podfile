@@ -4,5 +4,5 @@ use_frameworks!
 
 target 'HSStockChartDemo' do
     pod 'SwiftyJSON'
-    pod 'SnapKit', '~> 3.0'
+    pod 'SnapKit', '~> 4.0.0'
 end

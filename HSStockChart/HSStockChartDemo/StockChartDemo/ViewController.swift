@@ -107,20 +107,20 @@ class ViewController: UIViewController {
     
     
     // 长按分时线图，显示摘要信息
-    func showLongPressView(_ notification: Notification) {
+    @objc func showLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let timeLineEntity = dataDictionary["timeLineEntity"] as! HSTimeLineModel
         stockBriefView?.isHidden = false
         stockBriefView?.configureView(timeLineEntity)
     }
 
-    func showUnLongPressView(_ notification: Notification) {
+    @objc func showUnLongPressView(_ notification: Notification) {
         stockBriefView?.isHidden = true
     }
     
     
     // 长按 K线图，显示摘要信息
-    func showKLineChartLongPressView(_ notification: Notification) {
+    @objc func showKLineChartLongPressView(_ notification: Notification) {
         let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
         let preClose = dataDictionary["preClose"] as! CGFloat
         let klineModel = dataDictionary["kLineEntity"] as! HSKLineModel
@@ -128,13 +128,13 @@ class ViewController: UIViewController {
         kLineBriefView?.isHidden = false
     }
     
-    func showKLineChartUnLongPressView(_ notification: Notification) {
+    @objc func showKLineChartUnLongPressView(_ notification: Notification) {
         kLineBriefView?.isHidden = true
     }
     
     
     // 跳转到横屏页面展示
-    func showLandScapeChartView(_ notification: Notification) {
+    @objc func showLandScapeChartView(_ notification: Notification) {
         let index = notification.object as! Int
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
             vc.modalTransitionStyle = .crossDissolve

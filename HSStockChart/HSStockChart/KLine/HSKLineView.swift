@@ -190,7 +190,7 @@ class HSKLineView: UIView {
     }
     
     // 长按操作
-    func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: kLine)
             let highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
@@ -217,7 +217,7 @@ class HSKLineView: UIView {
     }
     
     // 捏合缩放扩大操作
-    func handlePinGestureAction(_ recognizer: UIPinchGestureRecognizer) {
+    @objc func handlePinGestureAction(_ recognizer: UIPinchGestureRecognizer) {
 
         guard recognizer.numberOfTouches == 2 else { return }
 
@@ -276,7 +276,7 @@ class HSKLineView: UIView {
     }
     
     /// 处理点击事件
-    func handleTapGestureAction(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleTapGestureAction(_ recognizer: UITapGestureRecognizer) {
         if !isLandscapeMode {
             let  point = recognizer.location(in: kLine)
             if point.y < lowerChartTop {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
+class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     var timeLineLayer = CAShapeLayer()
     var volumeLayer = CAShapeLayer()
@@ -52,12 +52,12 @@ class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
     
     var uperChartHeight: CGFloat {
         get {
-            return frame.height * baseTheme.uperChartHeightScale
+            return frame.height * theme.uperChartHeightScale
         }
     }
     var lowerChartHeight: CGFloat {
         get {
-            return frame.height * (1 - baseTheme.uperChartHeightScale) - theme.xAxisHeitht
+            return frame.height * (1 - theme.uperChartHeightScale) - theme.xAxisHeitht
         }
     }
     var uperChartDrawAreaTop: CGFloat {
@@ -346,8 +346,8 @@ class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
         timeLineLayer.fillColor = UIColor.clear.cgColor
         
         // 填充颜色
-        timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: baseTheme.uperChartHeightScale * frame.height))
-        timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: baseTheme.uperChartHeightScale * frame.height))
+        timeLinePath.addLine(to: CGPoint(x: array.last!.pricePoint.x, y: theme.uperChartHeightScale * frame.height))
+        timeLinePath.addLine(to: CGPoint(x: array[0].pricePoint.x, y: theme.uperChartHeightScale * frame.height))
         fillColorLayer.path = timeLinePath.cgPath
         fillColorLayer.fillColor = theme.fillColor.cgColor
         fillColorLayer.strokeColor = UIColor.clear.cgColor
@@ -457,7 +457,7 @@ class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
     }
     
     /// 处理长按事件
-    func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
+    @objc func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: self)
             if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
@@ -486,7 +486,7 @@ class HSTimeLine: HSTimeLineBase, HSDrawLayerProtocol {
     
     
     /// 处理点击事件
-    func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
+    @objc func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
         if !isLandscapeMode {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
         }

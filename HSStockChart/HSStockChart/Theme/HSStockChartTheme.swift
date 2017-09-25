@@ -41,7 +41,7 @@ struct HSStockChartTheme  {
     var baseFont = UIFont.systemFont(ofSize: 10)
     
     func getTextSize(text: String) -> CGSize {
-        let size = text.size(attributes: [NSFontAttributeName: baseFont])
+        let size = text.size(withAttributes: [NSAttributedStringKey.font: baseFont])
         let width = ceil(size.width) + 5
         let height = ceil(size.height)
         

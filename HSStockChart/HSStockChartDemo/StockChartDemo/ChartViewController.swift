@@ -61,7 +61,6 @@ class ChartViewController: UIViewController {
         switch chartType {
             
         case .timeLineForDay:
-            HSTimeLine.appearance().uperChartHeightScale = 0.3
             timeLineView = HSTimeLine(frame: chartRect)
             let modelArray = HSTimeLineModel.getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
             timeLineView?.dataT = modelArray

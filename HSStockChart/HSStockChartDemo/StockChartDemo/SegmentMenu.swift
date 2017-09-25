@@ -90,7 +90,7 @@ class SegmentMenu: UIView {
     
     // MARK: - segment button 点击事件
     
-    func menuButtonDidClick(_ button: UIButton) {
+    @objc func menuButtonDidClick(_ button: UIButton) {
         setSelectButton(index: button.tag)
     }
     
