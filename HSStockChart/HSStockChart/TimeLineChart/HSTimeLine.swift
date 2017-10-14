@@ -197,14 +197,14 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         yAxisLayer.sublayers?.removeAll()
         
         // 画纵坐标的最高和最低价格标签
-        let maxPriceStr = maxPrice.toStringWithFormat(".2")
-        let minPriceStr = minPrice.toStringWithFormat(".2")
+        let maxPriceStr = maxPrice.hs_toStringWithFormat(".2")
+        let minPriceStr = minPrice.hs_toStringWithFormat(".2")
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxPriceStr, y: theme.viewMinYGap, isLeft: false))
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minPriceStr, y: uperChartDrawAreaBottom, isLeft: false))
         
         // 最高成交量标签及其横线
         let y = frame.height - maxVolume * volumeUnit
-        let maxVolumeStr = maxVolume.toStringWithFormat(".2")
+        let maxVolumeStr = maxVolume.hs_toStringWithFormat(".2")
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxVolumeStr, y: y, isLeft: false))
         
         let maxVolLine = UIBezierPath()
@@ -218,8 +218,8 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         yAxisLayer.addSublayer(maxVolLineLayer)
         
         // 画比率标签
-        let maxRatioStr = (self.maxRatio * 100).toPercentFormat()
-        let minRatioStr = (self.minRatio * 100).toPercentFormat()
+        let maxRatioStr = (self.maxRatio * 100).hs_toPercentFormat()
+        let minRatioStr = (self.minRatio * 100).hs_toPercentFormat()
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxRatioStr, y: uperChartDrawAreaTop, isLeft: true))
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minRatioStr, y: uperChartDrawAreaBottom, isLeft: true))
         
@@ -241,7 +241,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
             dashLineLayer.lineDashPattern = [6, 3]
             yAxisLayer.addSublayer(dashLineLayer)
             
-            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
+            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.hs_toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
         }
         
         self.layer.addSublayer(yAxisLayer)
@@ -342,7 +342,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         }
         timeLineLayer.path = timeLinePath.cgPath
         timeLineLayer.lineWidth = 1
-        timeLineLayer.strokeColor = theme.priceLineCorlor.cgColor
+        timeLineLayer.strokeColor = theme.priceLineColor.cgColor
         timeLineLayer.fillColor = UIColor.clear.cgColor
         
         // 填充颜色
@@ -389,7 +389,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
             maLinePath.addLine(to: maPoint)
         }
         maLineLayer.path = maLinePath.cgPath
-        maLineLayer.strokeColor = theme.avgLineCorlor.cgColor
+        maLineLayer.strokeColor = theme.avgLineColor.cgColor
         maLineLayer.fillColor = UIColor.clear.cgColor
         self.layer.addSublayer(maLineLayer)
     }
@@ -413,12 +413,12 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     lazy var animatePoint: CALayer = {
         let animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
-        animatePoint.backgroundColor = UIColor(rgba: "#0095ff").cgColor
+        animatePoint.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor//UIColor(rgba: "#0095ff").cgColor
         animatePoint.cornerRadius = 1.5
         
         let layer = CALayer()
         layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
-        layer.backgroundColor = UIColor(rgba: "#0095ff").cgColor
+        layer.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor//UIColor(rgba: "#0095ff").cgColor
         layer.cornerRadius = 1.5
         layer.add(self.breathingLightAnimate(2), forKey: nil)
         
