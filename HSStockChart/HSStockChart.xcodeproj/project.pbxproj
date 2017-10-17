@@ -1,0 +1,710 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C21F96689900C5781A /* timeLineForDay.json */; };
+		C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C31F96689900C5781A /* kLineForMonth.json */; };
+		C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C41F96689900C5781A /* kLineForDay.json */; };
+		C015F4CC1F96689A00C5781A /* kLineForWeek.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C51F96689900C5781A /* kLineForWeek.json */; };
+		C015F4CD1F96689A00C5781A /* timeLineForFiveday.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C61F96689900C5781A /* timeLineForFiveday.json */; };
+		C015F4CE1F96689A00C5781A /* FiveTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C71F96689900C5781A /* FiveTrade.json */; };
+		C015F4CF1F96689A00C5781A /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C81F96689900C5781A /* SZ300033.json */; };
+		C015F4D31F96696D00C5781A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4D11F96696D00C5781A /* ViewController.swift */; };
+		C015F4D41F96696D00C5781A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4D21F96696D00C5781A /* AppDelegate.swift */; };
+		C015F4DC1F96697500C5781A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D61F96697500C5781A /* Assets.xcassets */; };
+		C015F4DD1F96697500C5781A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D71F96697500C5781A /* LaunchScreen.storyboard */; };
+		C015F4DE1F96697500C5781A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D91F96697500C5781A /* Main.storyboard */; };
+		C015F4E11F966A0C00C5781A /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E01F966A0B00C5781A /* SegmentMenu.swift */; };
+		C015F4E31F966A5600C5781A /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E21F966A5600C5781A /* ChartViewController.swift */; };
+		C015F4E51F9671D700C5781A /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */; };
+		C05B9C341F90538A00F8374D /* HSStockChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C05B9C321F90538A00F8374D /* HSStockChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C05B9C371F90538A00F8374D /* HSStockChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C05B9C301F90538A00F8374D /* HSStockChart.framework */; };
+		C05B9C381F90538A00F8374D /* HSStockChart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C05B9C301F90538A00F8374D /* HSStockChart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C05B9C421F905F2500F8374D /* HSTimeLineCoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C411F905F2000F8374D /* HSTimeLineCoordModel.swift */; };
+		C05B9C431F905F2800F8374D /* HSDrawLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C401F9057BC00F8374D /* HSDrawLayerProtocol.swift */; };
+		C05B9C441F905F3200F8374D /* HSTimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C3E1F90572400F8374D /* HSTimeLine.swift */; };
+		C05B9C461F905FAE00F8374D /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */; };
+		C05B9C481F90604200F8374D /* HSTimeLineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */; };
+		C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C4D1F906F9600F8374D /* Extension.swift */; };
+		C1B051F9AE63A4F57F951733 /* Pods_HSStockChart_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C05B9C351F90538A00F8374D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C05B9BDE1F8F7AD600F8374D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C05B9C2F1F90538A00F8374D;
+			remoteInfo = HSStockChart;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C05B9C3C1F90538A00F8374D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C05B9C381F90538A00F8374D /* HSStockChart.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChart_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		C015F4C21F96689900C5781A /* timeLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForDay.json; sourceTree = "<group>"; };
+		C015F4C31F96689900C5781A /* kLineForMonth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForMonth.json; sourceTree = "<group>"; };
+		C015F4C41F96689900C5781A /* kLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForDay.json; sourceTree = "<group>"; };
+		C015F4C51F96689900C5781A /* kLineForWeek.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForWeek.json; sourceTree = "<group>"; };
+		C015F4C61F96689900C5781A /* timeLineForFiveday.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForFiveday.json; sourceTree = "<group>"; };
+		C015F4C71F96689900C5781A /* FiveTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveTrade.json; sourceTree = "<group>"; };
+		C015F4C81F96689900C5781A /* SZ300033.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SZ300033.json; sourceTree = "<group>"; };
+		C015F4D11F96696D00C5781A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C015F4D21F96696D00C5781A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C015F4D61F96697500C5781A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C015F4D81F96697500C5781A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C015F4DA1F96697500C5781A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C015F4DB1F96697500C5781A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C015F4E01F966A0B00C5781A /* SegmentMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
+		C015F4E21F966A5600C5781A /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBasicInfoModel.swift; sourceTree = "<group>"; };
+		C05B9C091F8F7D6F00F8374D /* HSStockChart-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HSStockChart-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05B9C301F90538A00F8374D /* HSStockChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSStockChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05B9C321F90538A00F8374D /* HSStockChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSStockChart.h; sourceTree = "<group>"; };
+		C05B9C331F90538A00F8374D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C05B9C3E1F90572400F8374D /* HSTimeLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLine.swift; sourceTree = "<group>"; };
+		C05B9C401F9057BC00F8374D /* HSDrawLayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSDrawLayerProtocol.swift; sourceTree = "<group>"; };
+		C05B9C411F905F2000F8374D /* HSTimeLineCoordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineCoordModel.swift; sourceTree = "<group>"; };
+		C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
+		C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineStyle.swift; sourceTree = "<group>"; };
+		C05B9C4D1F906F9600F8374D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C05B9C061F8F7D6F00F8374D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05B9C371F90538A00F8374D /* HSStockChart.framework in Frameworks */,
+				C1B051F9AE63A4F57F951733 /* Pods_HSStockChart_Demo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05B9C2C1F90538A00F8374D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E965366F4EDE93F68CAEF57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6770C73FC714B35EFBEE346E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */,
+				B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C015F4C11F96689900C5781A /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4C21F96689900C5781A /* timeLineForDay.json */,
+				C015F4C31F96689900C5781A /* kLineForMonth.json */,
+				C015F4C41F96689900C5781A /* kLineForDay.json */,
+				C015F4C51F96689900C5781A /* kLineForWeek.json */,
+				C015F4C61F96689900C5781A /* timeLineForFiveday.json */,
+				C015F4C71F96689900C5781A /* FiveTrade.json */,
+				C015F4C81F96689900C5781A /* SZ300033.json */,
+			);
+			path = SampleData;
+			sourceTree = "<group>";
+		};
+		C015F4D01F96696D00C5781A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4D21F96696D00C5781A /* AppDelegate.swift */,
+				C015F4D11F96696D00C5781A /* ViewController.swift */,
+				C015F4E01F966A0B00C5781A /* SegmentMenu.swift */,
+				C015F4E21F966A5600C5781A /* ChartViewController.swift */,
+				C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C015F4D51F96697500C5781A /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4D61F96697500C5781A /* Assets.xcassets */,
+				C015F4D71F96697500C5781A /* LaunchScreen.storyboard */,
+				C015F4D91F96697500C5781A /* Main.storyboard */,
+				C015F4DB1F96697500C5781A /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		C05B9BDD1F8F7AD600F8374D = {
+			isa = PBXGroup;
+			children = (
+				C05B9C1B1F8F7DE800F8374D /* Demo */,
+				C05B9C311F90538A00F8374D /* HSStockChart */,
+				C05B9BE71F8F7AD600F8374D /* Products */,
+				6770C73FC714B35EFBEE346E /* Pods */,
+				5E965366F4EDE93F68CAEF57 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C05B9BE71F8F7AD600F8374D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C091F8F7D6F00F8374D /* HSStockChart-Demo.app */,
+				C05B9C301F90538A00F8374D /* HSStockChart.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C05B9C1B1F8F7DE800F8374D /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C1C1F8F7DE800F8374D /* HSStockChart-Demo */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		C05B9C1C1F8F7DE800F8374D /* HSStockChart-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4D01F96696D00C5781A /* Classes */,
+				C015F4D51F96697500C5781A /* SupportFiles */,
+				C015F4C11F96689900C5781A /* SampleData */,
+			);
+			path = "HSStockChart-Demo";
+			sourceTree = "<group>";
+		};
+		C05B9C311F90538A00F8374D /* HSStockChart */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C4A1F90641600F8374D /* Helpers */,
+				C05B9C3F1F90576300F8374D /* DrawLayerProtocol */,
+				C05B9C3D1F9056AB00F8374D /* TimeLineChart */,
+				C05B9C321F90538A00F8374D /* HSStockChart.h */,
+				C05B9C331F90538A00F8374D /* Info.plist */,
+			);
+			path = HSStockChart;
+			sourceTree = "<group>";
+		};
+		C05B9C3D1F9056AB00F8374D /* TimeLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C3E1F90572400F8374D /* HSTimeLine.swift */,
+				C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */,
+				C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */,
+				C05B9C411F905F2000F8374D /* HSTimeLineCoordModel.swift */,
+			);
+			path = TimeLineChart;
+			sourceTree = "<group>";
+		};
+		C05B9C3F1F90576300F8374D /* DrawLayerProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C401F9057BC00F8374D /* HSDrawLayerProtocol.swift */,
+			);
+			path = DrawLayerProtocol;
+			sourceTree = "<group>";
+		};
+		C05B9C4A1F90641600F8374D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C05B9C4D1F906F9600F8374D /* Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C05B9C2D1F90538A00F8374D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05B9C341F90538A00F8374D /* HSStockChart.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C05B9C081F8F7D6F00F8374D /* HSStockChart-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05B9C181F8F7D6F00F8374D /* Build configuration list for PBXNativeTarget "HSStockChart-Demo" */;
+			buildPhases = (
+				8193943BFE6ECCEDE8E96BED /* [CP] Check Pods Manifest.lock */,
+				C05B9C051F8F7D6F00F8374D /* Sources */,
+				C05B9C061F8F7D6F00F8374D /* Frameworks */,
+				C05B9C071F8F7D6F00F8374D /* Resources */,
+				C05B9C3C1F90538A00F8374D /* Embed Frameworks */,
+				21DEB4A673EE98E8C1747F8A /* [CP] Embed Pods Frameworks */,
+				B0697C2A1EA454F68D8A9E42 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C05B9C361F90538A00F8374D /* PBXTargetDependency */,
+			);
+			name = "HSStockChart-Demo";
+			productName = "HSStockChart-Demo";
+			productReference = C05B9C091F8F7D6F00F8374D /* HSStockChart-Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C05B9C2F1F90538A00F8374D /* HSStockChart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05B9C391F90538A00F8374D /* Build configuration list for PBXNativeTarget "HSStockChart" */;
+			buildPhases = (
+				C05B9C2B1F90538A00F8374D /* Sources */,
+				C05B9C2C1F90538A00F8374D /* Frameworks */,
+				C05B9C2D1F90538A00F8374D /* Headers */,
+				C05B9C2E1F90538A00F8374D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HSStockChart;
+			productName = HSStockChart;
+			productReference = C05B9C301F90538A00F8374D /* HSStockChart.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C05B9BDE1F8F7AD600F8374D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = HansonStudio;
+				TargetAttributes = {
+					C05B9C081F8F7D6F00F8374D = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Manual;
+					};
+					C05B9C2F1F90538A00F8374D = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = C05B9BE11F8F7AD600F8374D /* Build configuration list for PBXProject "HSStockChart" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C05B9BDD1F8F7AD600F8374D;
+			productRefGroup = C05B9BE71F8F7AD600F8374D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C05B9C081F8F7D6F00F8374D /* HSStockChart-Demo */,
+				C05B9C2F1F90538A00F8374D /* HSStockChart */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C05B9C071F8F7D6F00F8374D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C015F4DD1F96697500C5781A /* LaunchScreen.storyboard in Resources */,
+				C015F4DE1F96697500C5781A /* Main.storyboard in Resources */,
+				C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */,
+				C015F4CF1F96689A00C5781A /* SZ300033.json in Resources */,
+				C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */,
+				C015F4CD1F96689A00C5781A /* timeLineForFiveday.json in Resources */,
+				C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */,
+				C015F4CE1F96689A00C5781A /* FiveTrade.json in Resources */,
+				C015F4DC1F96697500C5781A /* Assets.xcassets in Resources */,
+				C015F4CC1F96689A00C5781A /* kLineForWeek.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05B9C2E1F90538A00F8374D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		21DEB4A673EE98E8C1747F8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8193943BFE6ECCEDE8E96BED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HSStockChart-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0697C2A1EA454F68D8A9E42 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C05B9C051F8F7D6F00F8374D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C015F4E11F966A0C00C5781A /* SegmentMenu.swift in Sources */,
+				C015F4E31F966A5600C5781A /* ChartViewController.swift in Sources */,
+				C015F4E51F9671D700C5781A /* HSStockBasicInfoModel.swift in Sources */,
+				C015F4D41F96696D00C5781A /* AppDelegate.swift in Sources */,
+				C015F4D31F96696D00C5781A /* ViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05B9C2B1F90538A00F8374D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05B9C441F905F3200F8374D /* HSTimeLine.swift in Sources */,
+				C05B9C431F905F2800F8374D /* HSDrawLayerProtocol.swift in Sources */,
+				C05B9C421F905F2500F8374D /* HSTimeLineCoordModel.swift in Sources */,
+				C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */,
+				C05B9C481F90604200F8374D /* HSTimeLineStyle.swift in Sources */,
+				C05B9C461F905FAE00F8374D /* HSTimeLineModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C05B9C361F90538A00F8374D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C05B9C2F1F90538A00F8374D /* HSStockChart */;
+			targetProxy = C05B9C351F90538A00F8374D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C015F4D71F96697500C5781A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C015F4D81F96697500C5781A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C015F4D91F96697500C5781A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C015F4DA1F96697500C5781A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05B9BF61F8F7AD600F8374D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C05B9BF71F8F7AD600F8374D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C05B9C191F8F7D6F00F8374D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C05B9C1A1F8F7D6F00F8374D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C05B9C3A1F90538A00F8374D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HSStockChart/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.HansonStudio.HSStockChart;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C05B9C3B1F90538A00F8374D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HSStockChart/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.HansonStudio.HSStockChart;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05B9BE11F8F7AD600F8374D /* Build configuration list for PBXProject "HSStockChart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05B9BF61F8F7AD600F8374D /* Debug */,
+				C05B9BF71F8F7AD600F8374D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05B9C181F8F7D6F00F8374D /* Build configuration list for PBXNativeTarget "HSStockChart-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05B9C191F8F7D6F00F8374D /* Debug */,
+				C05B9C1A1F8F7D6F00F8374D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05B9C391F90538A00F8374D /* Build configuration list for PBXNativeTarget "HSStockChart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05B9C3A1F90538A00F8374D /* Debug */,
+				C05B9C3B1F90538A00F8374D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C05B9BDE1F8F7AD600F8374D /* Project object */;
+}
