@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSTimeLine: UIView, HSDrawLayerProtocol {
+public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     var timeLineLayer = CAShapeLayer()
     var volumeLayer = CAShapeLayer()
@@ -36,15 +36,15 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     fileprivate let middleTime: String = "11:30/13:00"
     fileprivate let closeTime: String = "15:00"
     
-    var isFiveDayTime = false
-    var isLandscapeMode = false
+    public var isFiveDayTime = false
+    public var isLandscapeMode = false
     
     var volumeStep: CGFloat = 0
     var volumeWidth: CGFloat = 0
     
     var positionModels: [HSTimeLineCoordModel] = []
     
-    var dataT: [HSTimeLineModel] = [] {
+    public var dataT: [HSTimeLineModel] = [] {
         didSet {
             self.drawTimeLineChart()
         }
@@ -79,7 +79,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     //MARK: - 构造方法
     
-    init(frame: CGRect, isFiveDay: Bool = false) {
+    public init(frame: CGRect, isFiveDay: Bool = false) {
         super.init(frame: frame)
         
         self.isFiveDayTime = isFiveDay
@@ -88,7 +88,7 @@ class HSTimeLine: UIView, HSDrawLayerProtocol {
         drawXAxisLabel()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

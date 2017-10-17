@@ -9,17 +9,17 @@
 import UIKit
 //import SwiftyJSON
 
-class HSTimeLineModel: NSObject {
+public class HSTimeLineModel: NSObject {
     
-    var time: String = ""
-    var price: CGFloat = 0
-    var volume: CGFloat = 0
-    var days: [String] = []
-    var preClosePx: CGFloat = 0
-    var avgPirce: CGFloat = 0
-    var totalVolume: CGFloat = 0
-    var trade: CGFloat = 0
-    var rate: CGFloat = 0
+    public var time: String = ""
+    public var price: CGFloat = 0
+    public var volume: CGFloat = 0
+    public var days: [String] = []
+    public var preClosePx: CGFloat = 0
+    public var avgPirce: CGFloat = 0
+    public var totalVolume: CGFloat = 0
+    public var trade: CGFloat = 0
+    public var rate: CGFloat = 0
     
 //    class func getTimeLineModelArray(_ json: JSON) -> [HSTimeLineModel] {
 //        var modelArray = [HSTimeLineModel]()

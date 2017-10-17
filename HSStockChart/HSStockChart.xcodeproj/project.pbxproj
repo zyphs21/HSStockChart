@@ -7,12 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C05B9C251F8F7DF600F8374D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C05B9C241F8F7DE800F8374D /* Info.plist */; };
-		C05B9C261F8F7E0300F8374D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C231F8F7DE800F8374D /* AppDelegate.swift */; };
-		C05B9C271F8F7E0800F8374D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C05B9C211F8F7DE800F8374D /* Main.storyboard */; };
-		C05B9C281F8F7E0A00F8374D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C05B9C1F1F8F7DE800F8374D /* LaunchScreen.storyboard */; };
-		C05B9C291F8F7E0E00F8374D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C05B9C1E1F8F7DE800F8374D /* Assets.xcassets */; };
-		C05B9C2A1F8F7E1000F8374D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C1D1F8F7DE800F8374D /* ViewController.swift */; };
+		C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C21F96689900C5781A /* timeLineForDay.json */; };
+		C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C31F96689900C5781A /* kLineForMonth.json */; };
+		C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C41F96689900C5781A /* kLineForDay.json */; };
+		C015F4CC1F96689A00C5781A /* kLineForWeek.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C51F96689900C5781A /* kLineForWeek.json */; };
+		C015F4CD1F96689A00C5781A /* timeLineForFiveday.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C61F96689900C5781A /* timeLineForFiveday.json */; };
+		C015F4CE1F96689A00C5781A /* FiveTrade.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C71F96689900C5781A /* FiveTrade.json */; };
+		C015F4CF1F96689A00C5781A /* SZ300033.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C81F96689900C5781A /* SZ300033.json */; };
+		C015F4D31F96696D00C5781A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4D11F96696D00C5781A /* ViewController.swift */; };
+		C015F4D41F96696D00C5781A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4D21F96696D00C5781A /* AppDelegate.swift */; };
+		C015F4DC1F96697500C5781A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D61F96697500C5781A /* Assets.xcassets */; };
+		C015F4DD1F96697500C5781A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D71F96697500C5781A /* LaunchScreen.storyboard */; };
+		C015F4DE1F96697500C5781A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C015F4D91F96697500C5781A /* Main.storyboard */; };
+		C015F4E11F966A0C00C5781A /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E01F966A0B00C5781A /* SegmentMenu.swift */; };
+		C015F4E31F966A5600C5781A /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E21F966A5600C5781A /* ChartViewController.swift */; };
+		C015F4E51F9671D700C5781A /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */; };
 		C05B9C341F90538A00F8374D /* HSStockChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C05B9C321F90538A00F8374D /* HSStockChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C05B9C371F90538A00F8374D /* HSStockChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C05B9C301F90538A00F8374D /* HSStockChart.framework */; };
 		C05B9C381F90538A00F8374D /* HSStockChart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C05B9C301F90538A00F8374D /* HSStockChart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -22,6 +31,7 @@
 		C05B9C461F905FAE00F8374D /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */; };
 		C05B9C481F90604200F8374D /* HSTimeLineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */; };
 		C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C4D1F906F9600F8374D /* Extension.swift */; };
+		C1B051F9AE63A4F57F951733 /* Pods_HSStockChart_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,13 +59,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChart_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		C015F4C21F96689900C5781A /* timeLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForDay.json; sourceTree = "<group>"; };
+		C015F4C31F96689900C5781A /* kLineForMonth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForMonth.json; sourceTree = "<group>"; };
+		C015F4C41F96689900C5781A /* kLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForDay.json; sourceTree = "<group>"; };
+		C015F4C51F96689900C5781A /* kLineForWeek.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForWeek.json; sourceTree = "<group>"; };
+		C015F4C61F96689900C5781A /* timeLineForFiveday.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForFiveday.json; sourceTree = "<group>"; };
+		C015F4C71F96689900C5781A /* FiveTrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FiveTrade.json; sourceTree = "<group>"; };
+		C015F4C81F96689900C5781A /* SZ300033.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SZ300033.json; sourceTree = "<group>"; };
+		C015F4D11F96696D00C5781A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C015F4D21F96696D00C5781A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C015F4D61F96697500C5781A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C015F4D81F96697500C5781A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C015F4DA1F96697500C5781A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C015F4DB1F96697500C5781A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C015F4E01F966A0B00C5781A /* SegmentMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
+		C015F4E21F966A5600C5781A /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSStockBasicInfoModel.swift; sourceTree = "<group>"; };
 		C05B9C091F8F7D6F00F8374D /* HSStockChart-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HSStockChart-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C05B9C1D1F8F7DE800F8374D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C05B9C1E1F8F7DE800F8374D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C05B9C201F8F7DE800F8374D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C05B9C221F8F7DE800F8374D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C05B9C231F8F7DE800F8374D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C05B9C241F8F7DE800F8374D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C05B9C301F90538A00F8374D /* HSStockChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSStockChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C05B9C321F90538A00F8374D /* HSStockChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSStockChart.h; sourceTree = "<group>"; };
 		C05B9C331F90538A00F8374D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +87,7 @@
 		C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
 		C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineStyle.swift; sourceTree = "<group>"; };
 		C05B9C4D1F906F9600F8374D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05B9C371F90538A00F8374D /* HSStockChart.framework in Frameworks */,
+				C1B051F9AE63A4F57F951733 /* Pods_HSStockChart_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,12 +110,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E965366F4EDE93F68CAEF57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6770C73FC714B35EFBEE346E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */,
+				B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C015F4C11F96689900C5781A /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4C21F96689900C5781A /* timeLineForDay.json */,
+				C015F4C31F96689900C5781A /* kLineForMonth.json */,
+				C015F4C41F96689900C5781A /* kLineForDay.json */,
+				C015F4C51F96689900C5781A /* kLineForWeek.json */,
+				C015F4C61F96689900C5781A /* timeLineForFiveday.json */,
+				C015F4C71F96689900C5781A /* FiveTrade.json */,
+				C015F4C81F96689900C5781A /* SZ300033.json */,
+			);
+			path = SampleData;
+			sourceTree = "<group>";
+		};
+		C015F4D01F96696D00C5781A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4D21F96696D00C5781A /* AppDelegate.swift */,
+				C015F4D11F96696D00C5781A /* ViewController.swift */,
+				C015F4E01F966A0B00C5781A /* SegmentMenu.swift */,
+				C015F4E21F966A5600C5781A /* ChartViewController.swift */,
+				C015F4E41F9671D700C5781A /* HSStockBasicInfoModel.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C015F4D51F96697500C5781A /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C015F4D61F96697500C5781A /* Assets.xcassets */,
+				C015F4D71F96697500C5781A /* LaunchScreen.storyboard */,
+				C015F4D91F96697500C5781A /* Main.storyboard */,
+				C015F4DB1F96697500C5781A /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
 		C05B9BDD1F8F7AD600F8374D = {
 			isa = PBXGroup;
 			children = (
 				C05B9C1B1F8F7DE800F8374D /* Demo */,
 				C05B9C311F90538A00F8374D /* HSStockChart */,
 				C05B9BE71F8F7AD600F8374D /* Products */,
+				6770C73FC714B35EFBEE346E /* Pods */,
+				5E965366F4EDE93F68CAEF57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,12 +195,9 @@
 		C05B9C1C1F8F7DE800F8374D /* HSStockChart-Demo */ = {
 			isa = PBXGroup;
 			children = (
-				C05B9C1D1F8F7DE800F8374D /* ViewController.swift */,
-				C05B9C1E1F8F7DE800F8374D /* Assets.xcassets */,
-				C05B9C1F1F8F7DE800F8374D /* LaunchScreen.storyboard */,
-				C05B9C211F8F7DE800F8374D /* Main.storyboard */,
-				C05B9C231F8F7DE800F8374D /* AppDelegate.swift */,
-				C05B9C241F8F7DE800F8374D /* Info.plist */,
+				C015F4D01F96696D00C5781A /* Classes */,
+				C015F4D51F96697500C5781A /* SupportFiles */,
+				C015F4C11F96689900C5781A /* SampleData */,
 			);
 			path = "HSStockChart-Demo";
 			sourceTree = "<group>";
@@ -182,10 +259,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05B9C181F8F7D6F00F8374D /* Build configuration list for PBXNativeTarget "HSStockChart-Demo" */;
 			buildPhases = (
+				8193943BFE6ECCEDE8E96BED /* [CP] Check Pods Manifest.lock */,
 				C05B9C051F8F7D6F00F8374D /* Sources */,
 				C05B9C061F8F7D6F00F8374D /* Frameworks */,
 				C05B9C071F8F7D6F00F8374D /* Resources */,
 				C05B9C3C1F90538A00F8374D /* Embed Frameworks */,
+				21DEB4A673EE98E8C1747F8A /* [CP] Embed Pods Frameworks */,
+				B0697C2A1EA454F68D8A9E42 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -222,7 +302,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = HansonStudio;
 				TargetAttributes = {
 					C05B9C081F8F7D6F00F8374D = {
@@ -260,10 +340,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05B9C281F8F7E0A00F8374D /* LaunchScreen.storyboard in Resources */,
-				C05B9C251F8F7DF600F8374D /* Info.plist in Resources */,
-				C05B9C291F8F7E0E00F8374D /* Assets.xcassets in Resources */,
-				C05B9C271F8F7E0800F8374D /* Main.storyboard in Resources */,
+				C015F4DD1F96697500C5781A /* LaunchScreen.storyboard in Resources */,
+				C015F4DE1F96697500C5781A /* Main.storyboard in Resources */,
+				C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */,
+				C015F4CF1F96689A00C5781A /* SZ300033.json in Resources */,
+				C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */,
+				C015F4CD1F96689A00C5781A /* timeLineForFiveday.json in Resources */,
+				C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */,
+				C015F4CE1F96689A00C5781A /* FiveTrade.json in Resources */,
+				C015F4DC1F96697500C5781A /* Assets.xcassets in Resources */,
+				C015F4CC1F96689A00C5781A /* kLineForWeek.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,13 +362,72 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		21DEB4A673EE98E8C1747F8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8193943BFE6ECCEDE8E96BED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HSStockChart-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0697C2A1EA454F68D8A9E42 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C05B9C051F8F7D6F00F8374D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05B9C2A1F8F7E1000F8374D /* ViewController.swift in Sources */,
-				C05B9C261F8F7E0300F8374D /* AppDelegate.swift in Sources */,
+				C015F4E11F966A0C00C5781A /* SegmentMenu.swift in Sources */,
+				C015F4E31F966A5600C5781A /* ChartViewController.swift in Sources */,
+				C015F4E51F9671D700C5781A /* HSStockBasicInfoModel.swift in Sources */,
+				C015F4D41F96696D00C5781A /* AppDelegate.swift in Sources */,
+				C015F4D31F96696D00C5781A /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,18 +455,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C05B9C1F1F8F7DE800F8374D /* LaunchScreen.storyboard */ = {
+		C015F4D71F96697500C5781A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C05B9C201F8F7DE800F8374D /* Base */,
+				C015F4D81F96697500C5781A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		C05B9C211F8F7DE800F8374D /* Main.storyboard */ = {
+		C015F4D91F96697500C5781A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C05B9C221F8F7DE800F8374D /* Base */,
+				C015F4DA1F96697500C5781A /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -438,12 +583,14 @@
 		};
 		C05B9C191F8F7D6F00F8374D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,12 +602,14 @@
 		};
 		C05B9C1A1F8F7D6F00F8374D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/HSStockChart-Demo/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

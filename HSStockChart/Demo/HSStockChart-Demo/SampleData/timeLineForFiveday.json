@@ -1,0 +1,599 @@
+{
+	"stock": {
+		"symbol": "SZ300033"
+	},
+    "days": [
+             "2016-08-25",
+             "2016-08-26",
+             "2016-08-27",
+             "2016-08-28",
+             "2016-08-29"
+    ],
+	"success": "true",
+	"chartlist": [{
+		"volume": 68500,
+		"avg_price": 69.06,
+		"current": 69.03,
+		"time": "Thu Aug 25 09:30:00 +0800 2016"
+	}, {
+		"volume": 619890,
+		"avg_price": 68.41,
+		"current": 68.25,
+		"time": "Thu Aug 25 09:40:00 +0800 2016"
+	}, {
+		"volume": 466591,
+		"avg_price": 68.32,
+		"current": 68.1,
+		"time": "Thu Aug 25 09:50:00 +0800 2016"
+	}, {
+		"volume": 277784,
+		"avg_price": 68.3,
+		"current": 68.18,
+		"time": "Thu Aug 25 10:00:00 +0800 2016"
+	}, {
+		"volume": 183232,
+		"avg_price": 68.29,
+		"current": 68.28,
+		"time": "Thu Aug 25 10:10:00 +0800 2016"
+	}, {
+		"volume": 300977,
+		"avg_price": 68.3,
+		"current": 68.44,
+		"time": "Thu Aug 25 10:20:00 +0800 2016"
+	}, {
+		"volume": 114678,
+		"avg_price": 68.31,
+		"current": 68.27,
+		"time": "Thu Aug 25 10:30:00 +0800 2016"
+	}, {
+		"volume": 140435,
+		"avg_price": 68.3,
+		"current": 68.08,
+		"time": "Thu Aug 25 10:40:00 +0800 2016"
+	}, {
+		"volume": 114796,
+		"avg_price": 68.29,
+		"current": 68.28,
+		"time": "Thu Aug 25 10:50:00 +0800 2016"
+	}, {
+		"volume": 223384,
+		"avg_price": 68.28,
+		"current": 68.1,
+		"time": "Thu Aug 25 11:00:00 +0800 2016"
+	}, {
+		"volume": 252697,
+		"avg_price": 68.26,
+		"current": 68.05,
+		"time": "Thu Aug 25 11:10:00 +0800 2016"
+	}, {
+		"volume": 417212,
+		"avg_price": 68.22,
+		"current": 67.9,
+		"time": "Thu Aug 25 11:20:00 +0800 2016"
+	}, {
+		"volume": 78247,
+		"avg_price": 68.22,
+		"current": 68.21,
+		"time": "Thu Aug 25 11:30:00 +0800 2016"
+	}, {
+		"volume": 17970,
+		"avg_price": 68.22,
+		"current": 68.2,
+		"time": "Thu Aug 25 13:00:00 +0800 2016"
+	}, {
+		"volume": 42895,
+		"avg_price": 68.22,
+		"current": 68.1,
+		"time": "Thu Aug 25 13:10:00 +0800 2016"
+	}, {
+		"volume": 63729,
+		"avg_price": 68.21,
+		"current": 67.99,
+		"time": "Thu Aug 25 13:20:00 +0800 2016"
+	}, {
+		"volume": 239252,
+		"avg_price": 68.22,
+		"current": 68.28,
+		"time": "Thu Aug 25 13:30:00 +0800 2016"
+	}, {
+		"volume": 210249,
+		"avg_price": 68.21,
+		"current": 68.11,
+		"time": "Thu Aug 25 13:40:00 +0800 2016"
+	}, {
+		"volume": 108400,
+		"avg_price": 68.21,
+		"current": 68.3,
+		"time": "Thu Aug 25 13:50:00 +0800 2016"
+	}, {
+		"volume": 227930,
+		"avg_price": 68.22,
+		"current": 68.44,
+		"time": "Thu Aug 25 14:00:00 +0800 2016"
+	}, {
+		"volume": 151170,
+		"avg_price": 68.23,
+		"current": 68.26,
+		"time": "Thu Aug 25 14:10:00 +0800 2016"
+	}, {
+		"volume": 288684,
+		"avg_price": 68.23,
+		"current": 68.3,
+		"time": "Thu Aug 25 14:20:00 +0800 2016"
+	}, {
+		"volume": 137141,
+		"avg_price": 68.23,
+		"current": 68.45,
+		"time": "Thu Aug 25 14:30:00 +0800 2016"
+	}, {
+		"volume": 322070,
+		"avg_price": 68.25,
+		"current": 68.68,
+		"time": "Thu Aug 25 14:40:00 +0800 2016"
+	}, {
+		"volume": 188314,
+		"avg_price": 68.26,
+		"current": 68.6,
+		"time": "Thu Aug 25 14:50:00 +0800 2016"
+	}, {
+		"volume": 291600,
+		"avg_price": 68.27,
+		"current": 68.42,
+		"time": "Thu Aug 25 15:00:00 +0800 2016"
+	}, {
+		"volume": 106100,
+		"avg_price": 68.88,
+		"current": 68.66,
+		"time": "Fri Aug 26 09:30:00 +0800 2016"
+	}, {
+		"volume": 224505,
+		"avg_price": 68.79,
+		"current": 68.61,
+		"time": "Fri Aug 26 09:40:00 +0800 2016"
+	}, {
+		"volume": 126589,
+		"avg_price": 68.74,
+		"current": 68.69,
+		"time": "Fri Aug 26 09:50:00 +0800 2016"
+	}, {
+		"volume": 202545,
+		"avg_price": 68.77,
+		"current": 68.96,
+		"time": "Fri Aug 26 10:00:00 +0800 2016"
+	}, {
+		"volume": 207109,
+		"avg_price": 68.79,
+		"current": 68.68,
+		"time": "Fri Aug 26 10:10:00 +0800 2016"
+	}, {
+		"volume": 398417,
+		"avg_price": 68.9,
+		"current": 69.3,
+		"time": "Fri Aug 26 10:20:00 +0800 2016"
+	}, {
+		"volume": 229253,
+		"avg_price": 68.96,
+		"current": 69.27,
+		"time": "Fri Aug 26 10:30:00 +0800 2016"
+	}, {
+		"volume": 71506,
+		"avg_price": 68.97,
+		"current": 69.16,
+		"time": "Fri Aug 26 10:40:00 +0800 2016"
+	}, {
+		"volume": 159844,
+		"avg_price": 69.0,
+		"current": 69.28,
+		"time": "Fri Aug 26 10:50:00 +0800 2016"
+	}, {
+		"volume": 117030,
+		"avg_price": 69.01,
+		"current": 69.18,
+		"time": "Fri Aug 26 11:00:00 +0800 2016"
+	}, {
+		"volume": 102336,
+		"avg_price": 69.02,
+		"current": 69.18,
+		"time": "Fri Aug 26 11:10:00 +0800 2016"
+	}, {
+		"volume": 393225,
+		"avg_price": 69.12,
+		"current": 69.88,
+		"time": "Fri Aug 26 11:20:00 +0800 2016"
+	}, {
+		"volume": 176302,
+		"avg_price": 69.17,
+		"current": 69.82,
+		"time": "Fri Aug 26 11:30:00 +0800 2016"
+	}, {
+		"volume": 25600,
+		"avg_price": 69.17,
+		"current": 69.81,
+		"time": "Fri Aug 26 13:00:00 +0800 2016"
+	}, {
+		"volume": 87498,
+		"avg_price": 69.19,
+		"current": 69.5,
+		"time": "Fri Aug 26 13:10:00 +0800 2016"
+	}, {
+		"volume": 63200,
+		"avg_price": 69.19,
+		"current": 69.26,
+		"time": "Fri Aug 26 13:20:00 +0800 2016"
+	}, {
+		"volume": 182100,
+		"avg_price": 69.2,
+		"current": 69.18,
+		"time": "Fri Aug 26 13:30:00 +0800 2016"
+	}, {
+		"volume": 130369,
+		"avg_price": 69.2,
+		"current": 69.01,
+		"time": "Fri Aug 26 13:40:00 +0800 2016"
+	}, {
+		"volume": 137300,
+		"avg_price": 69.19,
+		"current": 69.03,
+		"time": "Fri Aug 26 13:50:00 +0800 2016"
+	}, {
+		"volume": 124100,
+		"avg_price": 69.18,
+		"current": 68.88,
+		"time": "Fri Aug 26 14:00:00 +0800 2016"
+	}, {
+		"volume": 135250,
+		"avg_price": 69.17,
+		"current": 69.0,
+		"time": "Fri Aug 26 14:10:00 +0800 2016"
+	}, {
+		"volume": 143286,
+		"avg_price": 69.16,
+		"current": 68.66,
+		"time": "Fri Aug 26 14:20:00 +0800 2016"
+	}, {
+		"volume": 112342,
+		"avg_price": 69.14,
+		"current": 68.77,
+		"time": "Fri Aug 26 14:30:00 +0800 2016"
+	}, {
+		"volume": 260858,
+		"avg_price": 69.1,
+		"current": 68.55,
+		"time": "Fri Aug 26 14:40:00 +0800 2016"
+	}, {
+		"volume": 168477,
+		"avg_price": 69.08,
+		"current": 68.61,
+		"time": "Fri Aug 26 14:50:00 +0800 2016"
+	}, {
+		"volume": 328217,
+		"avg_price": 69.04,
+		"current": 68.49,
+		"time": "Fri Aug 26 15:00:00 +0800 2016"
+	}, {
+		"volume": 51700,
+		"avg_price": 68.08,
+		"current": 68.0,
+		"time": "Mon Aug 29 09:30:00 +0800 2016"
+	}, {
+		"volume": 249890,
+		"avg_price": 68.05,
+		"current": 67.89,
+		"time": "Mon Aug 29 09:40:00 +0800 2016"
+	}, {
+		"volume": 429105,
+		"avg_price": 67.97,
+		"current": 67.83,
+		"time": "Mon Aug 29 09:50:00 +0800 2016"
+	}, {
+		"volume": 387933,
+		"avg_price": 67.86,
+		"current": 67.63,
+		"time": "Mon Aug 29 10:00:00 +0800 2016"
+	}, {
+		"volume": 255128,
+		"avg_price": 67.81,
+		"current": 67.82,
+		"time": "Mon Aug 29 10:10:00 +0800 2016"
+	}, {
+		"volume": 132759,
+		"avg_price": 67.81,
+		"current": 67.8,
+		"time": "Mon Aug 29 10:20:00 +0800 2016"
+	}, {
+		"volume": 235871,
+		"avg_price": 67.79,
+		"current": 67.67,
+		"time": "Mon Aug 29 10:30:00 +0800 2016"
+	}, {
+		"volume": 137126,
+		"avg_price": 67.8,
+		"current": 67.9,
+		"time": "Mon Aug 29 10:40:00 +0800 2016"
+	}, {
+		"volume": 167700,
+		"avg_price": 67.8,
+		"current": 67.9,
+		"time": "Mon Aug 29 10:50:00 +0800 2016"
+	}, {
+		"volume": 90500,
+		"avg_price": 67.81,
+		"current": 67.83,
+		"time": "Mon Aug 29 11:00:00 +0800 2016"
+	}, {
+		"volume": 210400,
+		"avg_price": 67.84,
+		"current": 68.6,
+		"time": "Mon Aug 29 11:10:00 +0800 2016"
+	}, {
+		"volume": 198546,
+		"avg_price": 67.9,
+		"current": 68.4,
+		"time": "Mon Aug 29 11:20:00 +0800 2016"
+	}, {
+		"volume": 82362,
+		"avg_price": 67.91,
+		"current": 68.05,
+		"time": "Mon Aug 29 11:30:00 +0800 2016"
+	}, {
+		"volume": 5100,
+		"avg_price": 67.91,
+		"current": 68.15,
+		"time": "Mon Aug 29 13:00:00 +0800 2016"
+	}, {
+		"volume": 41665,
+		"avg_price": 67.91,
+		"current": 68.22,
+		"time": "Mon Aug 29 13:10:00 +0800 2016"
+	}, {
+		"volume": 86638,
+		"avg_price": 67.92,
+		"current": 68.11,
+		"time": "Mon Aug 29 13:20:00 +0800 2016"
+	}, {
+		"volume": 127730,
+		"avg_price": 67.93,
+		"current": 68.1,
+		"time": "Mon Aug 29 13:30:00 +0800 2016"
+	}, {
+		"volume": 176491,
+		"avg_price": 67.92,
+		"current": 67.86,
+		"time": "Mon Aug 29 13:40:00 +0800 2016"
+	}, {
+		"volume": 98690,
+		"avg_price": 67.92,
+		"current": 67.96,
+		"time": "Mon Aug 29 13:50:00 +0800 2016"
+	}, {
+		"volume": 128347,
+		"avg_price": 67.92,
+		"current": 67.93,
+		"time": "Mon Aug 29 14:00:00 +0800 2016"
+	}, {
+		"volume": 123900,
+		"avg_price": 67.92,
+		"current": 67.93,
+		"time": "Mon Aug 29 14:10:00 +0800 2016"
+	}, {
+		"volume": 118330,
+		"avg_price": 67.93,
+		"current": 67.93,
+		"time": "Mon Aug 29 14:20:00 +0800 2016"
+	}, {
+		"volume": 102703,
+		"avg_price": 67.93,
+		"current": 68.08,
+		"time": "Mon Aug 29 14:30:00 +0800 2016"
+	}, {
+		"volume": 151800,
+		"avg_price": 67.93,
+		"current": 67.93,
+		"time": "Mon Aug 29 14:40:00 +0800 2016"
+	}, {
+		"volume": 82428,
+		"avg_price": 67.93,
+		"current": 67.98,
+		"time": "Mon Aug 29 14:50:00 +0800 2016"
+	}, {
+		"volume": 160700,
+		"avg_price": 67.93,
+		"current": 68.03,
+		"time": "Mon Aug 29 15:00:00 +0800 2016"
+	}, {
+		"volume": 34100,
+		"avg_price": 68.28,
+		"current": 68.2,
+		"time": "Tue Aug 30 09:30:00 +0800 2016"
+	}, {
+		"volume": 241619,
+		"avg_price": 68.41,
+		"current": 68.66,
+		"time": "Tue Aug 30 09:40:00 +0800 2016"
+	}, {
+		"volume": 221100,
+		"avg_price": 68.49,
+		"current": 68.53,
+		"time": "Tue Aug 30 09:50:00 +0800 2016"
+	}, {
+		"volume": 196400,
+		"avg_price": 68.49,
+		"current": 68.4,
+		"time": "Tue Aug 30 10:00:00 +0800 2016"
+	}, {
+		"volume": 178400,
+		"avg_price": 68.44,
+		"current": 68.09,
+		"time": "Tue Aug 30 10:10:00 +0800 2016"
+	}, {
+		"volume": 112457,
+		"avg_price": 68.4,
+		"current": 68.17,
+		"time": "Tue Aug 30 10:20:00 +0800 2016"
+	}, {
+		"volume": 133515,
+		"avg_price": 68.38,
+		"current": 68.18,
+		"time": "Tue Aug 30 10:30:00 +0800 2016"
+	}, {
+		"volume": 137700,
+		"avg_price": 68.35,
+		"current": 68.09,
+		"time": "Tue Aug 30 10:40:00 +0800 2016"
+	}, {
+		"volume": 203758,
+		"avg_price": 68.31,
+		"current": 68.15,
+		"time": "Tue Aug 30 10:50:00 +0800 2016"
+	}, {
+		"volume": 87870,
+		"avg_price": 68.31,
+		"current": 68.26,
+		"time": "Tue Aug 30 11:00:00 +0800 2016"
+	}, {
+		"volume": 55320,
+		"avg_price": 68.31,
+		"current": 68.22,
+		"time": "Tue Aug 30 11:10:00 +0800 2016"
+	}, {
+		"volume": 145900,
+		"avg_price": 68.3,
+		"current": 68.29,
+		"time": "Tue Aug 30 11:20:00 +0800 2016"
+	}, {
+		"volume": 37200,
+		"avg_price": 68.3,
+		"current": 68.32,
+		"time": "Tue Aug 30 11:30:00 +0800 2016"
+	}, {
+		"volume": 54100,
+		"avg_price": 68.31,
+		"current": 68.29,
+		"time": "Tue Aug 30 13:00:00 +0800 2016"
+	}, {
+		"volume": 59500,
+		"avg_price": 68.31,
+		"current": 68.4,
+		"time": "Tue Aug 30 13:10:00 +0800 2016"
+	}, {
+		"volume": 183024,
+		"avg_price": 68.32,
+		"current": 68.5,
+		"time": "Tue Aug 30 13:20:00 +0800 2016"
+	}, {
+		"volume": 217100,
+		"avg_price": 68.34,
+		"current": 68.7,
+		"time": "Tue Aug 30 13:30:00 +0800 2016"
+	}, {
+		"volume": 203622,
+		"avg_price": 68.37,
+		"current": 68.6,
+		"time": "Tue Aug 30 13:40:00 +0800 2016"
+	}, {
+		"volume": 102500,
+		"avg_price": 68.38,
+		"current": 68.51,
+		"time": "Tue Aug 30 13:50:00 +0800 2016"
+	}, {
+		"volume": 62600,
+		"avg_price": 68.38,
+		"current": 68.47,
+		"time": "Tue Aug 30 14:00:00 +0800 2016"
+	}, {
+		"volume": 105213,
+		"avg_price": 68.38,
+		"current": 68.39,
+		"time": "Tue Aug 30 14:10:00 +0800 2016"
+	}, {
+		"volume": 52287,
+		"avg_price": 68.38,
+		"current": 68.34,
+		"time": "Tue Aug 30 14:20:00 +0800 2016"
+	}, {
+		"volume": 58692,
+		"avg_price": 68.38,
+		"current": 68.46,
+		"time": "Tue Aug 30 14:30:00 +0800 2016"
+	}, {
+		"volume": 91022,
+		"avg_price": 68.38,
+		"current": 68.27,
+		"time": "Tue Aug 30 14:40:00 +0800 2016"
+	}, {
+		"volume": 164382,
+		"avg_price": 68.38,
+		"current": 68.24,
+		"time": "Tue Aug 30 14:50:00 +0800 2016"
+	}, {
+		"volume": 215380,
+		"avg_price": 68.36,
+		"current": 68.19,
+		"time": "Tue Aug 30 15:00:00 +0800 2016"
+	}, {
+		"volume": 41900,
+		"avg_price": 67.96,
+		"current": 67.82,
+		"time": "Wed Aug 31 09:30:00 +0800 2016"
+	}, {
+		"volume": 154949,
+		"avg_price": 67.95,
+		"current": 68.1,
+		"time": "Wed Aug 31 09:40:00 +0800 2016"
+	}, {
+		"volume": 106268,
+		"avg_price": 67.96,
+		"current": 67.88,
+		"time": "Wed Aug 31 09:50:00 +0800 2016"
+	}, {
+		"volume": 236844,
+		"avg_price": 67.88,
+		"current": 67.89,
+		"time": "Wed Aug 31 10:00:00 +0800 2016"
+	}, {
+		"volume": 266722,
+		"avg_price": 67.81,
+		"current": 67.66,
+		"time": "Wed Aug 31 10:10:00 +0800 2016"
+	}, {
+		"volume": 130176,
+		"avg_price": 67.79,
+		"current": 67.7,
+		"time": "Wed Aug 31 10:20:00 +0800 2016"
+	}, {
+		"volume": 148300,
+		"avg_price": 67.76,
+		"current": 67.63,
+		"time": "Wed Aug 31 10:30:00 +0800 2016"
+	}, {
+		"volume": 238513,
+		"avg_price": 67.8,
+		"current": 68.4,
+		"time": "Wed Aug 31 10:40:00 +0800 2016"
+	}, {
+		"volume": 205077,
+		"avg_price": 67.87,
+		"current": 68.24,
+		"time": "Wed Aug 31 10:50:00 +0800 2016"
+	}, {
+		"volume": 86918,
+		"avg_price": 67.89,
+		"current": 68.2,
+		"time": "Wed Aug 31 11:00:00 +0800 2016"
+	}, {
+		"volume": 179400,
+		"avg_price": 67.93,
+		"current": 68.33,
+		"time": "Wed Aug 31 11:10:00 +0800 2016"
+	}, {
+		"volume": 115000,
+		"avg_price": 67.95,
+		"current": 68.3,
+		"time": "Wed Aug 31 11:20:00 +0800 2016"
+	}, {
+		"volume": 100300,
+		"avg_price": 67.96,
+		"current": 68.35,
+		"time": "Wed Aug 31 11:30:00 +0800 2016"
+	}]
+}
