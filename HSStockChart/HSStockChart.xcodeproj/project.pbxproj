@@ -10,6 +10,9 @@
 		C00D05E01F99FACE00CB2093 /* HSKLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DD1F99FACE00CB2093 /* HSKLine.swift */; };
 		C00D05E11F99FACE00CB2093 /* HSKLineUpFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */; };
 		C00D05E21F99FACE00CB2093 /* HSKLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */; };
+		C00D05E41F99FC4800CB2093 /* HSKLineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05E31F99FC4800CB2093 /* HSKLineStyle.swift */; };
+		C00D05E71F99FCDE00CB2093 /* HSKLineCoordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05E51F99FCDE00CB2093 /* HSKLineCoordModel.swift */; };
+		C00D05E81F99FCDE00CB2093 /* HSKLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05E61F99FCDE00CB2093 /* HSKLineModel.swift */; };
 		C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C21F96689900C5781A /* timeLineForDay.json */; };
 		C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C31F96689900C5781A /* kLineForMonth.json */; };
 		C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C41F96689900C5781A /* kLineForDay.json */; };
@@ -67,6 +70,9 @@
 		C00D05DD1F99FACE00CB2093 /* HSKLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLine.swift; sourceTree = "<group>"; };
 		C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineUpFrontView.swift; sourceTree = "<group>"; };
 		C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineView.swift; sourceTree = "<group>"; };
+		C00D05E31F99FC4800CB2093 /* HSKLineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSKLineStyle.swift; sourceTree = "<group>"; };
+		C00D05E51F99FCDE00CB2093 /* HSKLineCoordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineCoordModel.swift; sourceTree = "<group>"; };
+		C00D05E61F99FCDE00CB2093 /* HSKLineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineModel.swift; sourceTree = "<group>"; };
 		C015F4C21F96689900C5781A /* timeLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForDay.json; sourceTree = "<group>"; };
 		C015F4C31F96689900C5781A /* kLineForMonth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForMonth.json; sourceTree = "<group>"; };
 		C015F4C41F96689900C5781A /* kLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForDay.json; sourceTree = "<group>"; };
@@ -136,9 +142,12 @@
 		C00D05DC1F99FACE00CB2093 /* KLineChart */ = {
 			isa = PBXGroup;
 			children = (
+				C00D05E51F99FCDE00CB2093 /* HSKLineCoordModel.swift */,
+				C00D05E61F99FCDE00CB2093 /* HSKLineModel.swift */,
 				C00D05DD1F99FACE00CB2093 /* HSKLine.swift */,
 				C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */,
 				C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */,
+				C00D05E31F99FC4800CB2093 /* HSKLineStyle.swift */,
 			);
 			path = KLineChart;
 			sourceTree = "<group>";
@@ -454,10 +463,13 @@
 			files = (
 				C05B9C441F905F3200F8374D /* HSTimeLine.swift in Sources */,
 				C00D05E01F99FACE00CB2093 /* HSKLine.swift in Sources */,
+				C00D05E71F99FCDE00CB2093 /* HSKLineCoordModel.swift in Sources */,
 				C00D05E11F99FACE00CB2093 /* HSKLineUpFrontView.swift in Sources */,
+				C00D05E81F99FCDE00CB2093 /* HSKLineModel.swift in Sources */,
 				C00D05E21F99FACE00CB2093 /* HSKLineView.swift in Sources */,
 				C05B9C431F905F2800F8374D /* HSDrawLayerProtocol.swift in Sources */,
 				C05B9C421F905F2500F8374D /* HSTimeLineCoordModel.swift in Sources */,
+				C00D05E41F99FC4800CB2093 /* HSKLineStyle.swift in Sources */,
 				C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */,
 				C05B9C481F90604200F8374D /* HSTimeLineStyle.swift in Sources */,
 				C05B9C461F905FAE00F8374D /* HSTimeLineModel.swift in Sources */,

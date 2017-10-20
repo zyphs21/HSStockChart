@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HSStockChart
 
 public let ScreenWidth = UIScreen.main.bounds.width
 public let ScreenHeight = UIScreen.main.bounds.height

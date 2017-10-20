@@ -8,6 +8,16 @@
 
 import UIKit
 
+public let TimeLineLongpress = "TimeLineLongpress"
+public let TimeLineUnLongpress = "TimeLineUnLongpress"
+
+public let TimeLineChartDidTap = "TimeLineChartDidTap"
+
+public let KLineChartLongPress = "kLineChartLongPress"
+public let KLineChartUnLongPress = "kLineChartUnLongPress"
+
+public let KLineUperChartDidTap = "KLineUperChartDidTap"
+
 class HSKLineView: UIView {
 
     var scrollView: UIScrollView!
@@ -16,7 +26,7 @@ class HSKLineView: UIView {
     
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
-    var theme = HSStockChartTheme()
+    var theme = HSKLineStyle()
     var dataK: [HSKLineModel] = []
     
     var isLandscapeMode = false
@@ -73,9 +83,9 @@ class HSKLineView: UIView {
         } else {
             jsonFile = "kLineForMonth"
         }
-        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
-        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
-        self.configureView(data: tmpDataK)
+//        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
+//        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+//        self.configureView(data: tmpDataK)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -284,12 +294,12 @@ class HSKLineView: UIView {
         }
     }
     
-    func getJsonDataFromFile(_ fileName: String) -> JSON {
-        let pathForResource = Bundle.main.path(forResource: fileName, ofType: "json")
-        let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
-        let jsonContent = content.data(using: String.Encoding.utf8)!
-        return JSON(data: jsonContent)
-    }
+//    func getJsonDataFromFile(_ fileName: String) -> JSON {
+//        let pathForResource = Bundle.main.path(forResource: fileName, ofType: "json")
+//        let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
+//        let jsonContent = content.data(using: String.Encoding.utf8)!
+//        return JSON(data: jsonContent)
+//    }
 }
 
 extension HSKLineView: UIScrollViewDelegate {

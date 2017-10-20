@@ -9,6 +9,14 @@
 import Foundation
 import UIKit
 
+public enum HSChartType: Int {
+    case timeLineForDay
+    case timeLineForFiveday
+    case kLineForDay
+    case kLineForWeek
+    case kLineForMonth
+}
+
 protocol HSDrawLayerProtocol {
     
     var theme: HSTimeLineStyle { get }

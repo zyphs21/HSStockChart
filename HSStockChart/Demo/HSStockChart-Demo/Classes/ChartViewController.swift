@@ -10,14 +10,6 @@ import UIKit
 import SwiftyJSON
 import HSStockChart
 
-enum HSChartType: Int {
-    case timeLineForDay
-    case timeLineForFiveday
-    case kLineForDay
-    case kLineForWeek
-    case kLineForMonth
-}
-
 class ChartViewController: UIViewController {
     
     var chartType: HSChartType = .timeLineForDay

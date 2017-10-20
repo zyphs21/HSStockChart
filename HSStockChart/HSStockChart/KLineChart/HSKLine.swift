@@ -8,10 +8,19 @@
 
 import UIKit
 
+class HSCAShapeLayer: CAShapeLayer {
+    
+    // 关闭 CAShapeLayer 的隐式动画，避免滑动时候或者十字线出现时有残影的现象(实际上是因为 Layer 的 position 属性变化而产生的隐式动画)
+    override func action(forKey event: String) -> CAAction? {
+        return nil
+    }
+}
+
+
 class HSKLine: UIView, HSDrawLayerProtocol {
 
     var kLineType: HSChartType = HSChartType.kLineForDay
-    var theme = HSStockChartTheme()
+    var theme = HSKLineStyle()
     
     var dataK: [HSKLineModel] = []
     var positionModels: [HSKLineCoordModel] = []
@@ -296,16 +305,16 @@ class HSKLine: UIView, HSDrawLayerProtocol {
         var lastDate: Date?
         xAxisTimeMarkLayer.sublayers?.removeAll()
         for (index, position) in positionModels.enumerated() {
-            if let date = klineModels[index].date.toDate("yyyyMMddHHmmss") {
+            if let date = klineModels[index].date.hs_toDate("yyyyMMddHHmmss") {
                 if lastDate == nil {
                     lastDate = date
                 }
                 if position.isDrawAxis {
                     switch kLineType {
                     case .kLineForDay, .kLineForWeek, .kLineForMonth:
-                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.toString("yyyy-MM")))
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hs_toString("yyyy-MM")))
                     default:
-                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.toString("MM-dd")))
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hs_toString("MM-dd")))
                     }
                     lastDate = date
                 }
