@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00D05E01F99FACE00CB2093 /* HSKLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DD1F99FACE00CB2093 /* HSKLine.swift */; };
+		C00D05E11F99FACE00CB2093 /* HSKLineUpFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */; };
+		C00D05E21F99FACE00CB2093 /* HSKLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */; };
 		C015F4C91F96689A00C5781A /* timeLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C21F96689900C5781A /* timeLineForDay.json */; };
 		C015F4CA1F96689A00C5781A /* kLineForMonth.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C31F96689900C5781A /* kLineForMonth.json */; };
 		C015F4CB1F96689A00C5781A /* kLineForDay.json in Resources */ = {isa = PBXBuildFile; fileRef = C015F4C41F96689900C5781A /* kLineForDay.json */; };
@@ -61,6 +64,9 @@
 /* Begin PBXFileReference section */
 		8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChart_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		C00D05DD1F99FACE00CB2093 /* HSKLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLine.swift; sourceTree = "<group>"; };
+		C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineUpFrontView.swift; sourceTree = "<group>"; };
+		C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSKLineView.swift; sourceTree = "<group>"; };
 		C015F4C21F96689900C5781A /* timeLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeLineForDay.json; sourceTree = "<group>"; };
 		C015F4C31F96689900C5781A /* kLineForMonth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForMonth.json; sourceTree = "<group>"; };
 		C015F4C41F96689900C5781A /* kLineForDay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = kLineForDay.json; sourceTree = "<group>"; };
@@ -125,6 +131,16 @@
 				B300F775722ACE55DC3D632C /* Pods-HSStockChart-Demo.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C00D05DC1F99FACE00CB2093 /* KLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				C00D05DD1F99FACE00CB2093 /* HSKLine.swift */,
+				C00D05DE1F99FACE00CB2093 /* HSKLineUpFrontView.swift */,
+				C00D05DF1F99FACE00CB2093 /* HSKLineView.swift */,
+			);
+			path = KLineChart;
 			sourceTree = "<group>";
 		};
 		C015F4C11F96689900C5781A /* SampleData */ = {
@@ -205,9 +221,10 @@
 		C05B9C311F90538A00F8374D /* HSStockChart */ = {
 			isa = PBXGroup;
 			children = (
+				C05B9C3D1F9056AB00F8374D /* TimeLineChart */,
+				C00D05DC1F99FACE00CB2093 /* KLineChart */,
 				C05B9C4A1F90641600F8374D /* Helpers */,
 				C05B9C3F1F90576300F8374D /* DrawLayerProtocol */,
-				C05B9C3D1F9056AB00F8374D /* TimeLineChart */,
 				C05B9C321F90538A00F8374D /* HSStockChart.h */,
 				C05B9C331F90538A00F8374D /* Info.plist */,
 			);
@@ -436,6 +453,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05B9C441F905F3200F8374D /* HSTimeLine.swift in Sources */,
+				C00D05E01F99FACE00CB2093 /* HSKLine.swift in Sources */,
+				C00D05E11F99FACE00CB2093 /* HSKLineUpFrontView.swift in Sources */,
+				C00D05E21F99FACE00CB2093 /* HSKLineView.swift in Sources */,
 				C05B9C431F905F2800F8374D /* HSDrawLayerProtocol.swift in Sources */,
 				C05B9C421F905F2500F8374D /* HSTimeLineCoordModel.swift in Sources */,
 				C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */,
