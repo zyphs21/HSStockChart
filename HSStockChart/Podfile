@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, ‘8.0’
 use_frameworks!
 
-target 'HSStockChartDemo' do
+target 'HSStockChart-Demo' do
     pod 'SwiftyJSON'
     pod 'SnapKit', '~> 4.0.0'
 end

@@ -1,6 +1,0 @@
-framework module Pods_HSStockChartDemo {
-  umbrella header "Pods-HSStockChartDemo-umbrella.h"
-
-  export *
-  module * { export * }
-}
