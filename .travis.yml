@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.3
+os: osx
+osx_image: xcode9.1
 xcode_workspace: HSStockChartDemo.xcworkspace
-xcode_scheme: HSStockChartDemo
-xcode_sdk: iphonesimulator9.3
+podfile: HSStockChart/Podfile
