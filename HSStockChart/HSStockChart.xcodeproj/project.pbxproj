@@ -37,6 +37,7 @@
 		C05B9C461F905FAE00F8374D /* HSTimeLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */; };
 		C05B9C481F90604200F8374D /* HSTimeLineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */; };
 		C05B9C4E1F90707B00F8374D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B9C4D1F906F9600F8374D /* Extension.swift */; };
+		C0AAD4321FB843F9006AD3A2 /* HSStockChartNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAD4311FB843F9006AD3A2 /* HSStockChartNameSpace.swift */; };
 		C1B051F9AE63A4F57F951733 /* Pods_HSStockChart_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8916C64F44169BFF67526A97 /* Pods_HSStockChart_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		C05B9C451F905FAE00F8374D /* HSTimeLineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineModel.swift; sourceTree = "<group>"; };
 		C05B9C471F90604200F8374D /* HSTimeLineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSTimeLineStyle.swift; sourceTree = "<group>"; };
 		C05B9C4D1F906F9600F8374D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		C0AAD4311FB843F9006AD3A2 /* HSStockChartNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSStockChartNameSpace.swift; sourceTree = "<group>"; };
 		CEBAFCB0E1DC96CCD44D30BF /* Pods-HSStockChart-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart-Demo/Pods-HSStockChart-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				C05B9C4D1F906F9600F8374D /* Extension.swift */,
+				C0AAD4311FB843F9006AD3A2 /* HSStockChartNameSpace.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 			files = (
 				C05B9C441F905F3200F8374D /* HSTimeLine.swift in Sources */,
 				C00D05E01F99FACE00CB2093 /* HSKLine.swift in Sources */,
+				C0AAD4321FB843F9006AD3A2 /* HSStockChartNameSpace.swift in Sources */,
 				C00D05E71F99FCDE00CB2093 /* HSKLineCoordModel.swift in Sources */,
 				C00D05E11F99FACE00CB2093 /* HSKLineUpFrontView.swift in Sources */,
 				C00D05E81F99FCDE00CB2093 /* HSKLineModel.swift in Sources */,

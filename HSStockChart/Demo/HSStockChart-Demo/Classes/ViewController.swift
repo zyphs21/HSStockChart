@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     // MARK: - Functioin
     
     func setUpView() {
-        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 64/*headerStockInfoView.frame.maxY*/, width: ScreenWidth, height: 40))
+        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 88/*headerStockInfoView.frame.maxY*/, width: ScreenWidth, height: 40))
         segmentMenu.menuTitleArray = ["分时", "五日", "日K", "周K", "月K"]
         segmentMenu.delegate = self
         
