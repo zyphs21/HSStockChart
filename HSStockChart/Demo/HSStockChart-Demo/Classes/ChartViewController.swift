@@ -73,24 +73,39 @@ class ChartViewController: UIViewController {
             
         case .kLineForDay:
             self.view.addSubview(UIView())
-//            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay)
-//            stockChartView.tag = chartType.rawValue
-//            stockChartView.isLandscapeMode = self.isLandscapeMode
-//            self.view.addSubview(stockChartView)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay)
+            stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
+            let jsonFile = "kLineForDay"
+            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
+            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            stockChartView.configureView(data: tmpDataK)
             
+            self.view.addSubview(stockChartView)
+
         case .kLineForWeek:
             self.view.addSubview(UIView())
-//            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek)
-//            stockChartView.tag = chartType.rawValue
-//            stockChartView.isLandscapeMode = self.isLandscapeMode
-//            self.view.addSubview(stockChartView)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek)
+            stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
+            let jsonFile = "kLineForWeek"
+            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
+            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            stockChartView.configureView(data: tmpDataK)
+            
+            self.view.addSubview(stockChartView)
             
         case .kLineForMonth:
             self.view.addSubview(UIView())
-//            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth)
-//            stockChartView.tag = chartType.rawValue
-//            stockChartView.isLandscapeMode = self.isLandscapeMode
-//            self.view.addSubview(stockChartView)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth)
+            stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
+            let jsonFile = "kLineForMonth"
+            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
+            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            stockChartView.configureView(data: tmpDataK)
+            
+            self.view.addSubview(stockChartView)
         }
     }
     
@@ -139,5 +154,28 @@ class ChartViewController: UIViewController {
         }
 
         return modelArray
+    }
+    
+    func getKLineModelArray(_ json: JSON) -> [HSKLineModel] {
+        var models = [HSKLineModel]()
+        for (_, jsonData): (String, JSON) in json["chartlist"] {
+            let model = HSKLineModel()
+            model.date = Date.hs_toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hs_toString("yyyyMMddHHmmss")
+            model.open = CGFloat(jsonData["open"].doubleValue)
+            model.close = CGFloat(jsonData["close"].doubleValue)
+            model.high = CGFloat(jsonData["high"].doubleValue)
+            model.low = CGFloat(jsonData["low"].doubleValue)
+            model.volume = CGFloat(jsonData["volume"].doubleValue)
+            model.ma5 = CGFloat(jsonData["ma5"].doubleValue)
+            model.ma10 = CGFloat(jsonData["ma10"].doubleValue)
+            model.ma20 = CGFloat(jsonData["ma20"].doubleValue)
+            model.ma30 = CGFloat(jsonData["ma30"].doubleValue)
+            model.diff = CGFloat(jsonData["dif"].doubleValue)
+            model.dea = CGFloat(jsonData["dea"].doubleValue)
+            model.macd = CGFloat(jsonData["macd"].doubleValue)
+            model.rate = CGFloat(jsonData["percent"].doubleValue)
+            models.append(model)
+        }
+        return models
     }
 }

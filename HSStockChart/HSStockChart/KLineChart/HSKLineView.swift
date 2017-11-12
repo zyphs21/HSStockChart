@@ -18,7 +18,7 @@ public let KLineChartUnLongPress = "kLineChartUnLongPress"
 
 public let KLineUperChartDidTap = "KLineUperChartDidTap"
 
-class HSKLineView: UIView {
+public class HSKLineView: UIView {
 
     var scrollView: UIScrollView!
     var kLine: HSKLine!
@@ -29,9 +29,9 @@ class HSKLineView: UIView {
     var theme = HSKLineStyle()
     var dataK: [HSKLineModel] = []
     
-    var isLandscapeMode = false
+    public var isLandscapeMode = false
 
-    var allDataK: [HSKLineModel] = []
+    public var allDataK: [HSKLineModel] = []
     var enableKVO: Bool = true
 
     var kLineViewWidth: CGFloat = 0.0
@@ -48,7 +48,7 @@ class HSKLineView: UIView {
         }
     }
     
-    init(frame: CGRect, kLineType: HSChartType) {
+    public init(frame: CGRect, kLineType: HSChartType) {
         super.init(frame: frame)
         backgroundColor = UIColor.white
         
@@ -75,20 +75,20 @@ class HSKLineView: UIView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
         kLine.addGestureRecognizer(tapGesture)
         
-        var jsonFile = ""
-        if kLineType == .kLineForDay {
-            jsonFile = "kLineForDay"
-        } else if kLineType == .kLineForWeek {
-            jsonFile = "kLineForWeek"
-        } else {
-            jsonFile = "kLineForMonth"
-        }
+//        var jsonFile = ""
+//        if kLineType == .kLineForDay {
+//            jsonFile = "kLineForDay"
+//        } else if kLineType == .kLineForWeek {
+//            jsonFile = "kLineForWeek"
+//        } else {
+//            jsonFile = "kLineForMonth"
+//        }
 //        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
 //        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
 //        self.configureView(data: tmpDataK)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -96,7 +96,7 @@ class HSKLineView: UIView {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(UIScrollView.contentOffset) && enableKVO {
             print("in klineview scrollView?.contentOffset.x " + "\(scrollView.contentOffset.x)")
             
@@ -109,7 +109,7 @@ class HSKLineView: UIView {
         }
     }
     
-    func configureView(data: [HSKLineModel]) {
+    public func configureView(data: [HSKLineModel]) {
         dataK = data
         kLine.dataK = data
         let count: CGFloat = CGFloat(data.count)
@@ -293,17 +293,10 @@ class HSKLineView: UIView {
             }
         }
     }
-    
-//    func getJsonDataFromFile(_ fileName: String) -> JSON {
-//        let pathForResource = Bundle.main.path(forResource: fileName, ofType: "json")
-//        let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
-//        let jsonContent = content.data(using: String.Encoding.utf8)!
-//        return JSON(data: jsonContent)
-//    }
 }
 
 extension HSKLineView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         // MARK: - 用于滑动加载更多 KLine 数据
         if (scrollView.contentOffset.x < 0 && dataK.count < allDataK.count) {

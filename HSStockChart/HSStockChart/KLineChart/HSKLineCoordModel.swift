@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSKLineCoordModel: NSObject {
+public class HSKLineCoordModel: NSObject {
 
     var openPoint: CGPoint = .zero
     var closePoint: CGPoint = .zero

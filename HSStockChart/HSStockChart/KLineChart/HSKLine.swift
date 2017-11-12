@@ -17,7 +17,7 @@ class HSCAShapeLayer: CAShapeLayer {
 }
 
 
-class HSKLine: UIView, HSDrawLayerProtocol {
+public class HSKLine: UIView, HSDrawLayerProtocol {
 
     var kLineType: HSChartType = HSChartType.kLineForDay
     var theme = HSKLineStyle()
@@ -102,7 +102,7 @@ class HSKLine: UIView, HSDrawLayerProtocol {
         backgroundColor = UIColor.clear
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
