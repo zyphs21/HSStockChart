@@ -417,12 +417,12 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     lazy var animatePoint: CALayer = {
         let animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
-        animatePoint.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor//UIColor(rgba: "#0095ff").cgColor
+        animatePoint.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor
         animatePoint.cornerRadius = 1.5
         
         let layer = CALayer()
         layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
-        layer.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor//UIColor(rgba: "#0095ff").cgColor
+        layer.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor
         layer.cornerRadius = 1.5
         layer.add(self.breathingLightAnimate(2), forKey: nil)
         
