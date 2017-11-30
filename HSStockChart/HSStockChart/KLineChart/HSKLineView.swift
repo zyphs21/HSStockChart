@@ -202,19 +202,24 @@ public class HSKLineView: UIView {
     @objc func handleLongPressGestureAction(_ recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began || recognizer.state == .changed {
             let  point = recognizer.location(in: kLine)
-            let highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
-            if highLightIndex < kLine.dataK.count {
-                let index = highLightIndex - kLine.startIndex
+            var highLightIndex = Int(point.x / (theme.candleWidth + theme.candleGap))
+            var positionModelIndex = highLightIndex - kLine.startIndex
+            highLightIndex = highLightIndex <= 0 ? 0 : highLightIndex
+            positionModelIndex = positionModelIndex <= 0 ? 0 : positionModelIndex
+            
+            if highLightIndex < kLine.dataK.count && positionModelIndex < kLine.positionModels.count {
                 let entity = kLine.dataK[highLightIndex]
+                let index = highLightIndex - kLine.startIndex
                 let left = kLine.startX + CGFloat(highLightIndex - kLine.startIndex) * (self.theme.candleWidth + theme.candleGap) - scrollView.contentOffset.x
                 let centerX = left + theme.candleWidth / 2.0
-                let highLightVolume = kLine.positionModels[index].volumeStartPoint.y
-                let highLightClose = kLine.positionModels[index].closeY
+                let highLightVolume = kLine.positionModels[positionModelIndex].volumeStartPoint.y
+                let highLightClose = kLine.positionModels[positionModelIndex].closeY
+                let preIndex = (highLightIndex - 1 >= 0) ? (highLightIndex - 1) : highLightIndex
+                let preData = kLine.dataK[preIndex]
                 
                 upFrontView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity)
                 
-                let lastData = highLightIndex > 0 ? kLine.dataK[highLightIndex - 1] : kLine.dataK[0]
-                let userInfo: [AnyHashable: Any]? = ["preClose" : lastData.close, "kLineEntity" : kLine.dataK[highLightIndex]]
+                let userInfo: [AnyHashable: Any]? = ["preClose" : preData.close, "kLineEntity" : entity]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
             }
         }
