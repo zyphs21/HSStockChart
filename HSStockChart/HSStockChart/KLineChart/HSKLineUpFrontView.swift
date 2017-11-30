@@ -55,10 +55,10 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     }
     
     func configureAxis(max: CGFloat, min: CGFloat, maxVol: CGFloat) {
-        let maxPriceStr = max.hs_toStringWithFormat(".2")
-        let minPriceStr = min.hs_toStringWithFormat(".2")
-        let midPriceStr = ((max + min) / 2).hs_toStringWithFormat(".2")
-        let maxVolStr = maxVol.hs_toStringWithFormat(".2")
+        let maxPriceStr = max.hschart.toStringWithFormat(".2")
+        let minPriceStr = min.hschart.toStringWithFormat(".2")
+        let midPriceStr = ((max + min) / 2).hschart.toStringWithFormat(".2")
+        let maxVolStr = maxVol.hschart.toStringWithFormat(".2")
         maxMark.string = maxPriceStr
         minMark.string = minPriceStr
         midMark.string = midPriceStr

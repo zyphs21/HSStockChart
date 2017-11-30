@@ -305,16 +305,16 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         var lastDate: Date?
         xAxisTimeMarkLayer.sublayers?.removeAll()
         for (index, position) in positionModels.enumerated() {
-            if let date = klineModels[index].date.hs_toDate("yyyyMMddHHmmss") {
+            if let date = klineModels[index].date.hschart.toDate("yyyyMMddHHmmss") {
                 if lastDate == nil {
                     lastDate = date
                 }
                 if position.isDrawAxis {
                     switch kLineType {
                     case .kLineForDay, .kLineForWeek, .kLineForMonth:
-                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hs_toString("yyyy-MM")))
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hschart.toString("yyyy-MM")))
                     default:
-                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hs_toString("MM-dd")))
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hschart.toString("MM-dd")))
                     }
                     lastDate = date
                 }

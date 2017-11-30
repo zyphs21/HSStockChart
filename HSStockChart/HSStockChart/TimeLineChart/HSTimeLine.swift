@@ -29,8 +29,12 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     var highLightIndex: Int = 0
     
-    let countOfTimes = 240 // 分时线的横坐标
-    let fiveDayCount = 120 // 五日线总横坐标
+    
+    /// Number of Dot in TimeLine 分时线的横坐标个数
+    let countOfTimes = 240
+    
+    /// Number of Dot in Five Day TimeLine 五日分时线总横坐标
+    let fiveDayCount = 120
     
     fileprivate let openTime: String = "9:30"
     fileprivate let middleTime: String = "11:30/13:00"
@@ -197,14 +201,14 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         yAxisLayer.sublayers?.removeAll()
         
         // 画纵坐标的最高和最低价格标签
-        let maxPriceStr = maxPrice.hs_toStringWithFormat(".2")
-        let minPriceStr = minPrice.hs_toStringWithFormat(".2")
+        let maxPriceStr = maxPrice.hschart.toStringWithFormat(".2")
+        let minPriceStr = minPrice.hschart.toStringWithFormat(".2")
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxPriceStr, y: theme.viewMinYGap, isLeft: false))
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minPriceStr, y: uperChartDrawAreaBottom, isLeft: false))
         
         // 最高成交量标签及其横线
         let y = frame.height - maxVolume * volumeUnit
-        let maxVolumeStr = maxVolume.hs_toStringWithFormat(".2")
+        let maxVolumeStr = maxVolume.hschart.toStringWithFormat(".2")
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxVolumeStr, y: y, isLeft: false))
         
         let maxVolLine = UIBezierPath()
@@ -218,8 +222,8 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         yAxisLayer.addSublayer(maxVolLineLayer)
         
         // 画比率标签
-        let maxRatioStr = (self.maxRatio * 100).hs_toPercentFormat()
-        let minRatioStr = (self.minRatio * 100).hs_toPercentFormat()
+        let maxRatioStr = (self.maxRatio * 100).hschart.toPercentFormat()
+        let minRatioStr = (self.minRatio * 100).hschart.toPercentFormat()
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxRatioStr, y: uperChartDrawAreaTop, isLeft: true))
         yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minRatioStr, y: uperChartDrawAreaBottom, isLeft: true))
         
@@ -241,7 +245,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
             dashLineLayer.lineDashPattern = [6, 3]
             yAxisLayer.addSublayer(dashLineLayer)
             
-            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.hs_toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
+            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.hschart.toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
         }
         
         self.layer.addSublayer(yAxisLayer)
@@ -277,7 +281,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
             let volumeStartPoint = CGPoint(x: centerX, y: frame.height - volumeHeight)
             let volumeEndPoint = CGPoint(x: centerX, y: frame.height)
             
-            let positionModel = HSTimeLineCoordModel()
+            var positionModel = HSTimeLineCoordModel()
             positionModel.pricePoint = pricePoint
             positionModel.avgPoint = avgPoint
             positionModel.volumeHeight = volumeHeight
@@ -470,7 +474,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
                 }
                 
                 crossLineLayer.removeFromSuperlayer()
-                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex])
+                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject)
                 self.layer.addSublayer(crossLineLayer)
             }
             if self.highLightIndex < dataT.count {

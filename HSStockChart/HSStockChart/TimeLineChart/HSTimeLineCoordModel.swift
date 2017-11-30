@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class HSTimeLineCoordModel: NSObject {
+public struct HSTimeLineCoordModel {
 
     var pricePoint: CGPoint = .zero
     var avgPoint: CGPoint = .zero

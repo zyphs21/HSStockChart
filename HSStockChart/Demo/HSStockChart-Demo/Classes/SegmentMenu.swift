@@ -34,7 +34,7 @@ class SegmentMenu: UIView {
                 return
             }
             selectedButton?.setTitleColor(UIColor.black, for: .normal)
-            newSelectButton?.setTitleColor(UIColor(rgba: "#1782d0"), for: .normal)
+            newSelectButton?.setTitleColor(UIColor.hschart.color(rgba: "#1782d0"), for: .normal)
             UIView.animate(withDuration: 0.3) {
                 self.bottomIndicator.frame.origin.x = self.buttonWidth * CGFloat((newSelectButton?.tag)!)
             }
@@ -52,9 +52,9 @@ class SegmentMenu: UIView {
         self.backgroundColor = UIColor.white
         
         bottomIndicator = UIView()
-        bottomIndicator.backgroundColor = UIColor(rgba: "#1782d0")
+        bottomIndicator.backgroundColor = UIColor.hschart.color(rgba: "#1782d0")
         bottomLine = UIView(frame: CGRect(x: 0, y: frame.height - 0.5, width: frame.width, height: 0.5))
-        bottomLine.backgroundColor = UIColor(rgba: "#e4e4e4")
+        bottomLine.backgroundColor = UIColor.hschart.color(rgba: "#e4e4e4")
         
         self.addSubview(bottomIndicator)
         self.addSubview(bottomLine)

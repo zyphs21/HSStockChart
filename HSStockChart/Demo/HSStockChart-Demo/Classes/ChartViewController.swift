@@ -120,7 +120,7 @@ class ChartViewController: UIViewController {
         var modelArray = [HSTimeLineModel]()
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSTimeLineModel()
-            model.time = Date.hs_toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hs_toString("HH:mm")
+            model.time = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("HH:mm")
             model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)
@@ -143,7 +143,7 @@ class ChartViewController: UIViewController {
 
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSTimeLineModel()
-            model.time = Date.hs_toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hs_toString("HH:mm")
+            model.time = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("HH:mm")
             model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
             model.price = CGFloat(jsonData["current"].doubleValue)
             model.volume = CGFloat(jsonData["volume"].doubleValue)
@@ -160,7 +160,7 @@ class ChartViewController: UIViewController {
         var models = [HSKLineModel]()
         for (_, jsonData): (String, JSON) in json["chartlist"] {
             let model = HSKLineModel()
-            model.date = Date.hs_toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hs_toString("yyyyMMddHHmmss")
+            model.date = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("yyyyMMddHHmmss")
             model.open = CGFloat(jsonData["open"].doubleValue)
             model.close = CGFloat(jsonData["close"].doubleValue)
             model.high = CGFloat(jsonData["high"].doubleValue)
