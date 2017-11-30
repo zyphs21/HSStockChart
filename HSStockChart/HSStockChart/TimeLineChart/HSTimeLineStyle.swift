@@ -18,12 +18,6 @@ public struct HSTimeLineStyle {
     var viewMinYGap: CGFloat = 15
     var volumeGap: CGFloat = 10
     
-//    var candleWidth: CGFloat = 5
-//    var candleGap: CGFloat = 2
-//    var candleMinHeight: CGFloat = 0.5
-//    var candleMaxWidth: CGFloat = 30
-//    var candleMinWidth: CGFloat = 2
-    
     var ma5Color = UIColor(red: 134/255, green: 149/255, blue: 166/255, alpha: 1)
     var ma10Color = UIColor(red: 111/255, green: 168/255, blue: 167/255, alpha: 1)
     var ma20Color = UIColor(red: 111/255, green: 168/255, blue: 167/255, alpha: 1)
