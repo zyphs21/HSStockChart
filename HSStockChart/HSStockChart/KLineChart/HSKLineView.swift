@@ -209,7 +209,6 @@ public class HSKLineView: UIView {
             
             if highLightIndex < kLine.dataK.count && positionModelIndex < kLine.positionModels.count {
                 let entity = kLine.dataK[highLightIndex]
-                let index = highLightIndex - kLine.startIndex
                 let left = kLine.startX + CGFloat(highLightIndex - kLine.startIndex) * (self.theme.candleWidth + theme.candleGap) - scrollView.contentOffset.x
                 let centerX = left + theme.candleWidth / 2.0
                 let highLightVolume = kLine.positionModels[positionModelIndex].volumeStartPoint.y
