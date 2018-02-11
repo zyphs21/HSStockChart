@@ -1,6 +1,6 @@
 # HSStockChart
 
-![iOS 8.0+](https://img.shields.io/badge/iOS-8.0%2B-blue.svg)
+[![Backers on Open Collective](https://opencollective.com/HSStockChart/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/HSStockChart/sponsors/badge.svg)](#sponsors) ![iOS 8.0+](https://img.shields.io/badge/iOS-8.0%2B-blue.svg)
 ![Swift 3.0+](https://img.shields.io/badge/Swift-3.0%2B-orange.svg)
 
 HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的回弹拖动，长按十字线，捏合放大缩小等功能，主要使用了 CAShapeLayer 来绘图，相比使用 Core Graphics 和重写 drawRect 的方法更高效，占用内存更小。
@@ -62,6 +62,36 @@ class HSCAShapeLayer: CAShapeLayer {
 如果使用中发现问题欢迎添加 issue ，也欢迎 Pull request。
 
 If you find an issue, just open an issue. Pull requests are warmly welcome as well.
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/HSStockChart/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/HSStockChart#backer)]
+
+<a href="https://opencollective.com/HSStockChart#backers" target="_blank"><img src="https://opencollective.com/HSStockChart/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/HSStockChart#sponsor)]
+
+<a href="https://opencollective.com/HSStockChart/sponsor/0/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/1/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/2/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/3/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/4/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/5/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/6/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/7/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/8/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/HSStockChart/sponsor/9/website" target="_blank"><img src="https://opencollective.com/HSStockChart/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 
