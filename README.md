@@ -22,7 +22,7 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 ## Requirements
 
 - iOS 8.0+
-- Swift 3
+- Swift 4
 
 ## Example
 
