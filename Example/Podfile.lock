@@ -1,0 +1,22 @@
+PODS:
+  - HSStockChart (0.1.0)
+  - SnapKit (4.0.0)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - HSStockChart (from `../`)
+  - SnapKit (~> 4.0.0)
+  - SwiftyJSON
+
+EXTERNAL SOURCES:
+  HSStockChart:
+    :path: ../
+
+SPEC CHECKSUMS:
+  HSStockChart: 2757aea19180a0591ea5874b7a4c237aeb482700
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: b49c931046550685cdab5ac97ef52294ef952ca8
+
+COCOAPODS: 1.4.0

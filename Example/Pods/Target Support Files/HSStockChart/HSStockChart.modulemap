@@ -1,0 +1,6 @@
+framework module HSStockChart {
+  umbrella header "HSStockChart-umbrella.h"
+
+  export *
+  module * { export * }
+}
