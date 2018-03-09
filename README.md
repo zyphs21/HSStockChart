@@ -43,9 +43,8 @@ zyphs21, hansenhs21@live.com
 
 [my blog: myhanson.com](www.myhanson.com)
 
-欢迎关注我的公众号：hansontalks
+欢迎关注我的公众号：hansontalks    
 ![](https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/qrcode_for_hansontalk.jpg)
-
 
 ## Contributors
 
