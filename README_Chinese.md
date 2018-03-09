@@ -61,6 +61,9 @@ return nil
 
 zyphs21, hansenhs21@live.com
 
+欢迎关注我的公众号：hansontalks
+![](https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/qrcode_for_hansontalk.jpg)
+
 ## License
 
 HSStockChart is available under the MIT license. See the LICENSE file for more info.
