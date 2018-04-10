@@ -1,5 +1,5 @@
 PODS:
-  - HSStockChart (0.1.0)
+  - HSStockChart (1.1.0)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.0.0)
 
@@ -8,15 +8,20 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - SwiftyJSON
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SnapKit
+    - SwiftyJSON
+
 EXTERNAL SOURCES:
   HSStockChart:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  HSStockChart: 2757aea19180a0591ea5874b7a4c237aeb482700
+  HSStockChart: 57b733da00736358b4e485eb1670d9eef3b728bf
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: b49c931046550685cdab5ac97ef52294ef952ca8
+PODFILE CHECKSUM: c47a277c640c9c0a00390d7a62993183e19c9de9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

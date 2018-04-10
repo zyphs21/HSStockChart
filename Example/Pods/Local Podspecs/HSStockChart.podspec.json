@@ -1,8 +1,7 @@
 {
   "name": "HSStockChart",
-  "version": "0.1.0",
-  "summary": "A short description of HSStockChart.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "1.1.0",
+  "summary": "A Stock Chart include CandleStickChart,TimeLineChart.",
   "homepage": "https://github.com/zyphs21/HSStockChart",
   "license": {
     "type": "MIT",
@@ -13,10 +12,11 @@
   },
   "source": {
     "git": "https://github.com/zyphs21/HSStockChart.git",
-    "tag": "0.1.0"
+    "tag": "1.1.0"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "HSStockChart/Classes/**/*"
+  "source_files": "HSStockChart/Classes/**/*",
+  "swift_version": "4.0"
 }

@@ -11,7 +11,6 @@
 		C09CC7652041524C00632E1D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09CC7512041524C00632E1D /* LaunchScreen.xib */; };
 		C09CC7662041524C00632E1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09CC7532041524C00632E1D /* Main.storyboard */; };
 		C09CC7672041524C00632E1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C09CC7552041524C00632E1D /* Images.xcassets */; };
-		C09CC7682041524C00632E1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C09CC7562041524C00632E1D /* Info.plist */; };
 		C09CC7692041524C00632E1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CC7582041524C00632E1D /* ViewController.swift */; };
 		C09CC76A2041524C00632E1D /* HSStockBasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CC7592041524C00632E1D /* HSStockBasicInfoModel.swift */; };
 		C09CC76B2041524C00632E1D /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CC75A2041524C00632E1D /* SegmentMenu.swift */; };
@@ -176,7 +175,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				9CB0724208539FA23F468F28 /* [CP] Embed Pods Frameworks */,
-				3414D6B85D0055ACACFE5EC8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,11 +192,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = XC238MH24L;
 						LastSwiftMigration = 0900;
 					};
 				};
@@ -229,7 +228,6 @@
 				C09CC76F2041524C00632E1D /* kLineForMonth.json in Resources */,
 				C09CC7742041524C00632E1D /* SZ300033.json in Resources */,
 				C09CC76E2041524C00632E1D /* timeLineForDay.json in Resources */,
-				C09CC7682041524C00632E1D /* Info.plist in Resources */,
 				C09CC7722041524C00632E1D /* timeLineForFiveday.json in Resources */,
 				C09CC7672041524C00632E1D /* Images.xcassets in Resources */,
 				C09CC7652041524C00632E1D /* LaunchScreen.xib in Resources */,
@@ -243,21 +241,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3414D6B85D0055ACACFE5EC8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HSStockChart_Example/Pods-HSStockChart_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		66E91E1A97DEBA5D6E59F70D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,12 +330,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -400,12 +385,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -439,11 +426,12 @@
 			baseConfigurationReference = 3A82BB292D1079F17A564672 /* Pods-HSStockChart_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XC238MH24L;
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChart/SupportFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -455,11 +443,12 @@
 			baseConfigurationReference = 443D86E9F313114DEC74D4E9 /* Pods-HSStockChart_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XC238MH24L;
 				INFOPLIST_FILE = "$(SRCROOT)/HSStockChart/SupportFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HansonStudio.HSStockChart-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
