@@ -74,18 +74,6 @@ public class HSKLineView: UIView {
         kLine.addGestureRecognizer(pinGesture)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureAction(_:)))
         kLine.addGestureRecognizer(tapGesture)
-        
-//        var jsonFile = ""
-//        if kLineType == .kLineForDay {
-//            jsonFile = "kLineForDay"
-//        } else if kLineType == .kLineForWeek {
-//            jsonFile = "kLineForWeek"
-//        } else {
-//            jsonFile = "kLineForMonth"
-//        }
-//        allDataK = HSKLineModel.getKLineModelArray(getJsonDataFromFile(jsonFile))
-//        let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
-//        self.configureView(data: tmpDataK)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -244,11 +232,9 @@ public class HSKLineView: UIView {
         case .began:
             enableKVO = false
             scrollView.isScrollEnabled = false
-        case .ended:
+        default:
             enableKVO = true
             scrollView.isScrollEnabled = true
-        default:
-            break
         }
 
         if abs(diffScale) > kLineScaleBound {
