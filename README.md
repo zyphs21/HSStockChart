@@ -39,9 +39,14 @@ pod 'HSStockChart'
 
 ## Author
 
-zyphs21, hansenhs21@live.com
+E-mail: hansenhs21@live.com
+Blog: [myhanson.com](www.myhanson.com)
+Twitter: [Hanson,@yuanpingzhang](https://twitter.com/yuanpingzhang)
+Instagram: [hansonhs21](https://www.instagram.com/hansonhs21/)
+Facebook: [Hanson Zhang](https://www.facebook.com/zhang.yuanping.7)
 
-[my blog: myhanson.com](www.myhanson.com)
+我的微信：hansenhs21
+![](https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/wechatqrcode.jpg)
 
 欢迎关注我的公众号：hansontalks    
 ![](https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/qrcode_for_hansontalk.jpg)
@@ -78,3 +83,5 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 ## License
 
 HSStockChart is available under the MIT license. See the LICENSE file for more info.
+
+
