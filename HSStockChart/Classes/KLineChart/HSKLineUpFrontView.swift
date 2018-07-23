@@ -66,12 +66,12 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     }
     
     func drawMarkLayer() {
-        rrText = getYAxisMarkLayer(frame: frame, text: "不复权", y: theme.viewMinYGap, isLeft: true)
-        volText = getYAxisMarkLayer(frame: frame, text: "成交量", y: lowerChartTop + theme.volumeGap, isLeft: true)
-        maxMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: theme.viewMinYGap, isLeft: false)
-        minMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: uperChartHeight - theme.viewMinYGap, isLeft: false)
-        midMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: uperChartHeight / 2, isLeft: false)
-        maxVolMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: lowerChartTop + theme.volumeGap, isLeft: false)
+        rrText = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "不复权", y: theme.viewMinYGap, isLeft: true)
+        volText = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "成交量", y: lowerChartTop + theme.volumeGap, isLeft: true)
+        maxMark = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "0.00", y: theme.viewMinYGap, isLeft: false)
+        minMark = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "0.00", y: uperChartHeight - theme.viewMinYGap, isLeft: false)
+        midMark = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "0.00", y: uperChartHeight / 2, isLeft: false)
+        maxVolMark = CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: "0.00", y: lowerChartTop + theme.volumeGap, isLeft: false)
         self.layer.addSublayer(rrText)
         self.layer.addSublayer(volText)
         self.layer.addSublayer(maxMark)
@@ -82,7 +82,7 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     
     func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) {
         corssLineLayer.removeFromSuperlayer()
-        corssLineLayer = getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model)
+        corssLineLayer = CAShapeLayer.getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model, theme: theme)
         self.layer.addSublayer(corssLineLayer)
     }
     

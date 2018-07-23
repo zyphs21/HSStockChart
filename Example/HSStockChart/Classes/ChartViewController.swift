@@ -49,13 +49,13 @@ class ChartViewController: UIViewController {
     // MARK: - Function
     
     func setUpViewController() {
-        let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(getJsonDataFromFile("SZ300033"))
+        let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(JSON.getJsonDataFromFile("SZ300033"))
         
         switch chartType {
             
         case .timeLineForDay:
             timeLineView = HSTimeLine(frame: chartRect)
-            let modelArray = getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
+            let modelArray = HSTimeLineModel.getTimeLineModelArray(JSON.getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
             timeLineView?.dataT = modelArray
             timeLineView!.isUserInteractionEnabled = true
             timeLineView?.tag = chartType.rawValue
@@ -64,7 +64,7 @@ class ChartViewController: UIViewController {
             
         case .timeLineForFiveday:
             let stockChartView = HSTimeLine(frame: chartRect, isFiveDay: true)
-            let modelArray = getTimeLineModelArray(getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: stockBasicInfo)
+            let modelArray = HSTimeLineModel.getTimeLineModelArray(JSON.getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: stockBasicInfo)
             stockChartView.dataT = modelArray
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
@@ -77,8 +77,9 @@ class ChartViewController: UIViewController {
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForDay"
-            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
-            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            let allDataK = JSON.getJsonDataFromFile(jsonFile).kLineModels
+//            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            let tmpDataK = allDataK //Array(allDataK[0..<allDataK.count])
             stockChartView.configureView(data: tmpDataK)
             
             self.view.addSubview(stockChartView)
@@ -89,8 +90,10 @@ class ChartViewController: UIViewController {
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForWeek"
-            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
-            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            let allDataK = JSON.getJsonDataFromFile(jsonFile).kLineModels
+//            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            
+            let tmpDataK = Array(allDataK[0..<allDataK.count])
             stockChartView.configureView(data: tmpDataK)
             
             self.view.addSubview(stockChartView)
@@ -101,15 +104,19 @@ class ChartViewController: UIViewController {
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForMonth"
-            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
-            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            let allDataK = JSON.getJsonDataFromFile(jsonFile).kLineModels
+//            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            
+            let tmpDataK = allDataK
             stockChartView.configureView(data: tmpDataK)
             
             self.view.addSubview(stockChartView)
         }
     }
-    
-    func getJsonDataFromFile(_ fileName: String) -> JSON {
+}
+
+extension JSON {
+    static func getJsonDataFromFile(_ fileName: String) -> JSON {
         let pathForResource = Bundle.main.path(forResource: fileName, ofType: "json")
         let content = try! String(contentsOfFile: pathForResource!, encoding: String.Encoding.utf8)
         let jsonContent = content.data(using: String.Encoding.utf8)!
@@ -121,22 +128,11 @@ class ChartViewController: UIViewController {
             return JSON()
         }
     }
-    
-    func getTimeLineModelArray(_ json: JSON) -> [HSTimeLineModel] {
-        var modelArray = [HSTimeLineModel]()
-        for (_, jsonData): (String, JSON) in json["chartlist"] {
-            let model = HSTimeLineModel()
-            model.time = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("HH:mm")
-            model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
-            model.price = CGFloat(jsonData["current"].doubleValue)
-            model.volume = CGFloat(jsonData["volume"].doubleValue)
-            model.days = (json["days"].arrayObject as? [String]) ?? [""]
-            modelArray.append(model)
-        }
-        return modelArray
-    }
+}
 
-    func getTimeLineModelArray(_ json: JSON, type: HSChartType, basicInfo: HSStockBasicInfoModel) -> [HSTimeLineModel] {
+
+extension HSTimeLineModel {
+    static func getTimeLineModelArray(_ json: JSON, type: HSChartType, basicInfo: HSStockBasicInfoModel) -> [HSTimeLineModel] {
         var modelArray = [HSTimeLineModel]()
         var toComparePrice: CGFloat = 0
 
@@ -161,10 +157,27 @@ class ChartViewController: UIViewController {
 
         return modelArray
     }
+
+}
+
+extension JSON {
+    var timeLineModels: [HSTimeLineModel] {
+        var modelArray = [HSTimeLineModel]()
+        for (_, jsonData): (String, JSON) in self["chartlist"] {
+            let model = HSTimeLineModel()
+            model.time = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("HH:mm")
+            model.avgPirce = CGFloat(jsonData["avg_price"].doubleValue)
+            model.price = CGFloat(jsonData["current"].doubleValue)
+            model.volume = CGFloat(jsonData["volume"].doubleValue)
+            model.days = (self["days"].arrayObject as? [String]) ?? [""]
+            modelArray.append(model)
+        }
+        return modelArray
+    }
     
-    func getKLineModelArray(_ json: JSON) -> [HSKLineModel] {
+    var kLineModels: [HSKLineModel] {
         var models = [HSKLineModel]()
-        for (_, jsonData): (String, JSON) in json["chartlist"] {
+        for (_, jsonData): (String, JSON) in self["chartlist"] {
             let model = HSKLineModel()
             model.date = Date.hschart.toDate(jsonData["time"].stringValue, format: "EEE MMM d HH:mm:ss z yyyy").hschart.toString("yyyyMMddHHmmss")
             model.open = CGFloat(jsonData["open"].doubleValue)
@@ -184,4 +197,6 @@ class ChartViewController: UIViewController {
         }
         return models
     }
+
+    
 }

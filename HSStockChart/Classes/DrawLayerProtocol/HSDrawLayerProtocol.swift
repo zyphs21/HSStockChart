@@ -21,22 +21,23 @@ protocol HSDrawLayerProtocol {
     
     var theme: HSTimeLineStyle { get }
     
-    func drawLine(lineWidth: CGFloat, startPoint: CGPoint, endPoint: CGPoint, strokeColor: UIColor, fillColor: UIColor, isDash: Bool, isAnimate: Bool) -> CAShapeLayer
-    
-    func drawTextLayer(frame: CGRect, text: String, foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> CATextLayer
-        
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer
+//    func drawLine(lineWidth: CGFloat, startPoint: CGPoint, endPoint: CGPoint, strokeColor: UIColor, fillColor: UIColor, isDash: Bool, isAnimate: Bool) -> CAShapeLayer
+//
+//    func drawTextLayer(frame: CGRect, text: String, foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> CATextLayer
+//
+//    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer
     
     
 }
 
 extension HSDrawLayerProtocol {
-    
     var theme: HSTimeLineStyle {
         return HSTimeLineStyle()
     }
-    
-    func drawLine(lineWidth: CGFloat,
+}
+
+extension CAShapeLayer {
+    static func drawLine(lineWidth: CGFloat,
                   startPoint: CGPoint,
                   endPoint: CGPoint,
                   strokeColor: UIColor,
@@ -71,48 +72,9 @@ extension HSDrawLayerProtocol {
         return lineLayer
     }
     
-    func drawTextLayer(frame: CGRect,
-                       text: String,
-                       foregroundColor: UIColor,
-                       backgroundColor: UIColor = UIColor.clear,
-                       fontSize: CGFloat = 10) -> CATextLayer {
-        
-        let textLayer = CATextLayer()
-        textLayer.frame = frame
-        textLayer.string = text
-        textLayer.fontSize = fontSize
-        textLayer.foregroundColor = foregroundColor.cgColor
-        textLayer.backgroundColor = backgroundColor.cgColor
-        textLayer.alignmentMode = kCAAlignmentCenter
-        textLayer.contentsScale = UIScreen.main.scale
-        
-        return textLayer
-    }
-    
-    
-    /// 获取纵轴的标签图层
-    func getYAxisMarkLayer(frame: CGRect, text: String, y: CGFloat, isLeft: Bool) -> CATextLayer {
-        let textSize = theme.getTextSize(text: text)
-        let yAxisLabelEdgeInset: CGFloat = 5
-        var labelX: CGFloat = 0
-        
-        if isLeft {
-            labelX = yAxisLabelEdgeInset
-        } else {
-            labelX = frame.width - textSize.width - yAxisLabelEdgeInset
-        }
-        
-        let labelY: CGFloat = y - textSize.height / 2.0
-        
-        let yMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height),
-                                       text: text,
-                                       foregroundColor: theme.textColor)
-        
-        return yMarkLayer
-    }
     
     /// 获取长按显示的十字线及其标签图层
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer {
+    static func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, theme: HSTimeLineStyle = HSTimeLineStyle()) -> CAShapeLayer {
         let highlightLayer = CAShapeLayer()
         
         let corssLineLayer = CAShapeLayer()
@@ -177,7 +139,7 @@ extension HSDrawLayerProtocol {
             labelX = frame.maxX - yAxisMarkSize.width
         }
         labelY = pricePoint.y - yAxisMarkSize.height / 2.0
-        yAxisMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: yAxisMarkSize.width, height: yAxisMarkSize.height),
+        yAxisMarkLayer = CATextLayer.drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: yAxisMarkSize.width, height: yAxisMarkSize.height),
                                        text: yAxisMarkString,
                                        foregroundColor: UIColor.white,
                                        backgroundColor: theme.textColor)
@@ -191,7 +153,7 @@ extension HSDrawLayerProtocol {
         } else if labelX < frame.minX {
             labelX = frame.minX
         }
-        bottomMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: bottomMarkSize.width, height: bottomMarkSize.height),
+        bottomMarkLayer = CATextLayer.drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: bottomMarkSize.width, height: bottomMarkSize.height),
                                         text: bottomMarkerString,
                                         foregroundColor: UIColor.white,
                                         backgroundColor: theme.textColor)
@@ -205,7 +167,8 @@ extension HSDrawLayerProtocol {
         let maxY = frame.maxY - volMarkSize.height
         labelY = volumePoint.y - volMarkSize.height / 2.0
         labelY = labelY > maxY ? maxY : labelY
-        volMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: volMarkSize.width, height: volMarkSize.height),
+        let frame = CGRect(x: labelX, y: labelY, width: volMarkSize.width, height: volMarkSize.height)
+        volMarkLayer = CATextLayer.drawTextLayer(frame: frame,
                                         text: volumeMarkerString,
                                         foregroundColor: UIColor.white,
                                         backgroundColor: theme.textColor)
@@ -217,9 +180,51 @@ extension HSDrawLayerProtocol {
         
         return highlightLayer
     }
+}
+extension CATextLayer{
+    static func drawTextLayer(frame: CGRect,
+                       text: String,
+                       foregroundColor: UIColor,
+                       backgroundColor: UIColor = UIColor.clear,
+                       fontSize: CGFloat = 10) -> CATextLayer {
+        
+        let textLayer = CATextLayer()
+        textLayer.frame = frame
+        textLayer.string = text
+        textLayer.fontSize = fontSize
+        textLayer.foregroundColor = foregroundColor.cgColor
+        textLayer.backgroundColor = backgroundColor.cgColor
+        textLayer.alignmentMode = kCAAlignmentCenter
+        textLayer.contentsScale = UIScreen.main.scale
+        
+        return textLayer
+    }
     
-    func getTextSize(text: String, fontSize: CGFloat = 10, addOnWith: CGFloat = 5, addOnHeight: CGFloat = 0) -> CGSize {
-        let size = text.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)])
+    /// 获取纵轴的标签图层
+    static func getYAxisMarkLayer(theme: HSTimeLineStyle, frame: CGRect, text: String, y: CGFloat, isLeft: Bool) -> CATextLayer {
+        let textSize = theme.getTextSize(text: text)
+        let yAxisLabelEdgeInset: CGFloat = 5
+        var labelX: CGFloat = 0
+        
+        if isLeft {
+            labelX = yAxisLabelEdgeInset
+        } else {
+            labelX = frame.width - textSize.width - yAxisLabelEdgeInset
+        }
+        
+        let labelY: CGFloat = y - textSize.height / 2.0
+        
+        let yMarkLayer = CATextLayer.drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height),
+                                                   text: text,
+                                                   foregroundColor: theme.textColor)
+        
+        return yMarkLayer
+    }
+}
+
+extension String {
+    func getTextSize(fontSize: CGFloat = 10, addOnWith: CGFloat = 5, addOnHeight: CGFloat = 0) -> CGSize {
+        let size = self.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)])
         let width = ceil(size.width) + addOnWith
         let height = ceil(size.height) + addOnWith
         
