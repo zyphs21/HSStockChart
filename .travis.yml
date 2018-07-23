@@ -1,5 +1,6 @@
 language: objective-c
 os: osx
 osx_image: xcode9.3
-xcode_workspace: HSStockChart.xcworkspace
+xcode_workspace: Example/HSStockChart.xcworkspace
+xcode_scheme: HSStockChart-Example
 podfile: Example/Podfile
