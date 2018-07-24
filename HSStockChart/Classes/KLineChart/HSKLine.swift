@@ -26,10 +26,8 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
     var positionModels: [HSKLineCoordModel] = []
     var klineModels: [HSKLineModel] = []
     
-    var kLineViewTotalWidth: CGFloat = 0
     var showContentWidth: CGFloat = 0
     var contentOffsetX: CGFloat = 0
-    var highLightIndex: Int = 0
     
     var maxPrice: CGFloat = 0
     var minPrice: CGFloat = 0
@@ -41,7 +39,6 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
     var priceUnit: CGFloat = 0.1
     var volumeUnit: CGFloat = 0
     
-    var renderRect: CGRect = CGRect.zero
     var renderWidth: CGFloat = 0
     
     var candleChartLayer = HSCAShapeLayer()
@@ -226,6 +223,7 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
                 positionModel.volumeEndPoint = volumeEndPoint
                 positionModel.candleFillColor = fillCandleColor
                 positionModel.candleRect = candleRect
+                print("positionModel move")
                 if index % axisGap == 0 {
                     positionModel.isDrawAxis = true
                 }
@@ -239,7 +237,7 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
     func drawCandleChartLayer(array: [HSKLineCoordModel]) {
         candleChartLayer.sublayers?.removeAll()
         for object in array.enumerated() {
-            let candleLayer = getCandleLayer(model: object.element)
+            let candleLayer = HSCAShapeLayer.getCandleLayer(model: object.element)
             candleChartLayer.addSublayer(candleLayer)
         }
         self.layer.addSublayer(candleChartLayer)
@@ -250,7 +248,7 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         volumeLayer.sublayers?.removeAll()
         for object in array.enumerated() {
             let model = object.element
-            let volLayer = drawLine(lineWidth: theme.candleWidth,
+            let volLayer = CAShapeLayer.drawLine(lineWidth: theme.candleWidth,
                                     startPoint: model.volumeStartPoint,
                                     endPoint: model.volumeEndPoint,
                                     strokeColor: model.candleFillColor,
@@ -333,24 +331,7 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         volumeLayer.removeFromSuperlayer()
         xAxisTimeMarkLayer.removeFromSuperlayer()
     }
-    
-    /// 获取单个蜡烛图的layer
-    fileprivate func getCandleLayer(model: HSKLineCoordModel) -> HSCAShapeLayer {
-        // K线
-        let linePath = UIBezierPath(rect: model.candleRect)
-        // 影线
-        linePath.move(to: model.lowPoint)
-        linePath.addLine(to: model.highPoint)
-        
-        let klayer = HSCAShapeLayer()
-        klayer.path = linePath.cgPath
-        klayer.strokeColor = model.candleFillColor.cgColor
-        klayer.fillColor = model.candleFillColor.cgColor
-        
-        return klayer
-    }
-    
-    
+
     /// 横坐标单个时间标签
     func drawXaxisTimeMark(xPosition: CGFloat, dateString: String) -> HSCAShapeLayer {
         let linePath = UIBezierPath()
@@ -377,7 +358,7 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
             labelX = frame.minX
         }
         
-        let timeLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height),
+        let timeLayer = CATextLayer.drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: textSize.width, height: textSize.height),
                                       text: dateString,
                                       foregroundColor: theme.textColor)
         
@@ -387,5 +368,22 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         
         return shaperLayer
     }
+}
 
+extension HSCAShapeLayer {
+    /// 获取单个蜡烛图的layer
+    static func getCandleLayer(model: HSKLineCoordModel) -> HSCAShapeLayer {
+        // K线
+        let linePath = UIBezierPath(rect: model.candleRect)
+        // 影线
+        linePath.move(to: model.lowPoint)
+        linePath.addLine(to: model.highPoint)
+        
+        let klayer = HSCAShapeLayer()
+        klayer.path = linePath.cgPath
+        klayer.strokeColor = model.candleFillColor.cgColor
+        klayer.fillColor = model.candleFillColor.cgColor
+        
+        return klayer
+    }
 }

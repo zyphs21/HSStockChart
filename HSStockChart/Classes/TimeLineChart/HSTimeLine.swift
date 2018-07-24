@@ -176,17 +176,17 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         } else {
             let startTimeSize = theme.getTextSize(text: openTime)
             
-            let startTime = drawTextLayer(frame: CGRect(x: 0, y: uperChartHeight, width: startTimeSize.width, height: startTimeSize.height),
+            let startTime = CATextLayer.drawTextLayer(frame: CGRect(x: 0, y: uperChartHeight, width: startTimeSize.width, height: startTimeSize.height),
                                           text: openTime,
                                           foregroundColor: theme.textColor)
             
             let midTimeSize = theme.getTextSize(text: middleTime)
-            let midTime = drawTextLayer(frame: CGRect(x: frame.width / 2.0 - midTimeSize.width / 2.0, y: uperChartHeight, width: midTimeSize.width, height: midTimeSize.height),
+            let midTime = CATextLayer.drawTextLayer(frame: CGRect(x: frame.width / 2.0 - midTimeSize.width / 2.0, y: uperChartHeight, width: midTimeSize.width, height: midTimeSize.height),
                                         text: middleTime,
                                         foregroundColor: theme.textColor)
             
             let stopTimeSize = theme.getTextSize(text: closeTime)
-            let stopTime = drawTextLayer(frame: CGRect(x: frame.width - stopTimeSize.width, y: uperChartHeight, width: stopTimeSize.width, height: stopTimeSize.height),
+            let stopTime = CATextLayer.drawTextLayer(frame: CGRect(x: frame.width - stopTimeSize.width, y: uperChartHeight, width: stopTimeSize.width, height: stopTimeSize.height),
                                          text: closeTime,
                                          foregroundColor: theme.textColor)
             
@@ -203,13 +203,13 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         // 画纵坐标的最高和最低价格标签
         let maxPriceStr = maxPrice.hschart.toStringWithFormat(".2")
         let minPriceStr = minPrice.hschart.toStringWithFormat(".2")
-        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxPriceStr, y: theme.viewMinYGap, isLeft: false))
-        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minPriceStr, y: uperChartDrawAreaBottom, isLeft: false))
+        yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: maxPriceStr, y: theme.viewMinYGap, isLeft: false))
+        yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: minPriceStr, y: uperChartDrawAreaBottom, isLeft: false))
         
         // 最高成交量标签及其横线
         let y = frame.height - maxVolume * volumeUnit
         let maxVolumeStr = maxVolume.hschart.toStringWithFormat(".2")
-        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxVolumeStr, y: y, isLeft: false))
+        yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: maxVolumeStr, y: y, isLeft: false))
         
         let maxVolLine = UIBezierPath()
         maxVolLine.move(to: CGPoint(x: 0, y: y))
@@ -224,8 +224,8 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         // 画比率标签
         let maxRatioStr = (self.maxRatio * 100).hschart.toPercentFormat()
         let minRatioStr = (self.minRatio * 100).hschart.toPercentFormat()
-        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: maxRatioStr, y: uperChartDrawAreaTop, isLeft: true))
-        yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: minRatioStr, y: uperChartDrawAreaBottom, isLeft: true))
+        yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: maxRatioStr, y: uperChartDrawAreaTop, isLeft: true))
+        yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: minRatioStr, y: uperChartDrawAreaBottom, isLeft: true))
         
         // 中间横虚线及其标签
         if let temp = dataT.first {
@@ -245,7 +245,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
             dashLineLayer.lineDashPattern = [6, 3]
             yAxisLayer.addSublayer(dashLineLayer)
             
-            yAxisLayer.addSublayer(getYAxisMarkLayer(frame: frame, text: price.hschart.toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
+            yAxisLayer.addSublayer(CATextLayer.getYAxisMarkLayer(theme: theme, frame: frame, text: price.hschart.toStringWithFormat(".2"), y: preClosePriceYaxis, isLeft: false))
         }
         
         self.layer.addSublayer(yAxisLayer)
@@ -377,7 +377,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
                 strokeColor = theme.riseColor
             }
             
-            let volLayer = getVolumeLayer(model: array[index], fillColor: strokeColor)
+            let volLayer = CAShapeLayer.getVolumeLayer(model: array[index], fillColor: strokeColor, volumeWidth: volumeWidth)
             volumeLayer.addSublayer(volLayer)
         }
         self.layer.addSublayer(volumeLayer)
@@ -397,21 +397,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         maLineLayer.fillColor = UIColor.clear.cgColor
         self.layer.addSublayer(maLineLayer)
     }
-    
-    /// 获取单个交易量图的layer
-    fileprivate func getVolumeLayer(model: HSTimeLineCoordModel, fillColor: UIColor) -> CAShapeLayer {
-        let linePath = UIBezierPath()
-        linePath.move(to: model.volumeStartPoint)
-        linePath.addLine(to: model.volumeEndPoint)
-        
-        let vlayer = CAShapeLayer()
-        vlayer.path = linePath.cgPath
-        vlayer.lineWidth = volumeWidth
-        vlayer.strokeColor = fillColor.cgColor
-        vlayer.fillColor = fillColor.cgColor
-        
-        return vlayer
-    }
+
     
     // 动态点 呼吸灯动画
     lazy var animatePoint: CALayer = {
@@ -424,14 +410,73 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
         layer.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor
         layer.cornerRadius = 1.5
-        layer.add(self.breathingLightAnimate(2), forKey: nil)
+        layer.add(CAAnimationGroup.breathingLightAnimate(2), forKey: nil)
         
         animatePoint.addSublayer(layer)
         
         return animatePoint
     }()
     
-    func breathingLightAnimate(_ time:Double) -> CAAnimationGroup {
+    
+    
+    /// 处理长按事件
+    @objc func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .began || recognizer.state == .changed {
+            let  point = recognizer.location(in: self)
+            if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
+                let index = Int(point.x / volumeStep)
+                
+                if index > dataT.count - 1 {
+                    self.highLightIndex = dataT.count - 1
+                } else {
+                    self.highLightIndex = index
+                }
+                
+                crossLineLayer.removeFromSuperlayer()
+                crossLineLayer = CAShapeLayer.getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject)
+                self.layer.addSublayer(crossLineLayer)
+            }
+            if self.highLightIndex < dataT.count {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineLongpress"), object: self, userInfo: ["timeLineEntity": dataT[self.highLightIndex]])
+            }
+        }
+        
+        if recognizer.state == .ended {
+            crossLineLayer.removeFromSuperlayer()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineUnLongpress"), object: self)
+        }
+    }
+    
+    
+    /// 处理点击事件
+    @objc func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
+        if !isLandscapeMode {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
+        }
+    }
+
+}
+
+extension CAShapeLayer {
+    
+    /// 获取单个交易量图的layer
+    static func getVolumeLayer(model: HSTimeLineCoordModel, fillColor: UIColor, volumeWidth: CGFloat) -> CAShapeLayer {
+        let linePath = UIBezierPath()
+        linePath.move(to: model.volumeStartPoint)
+        linePath.addLine(to: model.volumeEndPoint)
+        
+        let vlayer = CAShapeLayer()
+        vlayer.path = linePath.cgPath
+        vlayer.lineWidth = volumeWidth
+        vlayer.strokeColor = fillColor.cgColor
+        vlayer.fillColor = fillColor.cgColor
+        
+        return vlayer
+    }
+}
+
+extension CAAnimationGroup {
+    static func breathingLightAnimate(_ time: Double) -> CAAnimationGroup {
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.fromValue = 1
         scaleAnimation.toValue = 3.5
@@ -459,41 +504,4 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         
         return group
     }
-    
-    /// 处理长按事件
-    @objc func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began || recognizer.state == .changed {
-            let  point = recognizer.location(in: self)
-            if (point.x > 0 && point.x < self.frame.width && point.y > 0 && point.y < self.frame.height) {
-                let index = Int(point.x / volumeStep)
-                
-                if index > dataT.count - 1 {
-                    self.highLightIndex = dataT.count - 1
-                } else {
-                    self.highLightIndex = index
-                }
-                
-                crossLineLayer.removeFromSuperlayer()
-                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject)
-                self.layer.addSublayer(crossLineLayer)
-            }
-            if self.highLightIndex < dataT.count {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineLongpress"), object: self, userInfo: ["timeLineEntity": dataT[self.highLightIndex]])
-            }
-        }
-        
-        if recognizer.state == .ended {
-            crossLineLayer.removeFromSuperlayer()
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineUnLongpress"), object: self)
-        }
-    }
-    
-    
-    /// 处理点击事件
-    @objc func handleTapGestureAction(_ recognizer: UIPanGestureRecognizer) {
-        if !isLandscapeMode {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLineChartDidTap"), object: recognizer.view?.tag)
-        }
-    }
-
 }

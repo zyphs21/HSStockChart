@@ -252,11 +252,11 @@ public class HSKLineView: UIView {
             if newCandleWidth > theme.candleMaxWidth {
                 self.theme.candleWidth = theme.candleMaxWidth
                 kLine.theme.candleWidth = theme.candleMaxWidth
-                
+
             } else if newCandleWidth < theme.candleMinWidth {
                 self.theme.candleWidth = theme.candleMinWidth
                 kLine.theme.candleWidth = theme.candleMinWidth
-                
+
             } else {
                 self.theme.candleWidth = newCandleWidth
                 kLine.theme.candleWidth = newCandleWidth
