@@ -22,8 +22,6 @@ public let KLineUperChartDidTap = "KLineUperChartDidTap"
 class ViewController: UIViewController {
 
     var segmentMenu: SegmentMenu!
-//    var stockBriefView: HSStockBriefView?
-//    var kLineBriefView: HSKLineBriefView?
     var currentShowingChartVC: UIViewController?
     var controllerArray : [UIViewController] = []
     
@@ -36,8 +34,6 @@ class ViewController: UIViewController {
         setUpView()
         addNoticficationObserve()
         addChartController()
-        
-        // 默认展示第一个
         segmentMenu.setSelectButton(index: 0)
     }
     
@@ -58,19 +54,10 @@ class ViewController: UIViewController {
     // MARK: - Functioin
     
     func setUpView() {
-        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 88/*headerStockInfoView.frame.maxY*/, width: ScreenWidth, height: 40))
+        segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 88, width: ScreenWidth, height: 40))
         segmentMenu.menuTitleArray = ["分时", "五日", "日K", "周K", "月K"]
         segmentMenu.delegate = self
-        
-//        stockBriefView = HSStockBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
-//        stockBriefView?.isHidden = true
-//
-//        kLineBriefView = HSKLineBriefView(frame: CGRect(x: 0, y: headerStockInfoView.frame.maxY, width: self.view.frame.width, height: 40))
-//        kLineBriefView?.isHidden = true
-//
         self.view.addSubview(segmentMenu)
-//        self.view.addSubview(stockBriefView!)
-//        self.view.addSubview(kLineBriefView!)
     }
     
     func addNoticficationObserve() {
@@ -109,48 +96,22 @@ class ViewController: UIViewController {
         controllerArray.append(monthlyKLineViewController)
     }
     
-    @IBAction func showStockMarketData(_ sender: AnyObject) {
-//        let stockMarketViewController = StockMarketDataViewController(nibName: "StockMarketDataViewController", bundle: nil)
-//        stockMarketViewController.modalPresentationStyle = .overCurrentContext
-//        self.present(stockMarketViewController, animated: false, completion: nil)
-    }
-    
-    
     // 长按分时线图，显示摘要信息
     @objc func showLongPressView(_ notification: Notification) {
-//        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
-//        let timeLineEntity = dataDictionary["timeLineEntity"] as! HSTimeLineModel
-//        stockBriefView?.isHidden = false
-//        stockBriefView?.configureView(timeLineEntity)
     }
     
     @objc func showUnLongPressView(_ notification: Notification) {
-//        stockBriefView?.isHidden = true
     }
-    
     
     // 长按 K线图，显示摘要信息
     @objc func showKLineChartLongPressView(_ notification: Notification) {
-//        let dataDictionary = (notification as NSNotification).userInfo as! [String: AnyObject]
-//        let preClose = dataDictionary["preClose"] as! CGFloat
-//        let klineModel = dataDictionary["kLineEntity"] as! HSKLineModel
-//        kLineBriefView?.configureView(preClose, kLineModel: klineModel)
-//        kLineBriefView?.isHidden = false
     }
     
     @objc func showKLineChartUnLongPressView(_ notification: Notification) {
-//        kLineBriefView?.isHidden = true
     }
-    
     
     // 跳转到横屏页面展示
     @objc func showLandScapeChartView(_ notification: Notification) {
-//        let index = notification.object as! Int
-//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController {
-//            vc.modalTransitionStyle = .crossDissolve
-//            vc.viewindex = index
-//            self.present(vc, animated: true, completion: nil)
-//        }
     }
 }
 

@@ -413,52 +413,23 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         return vlayer
     }
     
-    // 动态点 呼吸灯动画
+    // 分时图实时动态点（呼吸灯动画）
     lazy var animatePoint: CALayer = {
         let animatePoint = CALayer()
         self.layer.addSublayer(animatePoint)
-        animatePoint.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor
+        animatePoint.backgroundColor = UIColor.hschart.color(rgba: "#0095e1").cgColor
         animatePoint.cornerRadius = 1.5
         
         let layer = CALayer()
         layer.frame = CGRect(x: 0, y: 0, width: 3, height: 3)
-        layer.backgroundColor = UIColor(red: 0, green: 149/255, blue: 1, alpha: 1).cgColor
+        layer.backgroundColor = UIColor.hschart.color(rgba: "#0095e1").cgColor
         layer.cornerRadius = 1.5
-        layer.add(self.breathingLightAnimate(2), forKey: nil)
+        layer.add(self.getBreathingLightAnimate(2), forKey: nil)
         
         animatePoint.addSublayer(layer)
         
         return animatePoint
     }()
-    
-    func breathingLightAnimate(_ time:Double) -> CAAnimationGroup {
-        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
-        scaleAnimation.fromValue = 1
-        scaleAnimation.toValue = 3.5
-        scaleAnimation.autoreverses = false
-        scaleAnimation.isRemovedOnCompletion = true
-        scaleAnimation.repeatCount = MAXFLOAT
-        scaleAnimation.duration = time
-        
-        let opacityAnimation = CABasicAnimation(keyPath:"opacity")
-        opacityAnimation.fromValue = 1.0
-        opacityAnimation.toValue = 0
-        opacityAnimation.autoreverses = false
-        opacityAnimation.isRemovedOnCompletion = true
-        opacityAnimation.repeatCount = MAXFLOAT
-        opacityAnimation.duration = time
-        opacityAnimation.fillMode = kCAFillModeForwards
-        
-        let group = CAAnimationGroup()
-        group.duration = time
-        group.autoreverses = false
-        group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
-        group.fillMode = kCAFillModeForwards
-        group.animations = [scaleAnimation, opacityAnimation]
-        group.repeatCount = MAXFLOAT
-        
-        return group
-    }
     
     /// 处理长按事件
     @objc func handleLongPressGestureAction(_ recognizer: UIPanGestureRecognizer) {
@@ -496,4 +467,38 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         }
     }
 
+}
+
+
+extension HSTimeLine {
+    
+    /// 获取呼吸灯动画
+    private func getBreathingLightAnimate(_ time:Double) -> CAAnimationGroup {
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = 1
+        scaleAnimation.toValue = 3.5
+        scaleAnimation.autoreverses = false
+        scaleAnimation.isRemovedOnCompletion = true
+        scaleAnimation.repeatCount = MAXFLOAT
+        scaleAnimation.duration = time
+        
+        let opacityAnimation = CABasicAnimation(keyPath:"opacity")
+        opacityAnimation.fromValue = 1.0
+        opacityAnimation.toValue = 0
+        opacityAnimation.autoreverses = false
+        opacityAnimation.isRemovedOnCompletion = true
+        opacityAnimation.repeatCount = MAXFLOAT
+        opacityAnimation.duration = time
+        opacityAnimation.fillMode = kCAFillModeForwards
+        
+        let group = CAAnimationGroup()
+        group.duration = time
+        group.autoreverses = false
+        group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
+        group.fillMode = kCAFillModeForwards
+        group.animations = [scaleAnimation, opacityAnimation]
+        group.repeatCount = MAXFLOAT
+        
+        return group
+    }
 }
