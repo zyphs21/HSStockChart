@@ -5,4 +5,5 @@ target 'HSStockChart_Example' do
   pod 'HSStockChart', :path => '../'
   pod 'SwiftyJSON'
   pod 'SnapKit', '~> 4.0.0'
+  pod 'GDPerformanceView-Swift'
 end

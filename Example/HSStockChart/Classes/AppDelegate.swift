@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GDPerformanceView_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        GDPerformanceMonitor.sharedInstance.startMonitoring()
+        GDPerformanceMonitor.sharedInstance.configure(configuration: { (textLabel) in
+            textLabel?.backgroundColor = .black
+            textLabel?.textColor = .white
+            textLabel?.layer.borderColor = UIColor.black.cgColor
+        })
+        
         return true
     }
 

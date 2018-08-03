@@ -143,11 +143,13 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GDPerformanceView-Swift/GDPerformanceView_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HSStockChart/HSStockChart.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GDPerformanceView-Swift/GDPerformanceView_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HSStockChart/HSStockChart.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"

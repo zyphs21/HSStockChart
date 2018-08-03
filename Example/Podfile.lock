@@ -1,15 +1,18 @@
 PODS:
-  - HSStockChart (1.1.0)
+  - GDPerformanceView-Swift (1.3.2)
+  - HSStockChart (1.1.2)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - GDPerformanceView-Swift
   - HSStockChart (from `../`)
   - SnapKit (~> 4.0.0)
   - SwiftyJSON
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
+    - GDPerformanceView-Swift
     - SnapKit
     - SwiftyJSON
 
@@ -18,10 +21,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HSStockChart: 57b733da00736358b4e485eb1670d9eef3b728bf
+  GDPerformanceView-Swift: a74cd679587b199e4526492b6e68ce61593c6123
+  HSStockChart: 679e35bf582fedf4af3330213bdcb66c4c8176c2
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: c47a277c640c9c0a00390d7a62993183e19c9de9
+PODFILE CHECKSUM: 5d2e386536fe965846fbb89d2b4a8ad367e411f5
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
