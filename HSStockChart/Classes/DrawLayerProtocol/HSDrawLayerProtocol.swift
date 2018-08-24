@@ -127,7 +127,8 @@ extension HSDrawLayerProtocol {
 
         if model.isKind(of: HSKLineModel.self) {
             let entity = model as! HSKLineModel
-            yAxisMarkString = entity.close.hschart.toStringWithFormat(".2")
+			let formatStr = "." + "\(getZeroCount(value: entity.close))"
+			yAxisMarkString = entity.close.hschart.toStringWithFormat(formatStr)
             bottomMarkerString = entity.date.hschart.toDate("yyyyMMddHHmmss")?.hschart.toString("MM-dd") ?? ""
             volumeMarkerString = entity.volume.hschart.toStringWithFormat(".2")
 
@@ -225,4 +226,18 @@ extension HSDrawLayerProtocol {
         
         return CGSize(width: width, height: height)
     }
+	func getZeroCount(value:CGFloat) -> Int{
+		if value <= 0 {
+			return 0
+		}
+		let str = NSNumber.init(value: Double(value)).stringValue
+		if !str.contains(".") {
+			return 0
+		}
+		let arr = str.components(separatedBy: ".")
+		guard let subStr = arr.last else {
+			return 0
+		}
+		return subStr.lengthOfBytes(using: String.Encoding.utf8)
+	}
 }
