@@ -1,6 +1,2 @@
 language: objective-c
-os: osx
-osx_image: xcode9.4
-xcode_workspace: Example/HSStockChart.xcworkspace
-xcode_scheme: HSStockChart-Example
-podfile: Example/Podfile
+script: xcodebuild -workspace Example/HSStockChart.xcworkspace -scheme HSStockChart-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
