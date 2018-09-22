@@ -248,7 +248,7 @@ public class HSKLineView: UIView {
             let pinCenterLeftCount = scrollViewPinCenterX / (theme.candleWidth + theme.candleGap)
 
             // 缩放后的candle宽度
-            let newCandleWidth = theme.candleWidth * (diffScale > 0 ? (1 + kLineScaleFactor) : (1 - kLineScaleFactor))
+            let newCandleWidth = theme.candleWidth * (recognizer.velocity > 0 ? (1 + kLineScaleFactor) : (1 - kLineScaleFactor))
             if newCandleWidth > theme.candleMaxWidth {
                 self.theme.candleWidth = theme.candleMaxWidth
                 kLine.theme.candleWidth = theme.candleMaxWidth
