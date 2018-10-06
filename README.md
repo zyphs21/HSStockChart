@@ -45,9 +45,6 @@ Twitter: [Hanson,@yuanpingzhang](https://twitter.com/yuanpingzhang)
 Instagram: [hansonhs21](https://www.instagram.com/hansonhs21/)  
 Facebook: [Hanson Zhang](https://www.facebook.com/zhang.yuanping.7)  
 
-我的微信：hansenhs21  
-<img src="https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/wechatqrcode.jpg" width = "223" height = "241" alt="WeChat" align=center />
-
 欢迎关注我的公众号：hansontalks    
 ![](https://github.com/zyphs21/HSStockChart/blob/master/DemoScreenshot/qrcode_for_hansontalk.jpg)
 
