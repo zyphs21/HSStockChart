@@ -55,9 +55,11 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     }
     
     func configureAxis(max: CGFloat, min: CGFloat, maxVol: CGFloat) {
-        let maxPriceStr = max.hschart.toStringWithFormat(".2")
-        let minPriceStr = min.hschart.toStringWithFormat(".2")
-        let midPriceStr = ((max + min) / 2).hschart.toStringWithFormat(".2")
+		
+		let formatStr = "." + getFormatCount(max: max, min: min).description
+        let maxPriceStr = max.hschart.toStringWithFormat(formatStr)
+        let minPriceStr = min.hschart.toStringWithFormat(formatStr)
+        let midPriceStr = ((max + min) / 2).hschart.toStringWithFormat(formatStr)
         let maxVolStr = maxVol.hschart.toStringWithFormat(".2")
         maxMark.string = maxPriceStr
         minMark.string = minPriceStr
@@ -89,4 +91,26 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     func removeCrossLine() {
         self.corssLineLayer.removeFromSuperlayer()
     }
+	func getFormatCount(max: CGFloat,min: CGFloat) -> Int{
+		
+		var count: Int = 0
+		count = getZeroCount(value: max)
+		count = getZeroCount(value: min) > count ? getZeroCount(value: min) : count
+		
+		return count
+	}
+	func getZeroCount(value:CGFloat) -> Int{
+		if value <= 0 {
+			return 0
+		}
+		let str = NSNumber.init(value: Double(value)).stringValue
+		if !str.contains(".") {
+			return 0
+		}
+		let arr = str.components(separatedBy: ".")
+		guard let subStr = arr.last else {
+			return 0
+		}
+		return subStr.lengthOfBytes(using: String.Encoding.utf8)
+	}
 }
