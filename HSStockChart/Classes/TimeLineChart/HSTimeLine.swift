@@ -489,13 +489,13 @@ extension HSTimeLine {
         opacityAnimation.isRemovedOnCompletion = true
         opacityAnimation.repeatCount = MAXFLOAT
         opacityAnimation.duration = time
-        opacityAnimation.fillMode = kCAFillModeForwards
+        opacityAnimation.fillMode = CAMediaTimingFillMode.forwards
         
         let group = CAAnimationGroup()
         group.duration = time
         group.autoreverses = false
         group.isRemovedOnCompletion = false // 设置为false 在各种走势图切换后，动画不会失效
-        group.fillMode = kCAFillModeForwards
+        group.fillMode = CAMediaTimingFillMode.forwards
         group.animations = [scaleAnimation, opacityAnimation]
         group.repeatCount = MAXFLOAT
         

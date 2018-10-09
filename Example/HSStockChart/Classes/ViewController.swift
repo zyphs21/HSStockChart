@@ -121,19 +121,19 @@ class ViewController: UIViewController {
 extension ViewController: SegmentMenuDelegate {
     
     func menuButtonDidClick(index: Int) {
-        currentShowingChartVC?.willMove(toParentViewController: nil)
+        currentShowingChartVC?.willMove(toParent: nil)
         currentShowingChartVC?.view.removeFromSuperview()
-        currentShowingChartVC?.removeFromParentViewController()
+        currentShowingChartVC?.removeFromParent()
         
         let selectedVC = self.controllerArray[index] as! ChartViewController
         selectedVC.chartRect = CGRect(x: 0, y: 0, width: ScreenWidth, height: 300)
         selectedVC.view.frame = CGRect(x: 0, y: segmentMenu.frame.maxY, width: ScreenWidth, height: 300)
         
-        addChildViewController(selectedVC)
+        addChild(selectedVC)
         if (selectedVC.view.superview == nil){
             view.addSubview(selectedVC.view)
         }
-        selectedVC.didMove(toParentViewController: self)
+        selectedVC.didMove(toParent: self)
         
         currentShowingChartVC = selectedVC
     }

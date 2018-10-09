@@ -26,7 +26,7 @@ internal class GDMarginLabel: UILabel {
     
     // MARK: Private Properties
     
-    private var edgeInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0)
+    private var edgeInsets: UIEdgeInsets = UIEdgeInsets.init(top: 0.0, left: 5.0, bottom: 0.0, right: 5.0)
     
     // MARK: Properties Overriders
     
@@ -42,7 +42,7 @@ internal class GDMarginLabel: UILabel {
     // MARK: Init Methods & Superclass Overriders
     
     override func drawText(in rect: CGRect) {
-        super.drawText(in: UIEdgeInsetsInsetRect(rect, self.edgeInsets))
+        super.drawText(in: rect.inset(by: self.edgeInsets))
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

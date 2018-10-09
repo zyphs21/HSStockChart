@@ -194,7 +194,7 @@ internal class GDPerformanceView: UIWindow {
         let rootViewController = GDWindowViewController()
         
         self.rootViewController = rootViewController
-        self.windowLevel = UIWindowLevelStatusBar + 1.0
+        self.windowLevel = UIWindow.Level.statusBar + 1.0
         self.backgroundColor = .clear
         self.clipsToBounds = true
         self.isHidden = true
@@ -202,7 +202,7 @@ internal class GDPerformanceView: UIWindow {
     
     private func setupDisplayLink() {
         self.displayLink = CADisplayLink.init(target: self, selector: #selector(displayLinkAction(displayLink:)))
-        self.displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
+        self.displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
     }
     
     private func setupTextLayers() {
@@ -220,7 +220,7 @@ internal class GDPerformanceView: UIWindow {
     }
     
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceView.applicationWillChangeStatusBarFrame(notification:)), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceView.applicationWillChangeStatusBarFrame(notification:)), name: UIApplication.willChangeStatusBarFrameNotification, object: nil)
     }
     
     // MARK: Monitoring
