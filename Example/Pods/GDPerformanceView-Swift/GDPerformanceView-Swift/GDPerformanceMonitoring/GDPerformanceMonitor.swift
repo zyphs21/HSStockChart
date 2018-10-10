@@ -180,8 +180,8 @@ public class GDPerformanceMonitor: NSObject {
     // MARK: Default Setups
     
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceMonitor.applicationDidBecomeActive(notification:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceMonitor.applicationWillResignActive(notification:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceMonitor.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GDPerformanceMonitor.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     // MARK: Monitoring
@@ -193,7 +193,7 @@ public class GDPerformanceMonitor: NSObject {
             self.performanceView?.resumeMonitoring(shouldShowMonitoringView: !self.performanceViewHidden)
         }
         
-        if UIApplication.shared.applicationState == UIApplicationState.active {
+        if UIApplication.shared.applicationState == UIApplication.State.active {
             self.performanceView?.addMonitoringViewAboveStatusBar()
         }
     }

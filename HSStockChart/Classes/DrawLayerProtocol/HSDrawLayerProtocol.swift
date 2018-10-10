@@ -61,7 +61,7 @@ extension HSDrawLayerProtocol {
         if isAnimate {
             let path = CABasicAnimation(keyPath: "strokeEnd")
             path.duration = 1.0
-            path.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            path.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             path.fromValue = 0.0
             path.toValue = 1.0
             lineLayer.add(path, forKey: "strokeEndAnimation")
@@ -83,7 +83,7 @@ extension HSDrawLayerProtocol {
         textLayer.fontSize = fontSize
         textLayer.foregroundColor = foregroundColor.cgColor
         textLayer.backgroundColor = backgroundColor.cgColor
-        textLayer.alignmentMode = kCAAlignmentCenter
+        textLayer.alignmentMode = CATextLayerAlignmentMode.center
         textLayer.contentsScale = UIScreen.main.scale
         
         return textLayer
@@ -219,7 +219,7 @@ extension HSDrawLayerProtocol {
     }
     
     func getTextSize(text: String, fontSize: CGFloat = 10, addOnWith: CGFloat = 5, addOnHeight: CGFloat = 0) -> CGSize {
-        let size = text.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)])
+        let size = text.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)])
         let width = ceil(size.width) + addOnWith
         let height = ceil(size.height) + addOnWith
         
