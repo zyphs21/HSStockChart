@@ -83,7 +83,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     //MARK: - 构造方法
     
-    public init(frame: CGRect, isFiveDay: Bool = false) {
+    @objc public init(frame: CGRect, isFiveDay: Bool = false) {
         super.init(frame: frame)
         
         self.isFiveDayTime = isFiveDay
