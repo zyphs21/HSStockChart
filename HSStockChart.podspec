@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'HSStockChart'
-  s.version          = '1.1.2'
+  s.version          = '1.2.0'
   s.summary          = 'A Stock Chart include CandleStickChart,TimeLineChart.'
   s.homepage         = 'https://github.com/zyphs21/HSStockChart'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
