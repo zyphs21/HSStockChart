@@ -1,0 +1,24 @@
+PODS:
+  - GDPerformanceView-Swift (2.0.2)
+  - SnapKit (4.0.0)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - GDPerformanceView-Swift
+  - SnapKit (~> 4.0.0)
+  - SwiftyJSON
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GDPerformanceView-Swift
+    - SnapKit
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  GDPerformanceView-Swift: a40b2f675589449f5b5082f3178f01bfdb7882ce
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: bff371c67651f0f14e61e06cc78a09b05dd341cb
+
+COCOAPODS: 1.7.0.beta.3

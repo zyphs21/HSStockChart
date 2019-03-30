@@ -66,4 +66,6 @@ zyphs21, hansenhs21@live.com
 
 ## License
 
-HSStockChart is available under the MIT license. See the LICENSE file for more info.
+HSStockChart is available under the MIT license. See the LICENSE file for more info. 
+
+
