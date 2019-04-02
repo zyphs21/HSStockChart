@@ -1,7 +1,6 @@
 # HSStockChart
 
-[![Backers on Open Collective](https://opencollective.com/HSStockChart/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/HSStockChart/sponsors/badge.svg)](#sponsors) ![iOS 8.0+](https://img.shields.io/badge/iOS-8.0%2B-blue.svg)
-![Swift 3.0+](https://img.shields.io/badge/Swift-3.0%2B-orange.svg)
+[![Backers on Open Collective](https://opencollective.com/HSStockChart/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/HSStockChart/sponsors/badge.svg)](#sponsors) ![iOS 9.0+](https://img.shields.io/badge/iOS-9.0%2B-blue.svg) ![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的回弹拖动，长按十字线，捏合放大缩小等功能，主要使用了 CAShapeLayer 来绘图，相比使用 Core Graphics 和重写 drawRect 的方法更高效，占用内存更小。
@@ -21,8 +20,8 @@ HSStockChart 是一个绘制股票分时图、K 线图的库。支持流畅的�
 
 ## Requirements
 
-- iOS 8.0+
-- Swift 4
+- iOS 9.0+
+- Swift 5
 
 ## Example
 
