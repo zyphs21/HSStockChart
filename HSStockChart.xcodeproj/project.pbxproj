@@ -50,6 +50,7 @@
 		4F0FCCB9D62867816E2F8E9B /* Pods-HSStockChart_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart_Tests/Pods-HSStockChart_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C1075665C64C449FFA0849 /* Pods-HSStockChart_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart_Tests/Pods-HSStockChart_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BDCAC6738919CDDF5E37229A /* Pods_HSStockChart_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChart_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02747582356200F00411E26 /* HSStockChart.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = HSStockChart.podspec; sourceTree = SOURCE_ROOT; };
 		C05F455B224F49C800AFD2A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C09CC7522041524C00632E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C09CC7542041524C00632E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 				C0E7515C224F45110072DF6E /* TimeLineChart */,
 				C0E750EF224F39BB0072DF6E /* HSStockChart.h */,
 				C0E750F0224F39BB0072DF6E /* Info.plist */,
+				C02747582356200F00411E26 /* HSStockChart.podspec */,
 			);
 			path = HSStockChart;
 			sourceTree = "<group>";
