@@ -92,6 +92,21 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         drawXAxisLabel()
     }
     
+    public convenience init(frame: CGRect, isFiveDay: Bool = false, countOfTime: Int, openTime: String, middleTime: String, closeTime: String) {
+        self.init(frame: frame, isFiveDay: isFiveDay)
+        
+        self.countOfTimes = countOfTime
+        
+        self.openTime = openTime
+        self.middleTime = middleTime
+        self.closeTime = closeTime
+        
+        self.layer.sublayers?.removeAll()
+        drawFrameLayer()
+        drawXAxisLabel()
+    }
+     
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
