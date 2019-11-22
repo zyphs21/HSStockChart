@@ -31,14 +31,14 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     
     /// Number of Dot in TimeLine 分时线的横坐标个数
-    let countOfTimes = 240
+    var countOfTimes = 240
     
     /// Number of Dot in Five Day TimeLine 五日分时线总横坐标
-    let fiveDayCount = 120
+    var fiveDayCount = 120
     
-    fileprivate let openTime: String = "9:30"
-    fileprivate let middleTime: String = "11:30/13:00"
-    fileprivate let closeTime: String = "15:00"
+    fileprivate var openTime: String = "9:30"
+    fileprivate var middleTime: String = "11:30/13:00"
+    fileprivate var closeTime: String = "15:00"
     
     public var isFiveDayTime = false
     public var isLandscapeMode = false
@@ -106,6 +106,25 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(tapGesture)
     }
+    
+    //Getter Setter for customization
+    func setCountOfTimes(times: Int)
+    {
+        self.countOfTimes = times
+    }
+    
+    func setfiveDayCount(counts: Int)
+    {
+        self.fiveDayCount = counts
+    }
+    
+    func setDailyOpenTime(openTime: String, middleTime: String, closeTime: String)
+    {
+        self.openTime = openTime
+        self.middleTime = middleTime
+        self.closeTime = closeTime
+    }
+    
     
     // 绘图
     func drawTimeLineChart() {
