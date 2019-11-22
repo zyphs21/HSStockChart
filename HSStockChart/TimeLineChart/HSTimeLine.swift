@@ -108,17 +108,17 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     }
     
     //Getter Setter for customization
-    func setCountOfTimes(times: Int)
+    public func setCountOfTimes(times: Int)
     {
         self.countOfTimes = times
     }
     
-    func setfiveDayCount(counts: Int)
+    public func setfiveDayCount(counts: Int)
     {
         self.fiveDayCount = counts
     }
     
-    func setDailyOpenTime(openTime: String, middleTime: String, closeTime: String)
+    public func setDailyOpenTime(openTime: String, middleTime: String, closeTime: String)
     {
         self.openTime = openTime
         self.middleTime = middleTime
