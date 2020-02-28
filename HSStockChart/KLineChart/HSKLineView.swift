@@ -204,7 +204,7 @@ public class HSKLineView: UIView {
                 let preIndex = (highLightIndex - 1 >= 0) ? (highLightIndex - 1) : highLightIndex
                 let preData = kLine.dataK[preIndex]
                 
-                upFrontView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity)
+                upFrontView.drawCrossLine(pricePoint: CGPoint(x: centerX, y: highLightClose), volumePoint: CGPoint(x: centerX, y: highLightVolume), model: entity, chartType: kLine.kLineType)
                 
                 let userInfo: [AnyHashable: Any]? = ["preClose" : preData.close, "kLineEntity" : entity]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: KLineChartLongPress), object: self, userInfo: userInfo)
