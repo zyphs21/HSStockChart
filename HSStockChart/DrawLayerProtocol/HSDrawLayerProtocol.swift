@@ -26,7 +26,7 @@ protocol HSDrawLayerProtocol {
     
     func drawTextLayer(frame: CGRect, text: String, foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> CATextLayer
         
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer
+    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) -> CAShapeLayer
     
     
 }
@@ -113,7 +113,7 @@ extension HSDrawLayerProtocol {
     }
     
     /// 获取长按显示的十字线及其标签图层
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) -> CAShapeLayer {
+    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) -> CAShapeLayer {
         let highlightLayer = CAShapeLayer()
         
         let corssLineLayer = CAShapeLayer()
@@ -129,7 +129,18 @@ extension HSDrawLayerProtocol {
         if model.isKind(of: HSKLineModel.self) {
             let entity = model as! HSKLineModel
             yAxisMarkString = entity.close.hschart.toStringWithFormat(".2")
-            bottomMarkerString = entity.date.hschart.toDate("yyyyMMddHHmmss")?.hschart.toString("MM-dd") ?? ""
+            
+            var dateFormat = "MM-dd"
+            switch chartType {
+               case .kLineForMinute:
+                   dateFormat = "HH:mm"
+               case .kLineForDay, .kLineForWeek, .kLineForMonth:
+                   dateFormat = "MM-dd"
+               default:
+                   dateFormat = "MM-dd"
+            }
+            
+            bottomMarkerString = entity.date.hschart.toDate("yyyyMMddHHmmss")?.hschart.toString(dateFormat) ?? ""
             volumeMarkerString = entity.volume.hschart.toStringWithFormat(".2")
 
         } else if model.isKind(of: HSTimeLineModel.self){

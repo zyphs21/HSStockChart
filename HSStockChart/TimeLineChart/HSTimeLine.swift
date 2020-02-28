@@ -479,7 +479,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
                 }
                 
                 crossLineLayer.removeFromSuperlayer()
-                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject)
+                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject, chartType:(isFiveDayTime ? HSChartType.timeLineForFiveday: HSChartType.timeLineForDay))
                 self.layer.addSublayer(crossLineLayer)
             }
             if self.highLightIndex < dataT.count {
