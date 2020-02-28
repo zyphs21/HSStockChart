@@ -12,6 +12,7 @@ import UIKit
 public enum HSChartType: Int {
     case timeLineForDay
     case timeLineForFiveday
+    case kLineForMinute
     case kLineForDay
     case kLineForWeek
     case kLineForMonth
