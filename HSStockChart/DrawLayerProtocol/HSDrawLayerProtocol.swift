@@ -209,18 +209,21 @@ extension HSDrawLayerProtocol {
                                         backgroundColor: theme.textColor)
 
         // 交易量右标签
-        if pricePoint.x > frame.width / 2 {
-            labelX = frame.minX
-        } else {
-            labelX = frame.maxX - volMarkSize.width
+        if(volumePoint.y > 0)
+        {
+            if pricePoint.x > frame.width / 2 {
+                labelX = frame.minX
+            } else {
+                labelX = frame.maxX - volMarkSize.width
+            }
+            let maxY = frame.maxY - volMarkSize.height
+            labelY = volumePoint.y - volMarkSize.height / 2.0
+            labelY = labelY > maxY ? maxY : labelY
+            volMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: volMarkSize.width, height: volMarkSize.height),
+                                            text: volumeMarkerString,
+                                            foregroundColor: UIColor.white,
+                                            backgroundColor: theme.textColor)
         }
-        let maxY = frame.maxY - volMarkSize.height
-        labelY = volumePoint.y - volMarkSize.height / 2.0
-        labelY = labelY > maxY ? maxY : labelY
-        volMarkLayer = drawTextLayer(frame: CGRect(x: labelX, y: labelY, width: volMarkSize.width, height: volMarkSize.height),
-                                        text: volumeMarkerString,
-                                        foregroundColor: UIColor.white,
-                                        backgroundColor: theme.textColor)
 
         highlightLayer.addSublayer(corssLineLayer)
         highlightLayer.addSublayer(yAxisMarkLayer)
