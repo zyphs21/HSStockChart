@@ -163,8 +163,11 @@ extension HSDrawLayerProtocol {
         linePath.addLine(to: CGPoint(x: frame.maxX, y: pricePoint.y))
 
         // 标记交易量的横线
-        linePath.move(to: CGPoint(x: frame.minX, y: volumePoint.y))
-        linePath.addLine(to: CGPoint(x: frame.maxX, y: volumePoint.y))
+        if(volumePoint.y > 0)
+        {
+            linePath.move(to: CGPoint(x: frame.minX, y: volumePoint.y))
+            linePath.addLine(to: CGPoint(x: frame.maxX, y: volumePoint.y))
+        }
 
         // 交叉点
         //linePath.addArc(withCenter: pricePoint, radius: 3, startAngle: 0, endAngle: 180, clockwise: true)
@@ -228,7 +231,10 @@ extension HSDrawLayerProtocol {
         highlightLayer.addSublayer(corssLineLayer)
         highlightLayer.addSublayer(yAxisMarkLayer)
         highlightLayer.addSublayer(bottomMarkLayer)
-        highlightLayer.addSublayer(volMarkLayer)
+        if(volumePoint.y > 0)
+        {
+            highlightLayer.addSublayer(volMarkLayer)
+        }
         
         return highlightLayer
     }
