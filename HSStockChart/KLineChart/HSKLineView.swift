@@ -67,6 +67,7 @@ public class HSKLineView: UIView {
         addSubview(scrollView)
         
         kLine = HSKLine()
+        kLine.setTheme(theme: self.theme)
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
         
