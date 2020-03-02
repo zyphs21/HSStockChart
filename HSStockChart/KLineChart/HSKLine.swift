@@ -102,6 +102,15 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         backgroundColor = UIColor.clear
     }
     
+    public convenience init(frame: CGRect, theme: HSKLineStyle?) {
+        self.init(frame: frame)
+        
+        if let t = theme
+        {
+            self.theme = t
+        }
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

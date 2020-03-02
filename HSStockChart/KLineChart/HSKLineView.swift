@@ -26,7 +26,7 @@ public class HSKLineView: UIView {
     
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
-    public var theme = HSKLineStyle()
+    var theme = HSKLineStyle()
     var dataK: [HSKLineModel] = []
     
     public var isLandscapeMode = false
@@ -48,9 +48,14 @@ public class HSKLineView: UIView {
         }
     }
     
-    public init(frame: CGRect, kLineType: HSChartType) {
+    public init(frame: CGRect, kLineType: HSChartType, theme: HSKLineStyle?) {
         super.init(frame: frame)
         backgroundColor = UIColor.white
+        
+        if let t = theme
+        {
+            self.theme = t
+        }
         
         drawFrameLayer()
         
