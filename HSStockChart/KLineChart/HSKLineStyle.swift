@@ -10,6 +10,11 @@ import Foundation
 
 public struct HSKLineStyle {
     
+    public init()
+    {
+        
+    }
+    
     public var uperChartHeightScale: CGFloat = 0.7 // 70% 的空间是上部分的走势图
     
     public var lineWidth: CGFloat = 1
