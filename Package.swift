@@ -21,9 +21,6 @@ let package = Package(
         .target(
             name: "HSStockChart",
             dependencies: [],
-            path: "HSStockChart"),
-        .testTarget(
-            name: "HSStockChartTests",
-            dependencies: ["HSStockChart"]),
+            path: "HSStockChart")
     ]
 )
