@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class HSStockBasicInfoModel: NSObject {
+class HSStockBasicInfoModel {
 
     var stockName: String = ""
     var preClosePrice: CGFloat = 0

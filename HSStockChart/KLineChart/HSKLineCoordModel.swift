@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreGraphics
 
-public class HSKLineCoordModel: NSObject {
+public class HSKLineCoordModel {
 
     var openPoint: CGPoint = .zero
     var closePoint: CGPoint = .zero

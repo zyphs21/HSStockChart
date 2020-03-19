@@ -6,9 +6,12 @@
 //  Copyright © 2016年 hanson. All rights reserved.
 //
 
-//import SwiftyJSON
 
-public class HSKLineModel: NSObject {
+import Foundation
+import UIKit
+import CoreGraphics
+
+public class HSKLineModel {
 
     public var date: String = ""
     public var open: CGFloat = 0
@@ -25,4 +28,5 @@ public class HSKLineModel: NSObject {
     public var macd: CGFloat = 0
     public var rate: CGFloat = 0
 
+    public init() { }
 }

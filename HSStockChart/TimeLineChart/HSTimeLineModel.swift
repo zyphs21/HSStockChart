@@ -7,9 +7,9 @@
 //
 
 import UIKit
-//import SwiftyJSON
+import CoreGraphics
 
-public class HSTimeLineModel: NSObject {
+public class HSTimeLineModel {
     public var time: String = ""
     public var price: CGFloat = 0
     public var volume: CGFloat = 0
@@ -19,4 +19,6 @@ public class HSTimeLineModel: NSObject {
     public var totalVolume: CGFloat = 0
     public var trade: CGFloat = 0
     public var rate: CGFloat = 0
+    
+    public init() { }
 }
