@@ -1,5 +1,5 @@
 PODS:
-  - GDPerformanceView-Swift (2.0.2)
+  - GDPerformanceView-Swift (2.0.3)
   - SnapKit (5.0.1)
   - SwiftyJSON (5.0.0)
 
@@ -15,10 +15,10 @@ SPEC REPOS:
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  GDPerformanceView-Swift: a40b2f675589449f5b5082f3178f01bfdb7882ce
+  GDPerformanceView-Swift: ef3d05deb103e472a5494d3f60aeca5a58b88a7d
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
 PODFILE CHECKSUM: aafedaf4780d307f2ac546fc9f1920d6aa23c1d2
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

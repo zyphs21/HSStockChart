@@ -50,7 +50,7 @@
 		4F0FCCB9D62867816E2F8E9B /* Pods-HSStockChart_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart_Tests/Pods-HSStockChart_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C1075665C64C449FFA0849 /* Pods-HSStockChart_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSStockChart_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HSStockChart_Tests/Pods-HSStockChart_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BDCAC6738919CDDF5E37229A /* Pods_HSStockChart_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSStockChart_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C02747582356200F00411E26 /* HSStockChart.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = HSStockChart.podspec; sourceTree = SOURCE_ROOT; };
+		C02747582356200F00411E26 /* HSStockChart.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HSStockChart.podspec; sourceTree = SOURCE_ROOT; };
 		C05F455B224F49C800AFD2A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C09CC7522041524C00632E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C09CC7542041524C00632E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					C0E750EC224F39BB0072DF6E = {
@@ -580,7 +580,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -616,7 +616,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
