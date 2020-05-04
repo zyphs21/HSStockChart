@@ -31,14 +31,14 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     
     /// Number of Dot in TimeLine 分时线的横坐标个数
-    var countOfTimes = 240
+    public var countOfTimes = 240
     
     /// Number of Dot in Five Day TimeLine 五日分时线总横坐标
-    var fiveDayCount = 120
+    public var fiveDayCount = 120
     
-    fileprivate var openTime: String = "9:30"
-    fileprivate var middleTime: String = "11:30/13:00"
-    fileprivate var closeTime: String = "15:00"
+    public var openTime: String = "9:30"
+    public var middleTime: String = "11:30/13:00"
+    public var closeTime: String = "15:00"
     
     public var isFiveDayTime = false
     public var isLandscapeMode = false
@@ -92,8 +92,8 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         drawXAxisLabel()
     }
     
-    public convenience init(frame: CGRect, isFiveDay: Bool = false, countOfTime: Int, openTime: String, middleTime: String, closeTime: String) {
-        self.init(frame: frame, isFiveDay: isFiveDay)
+    public init(frame: CGRect, isFiveDay: Bool = false, countOfTime: Int, openTime: String, middleTime: String, closeTime: String) {
+        super.init(frame: frame)
         
         self.countOfTimes = countOfTime
         
@@ -101,7 +101,8 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         self.middleTime = middleTime
         self.closeTime = closeTime
         
-        self.layer.sublayers?.removeAll()
+        self.isFiveDayTime = isFiveDay
+        addGestures()
         drawFrameLayer()
         drawXAxisLabel()
     }
