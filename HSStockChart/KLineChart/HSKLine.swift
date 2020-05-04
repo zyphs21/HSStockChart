@@ -102,6 +102,11 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
         backgroundColor = UIColor.clear
     }
     
+    public func setTheme(theme: HSKLineStyle)
+    {
+        self.theme = theme
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -262,6 +267,12 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
     
     /// 画交均线图
     func drawMALayer(array: [HSKLineCoordModel]) {
+        
+        if(array.count == 0)
+        {
+            return
+        }
+        
         let ma5LinePath = UIBezierPath()
         let ma10LinePath = UIBezierPath()
         let ma20LinePath = UIBezierPath()
@@ -311,6 +322,8 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
                 }
                 if position.isDrawAxis {
                     switch kLineType {
+                    case .kLineForMinute:
+                        xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hschart.toString("HH:mm")))
                     case .kLineForDay, .kLineForWeek, .kLineForMonth:
                         xAxisTimeMarkLayer.addSublayer(drawXaxisTimeMark(xPosition: position.highPoint.x, dateString: date.hschart.toString("yyyy-MM")))
                     default:

@@ -12,34 +12,39 @@ import UIKit
 
 public struct HSKLineStyle {
     
-    var uperChartHeightScale: CGFloat = 0.7 // 70% 的空间是上部分的走势图
+    public init()
+    {
+        
+    }
     
-    var lineWidth: CGFloat = 1
-    var frameWidth: CGFloat = 0.25
+    public var uperChartHeightScale: CGFloat = 0.7 // 70% 的空间是上部分的走势图
     
-    var xAxisHeitht: CGFloat = 30
-    var viewMinYGap: CGFloat = 15
-    var volumeGap: CGFloat = 10
+    public var lineWidth: CGFloat = 1
+    public var frameWidth: CGFloat = 0.25
     
-    var candleWidth: CGFloat = 5
-    var candleGap: CGFloat = 2
-    var candleMinHeight: CGFloat = 0.5
-    var candleMaxWidth: CGFloat = 30
-    var candleMinWidth: CGFloat = 2
+    public var xAxisHeitht: CGFloat = 30
+    public var viewMinYGap: CGFloat = 15
+    public var volumeGap: CGFloat = 10
     
-    var ma5Color = UIColor.hschart.color(rgba: "#e8de85")
-    var ma10Color = UIColor.hschart.color(rgba: "#6fa8bb")
-    var ma20Color = UIColor.hschart.color(rgba: "#df8fc6")
-    var borderColor = UIColor.hschart.color(rgba: "#e4e4e4")
-    var crossLineColor = UIColor.hschart.color(rgba: "#546679")
-    var textColor = UIColor.hschart.color(rgba: "#8695a6")
-    var riseColor = UIColor.hschart.color(rgba: "#f24957") // 涨 red
-    var fallColor = UIColor.hschart.color(rgba: "#1dbf60") // 跌 green
-    var priceLineCorlor = UIColor.hschart.color(rgba: "#0095ff")
-    var avgLineCorlor = UIColor.hschart.color(rgba: "#ffc004") // 均线颜色
-    var fillColor = UIColor.hschart.color(rgba: "#e3efff")
+    public var candleWidth: CGFloat = 5
+    public var candleGap: CGFloat = 2
+    public var candleMinHeight: CGFloat = 0.5
+    public var candleMaxWidth: CGFloat = 30
+    public var candleMinWidth: CGFloat = 2
     
-    var baseFont = UIFont.systemFont(ofSize: 10)
+    public var ma5Color = UIColor.hschart.color(rgba: "#e8de85")
+    public var ma10Color = UIColor.hschart.color(rgba: "#6fa8bb")
+    public var ma20Color = UIColor.hschart.color(rgba: "#df8fc6")
+    public var borderColor = UIColor.hschart.color(rgba: "#e4e4e4")
+    public var crossLineColor = UIColor.hschart.color(rgba: "#546679")
+    public var textColor = UIColor.hschart.color(rgba: "#8695a6")
+    public var riseColor = UIColor.hschart.color(rgba: "#f24957") // 涨 red
+    public var fallColor = UIColor.hschart.color(rgba: "#1dbf60") // 跌 green
+    public var priceLineCorlor = UIColor.hschart.color(rgba: "#0095ff")
+    public var avgLineCorlor = UIColor.hschart.color(rgba: "#ffc004") // 均线颜色
+    public var fillColor = UIColor.hschart.color(rgba: "#e3efff")
+    
+    public var baseFont = UIFont.systemFont(ofSize: 10)
     
     func getTextSize(text: String) -> CGSize {
         let size = text.size(withAttributes: [NSAttributedString.Key.font: baseFont])

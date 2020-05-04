@@ -66,7 +66,7 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     }
     
     func drawMarkLayer() {
-        rrText = getYAxisMarkLayer(frame: frame, text: "不复权", y: theme.viewMinYGap, isLeft: true)
+        rrText = getYAxisMarkLayer(frame: frame, text: "", y: theme.viewMinYGap, isLeft: true)
         volText = getYAxisMarkLayer(frame: frame, text: "成交量", y: lowerChartTop + theme.volumeGap, isLeft: true)
         maxMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: theme.viewMinYGap, isLeft: false)
         minMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: uperChartHeight - theme.viewMinYGap, isLeft: false)
@@ -80,9 +80,9 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
         self.layer.addSublayer(maxVolMark)
     }
     
-    func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?) {
+    func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) {
         corssLineLayer.removeFromSuperlayer()
-        corssLineLayer = getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model)
+        corssLineLayer = getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model, chartType:chartType)
         self.layer.addSublayer(corssLineLayer)
     }
     

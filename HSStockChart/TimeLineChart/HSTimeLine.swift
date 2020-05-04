@@ -31,14 +31,14 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
     
     
     /// Number of Dot in TimeLine 分时线的横坐标个数
-    let countOfTimes = 240
+    public var countOfTimes = 240
     
     /// Number of Dot in Five Day TimeLine 五日分时线总横坐标
-    let fiveDayCount = 120
+    public var fiveDayCount = 120
     
-    fileprivate let openTime: String = "9:30"
-    fileprivate let middleTime: String = "11:30/13:00"
-    fileprivate let closeTime: String = "15:00"
+    public var openTime: String = "9:30"
+    public var middleTime: String = "11:30/13:00"
+    public var closeTime: String = "15:00"
     
     public var isFiveDayTime = false
     public var isLandscapeMode = false
@@ -92,6 +92,22 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         drawXAxisLabel()
     }
     
+    public init(frame: CGRect, isFiveDay: Bool = false, countOfTime: Int, openTime: String, middleTime: String, closeTime: String) {
+        super.init(frame: frame)
+        
+        self.countOfTimes = countOfTime
+        
+        self.openTime = openTime
+        self.middleTime = middleTime
+        self.closeTime = closeTime
+        
+        self.isFiveDayTime = isFiveDay
+        addGestures()
+        drawFrameLayer()
+        drawXAxisLabel()
+    }
+     
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -106,6 +122,25 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
         self.addGestureRecognizer(longPressGesture)
         self.addGestureRecognizer(tapGesture)
     }
+    
+    //Getter Setter for customization
+    public func setCountOfTimes(times: Int)
+    {
+        self.countOfTimes = times
+    }
+    
+    public func setfiveDayCount(counts: Int)
+    {
+        self.fiveDayCount = counts
+    }
+    
+    public func setDailyOpenTime(openTime: String, middleTime: String, closeTime: String)
+    {
+        self.openTime = openTime
+        self.middleTime = middleTime
+        self.closeTime = closeTime
+    }
+    
     
     // 绘图
     func drawTimeLineChart() {
@@ -445,7 +480,7 @@ public class HSTimeLine: UIView, HSDrawLayerProtocol {
                 }
                 
                 crossLineLayer.removeFromSuperlayer()
-                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject)
+                crossLineLayer = getCrossLineLayer(frame: frame, pricePoint: positionModels[highLightIndex].pricePoint, volumePoint: positionModels[highLightIndex].volumeStartPoint, model: dataT[highLightIndex] as AnyObject, chartType:(isFiveDayTime ? HSChartType.timeLineForFiveday: HSChartType.timeLineForDay))
                 self.layer.addSublayer(crossLineLayer)
             }
             if self.highLightIndex < dataT.count {
