@@ -52,7 +52,6 @@ class ChartViewController: UIViewController {
         let stockBasicInfo = HSStockBasicInfoModel.getStockBasicInfoModel(getJsonDataFromFile("SZ300033"))
         
         switch chartType {
-            
         case .timeLineForDay:
             timeLineView = HSTimeLine(frame: chartRect)
             let modelArray = getTimeLineModelArray(getJsonDataFromFile("timeLineForDay"), type: chartType, basicInfo: stockBasicInfo)
@@ -60,8 +59,7 @@ class ChartViewController: UIViewController {
             timeLineView!.isUserInteractionEnabled = true
             timeLineView?.tag = chartType.rawValue
             timeLineView?.isLandscapeMode = self.isLandscapeMode
-            self.view.addSubview(timeLineView!)
-            
+            view.addSubview(timeLineView!)
         case .timeLineForFiveday:
             let stockChartView = HSTimeLine(frame: chartRect, isFiveDay: true)
             let modelArray = getTimeLineModelArray(getJsonDataFromFile("timeLineForFiveday"), type: chartType, basicInfo: stockBasicInfo)
@@ -69,43 +67,47 @@ class ChartViewController: UIViewController {
             stockChartView.isUserInteractionEnabled = true
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
-            self.view.addSubview(stockChartView)
-            
+            view.addSubview(stockChartView)
         case .kLineForDay:
             self.view.addSubview(UIView())
-            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForDay, theme: HSKLineStyle())
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForDay"
             let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
             let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
             stockChartView.configureView(data: tmpDataK)
-            
-            self.view.addSubview(stockChartView)
-
+            view.addSubview(stockChartView)
         case .kLineForWeek:
             self.view.addSubview(UIView())
-            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForWeek, theme: HSKLineStyle())
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForWeek"
             let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
             let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
             stockChartView.configureView(data: tmpDataK)
-            
-            self.view.addSubview(stockChartView)
-            
+            view.addSubview(stockChartView)
         case .kLineForMonth:
             self.view.addSubview(UIView())
-            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth)
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMonth, theme: HSKLineStyle())
             stockChartView.tag = chartType.rawValue
             stockChartView.isLandscapeMode = self.isLandscapeMode
             let jsonFile = "kLineForMonth"
             let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
             let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
             stockChartView.configureView(data: tmpDataK)
-            
-            self.view.addSubview(stockChartView)
+            view.addSubview(stockChartView)
+        case .kLineForMinute:
+            self.view.addSubview(UIView())
+            let stockChartView = HSKLineView(frame: chartRect, kLineType: .kLineForMinute, theme: HSKLineStyle())
+            stockChartView.tag = chartType.rawValue
+            stockChartView.isLandscapeMode = self.isLandscapeMode
+            let jsonFile = "kLineForMonth"
+            let allDataK = getKLineModelArray(getJsonDataFromFile(jsonFile))
+            let tmpDataK = Array(allDataK[allDataK.count-70..<allDataK.count])
+            stockChartView.configureView(data: tmpDataK)
+            view.addSubview(stockChartView)
         }
     }
     
