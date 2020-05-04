@@ -80,9 +80,9 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
         self.layer.addSublayer(maxVolMark)
     }
     
-    func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) {
+    func drawCrossLine(pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType) {
         corssLineLayer.removeFromSuperlayer()
-        corssLineLayer = getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model, chartType:chartType)
+        corssLineLayer = getCrossLineLayer(frame: frame, pricePoint: pricePoint, volumePoint: volumePoint, model: model, chartType: chartType)
         self.layer.addSublayer(corssLineLayer)
     }
     

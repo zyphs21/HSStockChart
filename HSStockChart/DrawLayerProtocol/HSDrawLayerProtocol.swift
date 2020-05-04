@@ -26,9 +26,21 @@ protocol HSDrawLayerProtocol {
     
     func drawTextLayer(frame: CGRect, text: String, foregroundColor: UIColor, backgroundColor: UIColor, fontSize: CGFloat) -> CATextLayer
         
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) -> CAShapeLayer
+    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType) -> CAShapeLayer
     
     
+}
+
+extension HSChartType {
+    var dateFormatString: String {
+        switch self {
+        case .kLineForMinute, .timeLineForDay:
+            return "HH:mm"
+        case .kLineForDay, .kLineForWeek, .kLineForMonth,
+             .timeLineForFiveday:
+            return "MM-dd"
+        }
+    }
 }
 
 extension HSDrawLayerProtocol {
@@ -113,9 +125,8 @@ extension HSDrawLayerProtocol {
     }
     
     /// 获取长按显示的十字线及其标签图层
-    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType?) -> CAShapeLayer {
+    func getCrossLineLayer(frame: CGRect, pricePoint: CGPoint, volumePoint: CGPoint, model: AnyObject?, chartType: HSChartType) -> CAShapeLayer {
         let highlightLayer = CAShapeLayer()
-        
         let corssLineLayer = CAShapeLayer()
         var volMarkLayer = CATextLayer()
         var yAxisMarkLayer = CATextLayer()
@@ -129,18 +140,7 @@ extension HSDrawLayerProtocol {
         if model.isKind(of: HSKLineModel.self) {
             let entity = model as! HSKLineModel
             yAxisMarkString = entity.close.hschart.toStringWithFormat(".2")
-            
-            var dateFormat = "MM-dd"
-            switch chartType {
-               case .kLineForMinute:
-                   dateFormat = "HH:mm"
-               case .kLineForDay, .kLineForWeek, .kLineForMonth:
-                   dateFormat = "MM-dd"
-               default:
-                   dateFormat = "MM-dd"
-            }
-            
-            bottomMarkerString = entity.date.hschart.toDate("yyyyMMddHHmmss")?.hschart.toString(dateFormat) ?? ""
+            bottomMarkerString = entity.date.hschart.toDate("yyyyMMddHHmmss")?.hschart.toString(chartType.dateFormatString) ?? ""
             volumeMarkerString = entity.volume.hschart.toStringWithFormat(".2")
 
         } else if model.isKind(of: HSTimeLineModel.self){
