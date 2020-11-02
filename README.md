@@ -44,9 +44,6 @@ Twitter: [Hanson,@yuanpingzhang](https://twitter.com/yuanpingzhang)
 Instagram: [hansonhs21](https://www.instagram.com/hansonhs21/)  
 Facebook: [Hanson Zhang](https://www.facebook.com/zhang.yuanping.7)  
 
-|公众号: HansonTalk | 微信: hansenhs21
-|:--:|:--:
-<img src="https://cdn.jsdelivr.net/gh/zyphs21/cdn-assets/qrcode/HansonTalk.jpg" alt="HansonTalk" align=center /> | <img src="https://cdn.jsdelivr.net/gh/zyphs21/cdn-assets/qrcode/hansenhs21.jpg" width = "250" height = "320" alt="Hanson" align=center />
 
 ## Contributors
 
