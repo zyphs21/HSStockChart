@@ -200,11 +200,11 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
                 let volumeStartPoint = CGPoint(x: xPosition, y: self.frame.height - volume)
                 let volumeEndPoint = CGPoint(x: xPosition, y: self.frame.height)
                 
-                if(openPointY > closePointY) {
+                if(closePointY > openPointY) {
                     fillCandleColor = theme.riseColor
                     candleRect = CGRect(x: leftPosition, y: closePointY, width: theme.candleWidth, height: openPointY - closePointY)
                     
-                } else if(openPointY < closePointY) {
+                } else if(closePointY < openPointY) {
                     fillCandleColor = theme.fallColor
                     candleRect = CGRect(x: leftPosition, y: openPointY, width: theme.candleWidth, height: closePointY - openPointY)
                     
