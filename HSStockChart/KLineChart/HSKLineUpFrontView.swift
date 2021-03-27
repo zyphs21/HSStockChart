@@ -35,8 +35,20 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
         }
     }
     
+    var priceLabelText: String = ""
+    var volumeLabelText: String = ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        drawMarkLayer()
+    }
+    
+    init(frame: CGRect, priceLabelText: String?, volumeLabelText: String?) {
+        super.init(frame: frame)
+        
+        self.priceLabelText = priceLabelText ?? ""
+        self.volumeLabelText = volumeLabelText ?? "成交量"
         
         drawMarkLayer()
     }
@@ -66,8 +78,8 @@ class HSKLineUpFrontView: UIView, HSDrawLayerProtocol {
     }
     
     func drawMarkLayer() {
-        rrText = getYAxisMarkLayer(frame: frame, text: "", y: theme.viewMinYGap, isLeft: true)
-        volText = getYAxisMarkLayer(frame: frame, text: "成交量", y: lowerChartTop + theme.volumeGap, isLeft: true)
+        rrText = getYAxisMarkLayer(frame: frame, text: priceLabelText, y: theme.viewMinYGap, isLeft: true)
+        volText = getYAxisMarkLayer(frame: frame, text: volumeLabelText, y: lowerChartTop + theme.volumeGap, isLeft: true)
         maxMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: theme.viewMinYGap, isLeft: false)
         minMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: uperChartHeight - theme.viewMinYGap, isLeft: false)
         midMark = getYAxisMarkLayer(frame: frame, text: "0.00", y: uperChartHeight / 2, isLeft: false)
