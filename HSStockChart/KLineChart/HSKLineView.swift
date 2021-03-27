@@ -27,7 +27,7 @@ public class HSKLineView: UIView {
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
     var theme = HSKLineStyle()
-    var dataK: [HSKLineModel] = []
+    public var dataK: [HSKLineModel] = []
     
     public var isLandscapeMode = false
 
