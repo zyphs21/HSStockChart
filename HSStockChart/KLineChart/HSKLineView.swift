@@ -27,7 +27,7 @@ public class HSKLineView: UIView {
     var kLineType: HSChartType!
     var widthOfKLineView: CGFloat = 0
     var theme = HSKLineStyle()
-    var dataK: [HSKLineModel] = []
+    public var dataK: [HSKLineModel] = []
     
     public var isLandscapeMode = false
 
@@ -48,7 +48,7 @@ public class HSKLineView: UIView {
         }
     }
     
-    public init(frame: CGRect, kLineType: HSChartType, theme: HSKLineStyle?) {
+    public init(frame: CGRect, kLineType: HSChartType, theme: HSKLineStyle?, priceLabelText: String? = nil, volumeLabelText: String? = nil) {
         super.init(frame: frame)
         backgroundColor = UIColor.white
         
@@ -71,7 +71,7 @@ public class HSKLineView: UIView {
         kLine.kLineType = kLineType
         scrollView.addSubview(kLine)
         
-        upFrontView = HSKLineUpFrontView(frame: bounds)
+        upFrontView = HSKLineUpFrontView(frame: bounds, priceLabelText: priceLabelText, volumeLabelText: volumeLabelText)
         addSubview(upFrontView)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureAction(_:)))

@@ -156,8 +156,13 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
                 }
             }
             // 当均线数据缺失时候，注意注释这段，不然 minPrice 为 0，导致整体绘画比例不对
-            self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
-            self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
+            if self.maxMA > 0 {
+                self.maxPrice = self.maxPrice > self.maxMA ? self.maxPrice : self.maxMA
+            }
+            
+            if self.minMA > 0 {
+                self.minPrice = self.minPrice < self.minMA ? self.minPrice : self.minMA
+            }
         }
     }
     
@@ -200,11 +205,11 @@ public class HSKLine: UIView, HSDrawLayerProtocol {
                 let volumeStartPoint = CGPoint(x: xPosition, y: self.frame.height - volume)
                 let volumeEndPoint = CGPoint(x: xPosition, y: self.frame.height)
                 
-                if(openPointY > closePointY) {
+                if(closePointY > openPointY) {
                     fillCandleColor = theme.riseColor
                     candleRect = CGRect(x: leftPosition, y: closePointY, width: theme.candleWidth, height: openPointY - closePointY)
                     
-                } else if(openPointY < closePointY) {
+                } else if(closePointY < openPointY) {
                     fillCandleColor = theme.fallColor
                     candleRect = CGRect(x: leftPosition, y: openPointY, width: theme.candleWidth, height: closePointY - openPointY)
                     
